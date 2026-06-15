@@ -17,13 +17,13 @@
             <img src="../static/imgs/iconos/logo.png" alt="logo de ctrl+PET.">
         </div>
         <nav class="header-nav">
-            <a href="#inicio">Inicio</a>
-            <a href="#servicios">Servicios</a>
-            <a href="#contacto">Contacto</a>
+            <a href="../templates/index.html">Inicio</a>
+            <a href="../templates/servicios.html">Servicios</a>
+            <a href="../templates/contacto.html">Contacto</a>
         </nav>
         <div class="botones-header">
-            <button class="btn-login">Iniciar Sesión</button>
-            <button class="btn-register">Registrarse</button>
+            <a href="../templates/login.html" class="btn-login">Iniciar Sesión</a>
+            <a href="../templates/registro.html" class="btn-register">Registrarse</a>
         </div>
     </header>
 
@@ -39,9 +39,9 @@
             </div>
         </section>
 
-        <section class="seccion-servicios">
+        <section class="seccion-servicios-index">
             <h2>Nuestros servicios incluyen:</h2>
-            <div class="grid-servicios">
+            <div class="grid-servicios-index">
                 <article class="servicio-caja">
                     <div class="icono">
                         <img src="../static/imgs/iconos/icono-consulta.png" alt="icono de un estetoscopio.">
@@ -50,7 +50,7 @@
                     <p>Chequeos preventivos y evaluación de malestares específicos.</p>
                 </article>
                 
-                <article class="servicio-caja">
+                <article class="servicio-caja"> 
                     <div class="icono">
                         <img src="../static/imgs/iconos/icono-grooming.png" alt="icono de unas tijeras para cabello.">
                     </div>
@@ -66,7 +66,7 @@
                     <p>Evaluación especializada, diagnóstico y tratamiento de la salud bucal de mascotas.</p>
                 </article>
                 
-                <button class="btn-servicios-sig" aria-label="Ver más servicios">❯</button>
+                <a href="../templates/servicios.html" class="btn-servicios-sig" aria-label="Ver más servicios">❯</a>
             </div>
         </section>
 
@@ -81,52 +81,69 @@
                 </div>
                 
                 <form class="formulario-reserva">
+                <div class="campo-formulario">
+                    <label for="nombre">Nombre completo</label>
+                    <input type="text" id="nombre" placeholder="Ej. Luis Pérez" required>
+                </div>
+                <div class="campo-formulario">
+                    <label for="servicio">Servicio</label>
+                    <select id="servicio" required>
+                        <option value="">Selecciona un servicio...</option>
+                        <option value="consulta">Consulta</option>
+                        <option value="estetica">Estética & Spa</option>
+                        <option value="dental">Cuidado Dental</option>
+                        <option value="diagnostico">Diagnóstico</option>
+                        <option value="cirugia">Cirugía</option>
+                        <option value="hospitalizacion">Hospitalización</option>
+                    </select>
+                </div>
+                <div class="campo-formulario">
+                    <label for="telefono">Teléfono</label>
+                    <input type="tel" id="telefono" placeholder="Ej. 6441234567" required>
+                </div>
+                <div class="campo-formulario">
+                    <label for="fecha">Fecha</label>
+                    <input type="date" id="fecha" required>
+                </div>
+                <div class="campo-formulario">
+                    <label for="tipo-mascota">Tipo de mascota</label>
+                    <select id="tipo-mascota" required>
+                        <option value="">Selecciona un tipo...</option>
+                        <option value="perro">Perro</option>
+                        <option value="gato">Gato</option>
+                        <option value="roedor">Roedor</option>
+                        <option value="ave">Ave</option>
+                    </select>
+                </div>
+                <div class="campo-formulario">
+                    <label for="hora">Hora</label>
+                    <input type="time" id="hora" required>
+                </div>
+                
+                <div class="checkbox-formulario">
+                    <input type="checkbox" id="chk-registro">
+                    <label for="chk-registro">Deseo registrarme para mantener un control de mis citas</label>
+                </div>
+
+                <div class="campos-registro">
                     <div class="campo-formulario">
-                        <label for="nombre">Nombre completo</label>
-                        <input type="text" id="nombre" placeholder="Ej. Luis Pérez" required>
+                        <label for="correo">Correo electrónico: </label>
+                        <input type="email" id="correo" placeholder="Ej. luis.perez@gmail.com" >
                     </div>
                     <div class="campo-formulario">
-                        <label for="servicio">Servicio</label>
-                        <select id="servicio" required>
-                            <option value="">Selecciona un servicio...</option>
-                            <option value="consulta">Consulta</option>
-                            <option value="estetica">Estética & Spa</option>
-                            <option value="dental">Cuidado Dental</option>
-                            <option value="diagnostico">Diagnóstico</option>
-                            <option value="cirugia">Cirugía</option>
-                            <option value="hospitalizacion">Hospitalización</option>
-                        </select>
+                        <label for="correo-confirmar">Confirma tu correo electrónico: </label>
+                        <input type="email" id="correo-confirmar" placeholder="Repite tu correo">
                     </div>
                     <div class="campo-formulario">
-                        <label for="telefono">Teléfono</label>
-                        <input type="tel" id="telefono" placeholder="Ej. 6441234567" required>
-                    </div>
+                        <label for="contrasenia">Contraseña: </label>
+                        <input type="password" id="contrasenia" placeholder="***********">
+                    </div> 
                     <div class="campo-formulario">
-                        <label for="fecha">Fecha</label>
-                        <input type="date" id="fecha" required>
-                    </div>
-                    <div class="campo-formulario">
-                        <label for="tipo-mascota">Tipo de mascota</label>
-                        <select id="tipo-mascota" required>
-                            <option value="">Selecciona un tipo...</option>
-                            <option value="perro">Perro</option>
-                            <option value="gato">Gato</option>
-                            <option value="roedor">Roedor</option>
-                            <option value="ave">Ave</option>
-                        </select>
-                    </div>
-                    <div class="campo-formulario">
-                        <label for="hora">Hora</label>
-                        <input type="time" id="hora" required>
-                    </div>
-                    
-                    <div class="checkbox-formulario">
-                        <input type="checkbox" id="chk-registro">
-                        <label for="chk-registro">Deseo registrarme para mantener un control de mis citas</label>
-                    </div>
-                    
-                    <button type="submit" class="btn-submit">Agendar mi cita</button>
-                </form>
+                        <label for="contrasenia-confirmar">Confirma tu contraseña: </label>
+                        <input type="password" id="contrasenia-confirmar" placeholder="Repite tu contraseña" >
+                    </div> 
+                </div> <button type="submit" class="btn-submit">Agendar mi cita</button>
+            </form>
             </div>
 
             <div class="seccion-proceso">
