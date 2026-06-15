@@ -85,12 +85,12 @@ header {
     box-shadow: var(--sombra)
 }
 
-.botones-header .btn-login:hover, .botones-header .btn-register:hover, .btn-reserva:hover, .btn-agenda:hover {
+.botones-header .btn-login:hover, .botones-header .btn-register:hover, .btn-reserva:hover, .btn-agenda:hover, .btn-continuar:hover {
     background-color:var(--highlight);
     cursor: pointer;
 }
 
-.btn-login, .btn-register, .btn-reserva, .btn-servicios-sig, .btn-agenda {
+.btn-login, .btn-register, .btn-reserva, .btn-servicios-sig, .btn-agenda, .btn-continuar {
     text-decoration: none;
 }
 
@@ -589,3 +589,87 @@ footer {
 }
 
 
+/*AQUI EMPIEZA EL REGISTRO*/
+
+.formulario-registro {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: var(--espacio);
+}
+
+.contenedor-formulario-registro {
+    flex: 1;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    max-width: 1000px;
+}
+
+.contenedor-stepper {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  font-family: sans-serif;
+  padding: var(--espacio);
+}
+
+.step, .step-activo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--secundario-transparente);
+}
+
+.numero-step {
+  width: 35px;
+  height: 35px;
+  border: 2px solid var(--secundario-transparente);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.texto-step {
+  display: flex;
+  flex-direction: column;
+}
+
+.texto-step strong {
+  font-size: 14px;
+  color: var(--secundario);
+}
+
+.texto-step span {
+  font-size: 11px;
+  color: var(--texto);
+}
+
+.step-activo {
+  color: var(--highlight);
+}
+
+.step-activo  .numero-step {
+  border-color: var(--highlight);
+  color: var(--highlight);
+  border-width: 3px; 
+}
+
+.btn-continuar {
+    background: var(--acento);
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    font-size: 18px;
+    border-radius: var(--radio);
+    cursor: pointer;
+    margin-top: 25px;
+    box-shadow: var(--sombra);
+    align-self: center;
+    width: max-content;
+    margin-bottom: var(--espacio);
+}
