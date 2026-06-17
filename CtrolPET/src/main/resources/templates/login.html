@@ -33,14 +33,37 @@
             <img src="../static/imgs/otras/imagen-login.webp" alt="perro y gato juntos">
 
             <div class="formulario-login">
+                <input type="radio" name="pasos" id="switch-login-paso1" checked>
+                <input type="radio" name="pasos" id="switch-login-paso2">
+
                 <h2>Bienvenido</h2>
                 <p>Inicia sesión para continuar</p>
-                <div class="campo-formulario">
-                    <label for="correo">Correo electrónico: </label>
-                    <input type="email" id="correo" placeholder="Ej. luis.perez@gmail.com" >
+
+                <div id="paso1-login">
+                    <div class="campo-formulario">
+                        <label for="correo">Correo electrónico: </label>
+                        <input type="email" id="correo" placeholder="Ej. luis.perez@gmail.com" >
+                    </div>
+
+                    <div class="button-tag">
+                        <label for="switch-login-paso2" class="btn-continuar">Continuar</label>
+                        <p>¿No tienes una cuenta? <a href="../templates/registro.html">Regístrate</a></p>
+                    </div>
+
                 </div>
-                <a href="../templates/login.html" class="btn-login">Iniciar Sesión</a>
-                <p>¿No tienes una cuenta? <a href="../templates/registro.html">Regístrate</a></p>
+                
+                <div id="paso2-login">
+                    <div class="campo-formulario">
+                    <label for="contrasenia">Contraseña: </label>
+                    <input type="password" id="contrasenia" placeholder="***********">
+                    </div> 
+                    <div class="button-tag">
+                        <a href="../templates/login.html" class="btn-login">Iniciar Sesión</a>
+                        <p>¿No tienes una cuenta? <a href="../templates/registro.html">Regístrate</a></p>
+                    </div>
+                        
+                </div>
+                
             </div>
         </section>
 
