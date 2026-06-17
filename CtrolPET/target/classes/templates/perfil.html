@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ctrl + PET - Perfil</title>
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+    </style>
+
+  <link rel="stylesheet" href="../static/styles/styles.css">
+
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <img src="../static/imgs/iconos/logo.png" alt="logo de ctrl+PET.">
+    </div>
+    <nav class="header-nav">
+      <a href="../templates/index.html">Inicio</a>
+      <a href="../templates/servicios.html">Servicios</a>
+      <a href="../templates/contacto.html">Contacto</a>
+      <a href="../templates/perfil.html">Perfil</a>
+    </nav>
+    <div class="botones-header">
+      <a class="btn-cerrar-sesion">Cerrar Sesión</a>
+    </div>
+  </header>
+
+
+  <main class="contenido-perfil">
+
+    <div class="perfil-nav">
+
+
+      <div class="menu-item">
+        <img src="../static/imgs/iconos/icono-perfil-usuario.png" alt="icono de perfil"/>
+        <p>Mi Perfil</p>
+      </div>
+
+      <div class="menu-item">
+        <img src="../static/imgs/iconos/icono-perfil-mascotas.png" alt="icono-mascotas"/>
+        <p>Mis Mascotas</p>
+      </div>
+
+      <div class="menu-item">
+        <img src="../static/imgs/iconos/icono-perfil-citas.png" alt="icono-citas"/>
+        <p>Mis Citas</p>
+      </div>
+
+      <div class="menu-item" data-target="cerrar">
+        <img src="../static/imgs/iconos/icono-perfil-cerrar-sesion.png" alt="icono-cerrar-sesión"/>
+        <p>Cerrar Sesión</p>
+      </div>
+
+
+    </div>
+
+    <div class="main-panel">
+
+      <h2>MI PERFIL</h2>
+      <div id="contenido-perfil">
+
+        <!-- Formulario Izquierdo -->
+        <div class="datos-usuario">
+          <div>
+            <label>Nombre completo:</label>
+            <input type="text" value="nombre ejemplo" disabled>
+          </div>
+          <div>
+            <label>Correo electrónico:</label>
+            <input type="email" value="correo ejemplo" disabled>
+          </div>
+          <div>
+            <label>"Teléfono:</label>
+            <input type="text" value="numero ejemplo" disabled>
+          </div>
+        </div>
+
+        <!-- Avatar Derecho (Basado en la imagen de referencia) -->
+
+        <div class="der-main-panel">
+
+          <img id="imagen-usuario" src="../static/imgs/iconos/icono-perfil-usuario.png" alt="imagen del usuario">
+
+          <button style="background: #4ec2e7; color: white; border: none; padding: 12px 30px; border-radius: 15px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">Editar Perfil</button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+
+
+  <footer>
+    <p>&copy; Copyright Ctrl+PET 2026</p>
+  </footer>
+
+</body>
+</html>
