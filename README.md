@@ -1,14 +1,14 @@
-# Ember-s-VTRN
+# CtrolPET
 
-# 🐾 Sistema de Reservas y Agenda - Veterinaria (Ember´s VTRN)
+#  Sistema de Reservas y Agenda - Veterinaria (Ember´s Enterprise)
 
-## 📌 Introducción
+##  Introducción
 Este proyecto implementa una plataforma web para la **gestión de citas en una clínica veterinaria**.  
 El sistema permite a los administradores configurar la disponibilidad de servicios (consultas médicas, vacunaciones, cirugías, estética animal, etc.), mientras que los clientes pueden consultar horarios y reservar en tiempo real.
 
 ---
 
-## 🚀 Funcionalidades Principales
+##  Funcionalidades Principales
 - **[Catálogo de servicios](ca://s?q=Catalogo_de_servicios_veterinaria)**: consultas, vacunaciones, cirugías, estética animal.
 - **[Configuración de horarios](ca://s?q=Configurar_horarios_veterinaria)**: disponibilidad por día y rango de horas.
 - **[Bloqueo automático](ca://s?q=Bloqueo_de_horarios_reservados)**: evita doble reservación.
@@ -20,9 +20,9 @@ El sistema permite a los administradores configurar la disponibilidad de servici
 
 ---
 
-## 🛠️ Casos de Uso
+##  Casos de Uso
 
-### 👩‍⚕️ Backoffice / Panel Administrativo
+###  Backoffice / Panel Administrativo
 - **[Crear servicio](ca://s?q=Crear_servicio_veterinaria)**: registrar consulta, vacunación, cirugía, etc.
 - **[Configurar horarios](ca://s?q=Configurar_horarios_veterinaria)**: definir disponibilidad semanal.
 - **[Bloquear fechas](ca://s?q=Bloquear_fechas_veterinaria)**: vacaciones o mantenimiento.
@@ -32,7 +32,7 @@ El sistema permite a los administradores configurar la disponibilidad de servici
 - **[Historial por cliente](ca://s?q=Historial_por_cliente_veterinaria)**: seguimiento de pacientes frecuentes.
 - **[Resumen de ocupación](ca://s?q=Resumen_ocupacion_veterinaria)**: métricas de uso de servicios.
 
-### 🐶 Storefront / Portal del Cliente
+###  Storefront / Portal del Cliente
 - **[Explorar servicios](ca://s?q=Explorar_servicios_veterinaria)**: descripción, duración y costo.
 - **[Consultar disponibilidad](ca://s?q=Consultar_disponibilidad_veterinaria)**: ver horarios libres.
 - **[Hacer reservación](ca://s?q=Hacer_reservacion_veterinaria)**: seleccionar fecha y hora.
@@ -42,14 +42,14 @@ El sistema permite a los administradores configurar la disponibilidad de servici
 
 ---
 
-## ⚙️ Tecnologías Utilizadas
+##  Tecnologías Utilizadas
 - **Frontend**: Html/Css  
 - **Backend**: Java  
-- **Base de Datos**: SQL   
+- **Base de Datos**: NoSQL (MongoDB)   
 
 ---
 
-## 📂 Instalación y Uso
+##  Instalación y Uso
 1. Clonar el repositorio:
    ```bash
-   git clone https://github.com/usuario/veterinaria-reservas.git
+   git clone https://github.com/Gamm4a/CtrolPET.git
