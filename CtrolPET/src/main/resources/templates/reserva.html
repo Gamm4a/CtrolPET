@@ -2,15 +2,19 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>Ctrl + PET - Agendar Cita</title>
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
         </style>
+    
     <link rel="stylesheet" href="../static/styles/styles.css">
 
+ 
+
 </head>
-<body>
+<body class="pagina-citas">
+    <input type="checkbox" id="menu-toggle" hidden>
     <header>
          <div class="logo">
             <img src="../static/imgs/iconos/logo.png" alt="logo de ctrl+PET.">
@@ -24,6 +28,9 @@
             <a href="../templates/login.html" class="btn-login">Iniciar Sesión</a>
             <a href="../templates/registro.html" class="btn-register">Registrarse</a>
         </div>
+
+     <label for="menu-hamburguer" id="icon-menu">
+    ☰ </label>
     </header> 
     <main>
         <section class = "contenedor-reserva-logueado">
