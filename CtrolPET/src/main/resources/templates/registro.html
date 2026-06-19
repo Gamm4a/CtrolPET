@@ -16,6 +16,14 @@
         <div class="logo">
             <img src="../static/imgs/iconos/logo.png" alt="logo de ctrl+PET.">
         </div>
+
+        <input type="checkbox" id="anvorguesa">
+        <label for="anvorguesa" class="menu-button">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+
         <nav class="header-nav">
             <a href="../templates/index.html">Inicio</a>
             <a href="../templates/servicios.html">Servicios</a>
@@ -133,6 +141,56 @@
                         <option value="anios">años</option>
                         <option value="meses">meses</option>
                     </select>
+                    </div>
+
+                    <div class="campo-formulario">
+                        <div class="radio-mascota">
+                        <label>Sexo de tu mascota:</label>
+                            <div>
+                                <input
+                                    type="radio"
+                                    id="rad_femenino"
+                                    name="rad_genero"
+                                    value="femenino"
+                                    required>
+
+                                <label for="rad_femenino">Femenino</label>
+                                <input
+                                    type="radio"
+                                    id="rad_masculino"
+                                    name="rad_genero"
+                                    value="masculino"
+                                    >
+                                <label for="rad_masculino">Masculino</label>
+                                
+                            </div>
+                        </div>
+                        
+                    </div>
+
+
+                    <div class="campo-formulario">
+                        <div class="radio-mascota">
+                        <label>¿Su mascota está esterilizada?:</label>
+                            <div>
+                                <input
+                                        type="radio"
+                                        id="rad_no_esterilizado"
+                                        name="rad_esterilizacion"
+                                        value="No"
+                                        required>
+                                <label for="rad_no_esterilizado">No</label>
+                                <input
+                                        type="radio"
+                                        id="rad_esterilizado"
+                                        name="rad_esterilizacion"
+                                        value="Si"
+                                        >
+                                <label for="rad_esterilizado">Sí</label>
+                                
+                            </div>
+                        </div>
+                        
                     </div>
 
                 <div class="grupo-botones">

@@ -17,6 +17,14 @@
     <div class="logo">
       <img src="../static/imgs/iconos/logo.png" alt="logo de ctrl+PET.">
     </div>
+
+    <input type="checkbox" id="anvorguesa">
+        <label for="anvorguesa" class="menu-button">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+
     <nav class="header-nav">
       <a href="../templates/index.html">Inicio</a>
       <a href="../templates/servicios.html">Servicios</a>
@@ -63,13 +71,13 @@
         <h2>MI PERFIL</h2>
         <div id="contenido-perfil">
           <div class="datos-usuario">
-            <div><label>Nombre completo:</label><input type="text" value="nombre ejemplo" disabled></div>
-            <div><label>Correo electrónico:</label><input type="email" value="correo ejemplo" disabled></div>
-            <div><label>Teléfono:</label><input type="text" value="numero ejemplo" disabled></div>
+            <div><label>Nombre completo:</label><input type="text" placeholder="nombre ejemplo" disabled></div>
+            <div><label>Correo electrónico:</label><input type="email" placeholder="correo ejemplo" disabled></div>
+            <div><label>Teléfono:</label><input type="text" placeholder="numero ejemplo" disabled></div>
           </div>
           <div class="der-main-panel">
             <img id="imagen-usuario" src="../static/imgs/iconos/icono-perfil-usuario.png" alt="imagen del usuario">
-            <button style="background: #4ec2e7; color: white; border: none; padding: 12px 30px; border-radius: 15px; font-weight: bold; cursor: pointer;">Editar Perfil</button>
+            <a class="btn-editar-perfil">Editar Perfil</a>
           </div>
         </div>
       </div>
@@ -208,7 +216,7 @@
               </div>
             </div>
             <div class="boton-citas">
-              <a class="btn-Agendar-cita2">Agendar cita</a>
+              <a class="btn-agenda">Agendar cita</a>
             </div>
           </div>
           <div class="area-tabla">

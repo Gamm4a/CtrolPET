@@ -35,13 +35,15 @@ body {
     background-color: var(--primario);
     color: var(--texto);
     padding: 20px;
-    min-width: 1200px;
-    overflow-x: auto;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
     min-height: 100vh; 
     margin: 0;
+    overflow-x: hidden;
 }
 
 main {
@@ -62,6 +64,14 @@ header {
     margin-bottom: 60px;
 }
 
+    #anvorguesa {
+        display: none;
+    }
+
+.menu-button {
+    display: none;
+}
+
 .header-nav a {
     text-decoration: none;
     color: var(--texto);
@@ -69,29 +79,35 @@ header {
     font-weight: 500;
 }
 
-.botones-header .btn-login{
-    background: var(--acento);
+.botones-header .btn-login,
+.botones-header .btn-register{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    height: 40px;
     color: white;
     border: none;
-    padding: 10px 20px;
     border-radius: var(--radio);
     cursor: pointer;
-    margin-right: 10px;
-    box-shadow: var(--sombra)
+    box-shadow: var(--sombra);
+    box-sizing: border-box;
+}
+
+.botones-header .btn-login {
+    background: var(--acento);
+
 }
 
 .botones-header .btn-register {
     background: var(--secundario);
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: var(--radio);
-    cursor: pointer;
-    box-shadow: var(--sombra)
+  
 }
 
+
 .botones-header .btn-login:hover, .botones-header .btn-register:hover, 
-.btn-reserva:hover, .btn-agenda:hover, .btn-continuar:hover, .btn-finalizar:hover, .btn-anterior:hover {
+.btn-reserva:hover, .btn-agenda:hover, .btn-continuar:hover, .btn-finalizar:hover, .btn-anterior:hover,
+.btn-agregar-mascota:hover, .btn-Agendar-cita:hover, .btn-cerrar-sesion:hover, .btn-editar-perfil:hover {
     background-color:var(--highlight);
     cursor: pointer;
 }
@@ -181,7 +197,6 @@ header {
     justify-content: center;
     font-size: 24px;
     margin: var(--espacio);
-    min-width: 1200px;
     padding: var(--espacio);
 }
 
@@ -287,7 +302,7 @@ header {
 }
 
 .campo-formulario label {
-    font-size: 12px;
+    font-size: 1rem;
     font-weight: 600;
     margin-bottom: 8px;
     color: var(--texto);
@@ -298,7 +313,7 @@ header {
     border: 1px solid var(--secundario);
     border-radius: var(--radio);
     background: white;
-    font-size: 14px;
+    font-size: 0.9rem;
 }
 
 .checkbox-formulario {
@@ -559,7 +574,7 @@ footer {
      grid-area: 4 / 4 / 5 / 5;
 }
 
-.btn-agenda {
+.btn-agenda, .btn-editar-perfil {
     background: var(--acento);
     color: white;
     border: none;
@@ -623,7 +638,7 @@ footer {
 .contenedor-formulario-registro {
     display: none;
     width: 100%;
-    max-width: 1000px;
+    max-width: 800px;
     margin: 0 auto var(--espacio);
 }
 
@@ -746,6 +761,16 @@ input[name="pasos"] {
 #edad-mascota-tiempo {
     margin-top: var(--espacio-cercano);
 }
+
+
+.radio-mascota {
+    display: flex;
+    flex-direction: column;
+    gap: var(--espacio-cercano);
+    align-items: center;
+    margin-top: 5px;
+}
+
 
 /*Aqui empieza la ventana de perfil*/
 
@@ -1427,3 +1452,149 @@ input[name="pasos"] {
 }
 
 /* AQUI TERMINA RESERVA MOBILE */
+
+/*CONFIGURACION PARA CELULAR (MAXIMO 768px)*/
+
+@media (max-width: 768px){
+
+    body {
+        padding: 10px; 
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        margin-bottom: 30px;
+        padding: 15px 20px;
+    }
+
+    main {
+        padding: 20px 15px;
+    }
+
+    main img, .seccion-proceso, .logo {
+        display: none;
+    }
+
+    .menu-button {
+        display: flex; 
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+    }
+
+    .menu-button span {
+        width: 25px;
+        height: 3px;
+        background-color: var(--secundario);
+        transition: all 0.3s ease;
+    }
+
+    .header-nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: var(--secundario);
+        border-bottom: 2px solid var(--links);
+        flex-direction: column;
+        padding: 20px 0;
+        gap: 20px;
+        display: none;
+        box-shadow: var(--sombra);
+        border-radius: var(--radio);
+    }
+
+    .header-nav a{ 
+        color: white; 
+    }
+
+    .botones-header {
+        display: flex;
+        gap: var(--espacio-cercano);
+        align-items: center;
+        width: fit-content;
+    }
+
+    .botones-header .btn-login,
+    .botones-header .btn-register {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 110px;
+        height: 36px;
+        font-size: 0.85rem;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .botones-header a {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    #anvorguesa:checked ~ .header-nav {
+        display: flex;
+    }
+
+    #anvorguesa:checked ~ .menu-button span:nth-child(1){
+        transform: rotate(45deg) translate(5px, 6px);
+    }
+    #anvorguesa:checked ~ .menu-button span:nth-child(2){
+        opacity: 0;
+    }
+    #anvorguesa:checked ~ .menu-button span:nth-child(3){
+        transform: rotate(-45deg) translate(5px, -7px);
+    }
+
+    .grid-servicios-index, .seccion-servicios-index, .bloque-reserva,
+    .campos-registro, .grid-servicios, .tarjetas-datos {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--espacio);
+    }
+
+    .servicio-caja, .bloque-reserva,  .seccion-servicios-index h2, .contacto-info h1,
+    .formulario-login {
+        width: 100%;
+        max-width: 320px;
+        text-align: center;
+    }
+
+    .contenedor-inicio-sesion {
+        grid-template-columns: 1fr; 
+        justify-items: center; 
+        align-items: center;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    form, .campo-formulario, select, button, .btn-servicios-sig{
+        width: 100%;
+        max-width: 100%;
+    }
+
+   .contenedor-stepper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    }
+
+    .contenedor-stepper .step {
+        display: none; 
+    }
+
+    #switch-paso1:checked ~ .contenedor-stepper .step:nth-child(1),
+    #switch-paso2:checked ~ .contenedor-stepper .step:nth-child(2),
+    #switch-paso3:checked ~ .contenedor-stepper .step:nth-child(3),
+    #switch-paso4:checked ~ .contenedor-stepper .step:nth-child(4) {
+        display: flex;
+    }
+
+    
+}
