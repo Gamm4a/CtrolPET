@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ctrl + PET - Dashboard Administrador</title>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+        </style>
+    <link rel="stylesheet" href="../static/styles/styles.css">
+
+</head>
+<body>
+
+    <main>
+        <section id="dashboard-admin">
+            <input type="radio" name="nav-pestana" id="pestana-inicio" checked>
+            <input type="radio" name="nav-pestana" id="pestana-citas">
+            <input type="radio" name="nav-pestana" id="pestana-servicios">
+            <input type="radio" name="nav-pestana" id="pestana-veterinarios">
+
+            <aside class="nav-aside-admin">
+                <nav class="header-nav-admin">
+                    <img src="../static/imgs/iconos/logo-dark.png">
+                    <label for="pestana-inicio" class="enlace-nav">Inicio</label>
+                    <label for="pestana-citas" class="enlace-nav">Citas</label>
+                    <label for="pestana-servicios" class="enlace-nav">Servicios</label>
+                    <label for="pestana-veterinarios" class="enlace-nav">Veterinarios</label>
+                    <a href="../templates/login-admin.html" class="enlace-nav">Cerrar sesión</a>
+                </nav>
+
+
+            </aside>
+           
+            <section id="admin-inicio">
+
+                <div class="encabezado-admin">
+                    <h1>Dashboard Administrativo</h1>
+                </div>
+                <div id="buscador-citas">
+                    <input type="text" name="buscar" placeholder="Buscar"></input>
+                    <a href="" class="btn-agenda">Ver tabla de dueños</a>
+                    <a href="" class="btn-agenda">Ver tabla de citas</a>
+                </div>
+               
+                <div class="area-tabla">
+                    <table class="tabla-citas-admin">
+                        <thead>
+                            <tr>
+                                <th>Dueño</th>
+                                <th>Mascota</th>
+                                <th>Fecha</th>
+                                <th>Hora</th>
+                                <th>Servicio</th>
+                                <th>Veterinario</th>
+                                <th>Costo</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                
+                
+            </section>
+
+            <section id="admin-citas">
+                <div class="encabezado-admin">
+                    <h1>Gestor de Citas</h1>
+                </div>
+
+                <div id="buscador-citas">
+                    <input type="text" name="buscar" placeholder="Buscar cita"></input>
+                    <a href="" class="btn-agenda">Agendar cita</a>
+                </div>
+
+                <div class="area-tabla">
+
+                <table class="tabla-citas-admin">
+                    <thead>
+                        <tr>
+                            <th>Dueño</th>
+                            <th>Mascota</th>
+                            <th>Fecha</th>
+                            <th>Hora</th>
+                            <th>Servicio</th>
+                            <th>Veterinario</th>
+                            <th>Costo</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr tabindex="0">
+                        <td>Zaira Barajas</td>
+                        <td>Suzy</td>
+                        <td>22/06/2026</td>
+                        <td>11:30 am</td>
+                        <td>Consulta</td>
+                        <td>Dr. María López</td>
+                        <td>$300</td>
+                        <td>Activa</td>
+                        <td class="celda-accion">
+                            <div class="opciones">
+                                <a href="#">Editar</a><br>
+                                <a href="#">Eliminar</a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr tabindex="0">
+                        <td>Zaira Barajas</td>
+                        <td>Luna</td>
+                        <td>15/04/2026</td>
+                        <td>10:00 am</td>
+                        <td>Estética y Baño</td>
+                        <td>Dr. María López</td>
+                        <td>$450</td>
+                        <td>Completada</td>
+                        <td class="celda-accion">
+                            <div class="opciones">
+                                <a href="#">Editar</a><br>
+                                <a href="#">Eliminar</a>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+
+            </div>
+            </section>
+
+            <section id="admin-servicios">
+                <div class="encabezado-admin">
+                    <h1>Gestor de Servicios</h1>
+                </div> 
+                <div class="agregar">
+                    <label for="control-modal-servicio" class="btn-agenda">Agregar servicio</label>
+                </div>
+                <div class="contenedor-servicios-admin">
+                    <div class="servicio-caja-admin">
+                        <div class="servicio-info">
+                            <h3>Consulta General</h3>
+                            <p class="descripcion">Chequeos preventivos y evaluación de malestares específicos.</p>
+                            <span class="precio">$300</span>
+                        </div>
+                        <div class="servicio-opciones">
+                            <a href="#modal-editar-servicio" class="btn-editar">Editar</a>
+                            <a href="#" class="btn-eliminar">Eliminar</a>
+                        </div>
+                    </div>
+
+                    <div class="servicio-caja-admin">
+                        <div class="servicio-info">
+                            <h3>Estética y Baño</h3>
+                            <p class="descripcion">Técnicas profesionales de higiene y estética, con cuidado integral de la piel, pelo, uñas y oídos.</p>
+                            <span class="precio">$450</span>
+                        </div>
+                        <div class="servicio-opciones">
+                            <a href="#modal-editar-servicio" class="btn-editar">Editar</a>
+                            <a href="#" class="btn-eliminar">Eliminar</a>
+                        </div>
+                    </div>
+
+                    <div class="servicio-caja-admin">
+                        <div class="servicio-info">
+                            <h3>Cuidado Dental</h3>
+                            <p>Evaluación especializada, diagnóstico y tratamiento de la salud bucal de mascotas</p>
+                            <span class="precio">$500</span>
+                        </div> 
+                        <div class="servicio-opciones">
+                            <a href="#modal-editar-servicio" class="btn-editar">Editar</a>
+                            <a href="#" class="btn-eliminar">Eliminar</a>
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <input type="checkbox" id="control-modal-servicio" class="modal-switch" hidden>
+
+                <div class="modal-overlay">
+                    <div class="modal-caja">
+                        
+                        <h3>Nuevo Servicio</h3>
+                        
+                        <form class="form-modal">
+                            <div class="form-grupo">
+                                <label>Nombre del Servicio</label>
+                                <input type="text" name="nombre" required placeholder="Ej. Desparasitación">
+                            </div>
+                            
+                            <div class="form-grupo">
+                                <label>Descripción</label>
+                                <textarea name="descripcion" required placeholder="Descripción breve del servicio y lo que incluye."></textarea>
+                            </div>
+                            
+                            <div class="form-grupo">
+                                <label>Costo ($)</label>
+                                <input type="number" name="costo" required placeholder="300">
+                            </div>
+                            
+                            <div class="form-botones">
+                                <button type="submit" class="btn-continuar">Guardar Servicio</button>
+                                <label for="control-modal-servicio" class="btn-anterior">Cancelar</label>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div id="modal-editar-servicio" class="modal-overlay">
+                    <div class="modal-caja">
+                        
+                        <h3>Editar Servicio</h3>
+                        
+                        <form class="form-modal">
+                            <div class="form-grupo">
+                                <label>Nombre del Servicio</label>
+                                <input type="text" name="nombre" required placeholder="Nombre del servicio"> 
+                            </div>
+                            
+                            <div class="form-grupo">
+                                <label>Descripción</label>
+                                <textarea name="descripcion" required placeholder="Descripción breve del servicio y lo que incluye."></textarea>
+                            </div>
+
+                            <div class="form-grupo">
+                                <label>Costo ($)</label>
+                                <input type="number" name="costo" required placeholder="0">
+                            </div>
+                            
+                            <div class="form-botones">
+                                <button type="submit" class="btn-continuar">Guardar Cambios</button>
+                                <a href="#admin-servicios" class="btn-anterior">Cancelar</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <section id="admin-veterinarios">
+                <div class="encabezado-admin">
+                    <h1>Gestor de Veterinarios</h1>
+                </div>
+                <div class="agregar">
+                    <label for="control-modal-veterinario" class="btn-agenda">Agregar veterinario</label>
+                </div>
+                <div class="contenedor-veterinarios-admin">
+
+                    <div class="veterinario-caja-admin">
+                        <div class="info-vet">
+                            <h3>Dra. María López</h3>
+                            <label>Especialidad: <p>Medicina General, Cirugía</p></label>
+                            <label>Correo: <p>maria.lopez@ctrlpet.com</p></label>
+                            <label>teléfono: <p>6441589865</p></label>
+                            
+                        </div>
+                        <div class="veterinarios-opciones">
+                            <a href="#modal-editar-veterinario" class="btn-editar">Editar</a>
+                            <a href="#" class="btn-eliminar">Eliminar</a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <input type="checkbox" id="control-modal-veterinario" class="modal-switch" hidden>
+
+                <div class="modal-overlay">
+                    <div class="modal-caja">
+                        
+                        <h3>Nuevo Veterinario</h3>
+                        
+                        <form class="form-modal">
+                            <div class="form-grupo">
+                                <label>Nombre del Médico Veterinario:</label>
+                                <input type="text" name="nombre" required placeholder="Ej. María">
+                            </div>
+                            
+                            <div class="form-grupo">
+                                <label>Especialidad:</label>
+                                <input type="text" name="especialidad" required placeholder="Ej. Medicina General">
+                            </div>
+                            
+                            <div class="form-grupo">
+                                <label>Correo:</label>
+                                <input type="email" name="correo" required placeholder="mario.perez@ctrlpet.com">
+                            </div>
+
+                            <div class="form-grupo">
+                                <label for="telefono">Teléfono:</label>
+                                <input type="tel" id="telefono" placeholder="Ej. 6441234567" required>
+                            </div>
+                            
+                            <div class="form-botones">
+                                <button type="submit" class="btn-continuar">Guardar Veterinario</button>
+                                <label for="control-modal-veterinario" class="btn-anterior">Cancelar</label>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div id="modal-editar-veterinario" class="modal-overlay">
+                    <div class="modal-caja">
+                        
+                        <h3>Editar Veterinario</h3>
+                        
+                        <form class="form-modal">
+                            <div class="form-grupo">
+                                <label>Nombre del Médico Veterinario:</label>
+                                <input type="text" name="nombre" required placeholder="Ej. María">
+                            </div>
+                            
+                            <div class="form-grupo">
+                                <label>Especialidad:</label>
+                                <input type="text" name="especialidad" required placeholder="Ej. Medicina General">
+                            </div>
+                            
+                            <div class="form-grupo">
+                                <label>Correo:</label>
+                                <input type="email" name="correo" required placeholder="mario.perez@ctrlpet.com">
+                            </div>
+
+                            <div class="form-grupo">
+                                <label for="telefono">Teléfono:</label>
+                                <input type="tel" id="telefono" placeholder="Ej. 6441234567" required>
+                            </div>
+                            
+                            <div class="form-botones">
+                                <button type="submit" class="btn-continuar">Guardar Cambios</button>
+                                <a href="#admin-veterinarios" class="btn-anterior">Cancelar</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; Copyright Ctrl+PET 2026</p>
+    </footer>
+</body>
+</html>

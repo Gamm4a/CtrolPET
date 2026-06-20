@@ -11,34 +11,14 @@
 
 </head>
 <body>
-
-    <header>
-        <div class="logo">
-            <img src="../static/imgs/iconos/logo.png" alt="logo de ctrl+PET.">
-        </div>
-
-        <input type="checkbox" id="anvorguesa">
-        <label for="anvorguesa" class="menu-button">
-            <span></span>
-            <span></span>
-            <span></span>
-        </label>
-        
-        <nav class="header-nav">
-            <a href="../templates/index.html">Inicio</a>
-            <a href="../templates/servicios.html">Servicios</a>
-            <a href="../templates/contacto.html">Contacto</a>
-        </nav>
-        <div class="botones-header">
-            <a href="../templates/login.html" class="btn-login">Iniciar Sesión</a>
-            <a href="../templates/registro.html" class="btn-register">Registrarse</a>
-        </div>
-    </header>
-
     <main>
-        <section class="contenedor-inicio-sesion">
+        <section class="contenedor-inicio-sesion-admin">
 
-            <img src="../static/imgs/otras/imagen-login.webp" alt="perro y gato juntos">
+            <div class="bienvenida-admin">
+                <img src="../static/imgs/iconos/logo-dark.png">
+                <h2>Panel Administrativo</h2>
+                <h3>Gestiona citas y más...</h3>
+            </div>
 
             <div class="formulario-login">
 
@@ -49,7 +29,7 @@
                 <p>Inicia sesión para continuar</p>
 
                 <div class="selector-rol">
-                    <a href="../templates/login-admin.html">Soy Administrador</a>
+                    <a href="../templates/login.html">Soy Usuario</a>
                 </div>
 
                 <div id="paso1-login">
@@ -60,7 +40,7 @@
 
                     <div class="button-tag">
                         <label for="switch-login-paso2" class="btn-continuar">Continuar</label>
-                        <p>¿No tienes una cuenta? <a href="../templates/registro.html">Regístrate</a></p>
+                        <p>¿No tienes una cuenta? <a href="../templates/registro-admin.html">Regístrate</a></p>
                     </div>
 
                 </div>
@@ -71,8 +51,8 @@
                     <input type="password" id="contrasenia" placeholder="***********">
                     </div> 
                     <div class="button-tag">
-                        <a href="../templates/login.html" class="btn-login">Iniciar Sesión</a>
-                        <p>¿No tienes una cuenta? <a href="../templates/registro.html">Regístrate</a></p>
+                        <a href="../templates/admin.html" class="btn-login">Iniciar Sesión</a>
+                        <p>¿No tienes una cuenta? <a href="../templates/registro-admin.html">Regístrate</a></p>
                     </div>
                         
                 </div>
@@ -82,7 +62,6 @@
 
         
     </main>
-
     <footer>
         <p>&copy; Copyright Ctrl+PET 2026</p>
     </footer>
