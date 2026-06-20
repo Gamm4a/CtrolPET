@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Ctrl + PET - Agendar Cita</title>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+        </style>
+    
+    <link rel="stylesheet" href="../static/styles/styles.css">
+
+ 
+
+</head>
+<body class="pagina-citas">
+    <input type="checkbox" id="menu-toggle" hidden>
+    <header>
+         <div class="logo">
+            <img src="../static/imgs/iconos/logo.png" alt="logo de ctrl+PET.">
+        </div>
+        <nav class="header-nav">
+            <a href="../templates/index.html">Inicio</a>
+            <a href="../templates/servicios.html">Servicios</a>
+            <a href="../templates/contacto.html">Contacto</a>
+        </nav>
+        <div class="botones-header">
+            <a href="../templates/login.html" class="btn-login">Iniciar Sesión</a>
+            <a href="../templates/registro.html" class="btn-register">Registrarse</a>
+        </div>
+
+     <label for="menu-hamburguer" id="icon-menu">
+    ☰ </label>
+    </header> 
+    <main>
+        <section class = "contenedor-reserva-logueado">
+            <div class="imagen-reserva-logueado">
+                 <p>¡Estamos ansiosos por verte!</p>
+                <img src = "../static/imgs/otras/imagen-agendarConLogin.png" alt=Veterinaria con un gatito>
+            </div>
+            <div class = "formulario-reserva-logueado"> 
+                <h2>Agendar Cita</h2>
+               <div class="campo-formulario"> 
+    <label for="mascota">Mascota</label>
+    <select id="mascota" required>
+        <option>Luna</option>
+        <option>Suzy</option>
+    </select>
+</div>
+            <div class="campo-formulario">
+                <label for="servicio">Servicio:</label>
+                <select id="servicio" required>
+                     <option value="">Selecciona un servicio...</option>
+                        <option value="consulta">Consulta General</option>
+                        <option value="estetica">Estética & Spa</option>
+                        <option value="dental">Cuidado Dental</option>
+                        <option value="diagnostico">Diagnóstico</option>
+                        <option value="cirugia">Cirugía</option>
+                        <option value="hospitalizacion">Hospitalización</option>
+                </select>
+            </div>
+
+            <div class="campo-formulario">
+                <label for="fecha">Fecha</label>
+                <input type="date" id="fecha" required>
+            </div>
+            <div class="campo-formulario">
+                <label for="hora">Hora</label>
+                <select id="hora" required>
+                    <option value="">Seleccion una hora</option>
+                     <option value="9:00">9:00 AM</option>
+                      <option value="10:00">10:00 AM</option>
+                       <option value="11:00">11:00 AM</option>
+                </select>
+            </div>
+            <button class="btn-agendar">Agendar mi cita</button>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; Copyright Ctrl+PET 2026</p>
+    </footer>
+</body>
+</html>

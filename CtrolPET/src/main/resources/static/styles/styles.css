@@ -342,7 +342,7 @@ header {
     cursor: pointer;
     box-shadow: var(--sombra);
     margin-top: var(--espacio-cercano);
-    
+
 }
 
 .campos-registro {
@@ -1228,7 +1228,7 @@ input[name="pasos"] {
 
 .botones-filtro {
     display: flex;
-    justify-content: right; 
+    justify-content: right;
     gap: 1vw;
 }
 
@@ -1289,6 +1289,175 @@ input[name="pasos"] {
     text-align: center;
 }
 
+.btn-Agendar-cita2{
+    width: 30vw;
+    color: white;
+    border-radius: var(--radio);
+    background-color: var(--acento);
+    box-shadow: var(--sombra);
+    padding: var(--espacio-cercano);
+    text-align: center;
+    text-decoration: none;
+}
+/* AQUI EMPIEZA LA RESERVA PARA USUARIO LOGUEADO */
+
+.contenedor-reserva-logueado {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto;
+    align-items: start;
+    gap: 60px;
+    padding: 50px 60px;
+}
+
+.imagen-reserva-logueado {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--espacio-cercano);
+}
+
+.imagen-reserva-logueado p {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--texto);
+    text-align: center;
+}
+
+.imagen-reserva-logueado img {
+    width: 100%;
+    border-radius: var(--radio);
+    object-fit: cover;
+}
+
+.formulario-reserva-logueado {
+    display: flex;
+    flex-direction: column;
+    gap: var(--espacio-cercano);
+}
+
+.formulario-reserva-logueado h2 {
+    font-size: 1.6rem;
+    color: var(--texto);
+    text-align: center;
+    margin-bottom: var(--espacio-cercano);
+}
+
+.btn-agendar {
+    background: var(--acento);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: var(--radio);
+    cursor: pointer;
+    box-shadow: var(--sombra);
+    font-family: var(--font-estilo);
+    width: max-content;
+    margin-top: var(--espacio-cercano);
+}
+
+.btn-agendar:hover {
+    background: var(--highlight);
+}
+
+#icon-menu {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    right: 20px;
+    top: 16px;
+    padding: 10px;
+    font-size: 20px;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+/* AQUI TERMINA LA RESERVA PARA USUARIO LOGUEADO */
+
+
+/* PARA RESERVA MOBILE */
+
+@media (max-width: 768px) {
+    .pagina-citas {
+        min-width: 0;
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    .imagen-reserva-logueado {
+        display: none;
+    }
+
+    .contenedor-reserva-logueado {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    .formulario-reserva-logueado {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .campo-formulario {
+        width: 100%;
+    }
+
+    .campo-formulario select,
+    .campo-formulario input {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .btn-agendar {
+        width: 100%;
+        padding: 12px 20px;
+        font-size: 1rem;
+    }
+
+    header {
+        padding: 10px 15px;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    #icon-menu {
+        display: flex;
+        font-size: 30px;
+        cursor: pointer;
+    }
+
+    .header-nav,
+    .botones-header {
+        display: none;
+        width: 100%;
+    }
+
+    #menu-hamburguer:checked ~ header {
+        flex-direction: column;
+    }
+
+    #menu-hamburguer:checked ~ header .header-nav,
+    #menu-hamburguer:checked ~ header .botones-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        padding-bottom: 10px;
+    }
+}
+
+/* AQUI TERMINA RESERVA MOBILE */
 /*AQUI ESTA LA CONFIGURACIONDE TODAS LOS HTML -ADMIN*/
 
 /*LOGIN*/
@@ -1331,26 +1500,26 @@ input[name="pasos"] {
 
 #dashboard-admin {
     display: flex;
-    
+
 }
 
 .formulario-registro-admin {
     background-color: var(--links);
     display: flex;
-    border-radius: var(--radio);  
+    border-radius: var(--radio);
 }
 
 .contenedor-formulario-registro-admin {
-    flex: 1; 
+    flex: 1;
     background-color: white;
-    border-radius: var(--radio);  
+    border-radius: var(--radio);
 
 }
 
 .nav-aside-admin {
     background-color: var(--texto);
-    border-radius: var(--radio);  
-    width: 30vh; 
+    border-radius: var(--radio);
+    width: 30vh;
     height: 100vh;
 }
 
@@ -1380,7 +1549,7 @@ input[name="pasos"] {
 
 .header-nav-admin{
     color: white;
-    
+
 }
 
 #pestana-inicio:checked ~ .nav-aside-admin .header-nav-admin .enlace-nav[for="pestana-inicio"],
@@ -1403,10 +1572,10 @@ input[name="pasos"] {
     margin: var(--espacio) 0;
 }
 
-.tabla-citas-admin th, 
+.tabla-citas-admin th,
 .tabla-citas-admin td {
     padding: var(--espacio-cercano);
-    text-align: left; 
+    text-align: left;
 }
 
 #admin-citas{
@@ -1449,14 +1618,14 @@ input[name="pasos"] {
 }
 
 #buscador-citas input {
-    padding: var(--espacio-cercano); 
+    padding: var(--espacio-cercano);
     border-radius: var(--radio);
 }
 
 .tabla-citas-admin tbody tr {
     cursor: pointer;
     transition: background-color 0.2s;
-    outline: none; 
+    outline: none;
 }
 
 .tabla-citas-admin tbody td {
@@ -1640,7 +1809,7 @@ input[name="pasos"] {
     color: var(--texto);
 }
 
-.form-grupo input, 
+.form-grupo input,
 .form-grupo textarea {
     padding: 10px;
     border: 1px solid var(--texto);
@@ -1695,7 +1864,7 @@ input[name="pasos"] {
 }
 
 #pestana-inicio:checked ~ #admin-inicio {
-    display: block; 
+    display: block;
 }
 
 #pestana-citas:checked ~ #admin-citas {
