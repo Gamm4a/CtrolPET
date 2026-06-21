@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ctrl + PET - Gestionar Mascotas</title>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+        </style>
+    <link rel="stylesheet" href="styles/styles.css">
+
+</head>
+<body>
+    <main>
+        <section id="gestion-mascota">
+            
+            <div id="contenedor-mascota">
+                <div class="grupo-botones" id="btn-regresar">
+                    <a href="admin.html" class="btn-anterior"> Regresar</a>
+                </div>
+                <div class="contenedor-caja-mascota">
+                    <div>
+                        <img src="imgs/iconos/icono-gato.png">
+                    </div>
+                    <div id="info-mascota">
+                        <h3>Nombre</h3>
+                        <p>Especie</p>
+                        <p>Raza</p>
+                        <p>Edad</p>
+                        <p>Sexo</p>
+                        <p>Esterilizado</p>
+                    </div>      
+                </div>
+                <div id="documentos-mascota">
+                    <div id="documentos-mascota-actuales">
+                        <h3>Documentos de la Mascota</h3>
+                        
+                        <div class="lista-documentos-mascota">
+                            <div class="caja-documento-mascota">
+                                <div class="info-documento-mascota">
+                                    <span class="nombre-documento">historial_clinico.pdf</span>
+                                    <span class="tamano-documento">(1.2 MB)</span>
+                                </div>
+                            </div>
+                            <div class="caja-documento-mascota">
+                                <div class="info-documento-mascota">
+                                    <span class="nombre-documento">historial_vacunas.pdf</span>
+                                    <span class="tamano-documento">(1.2 MB)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3>Agregar Documento</h3>
+                    <div class="form-grupo" >
+                        <label for="pdf-mascota"> Subir Documento (pdf)</label>
+                        <input type="file" id="pdf-mascota" name="pdf-mascota" accept=".pdf" multiple>
+                        <p> El tamaño máximo configurado en el servidor es de <b>XXX</b> por archivo.</p>
+                    </div>
+                    
+                </div>
+                <div id="medicamento-mascota">
+                    <div id="contenedor-medicamentos-mascota">
+                        <h3>Agregar Medicamento</h3>
+                        <div class="forma-medicamento-row">
+                            <input type="text" placeholder="Medicamento (ej. Amoxicilina)" class="input-med">
+                            <input type="text" placeholder="Dosis (ej. 5 ml / 1 tableta)" class="input-dosis">
+                            <input type="text" placeholder="Frecuencia (ej. Cada 12 horas)" class="input-frec">
+                            <input type="text" placeholder="Duración (ej. 7 días)" class="input-dur">
+                            <button type="button" class="btn-agregar">+</button>
+                        </div>
+                    </div>
+                    <table class="tabla-medicamentos">
+                        <thead>
+                            <tr>
+                                <th>Medicamento</th>
+                                <th>Dosis</th>
+                                <th>Frecuencia</th>
+                                <th>Duración</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Amoxicilina</strong></td>
+                                <td>5 ml</td>
+                                <td>Cada 12 horas</td>
+                                <td>7 días</td>
+                                <td class="celda-accion">
+                                    <div class="opciones">
+                                        <a href="#">Editar</a><br>
+                                        <a href="#">Eliminar</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Meloxicam</strong></td>
+                                <td>0.3 ml</td>
+                                <td>Cada 24 horas</td>
+                                <td>3 días</td>
+                                <td class="celda-accion">
+                                    <div class="opciones">
+                                        <a href="#">Editar</a><br>
+                                        <a href="#">Eliminar</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="citas-mascota">
+
+                </div>
+
+
+            </div>
+                  
+        </section>
+        
+    </main>
+    <footer>
+        <p>&copy; Copyright Ctrl+PET 2026</p>
+    </footer>
+</body>
+</html>
