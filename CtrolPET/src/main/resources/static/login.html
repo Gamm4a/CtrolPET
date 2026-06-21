@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ctrl + PET - Login</title>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+        </style>
+    <link rel="stylesheet" href="styles/styles.css">
+
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <img src="imgs/iconos/logo.png" alt="logo de ctrl+PET.">
+        </div>
+
+        <input type="checkbox" id="anvorguesa">
+        <label for="anvorguesa" class="menu-button">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+        
+        <nav class="header-nav">
+            <a href="index.html">Inicio</a>
+            <a href="servicios.html">Servicios</a>
+            <a href="contacto.html">Contacto</a>
+        </nav>
+        <div class="botones-header">
+            <a href="../templates/login.html" class="btn-login">Iniciar Sesión</a>
+            <a href="registro.html" class="btn-register">Registrarse</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="contenedor-inicio-sesion">
+
+            <img src="imgs/otras/imagen-login.webp" alt="perro y gato juntos">
+
+            <div class="formulario-login">
+
+                <input type="radio" name="pasos" id="switch-login-paso1" checked>
+                <input type="radio" name="pasos" id="switch-login-paso2">
+
+                <h2>Bienvenido</h2>
+                <p>Inicia sesión para continuar</p>
+
+                <div class="selector-rol">
+                    <a href="login-admin.html">Soy Administrador</a>
+                </div>
+
+                <div id="paso1-login">
+                    <div class="campo-formulario">
+                        <label for="correo">Correo electrónico: </label>
+                        <input type="email" id="correo" placeholder="Ej. luis.perez@gmail.com" >
+                    </div>
+
+                    <div class="button-tag">
+                        <label for="switch-login-paso2" class="btn-continuar">Continuar</label>
+                        <p>¿No tienes una cuenta? <a href="registro.html">Regístrate</a></p>
+                    </div>
+
+                </div>
+                
+                <div id="paso2-login">
+                    <div class="campo-formulario">
+                    <label for="contrasenia">Contraseña: </label>
+                    <input type="password" id="contrasenia" placeholder="***********">
+                    </div> 
+                    <div class="button-tag">
+                        <a href="login.html" class="btn-login">Iniciar Sesión</a>
+                        <p>¿No tienes una cuenta? <a href="registro.html">Regístrate</a></p>
+                    </div>
+                        
+                </div>
+                
+            </div>
+        </section>
+
+        
+    </main>
+
+    <footer>
+        <p>&copy; Copyright Ctrl+PET 2026</p>
+    </footer>
+</body>
+</html>
