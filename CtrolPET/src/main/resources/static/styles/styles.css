@@ -2271,3 +2271,87 @@ input[name="pasos"] {
     }
     
 }
+
+
+
+
+
+
+
+/* AQUI EMPIEZA ADMIN MOBILE*/
+@media (max-width: 760px){
+    .contenedor-inicio-sesion-admin{
+       display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+       padding: 1rem;
+    }
+.formulario-login{
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.formulario-login input{
+    width: 100%;
+    box-sizing: border-box;
+}
+    #dashboard-admin{
+        flex-direction: column;
+        overflow: hidden;
+        width: 100%;
+    }
+    .nav-aside-admin{
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        border-radius: var(--radio);
+    }
+    #admin-inicio , #admin-citas,
+     #admin-servicios, #adminveterinarios,
+     #admin-sucursales{
+        width: 100%;
+        box-sizing: border-box;
+        padding: 15px;
+     }
+     .area-tabla{
+        overflow: auto;
+     }
+     .tabla-citas-admin{
+        min-width: 550px;
+     }
+      #buscador-citas {
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+        margin: 10px 0;
+      }
+     #buscador-citas input{
+        width: 100%;
+        box-sizing: border-box;
+     }
+     .encabezado-admin h1{
+        font-size: 1.4rem;
+     }
+     .modal-overlay .modal-caja{
+        width: 90%;
+        max-width: 85vh;
+        overflow: auto;
+     }
+     .form-botones{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+     }
+     .form-botones .btn-continuar,
+     .form-botones label.btn-anterior{
+        width: 100%;
+        text-align: center;
+        margin: 0;
+        align-self: center;
+        box-sizing: border-box;
+     }
+    }
+/* AQUI TERMINA ADMIN MOBILE*/
