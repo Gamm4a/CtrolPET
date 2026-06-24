@@ -15,7 +15,7 @@ public class Sucursal {
 
     ObjectId id_sucursal;
     String nombre;
-    String direccion;
+    Direccion direccion;
     String telefono;
     String correo;
     String password;
