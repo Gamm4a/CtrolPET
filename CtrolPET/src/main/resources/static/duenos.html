@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ctrl + PET - Gestionar Dueños</title>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+        </style>
+    <link rel="stylesheet" href="styles/styles.css">
+
+</head>
+<body>
+    <main>
+        
+        <section id="gestion-dueno">
+
+            <div id="contenedor-dueno">
+                <div class="grupo-botones" id="btn-regresar">
+                    <a th:href="@{/admin}" class="btn-anterior"> Regresar</a>
+                </div>
+                
+                <div class="contenedor-caja-dueno">
+                    <div class="contenedor-imagen">
+                        <img th:src="@{/imgs/iconos/icono-perfil-usuario.png}">
+                        <div class="controles-foto">
+                            <form th:action="@{/dueno/cambiar-foto/{id}(id=${dueno.id})}" method="PUT" enctype="multipart/form-data" class="forma-foto">
+                            <input type="file" name="foto" accept="image/*" required>
+                            <button type="submit" class="btn-registrarme">Guardar foto</button>
+                        </div>
+                    </div>
+                    <div id="info-dueno" th:if="${modoEdicion != true}">
+                        <h3>Cliente</h3>
+                        <p th:text="${dueno.nombre} + ' ' + ${dueno.ap_paterno} + ' ' + ${dueno.ap_materno}">Nombre</p>
+                        <p th:text="${dueno.telefono}">Teléfono</p>
+                        <p th:text="${dueno.correo}">Correo</p>
+                        <p th:text="${dueno.fch_nacimiento}">Fecha Nacimiento</p>
+                        <label th:href="@{/dueno/gestion/{id}?editar=true(id=${dueno.id})}" class="btn-registrarme">Editar</label>
+                    </div> 
+                    <div class="info-dueno" th:unless="${modoEdicion != true}">
+                        <form th:action="@{/dueno/actualizar/{id}(id=${dueno.id})}" method="PATCH" id="info-dueno">
+                            <h3>Editar Datos</h3>
+                            <input type="text" name="nombre" th:value="${dueno.nombre}">
+                            <input type="text" name="ap_paterno" th:value="${dueno.ap_paterno}">
+                            <input type="text" name="ap_materno" th:value="${dueno.ap_materno}">
+                            <input type="text" name="correo" th:value="${dueno.correo}">
+                            <input type="text" name="fch_nacimiento" th:value="${dueno.fch_nacimiento}">
+                            <button type="submit" class="btn-registrarme">Guardar</button>
+                            <a th:href="@{/dueno/gestion/{id}(id=${dueno.id})}" class="btn-anterior">Cancelar</a>
+                        </form>
+                    </div>       
+                </div>    
+
+                <div id="duenos-mascotas">
+                    <div class="contenedor-caja-mascota" th:each="pet : ${dueno.mascota}">
+                        <a th:href="@{/mascota/gestion/{id}(id=${pet.id})}" class="tarjeta-mascota">
+                            <div>
+                                <img th:src="@{imgs/iconos/icono-gato.png}">
+                            </div>
+                            <div class="info-mascota">
+                                <h3 th:text="${pet.nombre}">Nombre</h3>
+                                <p th:text="${pet.especie}">Especie</p>
+                                <p th:text="${pet.raza}">Raza</p>
+                                <p th:text="${pet.edad}">Edad</p>
+                                <p th:text="${pet.sexo}">Sexo</p>
+                                <p th:text="${pet.esterilizado} ? 'Esterilizado' : 'No Esterilizado'">Esterilizado</p>
+                            </div>  
+                        </a>
+                    </div> 
+
+                </div>
+
+            </div>
+                  
+        </section>
+        
+    </main>
+    <footer>
+        <p>&copy; Copyright Ctrl+PET 2026</p>
+    </footer>
+</body>
+</html>
