@@ -22,21 +22,29 @@ public class ReservaService {
     @Autowired
     private ReservaRepository reservaRepository;
 
-    public Reserva guardar(Reserva reserva){
+    public Reserva guardar(Reserva reserva) {
+
 
         reserva.setEstado(EstadoReserva.PENDIENTE);
 
-        if (LocalDateTime.now().isBefore(reserva.getFecha())
-                && reserva.getMascota() != null
-                && reserva.getServicio() != null
-                && reserva.getId_Empleado() != null){
-
-            return reservaRepository.save(reserva);
-
+        if (reserva.getMascota() == null) {
+            throw new IllegalArgumentException("La reserva debe estar asociada a una mascota válida.");
         }
 
-        return null;
+        if (reserva.getServicio() == null) {
+            throw new IllegalArgumentException("Debe seleccionar un servicio para la reserva.");
+        }
 
+        if (reserva.getId_Empleado() == null) {
+            throw new IllegalArgumentException("Debe asignar un empleado/especialista a la reserva.");
+        }
+
+        if (reserva.getFecha() == null || !LocalDateTime.now().isBefore(reserva.getFecha())) {
+            throw new IllegalArgumentException("La fecha de la reserva debe ser un momento en el futuro.");
+        }
+
+
+        return reservaRepository.save(reserva);
     }
 
     public List<Reserva> obtenerTodos(){
@@ -59,41 +67,62 @@ public class ReservaService {
 
     }
 
-    public Reserva actualizarCompleto(ObjectId id, Reserva reservaActualizado){
+    public Reserva actualizarCompleto(ObjectId id, Reserva reservaActualizado) {
 
-        if (LocalDateTime.now().isBefore(reservaActualizado.getFecha())
-                && reservaActualizado.getMascota() != null
-                && reservaActualizado.getServicio() != null
-                && reservaActualizado.getId_Empleado() != null
-                && reservaActualizado.getEstado() != null) {
-
-            return reservaRepository.findById(id).map(reserva -> {
-                reserva.setId_Empleado(reservaActualizado.getId_Empleado());
-                reserva.setEstado(reservaActualizado.getEstado());
-                reserva.setFecha(reservaActualizado.getFecha());
-                reserva.setMascota(reservaActualizado.getMascota());
-                reserva.setServicio(reservaActualizado.getServicio());
-                return reservaRepository.save(reserva);
-            }).orElse(null);
-
+        if (reservaActualizado.getMascota() == null) {
+            throw new IllegalArgumentException("La reserva debe tener una mascota.");
+        }
+        if (reservaActualizado.getServicio() == null) {
+            throw new IllegalArgumentException("La reserva debe tener un servicio.");
+        }
+        if (reservaActualizado.getId_Empleado() == null) {
+            throw new IllegalArgumentException("La reserva debe tener un empleado asignado.");
+        }
+        if (reservaActualizado.getEstado() == null) {
+            throw new IllegalArgumentException("El estado de la reserva no puede ser nulo.");
+        }
+        if (reservaActualizado.getFecha() == null || !LocalDateTime.now().isBefore(reservaActualizado.getFecha())) {
+            throw new IllegalArgumentException("La nueva fecha debe ser un momento en el futuro.");
         }
 
-        return null;
+
+        return reservaRepository.findById(id).map(reservaExistente -> {
+            reservaExistente.setId_Empleado(reservaActualizado.getId_Empleado());
+            reservaExistente.setEstado(reservaActualizado.getEstado());
+            reservaExistente.setFecha(reservaActualizado.getFecha());
+            reservaExistente.setMascota(reservaActualizado.getMascota());
+            reservaExistente.setServicio(reservaActualizado.getServicio());
+            return reservaRepository.save(reservaExistente);
+        }).orElse(null);
 
     }
 
     public Reserva actualizarParcial(ObjectId id, Reserva reservaParcial) {
+        return reservaRepository.findById(id).map(reserva -> {
 
-            return reservaRepository.findById(id).map(reserva -> {
-                if (reservaParcial.getId_Empleado() != null) reserva.setId_Empleado(reservaParcial.getId_Empleado());
-                if (reservaParcial.getEstado() != null) reserva.setEstado(reservaParcial.getEstado());
-                if (reservaParcial.getFecha() != null && LocalDateTime.now().isBefore(reservaParcial.getFecha())) reserva.setFecha(reservaParcial.getFecha());
-                if (reservaParcial.getMascota() != null) reserva.setMascota(reservaParcial.getMascota());
-                if (reservaParcial.getServicio() != null) reserva.setServicio(reservaParcial.getServicio());
+            if (reservaParcial.getId_Empleado() != null) {
+                reserva.setId_Empleado(reservaParcial.getId_Empleado());
+            }
+            if (reservaParcial.getEstado() != null) {
+                reserva.setEstado(reservaParcial.getEstado());
+            }
+            if (reservaParcial.getMascota() != null) {
+                reserva.setMascota(reservaParcial.getMascota());
+            }
+            if (reservaParcial.getServicio() != null) {
+                reserva.setServicio(reservaParcial.getServicio());
+            }
 
-                return reservaRepository.save(reserva);
-            }).orElse(null);
 
+            if (reservaParcial.getFecha() != null) {
+                if (!LocalDateTime.now().isBefore(reservaParcial.getFecha())) {
+                    throw new IllegalArgumentException("La nueva fecha modificada debe ser en el futuro.");
+                }
+                reserva.setFecha(reservaParcial.getFecha());
+            }
+
+            return reservaRepository.save(reserva);
+        }).orElse(null);
     }
 
     public List<Reserva> obtenerPorEmpleado(ObjectId id_Empleado){
