@@ -1301,6 +1301,164 @@ input[name="pasos"] {
     text-decoration: none;
 }
 /* AQUI EMPIEZA LA RESERVA PARA USUARIO LOGUEADO */
+ 
+.contenedor-reserva-logueado {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto;
+    align-items: start;
+    gap: 60px;
+    padding: 50px 60px;
+}
+
+.imagen-reserva-logueado {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--espacio-cercano);
+}
+
+.imagen-reserva-logueado p {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--texto);
+    text-align: center;
+}
+
+.imagen-reserva-logueado img {
+    width: 100%;
+    border-radius: var(--radio);
+    object-fit: cover;
+}
+
+.formulario-reserva-logueado {
+    display: flex;
+    flex-direction: column;
+    gap: var(--espacio-cercano);
+}
+
+.formulario-reserva-logueado h2 {
+    font-size: 1.6rem;
+    color: var(--texto);
+    text-align: center;
+    margin-bottom: var(--espacio-cercano);
+}
+
+.btn-agendar {
+    background: var(--acento);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: var(--radio);
+    cursor: pointer;
+    box-shadow: var(--sombra);
+    font-family: var(--font-estilo);
+    width: max-content;
+    margin-top: var(--espacio-cercano);
+}
+
+.btn-agendar:hover {
+    background: var(--highlight);
+}
+
+#icon-menu {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    right: 20px;
+    top: 16px;
+    padding: 10px;
+    font-size: 20px;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+/* AQUI TERMINA LA RESERVA PARA USUARIO LOGUEADO */
+
+
+/* PARA RESERVA MOBILE */
+
+@media (max-width: 768px) {
+    .pagina-citas {
+        min-width: 0;
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    .imagen-reserva-logueado {
+        display: none;
+    }
+
+    .contenedor-reserva-logueado {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    .formulario-reserva-logueado {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .campo-formulario {
+        width: 100%;
+    }
+
+    .campo-formulario select,
+    .campo-formulario input {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .btn-agendar {
+        width: 100%;
+        padding: 12px 20px;
+        font-size: 1rem;
+    }
+
+    header {
+        padding: 10px 15px;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    #icon-menu {
+        display: flex;
+        font-size: 30px;
+        cursor: pointer;
+    }
+
+    .header-nav,
+    .botones-header {
+        display: none;
+        width: 100%;
+    }
+
+    #menu-hamburguer:checked ~ header {
+        flex-direction: column;
+    }
+
+    #menu-hamburguer:checked ~ header .header-nav,
+    #menu-hamburguer:checked ~ header .botones-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        padding-bottom: 10px;
+    }
+}
+
+/* AQUI TERMINA RESERVA MOBILE */
 
 .contenedor-reserva-logueado, .contedor-reserva-sin-login {
     display: grid;
@@ -2160,3 +2318,87 @@ input[name="pasos"] {
     }
     
 }
+
+
+
+
+
+
+
+/* AQUI EMPIEZA ADMIN MOBILE*/
+@media (max-width: 760px){
+    .contenedor-inicio-sesion-admin{
+       display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+       padding: 1rem;
+    }
+.formulario-login{
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.formulario-login input{
+    width: 100%;
+    box-sizing: border-box;
+}
+    #dashboard-admin{
+        flex-direction: column;
+        overflow: hidden;
+        width: 100%;
+    }
+    .nav-aside-admin{
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        border-radius: var(--radio);
+    }
+    #admin-inicio , #admin-citas,
+     #admin-servicios, #adminveterinarios,
+     #admin-sucursales{
+        width: 100%;
+        box-sizing: border-box;
+        padding: 15px;
+     }
+     .area-tabla{
+        overflow: auto;
+     }
+     .tabla-citas-admin{
+        min-width: 550px;
+     }
+      #buscador-citas {
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+        margin: 10px 0;
+      }
+     #buscador-citas input{
+        width: 100%;
+        box-sizing: border-box;
+     }
+     .encabezado-admin h1{
+        font-size: 1.4rem;
+     }
+     .modal-overlay .modal-caja{
+        width: 90%;
+        max-width: 85vh;
+        overflow: auto;
+     }
+     .form-botones{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+     }
+     .form-botones .btn-continuar,
+     .form-botones label.btn-anterior{
+        width: 100%;
+        text-align: center;
+        margin: 0;
+        align-self: center;
+        box-sizing: border-box;
+     }
+    }
+/* AQUI TERMINA ADMIN MOBILE*/
