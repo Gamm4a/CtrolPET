@@ -1,4 +1,4 @@
-package Config;
+package config;
 
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;

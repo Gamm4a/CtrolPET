@@ -1,4 +1,4 @@
-package Entity.Enum;
+package model.Enum;
 
 public enum EstadoReserva {
     PENDIENTE, CANCELADO, FINALIZADO
