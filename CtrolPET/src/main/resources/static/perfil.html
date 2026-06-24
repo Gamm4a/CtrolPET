@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ctrl + PET - Perfil</title>
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+    </style>
+
+  <link rel="stylesheet" href="styles/styles.css">
+
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <img src="imgs/iconos/logo.png" alt="logo de ctrl+PET.">
+    </div>
+
+    <input type="checkbox" id="anvorguesa">
+        <label for="anvorguesa" class="menu-button">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+
+    <nav class="header-nav">
+      <a href="index.html">Inicio</a>
+      <a href="servicios.html">Servicios</a>
+      <a href="contacto.html">Contacto</a>
+      <a href="../templates/perfil.html">Perfil</a>
+    </nav>
+    <div class="botones-header">
+      <a class="btn-cerrar-sesion">Cerrar Sesión</a>
+    </div>
+  </header>
+
+
+  <main class="contenido-perfil">
+
+    <input type="radio" id="tab-perfil" name="tabs-navegacion" checked class="tab-control">
+    <input type="radio" id="tab-mascotas" name="tabs-navegacion" class="tab-control">
+    <input type="radio" id="tab-citas" name="tabs-navegacion" class="tab-control">
+
+    <div class="perfil-nav">
+      <label for="tab-perfil" class="menu-item">
+        <img src="imgs/iconos/icono-perfil-usuario.png" alt="icono de perfil"/>
+        <p>Mi Perfil</p>
+      </label>
+
+      <label for="tab-mascotas" class="menu-item">
+        <img src="imgs/iconos/icono-perfil-mascotas.png" alt="icono-mascotas"/>
+        <p>Mis Mascotas</p>
+      </label>
+
+      <label for="tab-citas" class="menu-item">
+        <img src="imgs/iconos/icono-perfil-citas.png" alt="icono-citas"/>
+        <p>Mis Citas</p>
+      </label>
+
+      <div class="menu-item" data-target="cerrar">
+        <img src="imgs/iconos/icono-perfil-cerrar-sesion.png" alt="icono-cerrar-sesión"/>
+        <p>Cerrar Sesión</p>
+      </div>
+    </div>
+
+    <div class="main-panel">
+
+      <div class="seccion-panel" id="seccion-perfil">
+        <h2>MI PERFIL</h2>
+        <div id="contenido-perfil">
+          <div class="datos-usuario">
+            <div><label>Nombre completo:</label><input type="text" placeholder="nombre ejemplo" disabled></div>
+            <div><label>Correo electrónico:</label><input type="email" placeholder="correo ejemplo" disabled></div>
+            <div><label>Teléfono:</label><input type="text" placeholder="numero ejemplo" disabled></div>
+          </div>
+          <div class="der-main-panel">
+            <img id="imagen-usuario" src="imgs/iconos/icono-perfil-usuario.png" alt="imagen del usuario">
+            <a class="btn-editar-perfil">Editar Perfil</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="seccion-panel" id="seccion-mascotas">
+        <h2>MIS MASCOTAS</h2>
+
+        <div class="arriba-menu-mascotas">
+
+          <div class="seleccionador-mascota">
+            <label for="mascota-select">Mascota</label>
+            <select name="mascota" id="mascota-select">
+              <option value="">mascota ejemplo</option>
+            </select>
+          </div>
+
+          <div class="botones-mascotas">
+
+            <a class="btn-agregar-mascota">Agregar Mascota</a>
+            <a class="btn-Agendar-cita">Agendar Cita</a>
+
+          </div>
+
+        </div>
+
+        <div class="dashboard-mascota">
+
+          <div class="info-izquierda">
+            <div class="header-mascota">
+              <div class="foto"></div>
+              <div class="nombre-raza">
+                <h3>nombre mascota ejemplo</h3>
+                <p>raza ejemplo&bull; n años</p>
+              </div>
+            </div>
+
+            <div class="apariencia">
+              <h4>Apariencia:</h4>
+              <p><strong>Género:</strong> ...</p>
+              <p><strong>Color:</strong> ...</p>
+              <p><strong>Peso:</strong> ...</p>
+              <p><strong>Distintivos:</strong> ...</p>
+              <p><strong>Esterilización:</strong> ...</p>
+            </div>
+          </div>
+
+          <div class="tarjetas">
+
+            <div class="tarjeta-info">
+              <div class="tarjeta-header">
+                <h4>Resumen</h4>
+              </div>
+              <div class="tarjeta-body">
+                <div class="barra-estado vacuna">
+                  <span>Vacunas ejemplo</span>
+                  <span class="estado azul">Al corriente</span>
+                </div>
+                <div class="barra-estado desparasitacion">
+                  <span>Desparasitación ejemplo</span>
+                  <span class="estado naranja">Próxima</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="tarjeta-info">
+              <div class="tarjeta-header">
+                <h4>Citas</h4>
+                <a href="#" class="ver-todo">Ver todo</a>
+              </div>
+              <div class="tarjeta-body">
+                <div class="item-lista">
+                  <div class="item-row">
+                    <strong>cita ejemplo</strong>
+                    <span class="gris">Completada</span>
+                  </div>
+                  <span class="item-fecha">Mie, 15 de abril, 2026 10:00 AM(fecha de ejemplo)</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="tarjeta-info">
+              <div class="tarjeta-header">
+                <h4>Medicamentos</h4>
+                <a href="#" class="ver-todo">Ver todo</a>
+              </div>
+              <div class="tarjeta-body">
+                <div class="item-lista">
+                  <strong>Vacuna: ejemplo</strong>
+                  <span class="item-fecha">Jue, 12 de febrero, 2026 11:30 AM(fecha ejemplo)</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="tarjeta-info">
+              <div class="tarjeta-header">
+                <h4>Documentos</h4>
+                <a href="#" class="ver-todo">Ver todo</a>
+              </div>
+              <div class="tarjeta-body">
+                <div class="item-lista doc-row">
+                  <div class="doc-info">
+                    <span class="icono-pdf">📄</span>
+                    <div class="doc-texto">
+                      <strong>nombre documento ejemplo</strong>
+                      <span class="item-fecha">Jue, 12 de febrero, 2026 11:30 AM(fecha ejemplo)</span>
+                    </div>
+                  </div>
+                  <span class="icono-descarga">⬇️</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="seccion-panel" id="seccion-citas">
+          <h2>MIS CITAS</h2>
+          <div class="texto-header">
+            <h3>Todas las citas</h3>
+          </div>
+
+        <div class="citas-body">
+          <div class="info-izquierda-mascotas">
+            <div class="filtro">
+              <h4>Selecciona un rango de fechas</h4>
+              <h3>Buscar por fecha 🗓️</h3>
+              <div class="selectores-fecha">
+                <input type="date" class="selector-fecha">
+                <input type="date" class="selector-fecha">
+              </div>
+              <div class="botones-filtro">
+                <input type="button" value="Cancelar">
+                <input type="button" value="Aceptar">
+              </div>
+            </div>
+            <div class="boton-citas">
+              <a class="btn-agenda">Agendar cita</a>
+            </div>
+          </div>
+          <div class="area-tabla">
+
+            <table class="tabla-citas">
+              <thead>
+              <tr>
+                <th>Mascota</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Servicio</th>
+                <th>Veterinario</th>
+                <th>Costo</th>
+                <th>Estado</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>Suzy</td>
+                <td>22/06/2026</td>
+                <td>11:30 am</td>
+                <td>Consulta</td>
+                <td>Dr. María López</td>
+                <td>$300</td>
+                <td>Activa</td>
+              </tr>
+              <tr>
+                <td>Luna</td>
+                <td>15/04/2026</td>
+                <td>10:00 am</td>
+                <td>Estética y Baño</td>
+                <td>Dr. María López</td>
+                <td>$450</td>
+                <td>Completada</td>
+              </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+
+
+  <footer>
+    <p>&copy; Copyright Ctrl+PET 2026</p>
+  </footer>
+
+</body>
+</html>
