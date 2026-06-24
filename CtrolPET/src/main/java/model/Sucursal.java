@@ -13,12 +13,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document
 public class Sucursal {
 
-    ObjectId id_sucursal;
-    String nombre;
-    String direccion;
-    String telefono;
-    String correo;
-    String password;
-    List<Empleado> empleados;
+    private ObjectId id_sucursal;
+    private String nombre;
+    private String direccion;
+    private String telefono;
+    private String correo;
+    private String password;
+    private List<Empleado> empleados;
 
 }

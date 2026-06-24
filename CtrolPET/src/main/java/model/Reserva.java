@@ -15,12 +15,12 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Document
 public class Reserva {
-    ObjectId id_Reserva;
-    ObjectId id_Empleado;
-    LocalDateTime fecha;
-    EstadoReserva estado;
-    Mascota mascota;
-    Servicio servicio;
+    private ObjectId id_Reserva;
+    private ObjectId id_Empleado;
+    private LocalDateTime fecha;
+    private EstadoReserva estado;
+    private Mascota mascota;
+    private Servicio servicio;
 
 
 }

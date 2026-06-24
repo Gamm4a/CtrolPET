@@ -12,10 +12,10 @@ import java.time.Instant;
 @NoArgsConstructor
 @Document
 public class Mascota {
-    String nombre;
-    String especie;
-    String raza;
-    Instant fch_nacimiento;
-    String descripcion;
+    private String nombre;
+    private String especie;
+    private String raza;
+    private Instant fch_nacimiento;
+    private String descripcion;
 
 }

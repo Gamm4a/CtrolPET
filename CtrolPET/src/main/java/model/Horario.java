@@ -14,8 +14,8 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @Document
 public class Horario {
-    DiaSemana dia;
-    LocalTime hora_entrada;
-    LocalTime hora_salida;
+    private DiaSemana dia;
+    private LocalTime hora_entrada;
+    private LocalTime hora_salida;
 
 }

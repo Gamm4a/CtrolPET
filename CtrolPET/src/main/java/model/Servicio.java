@@ -10,6 +10,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @AllArgsConstructor
 @Document
 public class Servicio {
-    String tipo;
-    String descripcion;
+    private String tipo;
+    private String descripcion;
 }
