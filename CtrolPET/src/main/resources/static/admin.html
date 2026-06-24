@@ -68,6 +68,18 @@
                                 <th>Estado</th>
                             </tr>
                         </thead>
+                        <tbody>
+                             <tr th:each="reserva : ${listaReservas}">
+                                <th th:text="${reserva.mascota.dueño.nombre}">Dueño</th>
+                                <th th:text="${reserva.mascota.nombre}">Mascota</th>
+                                <th th:text="${reserva.fecha}">Fecha</th>
+                                <th th:text="${reserva.fecha}">Hora</th>
+                                <th th:text="${reserva.servicio.tipo}">Servicio</th>
+                                <th th:text="${reserva.id_Empleado}">Veterinario</th>
+                                <th th:text="${'$' + reserva.servicio.costo}">Costo</th>
+                                <th th:text="${reserva.estado}">Estado</th>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
                 
@@ -102,36 +114,21 @@
                             <th>Estado</th>
                         </tr>
                     </thead>
-                    <tbody>
-                    <tr tabindex="0">
-                        <td>Zaira Barajas</td>
-                        <td>Suzy</td>
-                        <td>22/06/2026</td>
-                        <td>11:30 am</td>
-                        <td>Consulta</td>
-                        <td>Dr. María López</td>
-                        <td>$300</td>
-                        <td>Activa</td>
+                  <tbody>
+                    <tr th:each="reserva : ${listaReservas}" tabindex="0">
+                        <th th:text="${reserva.mascota.dueño.nombre}">Dueño</th>
+                                <th th:text="${reserva.mascota.nombre}">Mascota</th>
+                                <th th:text="${reserva.fecha}">Fecha</th>
+                                <th th:text="${reserva.fecha}">Hora</th>
+                                <th th:text="${reserva.servicio.tipo}">Servicio</th>
+                                <th th:text="${reserva.id_empleado}">Veterinario</th>
+                                <th th:text="${'$' + reserva.servicio.costo}">Costo</th>
+                                <th th:text="${reserva.estado}">Estado</th>
                         <td class="celda-accion">
                             <div class="opciones">
-                                <a href="#">Editar</a><br>
-                                <a href="#">Eliminar</a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr tabindex="0">
-                        <td>Zaira Barajas</td>
-                        <td>Luna</td>
-                        <td>15/04/2026</td>
-                        <td>10:00 am</td>
-                        <td>Estética y Baño</td>
-                        <td>Dr. María López</td>
-                        <td>$450</td>
-                        <td>Completada</td>
-                        <td class="celda-accion">
-                            <div class="opciones">
-                                <a href="#">Editar</a><br>
-                                <a href="#">Eliminar</a>
+                                <a href="@{/admin/citas/editar/{id}({id=${reserva.id_reserva}})}">Editar</a><br>
+                                <a href="@{/admin/citas/eliminar/{id}({id=${reserva.id_reserva}})}"
+                                onsubmit="return confirm('¿Seguro que desea eliminar la cita?')">Eliminar</a>
                             </div>
                         </td>
                     </tr>
@@ -153,39 +150,42 @@
                     <label for="control-modal-servicio" class="btn-agenda">Agregar servicio</label>
                 </div>
                 <div class="contenedor-servicios-admin">
-                    <div class="servicio-caja-admin">
+                    <div class="servicio-caja-admin" th:each="servicio : ${listaServicios}">
                         <div class="servicio-info">
-                            <h3>Consulta General</h3>
-                            <p class="descripcion">Chequeos preventivos y evaluación de malestares específicos.</p>
-                            <span class="precio">$300</span>
+                            <h3 th:text="${servicio.tipo}">Consulta General</h3>
+                            <p class="descripcion" th:text="${servicio.descripcion}">Chequeos preventivos y evaluación de malestares específicos.</p>
+                            <span class="precio" th:text="${ '$' + servicio.costo}">$300</span>
                         </div>
                         <div class="servicio-opciones">
                             <a href="#modal-editar-servicio" class="btn-editar">Editar</a>
-                            <a href="#" class="btn-eliminar">Eliminar</a>
+                            <a href="@{/admin/servicios/eliminar/{id}(id=${servicio.id_Servicio})}" 
+                            class="btn-eliminar" onclick="return confirm('¿Seguro que deseas eliminar este servicio?')">Eliminar</a>
                         </div>
                     </div>
 
                     <div class="servicio-caja-admin">
                         <div class="servicio-info">
-                            <h3>Estética y Baño</h3>
-                            <p class="descripcion">Técnicas profesionales de higiene y estética, con cuidado integral de la piel, pelo, uñas y oídos.</p>
-                            <span class="precio">$450</span>
+                            <h3 th:text="${servicio.tipo}">Estética y Baño</h3>
+                            <p class="descripcion" th:text="${servicio.descripcion}">Técnicas profesionales de higiene y estética, con cuidado integral de la piel, pelo, uñas y oídos.</p>
+                            <span class="precio" th:text="${ '$' + servicio.costo}">$450</span>
                         </div>
                         <div class="servicio-opciones">
                             <a href="#modal-editar-servicio" class="btn-editar">Editar</a>
-                            <a href="#" class="btn-eliminar">Eliminar</a>
+                            <a href="@{/admin/servicios/eliminar/{id}(id=${servicio.id_Servicio})}"
+                             class="btn-eliminar" onclick="return confirm('¿Seguro que deseas eliminar este servicio?')">Eliminar</a>
                         </div>
                     </div>
 
                     <div class="servicio-caja-admin">
                         <div class="servicio-info">
-                            <h3>Cuidado Dental</h3>
-                            <p>Evaluación especializada, diagnóstico y tratamiento de la salud bucal de mascotas</p>
-                            <span class="precio">$500</span>
+                            <h3 th:text="${servicio.tipo}">Cuidado Dental</h3>
+                            <p th:text="${servicio.descripcion}">Evaluación especializada, diagnóstico y tratamiento de la salud bucal de mascotas</p>
+                            <span class="precio" th:text="${ '$' + servicio.costo}">$500</span>
                         </div> 
                         <div class="servicio-opciones">
                             <a href="#modal-editar-servicio" class="btn-editar">Editar</a>
-                            <a href="#" class="btn-eliminar">Eliminar</a>
+                            <a href="@{/admin/servicios/eliminar/{id}(id=${servicio.id_Servicio})}" 
+                            class="btn-eliminar" onclick="return confirm('¿Seguro que deseas eliminar este servicio?')">Eliminar</a>
                         </div>
                     </div>
                     
@@ -262,19 +262,19 @@
                 <div class="agregar">
                     <label for="control-modal-veterinario" class="btn-agenda">Agregar veterinario</label>
                 </div>
-                <div class="contenedor-veterinarios-admin">
+                <div class="contenedor-veterinarios-admin" >
 
-                    <div class="veterinario-caja-admin">
+                    <div class="veterinario-caja-admin" th:each="empleado : ${listaEmpleados}">
                         <div class="info-vet">
-                            <h3>Dra. María López</h3>
-                            <label>Especialidad: <p>Medicina General, Cirugía</p></label>
-                            <label>Correo: <p>maria.lopez@ctrlpet.com</p></label>
-                            <label>teléfono: <p>6441589865</p></label>
+                            <h3 th:text="${empleado.nombre + empleado.ap_paterno}">Dra. María López</h3>
+                            <label th:text="${empleado.puesto}">Especialidad: <p>Medicina General, Cirugía</p></label>
+                            <label th:text="${empleado.correo}">Correo: <p>maria.lopez@ctrlpet.com</p></label>
+                            <label th:text="${empleado.telefono}">teléfono: <p>6441589865</p></label>
                             
                         </div>
                         <div class="veterinarios-opciones">
                             <a href="#modal-editar-veterinario" class="btn-editar">Editar</a>
-                            <a href="#" class="btn-eliminar">Eliminar</a>
+                            <a href="@{/admin/veterinarios/eliminar/{id}(id=${empleado.id_Empleado})}" class="btn-eliminar" onclick="return confim('¿Seguro que deseas eliminar a este veterinario?')">Eliminar</a>
                         </div>
                     </div>
 
@@ -364,16 +364,16 @@
                 <div class="contenedor-sucursales-admin">
 
                     <div class="sucursales-caja-admin">
-                        <div class="info-sucursal">
-                            <h3>Centro</h3>
-                            <label>Dirección: <p>Gatubela #2007,Centro</p></label>
-                            <label>Correo: <p>centro@ctrlpet.com</p></label>
-                            <label>teléfono: <p>6441234567</p></label>
+                        <div class="info-sucursal" th:each="sucursal : ${listaSucursales}">
+                            <h3 th:text="${sucursal.nombre}">Centro</h3>
+                            <label th:text="${sucursal.direccion}"> Dirección: <p>Gatubela #2007,Centro</p></label>
+                            <label th:text="${sucursal.correo}">Correo: <p>centro@ctrlpet.com</p></label>
+                            <label th:text="${sucursal.telefono}">teléfono: <p>6441234567</p></label>
                             
                         </div>
                         <div class="sucursal-opciones">
                             <a href="#modal-editar-sucursal" class="btn-editar">Editar</a>
-                            <a href="#" class="btn-eliminar">Eliminar</a>
+                            <a th:href="@{/admin/sucursales/eliminar/{id}(id=${sucursal.id_sucursal})}"  class="btn-eliminar"  onclick="return confirm('¿Seguro que deseas eliminar esta sucursal?')">Eliminar</a>
                         </div>
                     </div>
 
