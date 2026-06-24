@@ -33,7 +33,7 @@
     ☰ </label>
     </header> 
     <main>
-        <section class = "contenedor-reserva-logueado">
+        <section class = "contenedor-reserva-logueado" th:if="${usuario != null}">
             <div class="imagen-reserva-logueado">
                  <p>¡Estamos ansiosos por verte!</p>
                 <img src = "imgs/otras/imagen-agendarConLogin.png" alt=Veterinaria con un gatito>
@@ -41,12 +41,15 @@
             <div class = "formulario-reserva-logueado"> 
                 <h2>Agendar Cita</h2>
                <div class="campo-formulario"> 
-    <label for="mascota">Mascota</label>
-    <select id="mascota" required>
-        <option>Luna</option>
-        <option>Suzy</option>
-    </select>
-</div>
+                    <label for="mascota">Mascota</label>
+                    <select id="mascota" required>
+                        <option 
+                                th:each="mascota : ${usuario.mascotas}" 
+                                th:value="${mascota.id}" 
+                                th:text="${mascota.nombre}">
+                        </option>
+                    </select>
+                </div>
             <div class="campo-formulario">
                 <label for="servicio">Servicio:</label>
                 <select id="servicio" required>
@@ -75,6 +78,88 @@
             </div>
             <button class="btn-agendar">Agendar mi cita</button>
             </div>
+        </section>
+
+        <section class="contenedor-reserva-sin-login" th:unless="${usuario != null}">
+
+            <div class="imagen-reserva-sin-login">
+                <p>¿Cambiaste de opinión y sí deseas un expediente digital para tu mascota?  <a th:href="@{/registro}">¡Regístrate!</a></p>
+                <img src="imgs/otras/imagen-reserva-sinLogin.png" alt="Perro parado en dos patas">
+            </div>
+            <input type="checkbox" id="control-modal-reserva" class="modal-switch" checked hidden>
+
+                <div class="modal-overlay">
+                    <div class="modal-caja">
+                        
+                        <p><span>💡Tip</span>: Te recomendamos registrarte primero.
+                             Al hacerlo, crearemos un expediente digital para tu mascota donde se guardarán 
+                             automáticamente sus resultados médicos, laboratorios y recordatorios de salud. 
+                             ¡Ideal para llevar su historial sin papeleos!</p>
+                        <div class="form-botones-reserva">
+                            <label for="control-modal-reserva" class="btn-no-registrarme">Continuar sin registrarme</label>
+                            <a th:href="@{/registro}" class="btn-registrarme">¡Registrarme y Agendar!</a>
+
+                        </div>
+                       
+                    </div>
+                </div>
+
+            
+            <form class="formulario-reserva-sin-login">
+                    <div class="campo-formulario">
+                        <label for="nombre">Nombre completo</label>
+                        <input type="text" id="nombre" placeholder="Ej. Luis Pérez" required>
+                    </div>
+                    <div class="campo-formulario">
+                        <label for="telefono">Teléfono</label>
+                        <input type="tel" id="telefono" placeholder="Ej. 6441234567" required>
+                    </div>
+                    <div class="campo-formulario">
+                        <label for="nombre-mascota">Nombre de tu mascota:</label>
+                        <input type="text" id="nombre-mascota" placeholder="Ej. Oreo" required>
+                    </div>
+                    <div class="campo-formulario">
+
+                    <label for="tipo-mascota">Tipo de mascota</label>
+                    <select id="tipo-mascota" required>
+                        <option value="">Selecciona un tipo...</option>
+                        <option value="perro">Perro</option>
+                        <option value="gato">Gato</option>
+                        <option value="roedor">Roedor</option>
+                        <option value="ave">Ave</option>
+                    </select>
+                    </div>
+
+                    <div class="campo-formulario">
+                    <label for="raza-mascota">Raza de tu mascota:</label>
+                     <select id="raza-mascota" required>
+                        <option value="">Selecciona una raza...</option>
+                    </select>
+                    </div>
+                    <div class="campo-formulario">
+                    <label for="servicio">Servicio:</label>
+                    <select id="servicio" required>
+                        <option value="">Selecciona un servicio...</option>
+                        <option value="consulta">Consulta</option>
+                        <option value="estetica">Estética & Spa</option>
+                        <option value="dental">Cuidado Dental</option>
+                        <option value="diagnostico">Diagnóstico</option>
+                        <option value="cirugia">Cirugía</option>
+                        <option value="hospitalizacion">Hospitalización</option>
+                    </select>
+                    </div>
+
+                     <div class="campo-formulario">
+                    <label for="fecha">Fecha</label>
+                    <input type="date" id="fecha" required>
+                    </div>
+
+                    <div class="campo-formulario">
+                        <label for="hora">Hora</label>
+                        <input type="time" id="hora" required>
+                    </div>
+            </form>
+
         </section>
     </main>
     <footer>
