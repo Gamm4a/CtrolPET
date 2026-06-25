@@ -1,16 +1,18 @@
-package service;
+package com.example.ctrolpet.service;
 
 
-import model.Enum.EstadoReserva;
-import model.Mascota;
-import model.Reserva;
-import model.Servicio;
+
+import com.example.ctrolpet.model.Enum.EstadoReserva;
+import com.example.ctrolpet.model.Mascota;
+import com.example.ctrolpet.model.Reserva;
+import com.example.ctrolpet.model.Servicio;
+import com.example.ctrolpet.repository.ReservaRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import repository.ReservaRepository;
+
 
 
 import java.time.LocalDateTime;
@@ -31,11 +33,11 @@ public class ReservaService {
             throw new IllegalArgumentException("La reserva debe estar asociada a una mascota válida.");
         }
 
-        if (reserva.getServicio() == null) {
+        if (reserva.getServicios() == null || reserva.getServicios().isEmpty()) {
             throw new IllegalArgumentException("Debe seleccionar un servicio para la reserva.");
         }
 
-        if (reserva.getId_Empleado() == null) {
+        if (reserva.getIdEmpleado() == null) {
             throw new IllegalArgumentException("Debe asignar un empleado/especialista a la reserva.");
         }
 
@@ -72,10 +74,10 @@ public class ReservaService {
         if (reservaActualizado.getMascota() == null) {
             throw new IllegalArgumentException("La reserva debe tener una mascota.");
         }
-        if (reservaActualizado.getServicio() == null) {
+        if (reservaActualizado.getServicios() == null || reservaActualizado.getServicios().isEmpty()) {
             throw new IllegalArgumentException("La reserva debe tener un servicio.");
         }
-        if (reservaActualizado.getId_Empleado() == null) {
+        if (reservaActualizado.getIdEmpleado() == null) {
             throw new IllegalArgumentException("La reserva debe tener un empleado asignado.");
         }
         if (reservaActualizado.getEstado() == null) {
@@ -87,11 +89,11 @@ public class ReservaService {
 
 
         return reservaRepository.findById(id).map(reservaExistente -> {
-            reservaExistente.setId_Empleado(reservaActualizado.getId_Empleado());
+            reservaExistente.setIdEmpleado(reservaActualizado.getIdEmpleado());
             reservaExistente.setEstado(reservaActualizado.getEstado());
             reservaExistente.setFecha(reservaActualizado.getFecha());
             reservaExistente.setMascota(reservaActualizado.getMascota());
-            reservaExistente.setServicio(reservaActualizado.getServicio());
+            reservaExistente.setServicios(reservaActualizado.getServicios());
             return reservaRepository.save(reservaExistente);
         }).orElse(null);
 
@@ -100,8 +102,8 @@ public class ReservaService {
     public Reserva actualizarParcial(ObjectId id, Reserva reservaParcial) {
         return reservaRepository.findById(id).map(reserva -> {
 
-            if (reservaParcial.getId_Empleado() != null) {
-                reserva.setId_Empleado(reservaParcial.getId_Empleado());
+            if (reservaParcial.getIdEmpleado() != null) {
+                reserva.setIdEmpleado(reservaParcial.getIdEmpleado());
             }
             if (reservaParcial.getEstado() != null) {
                 reserva.setEstado(reservaParcial.getEstado());
@@ -109,8 +111,8 @@ public class ReservaService {
             if (reservaParcial.getMascota() != null) {
                 reserva.setMascota(reservaParcial.getMascota());
             }
-            if (reservaParcial.getServicio() != null) {
-                reserva.setServicio(reservaParcial.getServicio());
+            if (reservaParcial.getServicios() != null || !reservaParcial.getServicios().isEmpty()) {
+                reserva.setServicios(reservaParcial.getServicios());
             }
 
 

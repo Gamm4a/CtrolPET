@@ -1,8 +1,4 @@
-<<<<<<<< Updated upstream:CtrolPET/src/main/java/Config/Config.java
-package Config;
-========
 package com.example.ctrolpet.config;
->>>>>>>> Stashed changes:CtrolPET/src/main/java/com/example/ctrolpet/config/Config.java
 
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;

@@ -5,17 +5,23 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.LocalTime;
+import java.util.Set;
 
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document
 public class Horario {
-    DiaSemana dia;
-    LocalTime hora_entrada;
-    LocalTime hora_salida;
+
+    private Set<DiaSemana>  dias;
+
+    @Field(name = "hora_entrada")
+    private LocalTime horaEntrada;
+
+    @Field(name = "hora_salida")
+    private LocalTime horaSalida;
 
 }

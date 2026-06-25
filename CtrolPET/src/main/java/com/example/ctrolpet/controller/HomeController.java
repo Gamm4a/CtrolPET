@@ -1,7 +1,7 @@
 package com.example.ctrolpet.controller;
 
 import jakarta.servlet.http.HttpSession;
-import com.example.ctrolpet.model.Dueño;
+import com.example.ctrolpet.model.Dueno;
 import com.example.ctrolpet.model.Empleado;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,10 +43,10 @@ public class HomeController {
                                 HttpSession session,
                                 Model model){
 
-        Dueño dueño = dueñoService.autenticar(correo, contrasenia);
+        Dueno dueno = dueñoService.autenticar(correo, contrasenia);
 
-        if(dueño != null){
-            session.setAttribute("id_dueño", dueño.getId_dueño());
+        if(dueno != null){
+            session.setAttribute("id_dueño", dueno.getId_dueño());
             return "redirect:/index";
         } else {
             model.addAttribute("error", "Credenciales Incorrectas");
@@ -63,7 +63,7 @@ public class HomeController {
         Empleado empleado = empleadoService.autenticar(correo, contrasenia);
 
         if(empleado != null){
-            session.setAttribute("id_Empleado", empleado.getId_Empleado());
+            session.setAttribute("id_Empleado", empleado.getIdEmpleado());
             return "redirect:/admin";
         } else {
             model.addAttribute("error", "Credenciales Incorrectas");

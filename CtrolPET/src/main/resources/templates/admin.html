@@ -70,7 +70,7 @@
                         </thead>
                         <tbody>
                              <tr th:each="reserva : ${listaReservas}">
-                                <th th:text="${reserva.mascota.dueño.nombre}">Dueño</th>
+                                <th th:text="${reserva.mascota.dueno.nombre}">Dueño</th>
                                 <th th:text="${reserva.mascota.nombre}">Mascota</th>
                                 <th th:text="${reserva.fecha}">Fecha</th>
                                 <th th:text="${reserva.fecha}">Hora</th>
@@ -116,7 +116,7 @@
                     </thead>
                   <tbody>
                     <tr th:each="reserva : ${listaReservas}" tabindex="0">
-                        <th th:text="${reserva.mascota.dueño.nombre}">Dueño</th>
+                        <th th:text="${reserva.mascota.dueno.nombre}">Dueño</th>
                                 <th th:text="${reserva.mascota.nombre}">Mascota</th>
                                 <th th:text="${reserva.fecha}">Fecha</th>
                                 <th th:text="${reserva.fecha}">Hora</th>

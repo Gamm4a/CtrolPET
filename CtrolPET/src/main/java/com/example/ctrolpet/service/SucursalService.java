@@ -1,11 +1,13 @@
-package service;
+package com.example.ctrolpet.service;
 
-import model.Sucursal;
+
+import com.example.ctrolpet.model.Sucursal;
+import com.example.ctrolpet.repository.SucursalRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import repository.SucursalRepository;
+
 
 import java.util.List;
 

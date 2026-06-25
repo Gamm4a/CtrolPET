@@ -1,10 +1,12 @@
-package service;
+package com.example.ctrolpet.service;
 
-import model.Servicio;
+
+import com.example.ctrolpet.model.Servicio;
+import com.example.ctrolpet.repository.ServicioRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import repository.ServicioRepository;
+
 
 import java.util.List;
 
