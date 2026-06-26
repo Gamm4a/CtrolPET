@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +7,7 @@
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
         </style>
-    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="/styles/styles.css">
 
 </head>
 <body>
@@ -29,25 +29,25 @@
                         <span></span>
                     </label>
                 <nav class="header-nav-admin">
-                    <img src="imgs/iconos/logo-dark.png">
+                    <img src="/imgs/iconos/logo-dark.png">
                     <label for="pestana-inicio" class="enlace-nav">Inicio</label>
                     <label for="pestana-citas" class="enlace-nav">Citas</label>
                     <label for="pestana-servicios" class="enlace-nav">Servicios</label>
                     <label for="pestana-veterinarios" class="enlace-nav">Veterinarios</label>
                     <label for="pestana-sucursales" class="enlace-nav">Sucursales</label>
-                    <a href="login-admin.html" class="enlace-nav">Cerrar sesión</a>
+                    <a th:href="@{/login-admin}" class="enlace-nav">Cerrar sesión</a>
                 </nav>
             </aside>
             
            
             <section id="admin-inicio">
-                <div id="tag-rol">
-                    <span>Rol activo</span>
+                <div class="tag-rol">
+                    <span th:text="${empleado.puesto}">Rol activo</span>
                 </div>
                 <div class="encabezado-admin">
                     <h1>Dashboard Administrativo</h1>
                 </div>
-                <div id="buscador-citas">
+                <div class="buscador-citas">
                     <input type="text" name="buscar" placeholder="Buscar"></input>
                     <a href="" class="btn-agenda">Ver tabla de dueños</a>
                     <a href="" class="btn-agenda">Ver tabla de mascotas</a>
@@ -75,7 +75,7 @@
                                 <th th:text="${reserva.fecha}">Fecha</th>
                                 <th th:text="${reserva.fecha}">Hora</th>
                                 <th th:text="${reserva.servicio.tipo}">Servicio</th>
-                                <th th:text="${reserva.id_Empleado}">Veterinario</th>
+                                <th th:text="${reserva.idEmpleado}">Veterinario</th>
                                 <th th:text="${'$' + reserva.servicio.costo}">Costo</th>
                                 <th th:text="${reserva.estado}">Estado</th>
                             </tr>
@@ -87,14 +87,14 @@
             </section>
 
             <section id="admin-citas">
-                <div id="tag-rol">
-                    <span>Rol activo</span>
+                <div class="tag-rol">
+                    <span th:text="${empleado.puesto}">Rol activo</span>
                 </div>
                 <div class="encabezado-admin">
                     <h1>Gestor de Citas</h1>
                 </div>
 
-                <div id="buscador-citas">
+                <div class="buscador-citas">
                     <input type="text" name="buscar" placeholder="Buscar cita"></input>
                     <a href="" class="btn-agenda">Agendar cita</a>
                 </div>
@@ -121,14 +121,14 @@
                                 <th th:text="${reserva.fecha}">Fecha</th>
                                 <th th:text="${reserva.fecha}">Hora</th>
                                 <th th:text="${reserva.servicio.tipo}">Servicio</th>
-                                <th th:text="${reserva.id_empleado}">Veterinario</th>
+                                <th th:text="${reserva.idEmpleado}">Veterinario</th>
                                 <th th:text="${'$' + reserva.servicio.costo}">Costo</th>
                                 <th th:text="${reserva.estado}">Estado</th>
                         <td class="celda-accion">
                             <div class="opciones">
-                                <a href="@{/admin/citas/editar/{id}({id=${reserva.id_reserva}})}">Editar</a><br>
-                                <a href="@{/admin/citas/eliminar/{id}({id=${reserva.id_reserva}})}"
-                                onsubmit="return confirm('¿Seguro que desea eliminar la cita?')">Eliminar</a>
+                                <a th:href="@{/admin/citas/editar/{id}(id=${reserva.idReserva})}">Editar</a>
+                                <a th:href="@{/admin/citas/eliminar/{id}(id=${reserva.idReserva})}"
+                                   onclick="return confirm('¿Seguro?')">Eliminar</a>
                             </div>
                         </td>
                     </tr>
@@ -140,8 +140,8 @@
             </section>
 
             <section id="admin-servicios">
-                <div id="tag-rol">
-                    <span>Rol activo</span>
+                <div class="tag-rol">
+                    <span th:text="${empleado.puesto}">Rol activo</span>
                 </div>
                 <div class="encabezado-admin">
                     <h1>Gestor de Servicios</h1>
@@ -153,42 +153,15 @@
                     <div class="servicio-caja-admin" th:each="servicio : ${listaServicios}">
                         <div class="servicio-info">
                             <h3 th:text="${servicio.tipo}">Consulta General</h3>
-                            <p class="descripcion" th:text="${servicio.descripcion}">Chequeos preventivos y evaluación de malestares específicos.</p>
+                            <p class="descripcion" th:text="${servicio.descripcion}">Descripción...</p>
                             <span class="precio" th:text="${ '$' + servicio.costo}">$300</span>
                         </div>
                         <div class="servicio-opciones">
                             <a href="#modal-editar-servicio" class="btn-editar">Editar</a>
-                            <a href="@{/admin/servicios/eliminar/{id}(id=${servicio.id_Servicio})}" 
-                            class="btn-eliminar" onclick="return confirm('¿Seguro que deseas eliminar este servicio?')">Eliminar</a>
+                            <a th:href="@{/admin/servicios/eliminar/{id}(id=${servicio.idServicio})}"
+                               class="btn-eliminar" onclick="return confirm('¿Seguro que deseas eliminar este servicio?')">Eliminar</a>
                         </div>
                     </div>
-
-                    <div class="servicio-caja-admin">
-                        <div class="servicio-info">
-                            <h3 th:text="${servicio.tipo}">Estética y Baño</h3>
-                            <p class="descripcion" th:text="${servicio.descripcion}">Técnicas profesionales de higiene y estética, con cuidado integral de la piel, pelo, uñas y oídos.</p>
-                            <span class="precio" th:text="${ '$' + servicio.costo}">$450</span>
-                        </div>
-                        <div class="servicio-opciones">
-                            <a href="#modal-editar-servicio" class="btn-editar">Editar</a>
-                            <a href="@{/admin/servicios/eliminar/{id}(id=${servicio.id_Servicio})}"
-                             class="btn-eliminar" onclick="return confirm('¿Seguro que deseas eliminar este servicio?')">Eliminar</a>
-                        </div>
-                    </div>
-
-                    <div class="servicio-caja-admin">
-                        <div class="servicio-info">
-                            <h3 th:text="${servicio.tipo}">Cuidado Dental</h3>
-                            <p th:text="${servicio.descripcion}">Evaluación especializada, diagnóstico y tratamiento de la salud bucal de mascotas</p>
-                            <span class="precio" th:text="${ '$' + servicio.costo}">$500</span>
-                        </div> 
-                        <div class="servicio-opciones">
-                            <a href="#modal-editar-servicio" class="btn-editar">Editar</a>
-                            <a href="@{/admin/servicios/eliminar/{id}(id=${servicio.id_Servicio})}" 
-                            class="btn-eliminar" onclick="return confirm('¿Seguro que deseas eliminar este servicio?')">Eliminar</a>
-                        </div>
-                    </div>
-                    
                 </div>
 
                 <input type="checkbox" id="control-modal-servicio" class="modal-switch" hidden>
@@ -253,8 +226,8 @@
             </section>
 
             <section id="admin-veterinarios">
-                <div id="tag-rol">
-                    <span>Rol activo</span>
+                <div class="tag-rol">
+                    <span th:text="${empleado.puesto}">Rol activo</span>
                 </div>
                 <div class="encabezado-admin">
                     <h1>Gestor de Veterinarios</h1>
@@ -266,7 +239,7 @@
 
                     <div class="veterinario-caja-admin" th:each="empleado : ${listaEmpleados}">
                         <div class="info-vet">
-                            <h3 th:text="${empleado.nombre + empleado.ap_paterno}">Dra. María López</h3>
+                            <h3 th:text="${empleado.nombre + ' ' + empleado.apellidoPaterno}">Dra. María López</h3>
                             <label th:text="${empleado.puesto}">Especialidad: <p>Medicina General, Cirugía</p></label>
                             <label th:text="${empleado.correo}">Correo: <p>maria.lopez@ctrlpet.com</p></label>
                             <label th:text="${empleado.telefono}">teléfono: <p>6441589865</p></label>
@@ -274,7 +247,7 @@
                         </div>
                         <div class="veterinarios-opciones">
                             <a href="#modal-editar-veterinario" class="btn-editar">Editar</a>
-                            <a href="@{/admin/veterinarios/eliminar/{id}(id=${empleado.id_Empleado})}" class="btn-eliminar" onclick="return confim('¿Seguro que deseas eliminar a este veterinario?')">Eliminar</a>
+                            <a th:href="@{/admin/veterinarios/eliminar/{id}(id=${empleado.idEmpleado})}" class="btn-eliminar" onclick="return confirm('¿Seguro que deseas eliminar a este veterinario?')">Eliminar</a>
                         </div>
                     </div>
 
@@ -304,8 +277,8 @@
                             </div>
 
                             <div class="form-grupo">
-                                <label for="telefono">Teléfono:</label>
-                                <input type="tel" id="telefono" placeholder="Ej. 6441234567" required>
+                                <label>Teléfono:</label>
+                                <input type="tel"  name= "telefono" placeholder="Ej. 6441234567" required>
                             </div>
                             
                             <div class="form-botones">
@@ -338,8 +311,8 @@
                             </div>
 
                             <div class="form-grupo">
-                                <label for="telefono">Teléfono:</label>
-                                <input type="tel" id="telefono" placeholder="Ej. 6441234567" required>
+                                <label>Teléfono:</label>
+                                <input type="tel" name="telefono" placeholder="Ej. 6441234567" required>
                             </div>
                             
                             <div class="form-botones">
@@ -352,8 +325,8 @@
             </section>
 
             <section id="admin-sucursales">
-                <div id="tag-rol">
-                    <span>Rol activo</span>
+                <div class="tag-rol">
+                    <span th:text="${empleado.puesto}">Rol activo</span>
                 </div>
                 <div class="encabezado-admin">
                     <h1>Gestor de Sucursales</h1>
@@ -363,17 +336,16 @@
                 </div>
                 <div class="contenedor-sucursales-admin">
 
-                    <div class="sucursales-caja-admin">
-                        <div class="info-sucursal" th:each="sucursal : ${listaSucursales}">
+                    <div class="sucursales-caja-admin" th:each="sucursal : ${listaSucursales}">
+                        <div class="info-sucursal">
                             <h3 th:text="${sucursal.nombre}">Centro</h3>
-                            <label th:text="${sucursal.direccion}"> Dirección: <p>Gatubela #2007,Centro</p></label>
-                            <label th:text="${sucursal.correo}">Correo: <p>centro@ctrlpet.com</p></label>
-                            <label th:text="${sucursal.telefono}">teléfono: <p>6441234567</p></label>
-                            
+                            <label> Dirección: <p th:text="${sucursal.direccion}">Gatubela #2007</p></label>
+                            <label> Correo: <p th:text="${sucursal.correo}">centro@ctrlpet.com</p></label>
+                            <label> Teléfono: <p th:text="${sucursal.telefono}">6441234567</p></label>
                         </div>
                         <div class="sucursal-opciones">
                             <a href="#modal-editar-sucursal" class="btn-editar">Editar</a>
-                            <a th:href="@{/admin/sucursales/eliminar/{id}(id=${sucursal.id_sucursal})}"  class="btn-eliminar"  onclick="return confirm('¿Seguro que deseas eliminar esta sucursal?')">Eliminar</a>
+                            <a th:href="@{/admin/sucursales/eliminar/{id}(id=${sucursal.idSucursal})}" class="btn-eliminar" onclick="return confirm('¿Eliminar?')">Eliminar</a>
                         </div>
                     </div>
 
@@ -388,38 +360,38 @@
                         
                         <form class="form-modal">
                             <div class="form-grupo">
-                                <label for="nombre">Nombre de la sucursal:</label>
-                                <input type="text" id="nombre" placeholder="Ej. Centro" required>
+                                <label>Nombre de la sucursal:</label>
+                                <input type="text" name="nombre" placeholder="Ej. Centro" required>
                             </div>
                             
                             <div class="form-grupo">
-                                <label for="telefono">Teléfono</label>
-                                <input type="tel" id="telefono" placeholder="Ej. 6441234567" required>
+                                <label>Teléfono</label>
+                                <input type="tel" name="telefono" placeholder="Ej. 6441234567" required>
                             </div>
                             
                             <div class="form-grupo">
-                                <label for="direccion">Dirección:</label>
-                                <input type="tel" id="direccion" placeholder="Ej. Gatubela #2007,Centro" required>
+                                <label>Dirección:</label>
+                                <input type="tel" name="direccion" placeholder="Ej. Gatubela #2007,Centro" required>
                             </div>
 
                             <div class="form-grupo">
-                                <label for="correo">Correo electrónico: </label>
-                                <input type="email" id="correo" placeholder="Ej. sucursal@ctrlpet.com" >
+                                <label>Correo electrónico: </label>
+                                <input type="email" name="correo" placeholder="Ej. sucursal@ctrlpet.com" >
                             </div>
 
                              <div class="form-grupo">
-                                <label for="correo-confirmar">Confirma tu correo electrónico: </label>
-                                <input type="email" id="correo-confirmar" placeholder="Repite tu correo">
+                                <label>Confirma tu correo electrónico: </label>
+                                <input type="email" name="correo-confirmar" placeholder="Repite tu correo">
                             </div>
 
                              <div class="form-grupo">
-                                <label for="contrasenia">Contraseña: </label>
-                                <input type="password" id="contrasenia" placeholder="***********">
+                                <label>Contraseña: </label>
+                                <input type="password" name="contrasenia" placeholder="***********">
                             </div>
 
                              <div class="form-grupo">
-                                <label for="contrasenia-confirmar">Confirma tu contraseña: </label>
-                                <input type="password" id="contrasenia-confirmar" placeholder="Repite tu contraseña" >
+                                <label>Confirma tu contraseña: </label>
+                                <input type="password" name="contrasenia-confirmar" placeholder="Repite tu contraseña" >
                             </div>
                             
                             <div class="form-botones">

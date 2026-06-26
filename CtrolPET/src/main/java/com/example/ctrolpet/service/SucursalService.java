@@ -14,8 +14,8 @@ import java.util.List;
 @Service
 public class SucursalService {
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private SucursalRepository sucursalRepository;
@@ -31,15 +31,15 @@ public class SucursalService {
         if (sucursal.getTelefono() == null || !sucursal.getTelefono().matches("^\\d{10}$")) {
             throw new IllegalArgumentException("El teléfono debe contener exactamente 10 dígitos numéricos.");
         }
-        if (sucursal.getCorreo() == null || sucursal.getCorreo().isBlank()) {
-            throw new IllegalArgumentException("El correo electrónico es obligatorio.");
-        }
-        if (sucursal.getPassword() == null || sucursal.getPassword().isBlank()) {
-            throw new IllegalArgumentException("La contraseña es obligatoria.");
-        }
-
-        //La sucursar tiene contraseña?
-        sucursal.setPassword(passwordEncoder.encode(sucursal.getPassword()));
+//        if (sucursal.getCorreo() == null || sucursal.getCorreo().isBlank()) {
+//            throw new IllegalArgumentException("El correo electrónico es obligatorio.");
+//        }
+//        if (sucursal.getPassword() == null || sucursal.getPassword().isBlank()) {
+//            throw new IllegalArgumentException("La contraseña es obligatoria.");
+//        }
+//
+//        //La sucursar tiene contraseña?
+//        sucursal.setPassword(passwordEncoder.encode(sucursal.getPassword()));
 
         return sucursalRepository.save(sucursal);
     }
@@ -73,23 +73,23 @@ public class SucursalService {
         if (sucursalActualizada.getTelefono() == null || !sucursalActualizada.getTelefono().matches("^\\d{10}$")) {
             throw new IllegalArgumentException("El teléfono debe contener exactamente 10 dígitos numéricos.");
         }
-        if (sucursalActualizada.getCorreo() == null || sucursalActualizada.getCorreo().isBlank()) {
-            throw new IllegalArgumentException("El correo electrónico es obligatorio.");
-        }
-        if (sucursalActualizada.getPassword() == null || sucursalActualizada.getPassword().isBlank()) {
-            throw new IllegalArgumentException("La contraseña es obligatoria.");
-        }
-
-        //La sucursar tiene contraseña?
-        sucursalActualizada.setPassword(passwordEncoder.encode(sucursalActualizada.getPassword()));
+//        if (sucursalActualizada.getCorreo() == null || sucursalActualizada.getCorreo().isBlank()) {
+//            throw new IllegalArgumentException("El correo electrónico es obligatorio.");
+//        }
+//        if (sucursalActualizada.getPassword() == null || sucursalActualizada.getPassword().isBlank()) {
+//            throw new IllegalArgumentException("La contraseña es obligatoria.");
+//        }
+//
+//        //La sucursar tiene contraseña?
+//        sucursalActualizada.setPassword(passwordEncoder.encode(sucursalActualizada.getPassword()));
 
 
         return sucursalRepository.findById(id).map(sucursal -> {
             sucursal.setNombre(sucursalActualizada.getNombre());
             sucursal.setDireccion(sucursalActualizada.getDireccion());
             sucursal.setTelefono(sucursalActualizada.getTelefono());
-            sucursal.setCorreo(sucursalActualizada.getCorreo());
-            sucursal.setPassword(sucursalActualizada.getPassword());
+//            sucursal.setCorreo(sucursalActualizada.getCorreo());
+//            sucursal.setPassword(sucursalActualizada.getPassword());
             sucursal.setEmpleados(sucursalActualizada.getEmpleados()); // Se reemplaza la lista completa
 
             return sucursalRepository.save(sucursal);
@@ -114,15 +114,15 @@ public class SucursalService {
                 sucursal.setTelefono(sucursalParcial.getTelefono());
             }
 
-            if (sucursalParcial.getCorreo() != null && !sucursalParcial.getCorreo().isBlank()) {
-                sucursal.setCorreo(sucursalParcial.getCorreo());
-            }
-
-            if (sucursalParcial.getPassword() != null && !sucursalParcial.getPassword().isBlank()) {
-                //La sucursar tiene contraseña?
-                sucursalParcial.setPassword(passwordEncoder.encode(sucursalParcial.getPassword()));
-                sucursal.setPassword(sucursalParcial.getPassword());
-            }
+//            if (sucursalParcial.getCorreo() != null && !sucursalParcial.getCorreo().isBlank()) {
+//                sucursal.setCorreo(sucursalParcial.getCorreo());
+//            }
+//
+//            if (sucursalParcial.getPassword() != null && !sucursalParcial.getPassword().isBlank()) {
+//                //La sucursar tiene contraseña?
+//                sucursalParcial.setPassword(passwordEncoder.encode(sucursalParcial.getPassword()));
+//                sucursal.setPassword(sucursalParcial.getPassword());
+//            }
 
             if (sucursalParcial.getEmpleados() != null) {
                 sucursal.setEmpleados(sucursalParcial.getEmpleados());

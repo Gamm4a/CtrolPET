@@ -32,7 +32,7 @@ public class HomeController {
         return "login";
     }
 
-    @GetMapping("/login-admin")
+    @GetMapping({"/login-admin", "/login-admin.html"})
     public String mostrarLoginAdmin(){
         return "login-admin";
     }
@@ -46,7 +46,7 @@ public class HomeController {
         Dueno dueno = dueñoService.autenticar(correo, contrasenia);
 
         if(dueno != null){
-            session.setAttribute("id_dueño", dueno.getId_dueño());
+            session.setAttribute("idDueño", dueno.getIdDueno());
             return "redirect:/index";
         } else {
             model.addAttribute("error", "Credenciales Incorrectas");
@@ -63,12 +63,17 @@ public class HomeController {
         Empleado empleado = empleadoService.autenticar(correo, contrasenia);
 
         if(empleado != null){
-            session.setAttribute("id_Empleado", empleado.getIdEmpleado());
+            session.setAttribute("idEmpleado", empleado.getIdEmpleado());
             return "redirect:/admin";
         } else {
             model.addAttribute("error", "Credenciales Incorrectas");
             return "login-admin";
         }
+    }
+
+    @GetMapping("/admin")
+    public String adminDashboard(){
+        return "admin";
     }
 
     @GetMapping("/logout")

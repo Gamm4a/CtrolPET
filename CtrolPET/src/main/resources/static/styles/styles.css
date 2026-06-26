@@ -1693,7 +1693,7 @@ input[name="pasos"] {
 }
 
 
-#tag-rol {
+.tag-rol {
     justify-self: flex-end;
     padding: var(--espacio);
 }
@@ -1787,13 +1787,13 @@ input[name="pasos"] {
     margin-bottom: var(--espacio-cercano);
 }
 
-#buscador-citas {
+.buscador-citas {
     display: flex;
     gap: var(--espacio);
     margin: var(--espacio);
 }
 
-#buscador-citas input {
+.buscador-citas input {
     padding: var(--espacio-cercano);
     border-radius: var(--radio);
 }
@@ -2368,13 +2368,13 @@ input[name="pasos"] {
      .tabla-citas-admin{
         min-width: 550px;
      }
-      #buscador-citas {
+      .buscador-citas {
         flex-direction: column;
         width: 100%;
         gap: 10px;
         margin: 10px 0;
       }
-     #buscador-citas input{
+     .buscador-citas input{
         width: 100%;
         box-sizing: border-box;
      }

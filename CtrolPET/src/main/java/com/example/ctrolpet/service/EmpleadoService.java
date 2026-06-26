@@ -18,8 +18,8 @@ public class EmpleadoService {
     @Autowired
     private EmpleadosRepository empleadosRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private HttpSession httpSession;
@@ -29,16 +29,19 @@ public class EmpleadoService {
 
         if(empleadoOptional.isPresent()){
             Empleado empleado = empleadoOptional.get();
-            if(passwordEncoder.matches(contrasenia, empleado.getContrasenia())){
+            if(contrasenia.matches(empleado.getContrasenia())){
                 return empleado;
             }
+//            if(passwordEncoder.matches(contrasenia, empleado.getContrasenia())){
+//                return empleado;
+//            }
         }
 
         return null;
     }
 
     public Empleado obtenerEmpleadoLogueado(){
-        ObjectId empeladoId = (ObjectId) httpSession.getAttribute("id_Empleado");
+        ObjectId empeladoId = (ObjectId) httpSession.getAttribute("idEmpleado");
         if (empeladoId != null){
             Optional <Empleado> empleadoOptional = empleadosRepository.findById(empeladoId);
             return empleadoOptional.get();
@@ -63,10 +66,9 @@ public class EmpleadoService {
         if (empleado.getPuesto() == null) {
             throw new IllegalArgumentException("El puesto es obligatorio.");
         }
-        if (empleado.getHorarios() == null || empleado.getHorarios().isEmpty()) {
+        if (empleado.getHorarios() == null) {
             throw new IllegalArgumentException("El empleado debe tener al menos un horario asignado.");
         }
-
 
         return empleadosRepository.save(empleado);
     }
@@ -106,7 +108,7 @@ public class EmpleadoService {
         if (empleadoActualizado.getPuesto() == null) {
             throw new IllegalArgumentException("El puesto es obligatorio.");
         }
-        if (empleadoActualizado.getHorarios() == null || empleadoActualizado.getHorarios().isEmpty()) {
+        if (empleadoActualizado.getHorarios() == null) {
             throw new IllegalArgumentException("El empleado debe tener al menos un horario asignado.");
         }
 
@@ -153,9 +155,6 @@ public class EmpleadoService {
 
 
             if (empleadoParcial.getHorarios() != null) {
-                if (empleadoParcial.getHorarios().isEmpty()) {
-                    throw new IllegalArgumentException("No se puede dejar al empleado sin horarios.");
-                }
                 empleado.setHorarios(empleadoParcial.getHorarios());
             }
 

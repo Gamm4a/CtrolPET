@@ -127,35 +127,27 @@ public class ReservaService {
         }).orElse(null);
     }
 
-    public List<Reserva> obtenerPorEmpleado(ObjectId id_Empleado){
-
+    public List<Reserva> obtenerPorEmpleado(ObjectId idEmpleado){
         Pageable pageable = (Pageable) PageRequest.of(0, 20);
-
-        return reservaRepository.findById_Empleado(id_Empleado,pageable).getContent();
+        return reservaRepository.findByIdEmpleado(idEmpleado,pageable).getContent();
 
     }
 
     public List<Reserva> obtenerPorEstado(EstadoReserva estadoReserva){
-
         Pageable pageable = (Pageable) PageRequest.of(0, 20);
-
         return reservaRepository.findByEstado(estadoReserva,pageable).getContent();
 
     }
 
     public List<Reserva> obtenerPorMascota(Mascota mascota){
-
         Pageable pageable = (Pageable) PageRequest.of(0, 20);
-
         return reservaRepository.findByMascota(mascota,pageable).getContent();
 
     }
 
     public List<Reserva> obtenerPorServicio(Servicio servicio){
-
         Pageable pageable = (Pageable) PageRequest.of(0, 20);
-
-        return reservaRepository.findByServicio(servicio,pageable).getContent();
+        return reservaRepository.findByServicios(servicio,pageable).getContent();
 
     }
 

@@ -12,12 +12,12 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface ReservaRepository extends MongoRepository<Reserva, ObjectId> {
 
-    Page<Reserva> findById_Empleado(ObjectId id, Pageable pageable);
+    Page<Reserva> findByIdEmpleado(ObjectId idEmpleado, Pageable pageable);
 
-    Page<Reserva> findByEstado(EstadoReserva estadoReserva, Pageable pageable);
+    Page<Reserva> findByEstado(EstadoReserva estado, Pageable pageable);
 
     Page<Reserva> findByMascota(Mascota mascota, Pageable pageable);
 
-    Page<Reserva> findByServicio(Servicio servicio, Pageable pageable);
+    Page<Reserva> findByServicios(Servicio servicio, Pageable pageable);
 
 }

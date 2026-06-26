@@ -1,5 +1,6 @@
 package com.example.ctrolpet.model;
 
+import com.example.ctrolpet.model.Enum.Especialidad;
 import com.example.ctrolpet.model.Enum.Puesto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,6 +31,10 @@ public class Empleado {
     @Field(name = "apellido_materno")
     private String apellidoMaterno;
 
+    private ObjectId sucursal;
+
+    private Especialidad especialidad;
+
     private String contrasenia;
 
     private String correo;
@@ -38,6 +43,8 @@ public class Empleado {
 
     private Puesto puesto;
 
-    private List<Horario> horarios;
+
+
+    private Horario horarios;
 
 }

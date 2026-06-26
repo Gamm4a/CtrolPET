@@ -6,7 +6,6 @@ import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.example.ctrolpet.repository.DuenoRepository;
 
@@ -18,8 +17,8 @@ public class DueñoService {
     @Autowired
     private DuenoRepository duenoRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private HttpSession httpSession;
@@ -29,9 +28,12 @@ public class DueñoService {
 
         if(dueñoOptional.isPresent()){
             Dueno dueno = dueñoOptional.get();
-            if(passwordEncoder.matches(contrasenia, dueno.getContrasenia())){
+            if(contrasenia.matches(dueno.getContrasenia())){
                 return dueno;
             }
+//            if(passwordEncoder.matches(contrasenia, dueno.getContrasenia())){
+//                return dueno;
+//            }
         }
 
         return null;

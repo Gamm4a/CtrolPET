@@ -21,8 +21,8 @@ public class Sucursal {
     private String nombre;
     private Direccion direccion;
     private String telefono;
-    private String correo;
-    private String password;
+//    private String correo;
+//    private String password;
     private List<Empleado> empleados;
 
 }
