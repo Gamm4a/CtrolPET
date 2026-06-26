@@ -171,7 +171,7 @@
                         
                         <h3>Nuevo Servicio</h3>
                         
-                        <form class="form-modal">
+                        <form class="form-modal" th:action="@{/admin/servicios/guardar}" method="POST">
                             <div class="form-grupo">
                                 <label>Nombre del Servicio</label>
                                 <input type="text" name="nombre" required placeholder="Ej. Desparasitación">
@@ -200,7 +200,7 @@
                         
                         <h3>Editar Servicio</h3>
                         
-                        <form class="form-modal">
+                        <form class="form-modal" th:action="@{/admin/servicios/editar}" method="POST"> 
                             <div class="form-grupo">
                                 <label>Nombre del Servicio</label>
                                 <input type="text" name="nombre" required placeholder="Nombre del servicio"> 
@@ -261,7 +261,7 @@
                         <h3>Nuevo Veterinario</h3>
                         
                         <form class="form-modal">
-                            <div class="form-grupo">
+                            <div class="form-grupo" th:action="@{/admin/veterinarios/guardar}" method="POST">
                                 <label>Nombre del Médico Veterinario:</label>
                                 <input type="text" name="nombre" required placeholder="Ej. María">
                             </div>
@@ -294,7 +294,7 @@
                         
                         <h3>Editar Veterinario</h3>
                         
-                        <form class="form-modal">
+                        <form class="form-modal" th:action="@{/admin/veterinarios/editar}" method="POST">
                             <div class="form-grupo">
                                 <label>Nombre del Médico Veterinario:</label>
                                 <input type="text" name="nombre" required placeholder="Ej. María">
@@ -358,7 +358,7 @@
                         
                         <h3>Nueva Sucursal</h3>
                         
-                        <form class="form-modal">
+                        <form class="form-modal" th:action="@{/admin/sucursales/guardar}" method="POST">
                             <div class="form-grupo">
                                 <label>Nombre de la sucursal:</label>
                                 <input type="text" name="nombre" placeholder="Ej. Centro" required>
@@ -407,7 +407,7 @@
                         
                         <h3>Editar Sucursal</h3>
                         
-                        <form class="form-modal">
+                        <form class="form-modal" th:action"@{/admin/sucursales/editar}" method="POST"> 
                             <div class="form-grupo">
                                 <label for="nombre">Nombre de la sucursal:</label>
                                 <input type="text" id="nombre" placeholder="Ej. Centro" required>
