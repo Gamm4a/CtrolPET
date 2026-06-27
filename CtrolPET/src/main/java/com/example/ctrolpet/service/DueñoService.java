@@ -77,6 +77,16 @@ public class DueñoService {
 
     }
 
+    public Mascota getMascotaById(ObjectId idMascota, ObjectId idDueno){
+        Optional <Dueno> duenoOptional = duenoRepository.findById(idDueno);
+        List<Mascota> mascotas = duenoOptional.get().getMascotas();
+        for (Mascota m:mascotas){
+            if (m.getIdMascota().equals(idMascota)){
+                return m;
+            }
+        }
+        return null;
+    }
     public void guardarMascota(Dueno dueno,Mascota mascota, MultipartFile file){
         List<Mascota> mascotas = dueno.getMascotas();
 

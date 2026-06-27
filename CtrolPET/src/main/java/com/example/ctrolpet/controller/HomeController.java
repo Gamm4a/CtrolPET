@@ -8,13 +8,15 @@ import com.example.ctrolpet.service.*;
 import jakarta.servlet.http.HttpSession;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalTime;
-import java.util.HashSet;
-import java.util.List;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
+import java.util.*;
 
 @Controller
 public class HomeController {
@@ -49,6 +51,87 @@ public class HomeController {
     public String mostrarLoginAdmin(){
         return "login-admin";
     }
+
+    @GetMapping({"/registro", "/registro.html"})
+    public String mostrarRegistro() {
+        return "registro";
+    }
+
+    @PostMapping("/registro")
+    public String procesarRegistro(
+            //datos del Dueño
+            @RequestParam("nombre") String nombre,
+            @RequestParam("telefono") String telefono,
+            @RequestParam("correo") String correo,
+            @RequestParam("contrasenia") String contrasenia,
+
+            //datos de la Mascota
+            @RequestParam("nombreMascota") String nombreMascota,
+            @RequestParam("tipoMascota") String tipoMascota,
+            @RequestParam("razaMascota") String razaMascota,
+            @RequestParam("edadMascota") Integer edadMascota,
+            @RequestParam("edadMascotaTiempo") String edadMascotaTiempo,
+            @RequestParam("sexoMascota") String sexoMascota,
+            @RequestParam("esterilizadoMascota") Boolean esterilizadoMascota,
+
+            //datos de la Cita (pero disque es opcional)
+            @RequestParam(value = "idServicio", required = false) String idServicio,
+            @RequestParam(value = "fecha", required = false) String fecha,
+            @RequestParam(value = "hora", required = false) String hora
+            ) {
+
+        Mascota mascota = new Mascota();
+        mascota.setIdMascota(new ObjectId());
+        mascota.setNombre(nombreMascota);
+        mascota.setEspecie(tipoMascota);
+        mascota.setRaza(razaMascota);
+
+        Instant fechaNacimientoMascota;
+        if ("meses".equals(edadMascotaTiempo)) {
+            fechaNacimientoMascota = Instant.now().minusSeconds(edadMascota * 30L * 24 * 60 * 60);
+        } else { // años
+            fechaNacimientoMascota = Instant.now().minusSeconds(edadMascota * 365L * 24 * 60 * 60);
+        }
+        mascota.setFechaNacimiento(fechaNacimientoMascota);
+
+        Dueno dueno = new Dueno();
+        dueno.setNombre(nombre);
+        dueno.setTelefono(telefono);
+        dueno.setCorreo(correo);
+        dueno.setContrasenia(contrasenia);
+
+        List<Mascota> mascotas = new ArrayList<>();
+        mascotas.add(mascota);
+        dueno.setMascotas(mascotas);
+
+        Dueno duenoGuardado = dueñoService.guardar(dueno);
+
+        // Segun aqui es la parte para la cita, pero pues tengo dudas todavía con esto :p
+        if (idServicio != null && !idServicio.isEmpty() && fecha != null && hora != null) {
+            try {
+                LocalDate fechaCita = LocalDate.parse(fecha);
+                LocalTime horaCita = LocalTime.parse(hora);
+                LocalDateTime fechaHoraCita = LocalDateTime.of(fechaCita, horaCita);
+
+                // Aquí se necesita crear la reserva si tienes los datos necesarios de que sucursal, veterinario
+
+                /*
+                Reserva reserva = new Reserva();
+                reserva.setMascota(mascota);
+                reserva.setFecha(fechaHoraCita);
+                reserva.setServicios(servicioService.obtenerPorId(new ObjectId(idServicio)));
+                reserva.setIdSucursal();
+                reserva.setIdEmpleado();
+                reservaService.guardar(reserva);
+                */
+            } catch (Exception e) {
+                System.err.println("Error al crear reserva: " + e.getMessage());
+            }
+        }
+
+        return "redirect:/login";
+    }
+
 
     @PostMapping("/login")
     public String procesarLogin(@RequestParam("correo") String correo,
@@ -89,13 +172,15 @@ public class HomeController {
     public String guardarServicio(@RequestParam ("tipo") String tipo,
                                   @RequestParam("especialidad") String categoria,
                                   @RequestParam ("descripcion") String descripcion,
-                                  @RequestParam ("precio") Double precio){
+                                  @RequestParam ("precio") Double precio,
+                                  @RequestParam("duracion") Integer duracion){
 
         Servicio servicioNuevo = new Servicio();
         servicioNuevo.setTipo(tipo);
         servicioNuevo.setDescripcion(descripcion);
         servicioNuevo.setPrecio(precio);
         servicioNuevo.setCategoria(Especialidad.valueOf(categoria));
+        servicioNuevo.setDuracion(duracion);
         servicioService.guardar(servicioNuevo);
 
         return "redirect:/admin";
@@ -106,13 +191,15 @@ public class HomeController {
                                  @RequestParam ("tipo") String tipo,
                                  @RequestParam("especialidad") String categoria,
                                  @RequestParam ("descripcion") String descripcion,
-                                 @RequestParam ("precio") Double precio){
+                                 @RequestParam ("precio") Double precio,
+                                 @RequestParam("duracion") Integer duracion){
 
         Servicio servicioEditar = new Servicio();
         servicioEditar.setTipo(tipo);
         servicioEditar.setDescripcion(descripcion);
         servicioEditar.setPrecio(precio);
         servicioEditar.setCategoria(Especialidad.valueOf(categoria));
+        servicioEditar.setDuracion(duracion);
         servicioService.actualizarParcial(id, servicioEditar);
 
         return "redirect:/admin";
@@ -287,6 +374,7 @@ public class HomeController {
         model.addAttribute("listaServicios", servicioService.obtenerTodos());
         model.addAttribute("listaEmpleados", empleadoService.obtenerTodos());
         model.addAttribute("listaSucursales", sucursalService.obtenerTodos());
+        model.addAttribute("listaDuenos", dueñoService.obtenerTodos());
         model.addAttribute("puestos", Puesto.values());
         model.addAttribute("especialidades", Especialidad.values());
         model.addAttribute("diasSemana", DiaSemana.values());
@@ -308,5 +396,128 @@ public class HomeController {
     @GetMapping("/contacto")
     public String contacto(){
         return "contacto";
+    }
+
+    @GetMapping("/reserva")
+    public String reservaSinLogin(Model model){
+        model.addAttribute("listaServicios", servicioService.obtenerTodos());
+        model.addAttribute("listaSucursales", sucursalService.obtenerTodos());
+        model.addAttribute("listaVeterinarios", empleadoService.obtenerTodos());
+        return "reserva";
+    }
+
+    @PostMapping("/reserva/dueno")
+    public String reservaConLogin(@RequestParam("idDueno") ObjectId idDueno, Model model,HttpSession session) {
+
+
+        ObjectId idEmpleado = (ObjectId) session.getAttribute("idEmpleado");
+
+        if (idEmpleado == null) {
+            return "redirect:/login";
+        }
+
+        Dueno dueno = dueñoService.obtenerPorId(idDueno);
+        Empleado empleadoLogueado = empleadoService.obtenerPorId(idEmpleado);
+        model.addAttribute("dueno", dueno);
+        model.addAttribute("empleado", empleadoLogueado);
+        model.addAttribute("listaMascotas", dueno.getMascotas());
+        model.addAttribute("listaServicios", servicioService.obtenerTodos());
+        model.addAttribute("listaVeterinarios", empleadoService.obtenerTodos());
+        model.addAttribute("listaSucursales", sucursalService.obtenerTodos());
+
+        return "reserva";
+    }
+
+    @PostMapping("/reserva/filtrar-horarios")
+    public String filtrarHorarios(@RequestParam("idDueno") ObjectId idDueno,
+                                  @RequestParam("idMascota") ObjectId idMascota,
+                                  @RequestParam("idSucursal") ObjectId idSucursal,
+                                  @RequestParam("idServicio") ObjectId idServicio,
+                                  @RequestParam("fecha") String fechaString,
+                                  Model model,HttpSession session) {
+
+        ObjectId idEmpleado = (ObjectId) session.getAttribute("idEmpleado");
+
+        if (idEmpleado == null) {
+            return "redirect:/login";
+        }
+
+        Dueno dueno = dueñoService.obtenerPorId(idDueno);
+        Servicio servicio = servicioService.obtenerPorId(idServicio);
+
+        LocalDate fecha = LocalDate.parse(fechaString);
+        DayOfWeek diaIngles = fecha.getDayOfWeek();
+        String diaEspanol = diaIngles.getDisplayName(TextStyle.FULL, new Locale("es", "MX")).toUpperCase();
+        diaEspanol = java.text.Normalizer.normalize(diaEspanol, java.text.Normalizer.Form.NFD)
+                .replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+
+        String especialidadRequerida = servicio.getCategoria().name();
+        List<Empleado> vetsDisponibles = empleadoService.empleadoDisponible(especialidadRequerida, diaEspanol);
+        Map<LocalTime, Empleado> mapaHorarios = new TreeMap<>();
+
+        for (Empleado emp : vetsDisponibles) {
+            if (emp.getSucursal() != null && emp.getSucursal().equals(idSucursal)) {
+                List<LocalTime> rangosDelEmpleado = servicioService.rangoCitas(
+                        emp.getHorarios().getHoraEntrada(),
+                        emp.getHorarios().getHoraSalida(),
+                        servicio.getDuracion()
+                );
+
+                // Llenamos el mapa: la clave es la hora y el valor es el objeto Empleado completo
+                for (LocalTime hora : rangosDelEmpleado) {
+                    mapaHorarios.put(hora, emp);
+                }
+            }
+        }
+
+
+        model.addAttribute("mapaHorarios", mapaHorarios);
+        model.addAttribute("dueno", dueno);
+        Empleado empleadoLogueado = empleadoService.obtenerPorId(idEmpleado);
+        model.addAttribute("empleado", empleadoLogueado);
+        model.addAttribute("listaMascotas", dueno.getMascotas());
+        model.addAttribute("listaServicios", servicioService.obtenerTodos());
+        model.addAttribute("listaSucursales", sucursalService.obtenerTodos());
+        model.addAttribute("mascotaSeleccionada", idMascota);
+        model.addAttribute("sucursalSeleccionada", idSucursal);
+        model.addAttribute("servicioSeleccionado", idServicio);
+        model.addAttribute("fechaSeleccionada", fechaString);
+
+        return "reserva";
+    }
+
+    @PostMapping("/reserva/guardar")
+    public String guardarCita(@RequestParam("idDueno") ObjectId idDueno,
+                              @RequestParam("idMascota") ObjectId idMascota,
+                              @RequestParam("idSucursal") ObjectId idSucursal,
+                              @RequestParam("idServicio") ObjectId idServicio,
+                              @RequestParam("fecha") String fechaString,
+                              @RequestParam("horaCombinada") String horaCombinada,
+                              HttpSession session) {
+
+        ObjectId idEmpleado = (ObjectId) session.getAttribute("idEmpleado");
+        if (idEmpleado == null) {
+            return "redirect:/login";
+        }
+
+        String[] partes = horaCombinada.split("_");
+        ObjectId idVeterinarioElegido = new ObjectId(partes[0]);
+        String horaString = partes[1].trim();
+        System.out.println(horaString);
+        LocalDate fecha = LocalDate.parse(fechaString);
+
+        LocalTime hora = LocalTime.parse(horaString);
+
+        LocalDateTime horayFecha = LocalDateTime.of(fecha, hora);
+
+        Reserva reserva = new Reserva();
+        reserva.setMascota(dueñoService.getMascotaById(idMascota, idDueno));
+        reserva.setFecha(horayFecha);
+        reserva.setServicios(servicioService.obtenerPorId(idServicio));
+        reserva.setIdSucursal(idSucursal);
+        reserva.setIdEmpleado(idVeterinarioElegido);
+        reservaService.guardar(reserva);
+
+        return "redirect:/admin";
     }
 }

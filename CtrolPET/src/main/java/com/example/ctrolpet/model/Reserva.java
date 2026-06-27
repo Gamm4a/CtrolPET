@@ -22,16 +22,14 @@ public class Reserva {
     @MongoId
     @Field(name = "id_reserva")
     private ObjectId idReserva;
-
     @Field(name = "id_empleado")
     private ObjectId idEmpleado;
-
     private LocalDateTime fecha;
     private EstadoReserva estado;
     @Field(name = "id_sucursal")
     private ObjectId idSucursal;
     private Mascota mascota;
-    private List<Servicio> servicios;
+    private Servicio servicios;
 
 
 }

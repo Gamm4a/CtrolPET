@@ -33,7 +33,7 @@ public class ReservaService {
             throw new IllegalArgumentException("La reserva debe estar asociada a una mascota válida.");
         }
 
-        if (reserva.getServicios() == null || reserva.getServicios().isEmpty()) {
+        if (reserva.getServicios() == null) {
             throw new IllegalArgumentException("Debe seleccionar un servicio para la reserva.");
         }
 
@@ -74,7 +74,7 @@ public class ReservaService {
         if (reservaActualizado.getMascota() == null) {
             throw new IllegalArgumentException("La reserva debe tener una mascota.");
         }
-        if (reservaActualizado.getServicios() == null || reservaActualizado.getServicios().isEmpty()) {
+        if (reservaActualizado.getServicios() == null) {
             throw new IllegalArgumentException("La reserva debe tener un servicio.");
         }
         if (reservaActualizado.getIdEmpleado() == null) {
@@ -111,7 +111,7 @@ public class ReservaService {
             if (reservaParcial.getMascota() != null) {
                 reserva.setMascota(reservaParcial.getMascota());
             }
-            if (reservaParcial.getServicios() != null || !reservaParcial.getServicios().isEmpty()) {
+            if (reservaParcial.getServicios() != null) {
                 reserva.setServicios(reservaParcial.getServicios());
             }
 

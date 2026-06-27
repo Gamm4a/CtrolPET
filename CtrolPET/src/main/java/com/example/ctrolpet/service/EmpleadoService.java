@@ -1,5 +1,6 @@
 package com.example.ctrolpet.service;
 
+import com.example.ctrolpet.model.Enum.DiaSemana;
 import jakarta.servlet.http.HttpSession;
 import com.example.ctrolpet.model.Empleado;
 import org.bson.types.ObjectId;
@@ -170,6 +171,10 @@ public class EmpleadoService {
         }).orElse(null);
     }
 
+
+    public List<Empleado> empleadoDisponible(String especialidad, String dia){
+        return empleadosRepository.findByEspecialidadAndDias(especialidad,dia);
+    }
 }
 
 
