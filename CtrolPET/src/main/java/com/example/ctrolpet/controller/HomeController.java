@@ -98,11 +98,11 @@ public class HomeController {
         servicioNuevo.setCategoria(Especialidad.valueOf(categoria));
         servicioService.guardar(servicioNuevo);
 
-        return "admin";
+        return "redirect:/admin";
     }
 
     @PatchMapping("/admin/servicios/editar/{id}")
-    public String editarServicio(@PathVariable ObjectId id,
+    public String editarServicio(@PathVariable("id") ObjectId id,
                                  @RequestParam ("tipo") String tipo,
                                  @RequestParam("especialidad") String categoria,
                                  @RequestParam ("descripcion") String descripcion,
@@ -115,14 +115,14 @@ public class HomeController {
         servicioEditar.setCategoria(Especialidad.valueOf(categoria));
         servicioService.actualizarParcial(id, servicioEditar);
 
-        return "admin";
+        return "redirect:/admin";
     }
 
     @DeleteMapping("/admin/servicios/eliminar/{id}")
-    public String eliminarServicio(@PathVariable ObjectId id){
+    public String eliminarServicio(@PathVariable("id") ObjectId id){
         servicioService.eliminar(id);
 
-        return "admin";
+        return "redirect:/admin";
     }
 
     @PostMapping("/admin/veterinarios/guardar")
@@ -132,6 +132,8 @@ public class HomeController {
                                      @RequestParam("sucursal") ObjectId sucursal,
                                      @RequestParam("especialidad") String especialidad,
                                      @RequestParam("telefono") String telefono,
+                                     @RequestParam("correo") String correo,
+                                     @RequestParam("contrasenia") String contrasenia,
                                      @RequestParam("puesto") String puesto,
                                      @RequestParam("diasSeleccionados") List<DiaSemana> diasSeleccionados,
                                      @RequestParam("horaEntrada") LocalTime horaEntrada,
@@ -151,20 +153,23 @@ public class HomeController {
         empleadoNuevo.setTelefono(telefono);
         empleadoNuevo.setPuesto(Puesto.valueOf(puesto));
         empleadoNuevo.setHorarios(horario);
+        empleadoNuevo.setCorreo(correo);
+        empleadoNuevo.setContrasenia(contrasenia);
         Empleado empleado = empleadoService.guardar(empleadoNuevo);
 
         sucursalService.agregarEmpleados(sucursal, empleado.getIdEmpleado());
 
-        return "admin";
+        return "redirect:/admin";
     }
 
     @PatchMapping("/admin/veterinarios/editar/{id}")
-    public String editarVeterinario(@PathVariable ObjectId id, @RequestParam("nombre") String nombre,
+    public String editarVeterinario(@PathVariable("id") ObjectId id, @RequestParam("nombre") String nombre,
                                      @RequestParam("apellidoPaterno") String apellidoPaterno,
                                      @RequestParam("apellidoMaterno") String apellidoMaterno,
                                      @RequestParam("sucursal") ObjectId sucursal,
                                      @RequestParam("especialidad") String especialidad,
                                      @RequestParam("telefono") String telefono,
+                                     @RequestParam("correo") String correo,
                                      @RequestParam("puesto") String puesto,
                                      @RequestParam("diasSeleccionados") List<DiaSemana> diasSeleccionados,
                                      @RequestParam("horaEntrada") LocalTime horaEntrada,
@@ -184,6 +189,7 @@ public class HomeController {
         empleadoEditar.setTelefono(telefono);
         empleadoEditar.setPuesto(Puesto.valueOf(puesto));
         empleadoEditar.setHorarios(horario);
+        empleadoEditar.setCorreo(correo);
         Empleado empleado = empleadoService.actualizarParcial(id, empleadoEditar);
 
         ObjectId sucursalActual = empleadoService.obtenerPorId(id).getSucursal();
@@ -192,14 +198,14 @@ public class HomeController {
             sucursalService.actualizarEmpleados(sucursalActual, sucursal, empleado.getIdEmpleado());
         }
 
-        return "admin";
+        return "redirect:/admin";
     }
 
     @DeleteMapping("/admin/veterinarios/eliminar/{id}")
-    public String eliminarVeterinario(@PathVariable ObjectId id){
+    public String eliminarVeterinario(@PathVariable ("id") ObjectId id){
         empleadoService.eliminar(id);
 
-        return "admin";
+        return "redirect:/admin";
     }
 
     @PostMapping ("/admin/sucursales/guardar")
@@ -227,11 +233,11 @@ public class HomeController {
 
         sucursalService.guardar(nuevaSucursal);
 
-        return "admin";
+        return "redirect:/admin";
     }
 
     @PatchMapping ("/admin/sucursales/editar/{id}")
-    public String editarSucursal(@PathVariable ObjectId id, @RequestParam("nombre") String nombre,
+    public String editarSucursal(@PathVariable("id") ObjectId id, @RequestParam("nombre") String nombre,
                                   @RequestParam("telefono") String telefono,
                                   @RequestParam("calle") String calle,
                                   @RequestParam("colonia") String colonia,
@@ -255,14 +261,14 @@ public class HomeController {
 
         sucursalService.actualizarParcial(id, sucursalEditar);
 
-        return "admin";
+        return "redirect:/admin";
     }
 
-    @PatchMapping ("/admin/sucursales/eliminar/{id}")
-    public String eliminarSucursal(@PathVariable ObjectId id){
+    @DeleteMapping ("/admin/sucursales/eliminar/{id}")
+    public String eliminarSucursal(@PathVariable("id") ObjectId id){
         sucursalService.eliminar(id);
 
-        return "admin";
+        return "redirect:/admin";
     }
 
     @GetMapping("/admin")

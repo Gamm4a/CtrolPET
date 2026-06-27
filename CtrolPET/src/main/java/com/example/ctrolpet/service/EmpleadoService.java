@@ -158,6 +158,14 @@ public class EmpleadoService {
                 empleado.setHorarios(empleadoParcial.getHorarios());
             }
 
+            if (empleadoParcial.getCorreo() != null){
+                empleado.setCorreo(empleadoParcial.getCorreo());
+            }
+
+            if (empleadoParcial.getHorarios() != null){
+                empleado.setHorarios(empleadoParcial.getHorarios());
+            }
+
             return empleadosRepository.save(empleado);
         }).orElse(null);
     }
