@@ -21,9 +21,8 @@ public class Mascota {
     private String raza;
     @Field(name = "fecha_nacimiento")
     private Instant fechaNacimiento;
-    private String descripcion;
-
     //foto
+    private String foto;
 
     @Field(name = "id_historial_clinico")
     private ObjectId idHistorialClinico;

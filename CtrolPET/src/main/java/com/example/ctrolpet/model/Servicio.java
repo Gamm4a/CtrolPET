@@ -1,5 +1,6 @@
 package com.example.ctrolpet.model;
 
+import com.example.ctrolpet.model.Enum.Especialidad;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,5 +22,6 @@ public class Servicio {
     private String tipo;
     private String descripcion;
     private Double precio;
+    private Especialidad categoria;
 
 }

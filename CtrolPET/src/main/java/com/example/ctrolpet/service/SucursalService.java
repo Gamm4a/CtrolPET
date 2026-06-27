@@ -1,6 +1,7 @@
 package com.example.ctrolpet.service;
 
 
+import com.example.ctrolpet.model.Empleado;
 import com.example.ctrolpet.model.Sucursal;
 import com.example.ctrolpet.repository.SucursalRepository;
 import org.bson.types.ObjectId;
@@ -9,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -130,6 +132,41 @@ public class SucursalService {
 
             return sucursalRepository.save(sucursal);
         }).orElse(null);
+    }
+
+    public void agregarEmpleados(ObjectId idSucursal, ObjectId empleado){
+        Sucursal editarSucursal = obtenerPorId(idSucursal);
+        if (editarSucursal != null && editarSucursal.getEmpleados() != null) {
+            List<ObjectId> listaEmpleados = editarSucursal.getEmpleados();
+            listaEmpleados.add(empleado);
+            editarSucursal.setEmpleados(listaEmpleados);
+            sucursalRepository.save(editarSucursal);
+        }
+    }
+
+    public void actualizarEmpleados(ObjectId sucursalActual, ObjectId nuevaSucursal, ObjectId empleado){
+        Sucursal actual = obtenerPorId(sucursalActual);
+        Sucursal nueva = obtenerPorId(nuevaSucursal);
+
+        if (sucursalActual != null && actual.getEmpleados() != null) {
+            List<ObjectId> listaAntigua = actual.getEmpleados();
+
+            listaAntigua.removeIf(e -> e.equals(empleado));
+
+            actual.setEmpleados(listaAntigua);
+            sucursalRepository.save(actual);
+        }
+
+        if (nuevaSucursal != null) {
+            List<ObjectId> listaNueva = nueva.getEmpleados();
+            if (listaNueva == null) {
+                listaNueva = new ArrayList<>();
+            }
+
+            listaNueva.add(empleado);
+            nueva.setEmpleados(listaNueva);
+            sucursalRepository.save(nueva);
+        }
     }
 
 }

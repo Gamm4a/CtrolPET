@@ -4,6 +4,7 @@ import com.example.ctrolpet.model.Enum.Especialidad;
 import com.example.ctrolpet.model.Enum.Puesto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -16,6 +17,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 @Document(collection = "Empleados")
 public class Empleado {
 
@@ -42,8 +44,6 @@ public class Empleado {
     private String telefono;
 
     private Puesto puesto;
-
-
 
     private Horario horarios;
 

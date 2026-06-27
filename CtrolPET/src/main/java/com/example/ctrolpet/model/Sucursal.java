@@ -23,6 +23,6 @@ public class Sucursal {
     private String telefono;
 //    private String correo;
 //    private String password;
-    private List<Empleado> empleados;
+    private List<ObjectId> empleados;
 
 }
