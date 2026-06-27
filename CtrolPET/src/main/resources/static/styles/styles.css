@@ -1985,25 +1985,51 @@ input[name="pasos"] {
 .servicio-opciones,
 .veterinarios-opciones,
 .sucursal-opciones {
-    margin-bottom: var(--espacio);
+    display: flex;
+    justify-content: space-evenly;
+    padding: var(--espacio-cercano);
 }
 
 .servicio-opciones a,
 .veterinarios-opciones a,
 .sucursal-opciones a {
+    background-color: white;
+    border: 1px solid var(--secundario-transparente);
+    border-radius: var(--radio);
     color: var(--links);
-    font-weight: 400;
     padding: var(--espacio-cercano);
     text-decoration: none;
+    font-size: 0.98rem;
+    font-weight: 300;
 }
 
 .servicio-opciones a:hover,
 .veterinarios-opciones a:hover,
 .sucursal-opciones a:hover {
-    color: var(--highlight);
+    background-color: var(--highlight);
+    color: white;
+    font-weight: bold;
 }
 
+.servicio-opciones button,
+.veterinarios-opciones button,
+.sucursal-opciones button {
+    background-color: white;
+    border: 1px solid var(--secundario-transparente);
+    border-radius: var(--radio);
+    color: var(--links);
+    padding: var(--espacio-cercano);
+    font-size: 0.98rem;
+    font-weight: 300;
+}
 
+.servicio-opciones button:hover,
+.veterinarios-opciones button:hover,
+.sucursal-opciones button:hover {
+    background-color: var(--highlight);
+    color: white;
+    font-weight: bold;
+}
 
 
 /*nuevo/editar servicio y nuevo/editar vet modal modal*/
@@ -2032,6 +2058,7 @@ input[name="pasos"] {
     max-width: 450px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     position: relative;
+    overflow-y: auto;
 }
 
 .modal-switch:checked + .btn-agenda + .modal-overlay {
@@ -2054,6 +2081,7 @@ input[name="pasos"] {
     max-width: fit-content;
     box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     position: relative;
+    overflow-y: auto;
 }
 
 .form-modal-ancho {
@@ -2094,14 +2122,14 @@ input[name="pasos"] {
     margin-top: 15px;
 }
 
-.modal-switch:checked ~ .modal-overlay:not(#modal-editar-servicio):not(#modal-editar-veterinario):not(#modal-editar-sucursal) {
+.modal-switch:checked ~ .modal-overlay:not([id^="modal-editar-"]) {
     opacity: 1;
     pointer-events: auto;
 }
 
-#modal-editar-servicio:target,
-#modal-editar-veterinario:target,
-#modal-editar-sucursal:target  {
+[id^="modal-editar-servicio-"]:target,
+[id^="modal-editar-veterinario-"]:target,
+[id^="modal-editar-sucursal-"]:target {
     opacity: 1;
     pointer-events: auto;
 }
