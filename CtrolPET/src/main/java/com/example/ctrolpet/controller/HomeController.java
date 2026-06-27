@@ -511,11 +511,12 @@ public class HomeController {
         LocalDateTime horayFecha = LocalDateTime.of(fecha, hora);
 
         Reserva reserva = new Reserva();
-        reserva.setMascota(dueñoService.getMascotaById(idMascota, idDueno));
+        reserva.setMascota(idMascota);
         reserva.setFecha(horayFecha);
         reserva.setServicios(servicioService.obtenerPorId(idServicio));
         reserva.setIdSucursal(idSucursal);
         reserva.setIdEmpleado(idVeterinarioElegido);
+        reserva.setDueno(idDueno);
         reservaService.guardar(reserva);
 
         return "redirect:/admin";

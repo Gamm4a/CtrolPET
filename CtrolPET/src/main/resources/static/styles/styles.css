@@ -1828,27 +1828,6 @@ input[name="pasos"] {
     position: relative;
 }
 
-.opciones {
-    display: none;
-    position: absolute;
-    right: 0;
-    top: 100%;
-    background-color: var(--secundario);
-    padding: 8px;
-    z-index: 10;
-    box-shadow: var(--sombra);
-    border-radius: var(--radio);
-}
-
-.opciones a {
-    color: white;
-    text-decoration: none;
-}
-
-.opciones a:hover {
-    background-color: var(--highlight);
-    border-radius: 5px;
-}
 
 .tabla-citas-admin tbody tr:focus-within {
     background-color: rgba(255, 159, 28, 0.3);
@@ -1984,7 +1963,8 @@ input[name="pasos"] {
 
 .servicio-opciones,
 .veterinarios-opciones,
-.sucursal-opciones {
+.sucursal-opciones,
+.opciones-citas{
     display: flex;
     justify-content: space-evenly;
     padding: var(--espacio-cercano);
@@ -1992,7 +1972,8 @@ input[name="pasos"] {
 
 .servicio-opciones a,
 .veterinarios-opciones a,
-.sucursal-opciones a {
+.sucursal-opciones a,
+.opciones-citas a{
     background-color: white;
     border: 1px solid var(--secundario-transparente);
     border-radius: var(--radio);
@@ -2005,7 +1986,8 @@ input[name="pasos"] {
 
 .servicio-opciones a:hover,
 .veterinarios-opciones a:hover,
-.sucursal-opciones a:hover {
+.sucursal-opciones a:hover,
+.opciones-citas a:hover {
     background-color: var(--highlight);
     color: white;
     font-weight: bold;
@@ -2013,7 +1995,8 @@ input[name="pasos"] {
 
 .servicio-opciones button,
 .veterinarios-opciones button,
-.sucursal-opciones button {
+.sucursal-opciones button,
+.opciones-citas button {
     background-color: white;
     border: 1px solid var(--secundario-transparente);
     border-radius: var(--radio);
@@ -2025,7 +2008,8 @@ input[name="pasos"] {
 
 .servicio-opciones button:hover,
 .veterinarios-opciones button:hover,
-.sucursal-opciones button:hover {
+.sucursal-opciones button:hover,
+.opciones-citas button:hover{
     background-color: var(--highlight);
     color: white;
     font-weight: bold;
@@ -2433,8 +2417,8 @@ input[name="pasos"] {
         margin: 10px 0;
       }
      .buscador-citas input{
-        width: 100%;
-        box-sizing: border-box;
+         width: 100%;
+         max-height: 10px;
      }
      .encabezado-admin h1{
         font-size: 1.4rem;
