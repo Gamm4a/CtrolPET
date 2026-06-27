@@ -15,13 +15,17 @@ public class AuthInterceptor implements HandlerInterceptor {
         String uri = request.getRequestURI();
 
 
-        if (session == null || (session.getAttribute("id_dueño")== null && session.getAttribute("id_Empleado")== null)){
-            response.sendRedirect("/login");
+        if (session == null || (session.getAttribute("idDueño")== null && session.getAttribute("idEmpleado")== null)){
+            if (uri.startsWith("/admin")) {
+                response.sendRedirect("/login-admin");
+            } else {
+                response.sendRedirect("/login");
+            }
             return false;
         }
 
-        boolean esDueño = session.getAttribute("id_dueño") != null;
-        boolean esEmpleado = session.getAttribute("id_Empleado") != null;
+        boolean esDueño = session.getAttribute("idDueño") != null;
+        boolean esEmpleado = session.getAttribute("idEmpleado") != null;
 
         if (esDueño  && uri.startsWith("/admin")) {
             response.sendRedirect("/perfil");

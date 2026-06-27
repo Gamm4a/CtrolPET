@@ -1,30 +1,26 @@
 package com.example.ctrolpet.model;
 
-import com.example.ctrolpet.model.Enum.Especialidad;
-import com.example.ctrolpet.model.Enum.Puesto;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
+import java.time.Instant;
 import java.util.List;
-
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
-@Document(collection = "Empleados")
-public class Empleado {
+@Document(collection = "Duenos")
+public class Dueno {
 
     @MongoId
-    @Field(name = "id_empleado")
-    private ObjectId idEmpleado;
-
+    @Field(name = "id_dueno")
+    private ObjectId idDueno;
     private String nombre;
 
     @Field(name = "apellido_paterno")
@@ -33,18 +29,12 @@ public class Empleado {
     @Field(name = "apellido_materno")
     private String apellidoMaterno;
 
-    private ObjectId sucursal;
-
-    private Especialidad especialidad;
-
-    private String contrasenia;
-
     private String correo;
-
+    private String contrasenia;
+    @Field(name = "fecha_nacimiento")
+    private Instant fechaNacimiento;
     private String telefono;
-
-    private Puesto puesto;
-
-    private Horario horarios;
+    private List<Mascota> mascotas;
+    private Direccion direccion;
 
 }

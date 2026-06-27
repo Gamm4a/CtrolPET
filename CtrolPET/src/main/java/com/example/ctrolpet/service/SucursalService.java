@@ -1,19 +1,23 @@
-package service;
+package com.example.ctrolpet.service;
 
-import model.Sucursal;
+
+import com.example.ctrolpet.model.Empleado;
+import com.example.ctrolpet.model.Sucursal;
+import com.example.ctrolpet.repository.SucursalRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import repository.SucursalRepository;
 
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class SucursalService {
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private SucursalRepository sucursalRepository;
@@ -29,15 +33,15 @@ public class SucursalService {
         if (sucursal.getTelefono() == null || !sucursal.getTelefono().matches("^\\d{10}$")) {
             throw new IllegalArgumentException("El teléfono debe contener exactamente 10 dígitos numéricos.");
         }
-        if (sucursal.getCorreo() == null || sucursal.getCorreo().isBlank()) {
-            throw new IllegalArgumentException("El correo electrónico es obligatorio.");
-        }
-        if (sucursal.getPassword() == null || sucursal.getPassword().isBlank()) {
-            throw new IllegalArgumentException("La contraseña es obligatoria.");
-        }
-
-        //La sucursar tiene contraseña?
-        sucursal.setPassword(passwordEncoder.encode(sucursal.getPassword()));
+//        if (sucursal.getCorreo() == null || sucursal.getCorreo().isBlank()) {
+//            throw new IllegalArgumentException("El correo electrónico es obligatorio.");
+//        }
+//        if (sucursal.getPassword() == null || sucursal.getPassword().isBlank()) {
+//            throw new IllegalArgumentException("La contraseña es obligatoria.");
+//        }
+//
+//        //La sucursar tiene contraseña?
+//        sucursal.setPassword(passwordEncoder.encode(sucursal.getPassword()));
 
         return sucursalRepository.save(sucursal);
     }
@@ -71,23 +75,23 @@ public class SucursalService {
         if (sucursalActualizada.getTelefono() == null || !sucursalActualizada.getTelefono().matches("^\\d{10}$")) {
             throw new IllegalArgumentException("El teléfono debe contener exactamente 10 dígitos numéricos.");
         }
-        if (sucursalActualizada.getCorreo() == null || sucursalActualizada.getCorreo().isBlank()) {
-            throw new IllegalArgumentException("El correo electrónico es obligatorio.");
-        }
-        if (sucursalActualizada.getPassword() == null || sucursalActualizada.getPassword().isBlank()) {
-            throw new IllegalArgumentException("La contraseña es obligatoria.");
-        }
-
-        //La sucursar tiene contraseña?
-        sucursalActualizada.setPassword(passwordEncoder.encode(sucursalActualizada.getPassword()));
+//        if (sucursalActualizada.getCorreo() == null || sucursalActualizada.getCorreo().isBlank()) {
+//            throw new IllegalArgumentException("El correo electrónico es obligatorio.");
+//        }
+//        if (sucursalActualizada.getPassword() == null || sucursalActualizada.getPassword().isBlank()) {
+//            throw new IllegalArgumentException("La contraseña es obligatoria.");
+//        }
+//
+//        //La sucursar tiene contraseña?
+//        sucursalActualizada.setPassword(passwordEncoder.encode(sucursalActualizada.getPassword()));
 
 
         return sucursalRepository.findById(id).map(sucursal -> {
             sucursal.setNombre(sucursalActualizada.getNombre());
             sucursal.setDireccion(sucursalActualizada.getDireccion());
             sucursal.setTelefono(sucursalActualizada.getTelefono());
-            sucursal.setCorreo(sucursalActualizada.getCorreo());
-            sucursal.setPassword(sucursalActualizada.getPassword());
+//            sucursal.setCorreo(sucursalActualizada.getCorreo());
+//            sucursal.setPassword(sucursalActualizada.getPassword());
             sucursal.setEmpleados(sucursalActualizada.getEmpleados()); // Se reemplaza la lista completa
 
             return sucursalRepository.save(sucursal);
@@ -112,15 +116,15 @@ public class SucursalService {
                 sucursal.setTelefono(sucursalParcial.getTelefono());
             }
 
-            if (sucursalParcial.getCorreo() != null && !sucursalParcial.getCorreo().isBlank()) {
-                sucursal.setCorreo(sucursalParcial.getCorreo());
-            }
-
-            if (sucursalParcial.getPassword() != null && !sucursalParcial.getPassword().isBlank()) {
-                //La sucursar tiene contraseña?
-                sucursalParcial.setPassword(passwordEncoder.encode(sucursalParcial.getPassword()));
-                sucursal.setPassword(sucursalParcial.getPassword());
-            }
+//            if (sucursalParcial.getCorreo() != null && !sucursalParcial.getCorreo().isBlank()) {
+//                sucursal.setCorreo(sucursalParcial.getCorreo());
+//            }
+//
+//            if (sucursalParcial.getPassword() != null && !sucursalParcial.getPassword().isBlank()) {
+//                //La sucursar tiene contraseña?
+//                sucursalParcial.setPassword(passwordEncoder.encode(sucursalParcial.getPassword()));
+//                sucursal.setPassword(sucursalParcial.getPassword());
+//            }
 
             if (sucursalParcial.getEmpleados() != null) {
                 sucursal.setEmpleados(sucursalParcial.getEmpleados());
@@ -128,6 +132,41 @@ public class SucursalService {
 
             return sucursalRepository.save(sucursal);
         }).orElse(null);
+    }
+
+    public void agregarEmpleados(ObjectId idSucursal, ObjectId empleado){
+        Sucursal editarSucursal = obtenerPorId(idSucursal);
+        if (editarSucursal != null && editarSucursal.getEmpleados() != null) {
+            List<ObjectId> listaEmpleados = editarSucursal.getEmpleados();
+            listaEmpleados.add(empleado);
+            editarSucursal.setEmpleados(listaEmpleados);
+            sucursalRepository.save(editarSucursal);
+        }
+    }
+
+    public void actualizarEmpleados(ObjectId sucursalActual, ObjectId nuevaSucursal, ObjectId empleado){
+        Sucursal actual = obtenerPorId(sucursalActual);
+        Sucursal nueva = obtenerPorId(nuevaSucursal);
+
+        if (sucursalActual != null && actual.getEmpleados() != null) {
+            List<ObjectId> listaAntigua = actual.getEmpleados();
+
+            listaAntigua.removeIf(e -> e.equals(empleado));
+
+            actual.setEmpleados(listaAntigua);
+            sucursalRepository.save(actual);
+        }
+
+        if (nuevaSucursal != null) {
+            List<ObjectId> listaNueva = nueva.getEmpleados();
+            if (listaNueva == null) {
+                listaNueva = new ArrayList<>();
+            }
+
+            listaNueva.add(empleado);
+            nueva.setEmpleados(listaNueva);
+            sucursalRepository.save(nueva);
+        }
     }
 
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +7,7 @@
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
         </style>
-    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="/styles/styles.css">
 
 </head>
 <body>
@@ -29,25 +29,25 @@
                         <span></span>
                     </label>
                 <nav class="header-nav-admin">
-                    <img src="imgs/iconos/logo-dark.png">
+                    <img src="/imgs/iconos/logo-dark.png">
                     <label for="pestana-inicio" class="enlace-nav">Inicio</label>
                     <label for="pestana-citas" class="enlace-nav">Citas</label>
                     <label for="pestana-servicios" class="enlace-nav">Servicios</label>
                     <label for="pestana-veterinarios" class="enlace-nav">Veterinarios</label>
                     <label for="pestana-sucursales" class="enlace-nav">Sucursales</label>
-                    <a href="login-admin.html" class="enlace-nav">Cerrar sesión</a>
+                    <a th:href="@{/login-admin}" class="enlace-nav">Cerrar sesión</a>
                 </nav>
             </aside>
             
            
             <section id="admin-inicio">
-                <div id="tag-rol">
-                    <span>Rol activo</span>
+                <div class="tag-rol">
+                    <span th:text="${empleado.puesto}">Rol activo</span>
                 </div>
                 <div class="encabezado-admin">
                     <h1>Dashboard Administrativo</h1>
                 </div>
-                <div id="buscador-citas">
+                <div class="buscador-citas">
                     <input type="text" name="buscar" placeholder="Buscar"></input>
                     <a href="" class="btn-agenda">Ver tabla de dueños</a>
                     <a href="" class="btn-agenda">Ver tabla de mascotas</a>
@@ -64,21 +64,24 @@
                                 <th>Hora</th>
                                 <th>Servicio</th>
                                 <th>Veterinario</th>
-                                <th>Costo</th>
+                                <th>Precio</th>
                                 <th>Estado</th>
                             </tr>
                         </thead>
                         <tbody>
-                             <tr th:each="reserva : ${listaReservas}">
-                                <th th:text="${reserva.mascota.dueño.nombre}">Dueño</th>
+                             <tr th:each="reserva : ${listaReservas}" tabindex="0">
+                                <th th:text="${reserva.mascota.dueno.nombre}">Dueño</th>
                                 <th th:text="${reserva.mascota.nombre}">Mascota</th>
                                 <th th:text="${reserva.fecha}">Fecha</th>
                                 <th th:text="${reserva.fecha}">Hora</th>
                                 <th th:text="${reserva.servicio.tipo}">Servicio</th>
-                                <th th:text="${reserva.id_Empleado}">Veterinario</th>
-                                <th th:text="${'$' + reserva.servicio.costo}">Costo</th>
+                                <th th:text="${reserva.idEmpleado}">Veterinario</th>
+                                <th th:text="${'$' + reserva.servicio.precio}">Precio</th>
                                 <th th:text="${reserva.estado}">Estado</th>
                             </tr>
+                             <tr th:if="${#lists.isEmpty(listaReservas)}">
+                                 <td colspan="8">No hay citas registradas para el día de hoy.</td>
+                             </tr>
                         </tbody>
                     </table>
                 </div>
@@ -87,14 +90,14 @@
             </section>
 
             <section id="admin-citas">
-                <div id="tag-rol">
-                    <span>Rol activo</span>
+                <div class="tag-rol">
+                    <span th:text="${empleado.puesto}">Rol activo</span>
                 </div>
                 <div class="encabezado-admin">
                     <h1>Gestor de Citas</h1>
                 </div>
 
-                <div id="buscador-citas">
+                <div class="buscador-citas">
                     <input type="text" name="buscar" placeholder="Buscar cita"></input>
                     <a href="" class="btn-agenda">Agendar cita</a>
                 </div>
@@ -110,27 +113,31 @@
                             <th>Hora</th>
                             <th>Servicio</th>
                             <th>Veterinario</th>
-                            <th>Costo</th>
+                            <th>Precio</th>
                             <th>Estado</th>
                         </tr>
                     </thead>
                   <tbody>
                     <tr th:each="reserva : ${listaReservas}" tabindex="0">
-                        <th th:text="${reserva.mascota.dueño.nombre}">Dueño</th>
-                                <th th:text="${reserva.mascota.nombre}">Mascota</th>
-                                <th th:text="${reserva.fecha}">Fecha</th>
-                                <th th:text="${reserva.fecha}">Hora</th>
-                                <th th:text="${reserva.servicio.tipo}">Servicio</th>
-                                <th th:text="${reserva.id_empleado}">Veterinario</th>
-                                <th th:text="${'$' + reserva.servicio.costo}">Costo</th>
-                                <th th:text="${reserva.estado}">Estado</th>
+                        <td th:text="${reserva.mascota.dueno.nombre}">Dueño</td>
+                        <td th:text="${reserva.mascota.nombre}">Mascota</td>
+                        <td th:text="${reserva.fecha}">Fecha</td>
+                        <td th:text="${reserva.fecha}">Hora</td>
+                        <td th:text="${reserva.servicio.tipo}">Servicio</td>
+                        <td th:text="${reserva.idEmpleado}">Veterinario</td>
+                        <td th:text="${'$' + reserva.servicio.precio}">Precio</td>
+                        <td th:text="${reserva.estado}">Estado</td>
                         <td class="celda-accion">
                             <div class="opciones">
-                                <a href="@{/admin/citas/editar/{id}({id=${reserva.id_reserva}})}">Editar</a><br>
-                                <a href="@{/admin/citas/eliminar/{id}({id=${reserva.id_reserva}})}"
-                                onsubmit="return confirm('¿Seguro que desea eliminar la cita?')">Eliminar</a>
+                                <a th:href="@{/admin/citas/editar/{id}(id=${reserva.idReserva})}">Editar</a>
+                                <a th:href="@{/admin/citas/eliminar/{id}(id=${reserva.idReserva})}"
+                                   onclick="return confirm('¿Seguro?')">Eliminar</a>
+                                <input type="hidden" name="_method" value="DELETE">
                             </div>
                         </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(listaReservas)}">
+                        <td colspan="8">No hay citas registradas para el día de hoy.</td>
                     </tr>
                     </tbody>
                 </table>
@@ -140,8 +147,8 @@
             </section>
 
             <section id="admin-servicios">
-                <div id="tag-rol">
-                    <span>Rol activo</span>
+                <div class="tag-rol">
+                    <span th:text="${empleado.puesto}">Rol activo</span>
                 </div>
                 <div class="encabezado-admin">
                     <h1>Gestor de Servicios</h1>
@@ -150,70 +157,99 @@
                     <label for="control-modal-servicio" class="btn-agenda">Agregar servicio</label>
                 </div>
                 <div class="contenedor-servicios-admin">
+                    <div th:if="${#lists.isEmpty(listaServicios)}">
+                        <p>Aún no has registrado ningún servicio. ¡Haz clic en "Agregar servicio" para comenzar!</p>
+                    </div>
                     <div class="servicio-caja-admin" th:each="servicio : ${listaServicios}">
                         <div class="servicio-info">
                             <h3 th:text="${servicio.tipo}">Consulta General</h3>
-                            <p class="descripcion" th:text="${servicio.descripcion}">Chequeos preventivos y evaluación de malestares específicos.</p>
-                            <span class="precio" th:text="${ '$' + servicio.costo}">$300</span>
+                            <p class="descripcion" th:text="${servicio.descripcion}">Descripción...</p>
+                            <span class="precio" th:text="${ '$' + servicio.precio}">$300</span>
                         </div>
                         <div class="servicio-opciones">
                             <a href="#modal-editar-servicio" class="btn-editar">Editar</a>
-                            <a href="@{/admin/servicios/eliminar/{id}(id=${servicio.id_Servicio})}" 
-                            class="btn-eliminar" onclick="return confirm('¿Seguro que deseas eliminar este servicio?')">Eliminar</a>
+                            <a th:href="@{/admin/servicios/eliminar/{id}(id=${servicio.idServicio})}"
+                               class="btn-eliminar" onclick="return confirm('¿Seguro que deseas eliminar este servicio?')">Eliminar</a>
+                            <input type="hidden" name="_method" value="DELETE">
                         </div>
-                    </div>
 
-                    <div class="servicio-caja-admin">
-                        <div class="servicio-info">
-                            <h3 th:text="${servicio.tipo}">Estética y Baño</h3>
-                            <p class="descripcion" th:text="${servicio.descripcion}">Técnicas profesionales de higiene y estética, con cuidado integral de la piel, pelo, uñas y oídos.</p>
-                            <span class="precio" th:text="${ '$' + servicio.costo}">$450</span>
-                        </div>
-                        <div class="servicio-opciones">
-                            <a href="#modal-editar-servicio" class="btn-editar">Editar</a>
-                            <a href="@{/admin/servicios/eliminar/{id}(id=${servicio.id_Servicio})}"
-                             class="btn-eliminar" onclick="return confirm('¿Seguro que deseas eliminar este servicio?')">Eliminar</a>
-                        </div>
-                    </div>
+                        <div id="modal-editar-servicio" class="modal-overlay">
+                            <div class="modal-caja">
 
-                    <div class="servicio-caja-admin">
-                        <div class="servicio-info">
-                            <h3 th:text="${servicio.tipo}">Cuidado Dental</h3>
-                            <p th:text="${servicio.descripcion}">Evaluación especializada, diagnóstico y tratamiento de la salud bucal de mascotas</p>
-                            <span class="precio" th:text="${ '$' + servicio.costo}">$500</span>
-                        </div> 
-                        <div class="servicio-opciones">
-                            <a href="#modal-editar-servicio" class="btn-editar">Editar</a>
-                            <a href="@{/admin/servicios/eliminar/{id}(id=${servicio.id_Servicio})}" 
-                            class="btn-eliminar" onclick="return confirm('¿Seguro que deseas eliminar este servicio?')">Eliminar</a>
+                                <h3>Editar Servicio</h3>
+
+                                <form class="form-modal" th:action="@{/admin/servicios/editar/{id}(id=${servicio.idServicio})}" method="POST">
+                                    <input type="hidden" name="_method" value="PATCH">
+                                    <div class="form-grupo">
+                                        <label>Nombre del Servicio</label>
+                                        <input type="text" name="tipo" th:value="${servicio.tipo}">
+                                    </div>
+
+                                    <div class="form-grupo">
+                                        <label for="categoriaEditar">Especialidad a la que pertenece:</label>
+                                        <select name="especialidad" id="categoriaEditar">
+                                            <option value="" disabled selected> Selecciona una especialidad</option>
+                                            <option th:each="especialidadesDisponibles : ${especialidades}"
+                                                    th:value="${especialidadesDisponibles}"
+                                                    th:text="${especialidadesDisponibles}">
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-grupo">
+                                        <label>Descripción</label>
+                                        <textarea name="descripcion" th:text="${servicio.descripcion}"></textarea>
+                                    </div>
+
+                                    <div class="form-grupo">
+                                        <label>Precio ($)</label>
+                                        <input type="number" name="precio" th:value="${servicio.precio}">
+                                    </div>
+
+                                    <div class="form-botones">
+                                        <button type="submit" class="btn-continuar">Guardar Cambios</button>
+                                        <a href="#admin-servicios" class="btn-anterior">Cancelar</a>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                    
                 </div>
 
                 <input type="checkbox" id="control-modal-servicio" class="modal-switch" hidden>
 
                 <div class="modal-overlay">
                     <div class="modal-caja">
-                        
+
                         <h3>Nuevo Servicio</h3>
-                        
-                        <form class="form-modal">
+
+                        <form class="form-modal" th:action="@{/admin/servicios/guardar}" method="POST">
                             <div class="form-grupo">
                                 <label>Nombre del Servicio</label>
-                                <input type="text" name="nombre" required placeholder="Ej. Desparasitación">
+                                <input type="text" name="tipo" required placeholder="Ej. Desparasitación">
                             </div>
-                            
+
+                            <div class="form-grupo">
+                                <label for="categoria">Especialidad a la que pertenece:</label>
+                                <select name="especialidad" id="categoria" required>
+                                    <option value="" disabled selected> Selecciona una especialidad</option>
+                                    <option th:each="especialidadesDisponibles : ${especialidades}"
+                                            th:value="${especialidadesDisponibles}"
+                                            th:text="${especialidadesDisponibles}">
+                                    </option>
+                                </select>
+                            </div>
+
                             <div class="form-grupo">
                                 <label>Descripción</label>
                                 <textarea name="descripcion" required placeholder="Descripción breve del servicio y lo que incluye."></textarea>
                             </div>
-                            
+
                             <div class="form-grupo">
-                                <label>Costo ($)</label>
-                                <input type="number" name="costo" required placeholder="300">
+                                <label>Precio ($)</label>
+                                <input type="number" name="precio" required placeholder="300">
                             </div>
-                            
+
                             <div class="form-botones">
                                 <button type="submit" class="btn-continuar">Guardar Servicio</button>
                                 <label for="control-modal-servicio" class="btn-anterior">Cancelar</label>
@@ -222,39 +258,12 @@
                     </div>
                 </div>
 
-                <div id="modal-editar-servicio" class="modal-overlay">
-                    <div class="modal-caja">
-                        
-                        <h3>Editar Servicio</h3>
-                        
-                        <form class="form-modal">
-                            <div class="form-grupo">
-                                <label>Nombre del Servicio</label>
-                                <input type="text" name="nombre" required placeholder="Nombre del servicio"> 
-                            </div>
-                            
-                            <div class="form-grupo">
-                                <label>Descripción</label>
-                                <textarea name="descripcion" required placeholder="Descripción breve del servicio y lo que incluye."></textarea>
-                            </div>
 
-                            <div class="form-grupo">
-                                <label>Costo ($)</label>
-                                <input type="number" name="costo" required placeholder="0">
-                            </div>
-                            
-                            <div class="form-botones">
-                                <button type="submit" class="btn-continuar">Guardar Cambios</button>
-                                <a href="#admin-servicios" class="btn-anterior">Cancelar</a>
-                            </div>
-                        </form>
-                    </div>
-                </div>
             </section>
 
             <section id="admin-veterinarios">
-                <div id="tag-rol">
-                    <span>Rol activo</span>
+                <div class="tag-rol">
+                    <span th:text="${empleado.puesto}">Rol activo</span>
                 </div>
                 <div class="encabezado-admin">
                     <h1>Gestor de Veterinarios</h1>
@@ -264,17 +273,114 @@
                 </div>
                 <div class="contenedor-veterinarios-admin" >
 
+                    <div th:if="${#lists.isEmpty(listaEmpleados)}">
+                        <p>Aún no has registrado ningún veternario. ¡Haz clic en "Agregar veterinario" para comenzar!</p>
+                    </div>
                     <div class="veterinario-caja-admin" th:each="empleado : ${listaEmpleados}">
                         <div class="info-vet">
-                            <h3 th:text="${empleado.nombre + empleado.ap_paterno}">Dra. María López</h3>
-                            <label th:text="${empleado.puesto}">Especialidad: <p>Medicina General, Cirugía</p></label>
+                            <h3 th:text="${empleado.nombre + ' ' + empleado.apellidoPaterno}">Dra. María López</h3>
+                            <label th:text="${empleado.especialidad}">Especialidad: <p>Medicina General, Cirugía</p></label>
+                            <label th:text="${empleado.puesto}">Puesto: <p>Administrador, Empleado</p></label>
                             <label th:text="${empleado.correo}">Correo: <p>maria.lopez@ctrlpet.com</p></label>
                             <label th:text="${empleado.telefono}">teléfono: <p>6441589865</p></label>
                             
                         </div>
                         <div class="veterinarios-opciones">
                             <a href="#modal-editar-veterinario" class="btn-editar">Editar</a>
-                            <a href="@{/admin/veterinarios/eliminar/{id}(id=${empleado.id_Empleado})}" class="btn-eliminar" onclick="return confim('¿Seguro que deseas eliminar a este veterinario?')">Eliminar</a>
+                            <a th:href="@{/admin/veterinarios/eliminar/{id}(id=${empleado.idEmpleado})}" class="btn-eliminar" onclick="return confirm('¿Seguro que deseas eliminar a este veterinario?')">Eliminar</a>
+                            <input type="hidden" name="_method" value="DELETE">
+                        </div>
+
+                        <div id="modal-editar-veterinario" class="modal-overlay">
+                            <div class="modal-caja-ancha">
+
+                                <h3>Editar Veterinario</h3>
+
+                                <form class="form-modal-ancho" th:action="@{/admin/veterinarios/editar/{id}(id=${empleado.idEmpleado})}" method="POST">
+                                    <input type="hidden" name="_method" value="PATCH">
+
+                                    <div class="form-grupo">
+                                        <label>Nombre:</label>
+                                        <input type="text" name="nombre" th:value="${empleado.nombre}">
+                                    </div>
+
+                                    <div class="form-grupo">
+                                        <label>Apellido Paterno:</label>
+                                        <input type="text" name="apellidoPaterno" th:value="${empleado.apellidoPaterno}">
+                                    </div>
+
+                                    <div class="form-grupo">
+                                        <label>Apellido Materno:</label>
+                                        <input type="text" name="apellidoMaterno" th:value="${empleado.apellidoMaterno}">
+                                    </div>
+
+                                    <div class="form-grupo">
+                                        <label for="especialidadEditar">Especialidad:</label>
+                                        <select name="especialidad" id="especialidadEditar">
+                                            <option value="" disabled selected> Selecciona una especialidad</option>
+                                            <option th:each="especialidadesDisponibles : ${especialidades}"
+                                                    th:value="${especialidadesDisponibles}"
+                                                    th:text="${especialidadesDisponibles}">
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-grupo">
+                                        <label for="puestoEditar">Puesto / Rol:</label>
+                                        <select name="puesto" id="puestoEditar">
+                                            <option value="" disabled selected>Selecciona un puesto</option>
+                                            <option th:each="puestosDisponibles : ${puestos}"
+                                                    th:value="${puestosDisponibles}"
+                                                    th:text="${puestosDisponibles}">
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-grupo">
+                                        <label for="sucursalEditar">Sucursal:</label>
+                                        <select name="sucursal" id="sucursalEditar">
+                                            <option value="" disabled selected>Selecciona una sucursal</option>
+                                            <option th:each="sucursalesDisponibles : ${listaSucursales}"
+                                                    th:value="${sucursalesDisponibles.idSucursal}"
+                                                    th:text="${sucursalesDisponibles.nombre}">
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <fieldset class="set-campos">
+                                        <legend>Días de trabajo: </legend>
+                                        <div th:each="dia : ${diasSemana}">
+                                            <input type="checkbox" th:value="${dia}" name="diasSeleccionados" th:id="${'dia:' + dia}">
+                                            <label th:for="${'dia:' + dia}" th:text="${dia}"></label>
+                                        </div>
+                                    </fieldset>
+
+                                    <div class="form-grupo">
+                                        <label for="horaEntrada_editar">Hora de Entrada:</label>
+                                        <input type="time" id= "horaEntrada_editar" name="horaEntrada">
+                                    </div>
+
+                                    <div class="form-grupo">
+                                        <label for="horaSalida_editar">Hora de Salida:</label>
+                                        <input type="time" id="horaSalida_editar" name="horaSalida">
+                                    </div>
+
+                                    <div class="form-grupo">
+                                        <label>Correo:</label>
+                                        <input type="email" name="correo" th:value="${empleado.correo}">
+                                    </div>
+
+                                    <div class="form-grupo">
+                                        <label>Teléfono:</label>
+                                        <input type="tel" name="telefono" th:value="${empleado.telefono}">
+                                    </div>
+
+                                    <div class="form-botones">
+                                        <button type="submit" class="btn-continuar">Guardar Cambios</button>
+                                        <a href="#admin-veterinarios" class="btn-anterior">Cancelar</a>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
 
@@ -283,19 +389,75 @@
                 <input type="checkbox" id="control-modal-veterinario" class="modal-switch" hidden>
 
                 <div class="modal-overlay">
-                    <div class="modal-caja">
+                    <div class="modal-caja-ancha">
                         
                         <h3>Nuevo Veterinario</h3>
                         
-                        <form class="form-modal">
+                        <form class="form-modal-ancho" th:action="@{/admin/veterinarios/guardar}" method="POST">
                             <div class="form-grupo">
-                                <label>Nombre del Médico Veterinario:</label>
+                                <label>Nombre:</label>
                                 <input type="text" name="nombre" required placeholder="Ej. María">
                             </div>
-                            
+
                             <div class="form-grupo">
-                                <label>Especialidad:</label>
-                                <input type="text" name="especialidad" required placeholder="Ej. Medicina General">
+                                <label>Apellido Paterno:</label>
+                                <input type="text" name="apellidoPaterno" required placeholder="Ej. Pérez">
+                            </div>
+
+                            <div class="form-grupo">
+                                <label>Apellido Materno:</label>
+                                <input type="text" name="apellidoMaterno" required placeholder="Ej. Pérez">
+                            </div>
+
+                            <div class="form-grupo">
+                                <label for="especialidad">Especialidad:</label>
+                                <select name="especialidad" id="especialidad" required>
+                                    <option value="" disabled selected>Selecciona una especialidad</option>
+                                    <option th:each="especialidadesDisponibles : ${especialidades}"
+                                            th:value="${especialidadesDisponibles}"
+                                            th:text="${especialidadesDisponibles}">
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="form-grupo">
+                                <label for="puesto">Puesto / Rol:</label>
+                                <select name="puesto" id="puesto" required>
+                                    <option value="" disabled selected>Selecciona un puesto</option>
+                                    <option th:each="puestosDisponibles : ${puestos}"
+                                            th:value="${puestosDisponibles}"
+                                            th:text="${puestosDisponibles}">
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="form-grupo">
+                                <label for="sucursal">Sucursal:</label>
+                                <select name="sucursal" id="sucursal" required>
+                                    <option value="" disabled selected>Selecciona una sucursal</option>
+                                    <option th:each="sucursalesDisponibles : ${listaSucursales}"
+                                            th:value="${sucursalesDisponibles.idSucursal}"
+                                            th:text="${sucursalesDisponibles.nombre}">
+                                    </option>
+                                </select>
+                            </div>
+
+                            <fieldset class="set-campos">
+                                <legend>Días de trabajo: </legend>
+                                <div th:each="dia : ${diasSemana}">
+                                    <input type="checkbox" th:value="${dia}" name="diasSeleccionados" th:id="${'dia:' + dia}" required>
+                                    <label th:for="${'dia:' + dia}" th:text="${dia}"></label>
+                                </div>
+                            </fieldset>
+
+                            <div class="form-grupo">
+                                <label for="horaEntrada">Hora de Entrada:</label>
+                                <input type="time" id= "horaEntrada" name="horaEntrada" required>
+                            </div>
+
+                            <div class="form-grupo">
+                                <label for="horaSalida">Hora de Salida:</label>
+                                <input type="time" id="horaSalida" name="horaSalida" required>
                             </div>
                             
                             <div class="form-grupo">
@@ -304,8 +466,8 @@
                             </div>
 
                             <div class="form-grupo">
-                                <label for="telefono">Teléfono:</label>
-                                <input type="tel" id="telefono" placeholder="Ej. 6441234567" required>
+                                <label>Teléfono:</label>
+                                <input type="tel"  name= "telefono" placeholder="Ej. 6441234567" required>
                             </div>
                             
                             <div class="form-botones">
@@ -316,44 +478,12 @@
                     </div>
                 </div>
 
-                <div id="modal-editar-veterinario" class="modal-overlay">
-                    <div class="modal-caja">
-                        
-                        <h3>Editar Veterinario</h3>
-                        
-                        <form class="form-modal">
-                            <div class="form-grupo">
-                                <label>Nombre del Médico Veterinario:</label>
-                                <input type="text" name="nombre" required placeholder="Ej. María">
-                            </div>
-                            
-                            <div class="form-grupo">
-                                <label>Especialidad:</label>
-                                <input type="text" name="especialidad" required placeholder="Ej. Medicina General">
-                            </div>
-                            
-                            <div class="form-grupo">
-                                <label>Correo:</label>
-                                <input type="email" name="correo" required placeholder="mario.perez@ctrlpet.com">
-                            </div>
 
-                            <div class="form-grupo">
-                                <label for="telefono">Teléfono:</label>
-                                <input type="tel" id="telefono" placeholder="Ej. 6441234567" required>
-                            </div>
-                            
-                            <div class="form-botones">
-                                <button type="submit" class="btn-continuar">Guardar Cambios</button>
-                                <a href="#admin-veterinarios" class="btn-anterior">Cancelar</a>
-                            </div>
-                        </form>
-                    </div>
-                </div>
             </section>
 
             <section id="admin-sucursales">
-                <div id="tag-rol">
-                    <span>Rol activo</span>
+                <div class="tag-rol">
+                    <span th:text="${empleado.puesto}">Rol activo</span>
                 </div>
                 <div class="encabezado-admin">
                     <h1>Gestor de Sucursales</h1>
@@ -362,18 +492,109 @@
                     <label for="control-modal-sucursal" class="btn-agenda">Agregar Sucursal</label>
                 </div>
                 <div class="contenedor-sucursales-admin">
-
-                    <div class="sucursales-caja-admin">
-                        <div class="info-sucursal" th:each="sucursal : ${listaSucursales}">
+                    <div th:if="${#lists.isEmpty(listaSucursales)}">
+                        <p>Aún no has registrado ninguna sucursal. ¡Haz clic en "Agregar sucursal" para comenzar!</p>
+                    </div>
+                    <div class="sucursales-caja-admin" th:each="sucursal : ${listaSucursales}">
+                        <div class="info-sucursal">
                             <h3 th:text="${sucursal.nombre}">Centro</h3>
-                            <label th:text="${sucursal.direccion}"> Dirección: <p>Gatubela #2007,Centro</p></label>
-                            <label th:text="${sucursal.correo}">Correo: <p>centro@ctrlpet.com</p></label>
-                            <label th:text="${sucursal.telefono}">teléfono: <p>6441234567</p></label>
-                            
+                            <details>
+                                <summary>Dirección:</summary>
+                                <p th:text="${sucursal.direccion.calle}"></p>
+                                <p th:text="${sucursal.direccion.colonia}"></p>
+                                <p th:text="${sucursal.direccion.ciudad}"></p>
+                                <p th:text="${sucursal.direccion.estado}"></p>
+                                <p th:text="${sucursal.direccion.codigoPostal}"></p>
+                                <p th:text="${sucursal.direccion.numeroCasa}"></p>
+                            </details>
+                            <label> Correo: <p th:text="${sucursal.correo}">centro@ctrlpet.com</p></label>
+                            <label> Teléfono: <p th:text="${sucursal.telefono}">6441234567</p></label>
                         </div>
                         <div class="sucursal-opciones">
                             <a href="#modal-editar-sucursal" class="btn-editar">Editar</a>
-                            <a th:href="@{/admin/sucursales/eliminar/{id}(id=${sucursal.id_sucursal})}"  class="btn-eliminar"  onclick="return confirm('¿Seguro que deseas eliminar esta sucursal?')">Eliminar</a>
+                            <a th:href="@{/admin/sucursales/eliminar/{id}(id=${sucursal.idSucursal})}" class="btn-eliminar" onclick="return confirm('¿Eliminar?')">Eliminar</a>
+                            <input type="hidden" name="_method" value="DELETE">
+                        </div>
+
+                        <div id="modal-editar-sucursal" class="modal-overlay">
+                            <div class="modal-caja">
+
+                                <h3>Editar Sucursal</h3>
+
+                                <form class="form-modal" th:action="@{/admin/sucursales/editar/{id}(id=${sucursal.idSucursal})}" method="POST">
+                                    <input type="hidden" name="_method" value="PATCH">
+
+                                    <div class="form-grupo">
+                                        <label for="nombre">Nombre de la sucursal:</label>
+                                        <input type="text" id="nombre" name="nombre" th:value="${sucursal.nombre}">
+                                    </div>
+
+                                    <div class="form-grupo">
+                                        <label for="telefonoEditar">Teléfono</label>
+                                        <input type="tel" id="telefonoEditar" name="telefono" th:value="${sucursal.telefono}">
+                                    </div>
+
+                                    <fieldset class="set-campos">
+                                        <legend> Dirección: </legend>
+                                        <div class="form-grupo">
+                                            <label for="calleEditar">Calle: </label>
+                                            <input type="text" id="calleEditar" name="calle" th:value="${sucursal.direccion.calle}">
+                                        </div>
+
+                                        <div class="form-grupo">
+                                            <label for="coloniaEditar">Colonia: </label>
+                                            <input type="text" id="coloniaEditar" name="colonia" th:value="${sucursal.direccion.colonia}">
+                                        </div>
+
+                                        <div class="form-grupo">
+                                            <label for="ciudadEditar">Ciudad: </label>
+                                            <input type="text" id="ciudadEditar" name="ciudad" th:value="${sucursal.direccion.ciudad}">
+                                        </div>
+
+                                        <div class="form-grupo">
+                                            <label for="estadoEditar">Estado: </label>
+                                            <input type="text" id="estadoEditar" name="estado" th:value="${sucursal.direccion.estado}">
+                                        </div>
+
+                                        <div class="form-grupo">
+                                            <label for="codigoPostalEditar">Código Postal: </label>
+                                            <input type="text" id="codigoPostalEditar" name="codigoPostal" th:value="${sucursal.direccion.codigoPostal}">
+                                        </div>
+
+                                        <div class="form-grupo">
+                                            <label for="numeroCasaEditar">Número de casa: </label>
+                                            <input type="text" id="numeroCasaEditar" name="numeroCasa" th:value="${sucursal.direccion.numeroCasa}">
+                                        </div>
+
+                                    </fieldset>
+
+
+<!--                                    <div class="form-grupo">-->
+<!--                                        <label for="correo">Correo electrónico: </label>-->
+<!--                                        <input type="email" id="correo" name="correo" placeholder="Ej. sucursal@ctrlpet.com" >-->
+<!--                                    </div>-->
+
+<!--                                    <div class="form-grupo">-->
+<!--                                        <label for="correo-confirmar">Confirma tu correo electrónico: </label>-->
+<!--                                        <input type="email" id="correo-confirmar" placeholder="Repite tu correo">-->
+<!--                                    </div>-->
+
+<!--                                    <div class="form-grupo">-->
+<!--                                        <label for="contrasenia">Contraseña: </label>-->
+<!--                                        <input type="password" id="contrasenia" name="contrasenia" placeholder="***********">-->
+<!--                                    </div>-->
+
+<!--                                    <div class="form-grupo">-->
+<!--                                        <label for="contrasenia-confirmar">Confirma tu contraseña: </label>-->
+<!--                                        <input type="password" id="contrasenia-confirmar" placeholder="Repite tu contraseña" >-->
+<!--                                    </div>-->
+
+                                    <div class="form-botones">
+                                        <button type="submit" class="btn-continuar">Guardar Cambios</button>
+                                        <a href="#admin-sucursales" class="btn-anterior">Cancelar</a>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
 
@@ -386,42 +607,71 @@
                         
                         <h3>Nueva Sucursal</h3>
                         
-                        <form class="form-modal">
+                        <form class="form-modal" th:action="@{/admin/sucursales/guardar}" method="POST">
                             <div class="form-grupo">
-                                <label for="nombre">Nombre de la sucursal:</label>
-                                <input type="text" id="nombre" placeholder="Ej. Centro" required>
+                                <label>Nombre de la sucursal:</label>
+                                <input type="text" name="nombre" placeholder="Ej. Centro" required>
                             </div>
                             
                             <div class="form-grupo">
-                                <label for="telefono">Teléfono</label>
-                                <input type="tel" id="telefono" placeholder="Ej. 6441234567" required>
-                            </div>
-                            
-                            <div class="form-grupo">
-                                <label for="direccion">Dirección:</label>
-                                <input type="tel" id="direccion" placeholder="Ej. Gatubela #2007,Centro" required>
+                                <label>Teléfono</label>
+                                <input type="tel" name="telefono" placeholder="Ej. 6441234567" required>
                             </div>
 
-                            <div class="form-grupo">
-                                <label for="correo">Correo electrónico: </label>
-                                <input type="email" id="correo" placeholder="Ej. sucursal@ctrlpet.com" >
-                            </div>
+                            <fieldset class="set-campos">
+                                <legend> Dirección: </legend>
+                                <div class="form-grupo">
+                                    <label for="calle">Calle: </label>
+                                    <input type="text" id="calle" name="calle" th:value="${sucursal.direccion.calle}" required>
+                                </div>
 
-                             <div class="form-grupo">
-                                <label for="correo-confirmar">Confirma tu correo electrónico: </label>
-                                <input type="email" id="correo-confirmar" placeholder="Repite tu correo">
-                            </div>
+                                <div class="form-grupo">
+                                    <label for="colonia">Colonia: </label>
+                                    <input type="text" id="colonia" name="colonia" th:value="${sucursal.direccion.colonia}" required>
+                                </div>
 
-                             <div class="form-grupo">
-                                <label for="contrasenia">Contraseña: </label>
-                                <input type="password" id="contrasenia" placeholder="***********">
-                            </div>
+                                <div class="form-grupo">
+                                    <label for="ciudad">Ciudad: </label>
+                                    <input type="text" id="ciudad" name="ciudad" th:value="${sucursal.direccion.ciudad}" required>
+                                </div>
 
-                             <div class="form-grupo">
-                                <label for="contrasenia-confirmar">Confirma tu contraseña: </label>
-                                <input type="password" id="contrasenia-confirmar" placeholder="Repite tu contraseña" >
-                            </div>
-                            
+                                <div class="form-grupo">
+                                    <label for="estado">Estado: </label>
+                                    <input type="text" id="estado" name="estado" th:value="${sucursal.direccion.estado}" required>
+                                </div>
+
+                                <div class="form-grupo">
+                                    <label for="codigoPostal">Código Postal: </label>
+                                    <input type="text" id="codigoPostal" name="codigoPostal" th:value="${sucursal.direccion.codigoPostal}" required>
+                                </div>
+
+                                <div class="form-grupo">
+                                    <label for="numeroCasa">Número de casa: </label>
+                                    <input type="text" id="numeroCasa" name="numeroCasa" th:value="${sucursal.direccion.numeroCasa}" required>
+                                </div>
+
+                            </fieldset>
+
+<!--                            <div class="form-grupo">-->
+<!--                                <label>Correo electrónico: </label>-->
+<!--                                <input type="email" name="correo" placeholder="Ej. sucursal@ctrlpet.com" >-->
+<!--                            </div>-->
+
+<!--                             <div class="form-grupo">-->
+<!--                                <label>Confirma tu correo electrónico: </label>-->
+<!--                                <input type="email" name="correo-confirmar" placeholder="Repite tu correo">-->
+<!--                            </div>-->
+
+<!--                             <div class="form-grupo">-->
+<!--                                <label>Contraseña: </label>-->
+<!--                                <input type="password" name="contrasenia" placeholder="***********">-->
+<!--                            </div>-->
+
+<!--                             <div class="form-grupo">-->
+<!--                                <label>Confirma tu contraseña: </label>-->
+<!--                                <input type="password" name="contrasenia-confirmar" placeholder="Repite tu contraseña" >-->
+<!--                            </div>-->
+
                             <div class="form-botones">
                                 <button type="submit" class="btn-continuar">Guardar Sucursal</button>
                                 <label for="control-modal-sucursal" class="btn-anterior">Cancelar</label>
@@ -430,54 +680,7 @@
                     </div>
                 </div>
 
-                <div id="modal-editar-sucursal" class="modal-overlay">
-                    <div class="modal-caja">
-                        
-                        <h3>Editar Sucursal</h3>
-                        
-                        <form class="form-modal">
-                            <div class="form-grupo">
-                                <label for="nombre">Nombre de la sucursal:</label>
-                                <input type="text" id="nombre" placeholder="Ej. Centro" required>
-                            </div>
-                            
-                            <div class="form-grupo">
-                                <label for="telefono">Teléfono</label>
-                                <input type="tel" id="telefono" placeholder="Ej. 6441234567" required>
-                            </div>
-                            
-                            <div class="form-grupo">
-                                <label for="direccion">Dirección:</label>
-                                <input type="tel" id="direccion" placeholder="Ej. Gatubela #2007,Centro" required>
-                            </div>
 
-                            <div class="form-grupo">
-                                <label for="correo">Correo electrónico: </label>
-                                <input type="email" id="correo" placeholder="Ej. sucursal@ctrlpet.com" >
-                            </div>
-
-                             <div class="form-grupo">
-                                <label for="correo-confirmar">Confirma tu correo electrónico: </label>
-                                <input type="email" id="correo-confirmar" placeholder="Repite tu correo">
-                            </div>
-
-                             <div class="form-grupo">
-                                <label for="contrasenia">Contraseña: </label>
-                                <input type="password" id="contrasenia" placeholder="***********">
-                            </div>
-
-                             <div class="form-grupo">
-                                <label for="contrasenia-confirmar">Confirma tu contraseña: </label>
-                                <input type="password" id="contrasenia-confirmar" placeholder="Repite tu contraseña" >
-                            </div>
-                            
-                            <div class="form-botones">
-                                <button type="submit" class="btn-continuar">Guardar Cambios</button>
-                                <a href="#admin-sucursales" class="btn-anterior">Cancelar</a>
-                            </div>
-                        </form>
-                    </div>
-                </div>
             </section>
         </section>
     </main>

@@ -1,46 +1,74 @@
 package com.example.ctrolpet.service;
 
+import com.example.ctrolpet.model.Dueno;
 import jakarta.servlet.http.HttpSession;
-import com.example.ctrolpet.model.Dueño;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import com.example.ctrolpet.repository.DueñoRepository;
+import com.example.ctrolpet.repository.DuenoRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class DueñoService {
     @Autowired
-    private DueñoRepository dueñoRepository;
+    private DuenoRepository duenoRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private HttpSession httpSession;
 
-    public Dueño autenticar(String correo, String contrasenia){
-        Optional<Dueño> dueñoOptional = dueñoRepository.findByCorreo(correo);
+    public Dueno autenticar(String correo, String contrasenia){
+        Optional<Dueno> dueñoOptional = duenoRepository.findByCorreo(correo);
 
         if(dueñoOptional.isPresent()){
-            Dueño dueño = dueñoOptional.get();
-            if(passwordEncoder.matches(contrasenia, dueño.getContrasenia())){
-                return dueño;
+            Dueno dueno = dueñoOptional.get();
+            if(contrasenia.matches(dueno.getContrasenia())){
+                return dueno;
             }
+//            if(passwordEncoder.matches(contrasenia, dueno.getContrasenia())){
+//                return dueno;
+//            }
         }
 
         return null;
     }
 
-    public Dueño obtenerDueñoLogueado(){
+    public Dueno obtenerDueñoLogueado(){
         ObjectId dueñoId = (ObjectId) httpSession.getAttribute("id_dueño");
         if (dueñoId != null){
-            Optional <Dueño> dueñoOptional = dueñoRepository.findById(dueñoId);
+            Optional <Dueno> dueñoOptional = duenoRepository.findById(dueñoId);
             return dueñoOptional.get();
         }
 
         return null;
     }
+
+    public List<Dueno> obtenerTodos(){
+
+        Pageable pageable = (Pageable) PageRequest.of(0, 20);
+
+        return duenoRepository.findAll(pageable).getContent();
+
+    }
+
+    public Dueno obtenerPorId(ObjectId id){
+
+        return duenoRepository.findById(id).orElse(null);
+
+    }
+
+    public Dueno guardar(Dueno dueno){
+
+        return duenoRepository.save(dueno);
+
+    }
+
+
+
 }

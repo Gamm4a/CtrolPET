@@ -4,15 +4,20 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document
 public class Direccion {
-    String calle;
-    String colonia;
-    int num_casa;
-    String descripcion;
+    private String calle;
+    private String colonia;
+    private String ciudad;
+    private String estado;
+    @Field(name = "codigo_postal")
+    private String codigoPostal;
+    @Field(name = "numero_casa")
+    private String numeroCasa;
+
 
 }

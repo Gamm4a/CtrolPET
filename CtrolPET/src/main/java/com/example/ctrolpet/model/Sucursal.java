@@ -6,19 +6,23 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document
+@Document(collection = "Sucursales")
 public class Sucursal {
 
-    ObjectId id_sucursal;
-    String nombre;
-    String direccion;
-    String telefono;
-    String correo;
-    String password;
-    List<Empleado> empleados;
+    @MongoId
+    @Field(name = "id_sucursal")
+    private ObjectId idSucursal;
+    private String nombre;
+    private Direccion direccion;
+    private String telefono;
+//    private String correo;
+//    private String password;
+    private List<ObjectId> empleados;
 
 }

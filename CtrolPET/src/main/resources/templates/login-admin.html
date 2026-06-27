@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +7,7 @@
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
         </style>
-    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="/styles/styles.css">
 
 </head>
 <body>
@@ -15,12 +15,12 @@
         <section class="contenedor-inicio-sesion-admin">
 
             <div class="bienvenida-admin">
-                <img src="imgs/iconos/logo-dark.png">
+                <img src="/imgs/iconos/logo-dark.png">
                 <h2>Panel Administrativo</h2>
                 <h3>Gestiona citas y más...</h3>
             </div>
 
-            <div class="formulario-login">
+            <form class="formulario-login" th:action="@{/login-admin}" method="POST">
 
                 <input type="radio" name="pasos" id="switch-login-paso1" checked>
                 <input type="radio" name="pasos" id="switch-login-paso2">
@@ -29,13 +29,13 @@
                 <p>Inicia sesión para continuar</p>
 
                 <div class="selector-rol">
-                    <a href="login.html">Soy Usuario</a>
+                    <a th:href="@{/login}">Soy Usuario</a>
                 </div>
 
                 <div id="paso1-login">
                     <div class="campo-formulario">
                         <label for="correo">Correo electrónico: </label>
-                        <input type="email" id="correo" placeholder="Ej. luis.perez@gmail.com" >
+                        <input type="email" name = "correo" id="correo" placeholder="Ej. luis.perez@gmail.com" >
                     </div>
 
                     <div class="button-tag">
@@ -47,15 +47,15 @@
                 <div id="paso2-login">
                     <div class="campo-formulario">
                     <label for="contrasenia">Contraseña: </label>
-                    <input type="password" id="contrasenia" placeholder="***********">
+                    <input type="password" name="contrasenia" id="contrasenia" placeholder="***********">
                     </div> 
                     <div class="button-tag">
-                        <a href="admin.html" class="btn-login">Iniciar Sesión</a>
+                        <button type="submit" class="btn-login">Iniciar Sesión</button>
                     </div>
                         
                 </div>
                 
-            </div>
+            </form>
         </section>
 
         
