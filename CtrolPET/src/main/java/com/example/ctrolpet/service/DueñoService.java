@@ -1,6 +1,7 @@
 package com.example.ctrolpet.service;
 
 import com.example.ctrolpet.model.Dueno;
+import com.example.ctrolpet.model.Mascota;
 import jakarta.servlet.http.HttpSession;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,6 +70,16 @@ public class DueñoService {
 
     }
 
+    public Mascota getMascotaById(ObjectId idMascota, ObjectId idDueno){
+        Optional <Dueno> duenoOptional = duenoRepository.findById(idDueno);
+        List<Mascota> mascotas = duenoOptional.get().getMascotas();
+        for (Mascota m:mascotas){
+            if (m.getIdMascota().equals(idMascota)){
+                return m;
+            }
+        }
+        return null;
+    }
 
 
 }

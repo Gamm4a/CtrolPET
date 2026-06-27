@@ -23,5 +23,6 @@ public class Servicio {
     private String descripcion;
     private Double precio;
     private Especialidad categoria;
+    private Integer duracion;
 
 }
