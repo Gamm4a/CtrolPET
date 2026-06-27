@@ -8,14 +8,12 @@ import com.example.ctrolpet.service.*;
 import jakarta.servlet.http.HttpSession;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.*;
@@ -53,6 +51,87 @@ public class HomeController {
     public String mostrarLoginAdmin(){
         return "login-admin";
     }
+
+    @GetMapping({"/registro", "/registro.html"})
+    public String mostrarRegistro() {
+        return "registro";
+    }
+
+    @PostMapping("/registro")
+    public String procesarRegistro(
+            //datos del Dueño
+            @RequestParam("nombre") String nombre,
+            @RequestParam("telefono") String telefono,
+            @RequestParam("correo") String correo,
+            @RequestParam("contrasenia") String contrasenia,
+
+            //datos de la Mascota
+            @RequestParam("nombreMascota") String nombreMascota,
+            @RequestParam("tipoMascota") String tipoMascota,
+            @RequestParam("razaMascota") String razaMascota,
+            @RequestParam("edadMascota") Integer edadMascota,
+            @RequestParam("edadMascotaTiempo") String edadMascotaTiempo,
+            @RequestParam("sexoMascota") String sexoMascota,
+            @RequestParam("esterilizadoMascota") Boolean esterilizadoMascota,
+
+            //datos de la Cita (pero disque es opcional)
+            @RequestParam(value = "idServicio", required = false) String idServicio,
+            @RequestParam(value = "fecha", required = false) String fecha,
+            @RequestParam(value = "hora", required = false) String hora
+            ) {
+
+        Mascota mascota = new Mascota();
+        mascota.setIdMascota(new ObjectId());
+        mascota.setNombre(nombreMascota);
+        mascota.setEspecie(tipoMascota);
+        mascota.setRaza(razaMascota);
+
+        Instant fechaNacimientoMascota;
+        if ("meses".equals(edadMascotaTiempo)) {
+            fechaNacimientoMascota = Instant.now().minusSeconds(edadMascota * 30L * 24 * 60 * 60);
+        } else { // años
+            fechaNacimientoMascota = Instant.now().minusSeconds(edadMascota * 365L * 24 * 60 * 60);
+        }
+        mascota.setFechaNacimiento(fechaNacimientoMascota);
+
+        Dueno dueno = new Dueno();
+        dueno.setNombre(nombre);
+        dueno.setTelefono(telefono);
+        dueno.setCorreo(correo);
+        dueno.setContrasenia(contrasenia);
+
+        List<Mascota> mascotas = new ArrayList<>();
+        mascotas.add(mascota);
+        dueno.setMascotas(mascotas);
+
+        Dueno duenoGuardado = dueñoService.guardar(dueno);
+
+        // Segun aqui es la parte para la cita, pero pues tengo dudas todavía con esto :p
+        if (idServicio != null && !idServicio.isEmpty() && fecha != null && hora != null) {
+            try {
+                LocalDate fechaCita = LocalDate.parse(fecha);
+                LocalTime horaCita = LocalTime.parse(hora);
+                LocalDateTime fechaHoraCita = LocalDateTime.of(fechaCita, horaCita);
+
+                // Aquí se necesita crear la reserva si tienes los datos necesarios de que sucursal, veterinario
+
+                /*
+                Reserva reserva = new Reserva();
+                reserva.setMascota(mascota);
+                reserva.setFecha(fechaHoraCita);
+                reserva.setServicios(servicioService.obtenerPorId(new ObjectId(idServicio)));
+                reserva.setIdSucursal();
+                reserva.setIdEmpleado();
+                reservaService.guardar(reserva);
+                */
+            } catch (Exception e) {
+                System.err.println("Error al crear reserva: " + e.getMessage());
+            }
+        }
+
+        return "redirect:/login";
+    }
+
 
     @PostMapping("/login")
     public String procesarLogin(@RequestParam("correo") String correo,
