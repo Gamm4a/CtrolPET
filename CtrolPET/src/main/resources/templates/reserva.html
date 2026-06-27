@@ -8,79 +8,120 @@
             @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
         </style>
     
-    <link rel="stylesheet" href="../static/styles/styles.css">
+    <link rel="stylesheet" href="/styles/styles.css">
 
- 
+
+
 
 </head>
 <body class="pagina-citas">
     <input type="checkbox" id="menu-toggle" hidden>
     <header>
-         <div class="logo">
-            <img src="../static/imgs/iconos/logo.png" alt="logo de ctrl+PET.">
-        </div>
-        <nav class="header-nav">
-            <a href="../templates/index.html">Inicio</a>
-            <a href="../templates/servicios.html">Servicios</a>
-            <a href="../templates/contacto.html">Contacto</a>
-        </nav>
-        <div class="botones-header">
-            <a href="../templates/login.html" class="btn-login">Iniciar Sesión</a>
-            <a href="../templates/registro.html" class="btn-register">Registrarse</a>
+        <div class="logo">
+            <img src="/imgs/iconos/logo.png" alt="logo de ctrl+PET.">
         </div>
 
-     <label for="menu-hamburguer" id="icon-menu">
-    ☰ </label>
-    </header> 
+        <input type="checkbox" id="anvorguesa">
+        <label for="anvorguesa" class="menu-button">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+
+        <nav class="header-nav">
+            <a th:href="@{/}">Inicio</a>
+            <a th:href="@{/servicios}">Servicios</a>
+            <a th:href="@{/contacto}">Contacto</a>
+        </nav>
+        <div class="botones-header" th:if="${dueno != null}">
+            <a th:href="@{/logout}" class="btn-cerrar-sesion">Cerrar Sesión</a>
+        </div>
+        <div class="botones-header" th:unless="${dueno != null}">
+            <a th:href="@{/login}" class="btn-login">Iniciar Sesión</a>
+            <a th:href="@{/registro}" class="btn-register">Registrarse</a>
+        </div>
+    </header>
     <main>
-        <section class = "contenedor-reserva-logueado" th:if="${usuario != null}">
+        <section class="contenedor-reserva-logueado" th:if="${dueno != null}">
             <div class="imagen-reserva-logueado">
-                 <p>¡Estamos ansiosos por verte!</p>
-                <img src = "../static/imgs/otras/imagen-agendarConLogin.png" alt=Veterinaria con un gatito>
+                <p>¡Estamos ansiosos por verte!</p>
+                <img th:src="@{/imgs/otras/imagen-agendarConLogin.png}" alt="Veterinaria con un gatito">
             </div>
-            <div class = "formulario-reserva-logueado"> 
+
+            <form class="formulario-reserva-logueado"
+                  th:action="${mapaHorarios == null} ? @{/reserva/filtrar-horarios} : @{/reserva/guardar}"
+                  method="POST">
+
                 <h2>Agendar Cita</h2>
-               <div class="campo-formulario"> 
+
+                <input type="hidden" name="idDueno" th:value="${dueno.idDueno}">
+
+                <div class="campo-formulario">
                     <label for="mascota">Mascota</label>
-                    <select id="mascota" required>
-                        <option 
-                                th:each="mascota : ${usuario.mascotas}" 
-                                th:value="${mascota.id}" 
-                                th:text="${mascota.nombre}">
+                    <select id="mascota" name="idMascota" required th:disabled="${mapaHorarios != null}">
+                        <option th:each="mascota : ${listaMascotas}"
+                                th:value="${mascota.idMascota}"
+                                th:text="${mascota.nombre}"
+                                th:selected="${mascota.idMascota == mascotaSeleccionada}">
                         </option>
                     </select>
+                    <input type="hidden" name="idMascota" th:if="${mapaHorarios != null}" th:value="${mascotaSeleccionada}">
                 </div>
-            <div class="campo-formulario">
-                <label for="servicio">Servicio:</label>
-                <select id="servicio" required>
-                     <option value="">Selecciona un servicio...</option>
-                        <option value="consulta">Consulta General</option>
-                        <option value="estetica">Estética & Spa</option>
-                        <option value="dental">Cuidado Dental</option>
-                        <option value="diagnostico">Diagnóstico</option>
-                        <option value="cirugia">Cirugía</option>
-                        <option value="hospitalizacion">Hospitalización</option>
-                </select>
-            </div>
 
-            <div class="campo-formulario">
-                <label for="fecha">Fecha</label>
-                <input type="date" id="fecha" required>
-            </div>
-            <div class="campo-formulario">
-                <label for="hora">Hora</label>
-                <select id="hora" required>
-                    <option value="">Seleccion una hora</option>
-                     <option value="9:00">9:00 AM</option>
-                      <option value="10:00">10:00 AM</option>
-                       <option value="11:00">11:00 AM</option>
-                </select>
-            </div>
-            <button class="btn-agendar">Agendar mi cita</button>
-            </div>
+                <div class="campo-formulario">
+                    <label for="sucursal">Sucursal:</label>
+                    <select name="idSucursal" id="sucursal" required th:disabled="${mapaHorarios != null}">
+                        <option value="" disabled th:selected="${sucursalSeleccionada == null}">Selecciona una sucursal</option>
+                        <option th:each="sucursalesDisponibles : ${listaSucursales}"
+                                th:value="${sucursalesDisponibles.idSucursal}"
+                                th:text="${sucursalesDisponibles.nombre}"
+                                th:selected="${sucursalesDisponibles.idSucursal == sucursalSeleccionada}">
+                        </option>
+                    </select>
+                    <input type="hidden" name="idSucursal" th:if="${mapaHorarios != null}" th:value="${sucursalSeleccionada}">
+                </div>
+
+                <div class="campo-formulario">
+                    <label for="servicio">Servicio:</label>
+                    <select id="servicio" name="idServicio" required th:disabled="${mapaHorarios != null}">
+                        <option value="" disabled th:selected="${servicioSeleccionado == null}">Selecciona un servicio...</option>
+                        <option th:each="servicio : ${listaServicios}"
+                                th:value="${servicio.idServicio}"
+                                th:text="${servicio.tipo}"
+                                th:selected="${servicio.idServicio == servicioSeleccionado}">
+                        </option>
+                    </select>
+                    <input type="hidden" name="idServicio" th:if="${mapaHorarios != null}" th:value="${servicioSeleccionado}">
+                </div>
+
+                <div class="campo-formulario">
+                    <label for="fecha">Fecha</label>
+                    <input type="date" id="fecha" name="fecha" required
+                           th:value="${fechaSeleccionada}"
+                           th:disabled="${mapaHorarios != null}">
+                    <input type="hidden" name="fecha" th:if="${mapaHorarios != null}" th:value="${fechaSeleccionada}">
+                </div>
+
+                <div class="campo-formulario" th:if="${mapaHorarios != null}">
+                    <label for="hora">Hora disponible:</label>
+                    <select id="hora" name="horaCombinada" required>
+                        <option value="" disabled selected>Selecciona una hora</option>
+
+                        <option th:each="entry : ${mapaHorarios}"
+                                th:value="${entry.value.idEmpleado + '_' + #temporals.format(entry.key, 'HH:mm')}"
+                                th:text="${#temporals.format(entry.key, 'HH:mm') + ' - ' + entry.value.nombre}">
+                        </option>
+
+                    </select>
+                </div>
+
+                <button type="submit" class="btn-agendar"
+                        th:text="${mapaHorarios == null} ? 'Ver horas disponibles' : 'Agendar mi cita'">
+                </button>
+            </form>
         </section>
 
-        <section class="contenedor-reserva-sin-login" th:unless="${usuario != null}">
+        <section class="contenedor-reserva-sin-login" th:unless="${dueno != null}">
 
             <div class="imagen-reserva-sin-login">
                 <p>¿Cambiaste de opinión y sí deseas un expediente digital para tu mascota?  <a th:href="@{/registro}">¡Regístrate!</a></p>
@@ -137,8 +178,8 @@
                     </select>
                     </div>
                     <div class="campo-formulario">
-                    <label for="servicio">Servicio:</label>
-                    <select id="servicio" required>
+                    <label for="servicioSinLogin">Servicio:</label>
+                    <select id="servicioSinLogin" name="servicio" required multiple>
                         <option value="">Selecciona un servicio...</option>
                         <option value="consulta">Consulta</option>
                         <option value="estetica">Estética & Spa</option>
@@ -150,13 +191,13 @@
                     </div>
 
                      <div class="campo-formulario">
-                    <label for="fecha">Fecha</label>
-                    <input type="date" id="fecha" required>
+                    <label for="fechaSinLogin">Fecha</label>
+                    <input type="date" id="fechaSinLogin" required>
                     </div>
 
                     <div class="campo-formulario">
-                        <label for="hora">Hora</label>
-                        <input type="time" id="hora" required>
+                        <label for="horaSinLogin">Hora</label>
+                        <input type="time" id="horaSinLogin" required>
                     </div>
             </form>
 
