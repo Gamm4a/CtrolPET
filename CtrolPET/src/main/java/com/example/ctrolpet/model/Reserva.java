@@ -28,7 +28,8 @@ public class Reserva {
     private EstadoReserva estado;
     @Field(name = "id_sucursal")
     private ObjectId idSucursal;
-    private Mascota mascota;
+    private ObjectId dueno;
+    private ObjectId mascota;
     private Servicio servicios;
 
 

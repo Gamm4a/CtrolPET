@@ -60,25 +60,25 @@
                             <tr>
                                 <th>Dueño</th>
                                 <th>Mascota</th>
-                                <th>Fecha</th>
-                                <th>Hora</th>
+                                <th>Fecha y Hora</th>
                                 <th>Servicio</th>
                                 <th>Veterinario</th>
                                 <th>Precio</th>
                                 <th>Estado</th>
+                                <th style="text-align: center; vertical-align: middle;">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                              <tr th:each="reserva : ${listaReservas}" tabindex="0">
-                                <td th:text="${reserva.mascota.dueno.nombre}">Dueño</td>
-                                <td th:text="${reserva.mascota.nombre}">Mascota</td>
-                                <td th:text="${reserva.fecha}">Fecha</td>
-                                <td th:text="${reserva.servicios.tipo}">Servicio</td>
-                                <td th:text="${reserva.idEmpleado}">Veterinario</td>
-                                <td th:text="${'$' + reserva.servicios.precio}">Precio</td>
-                                <td th:text="${reserva.estado}">Estado</td>
+                                 <td th:text="${@dueñoService.obtenerPorId(reserva.dueno).nombre}">Dueño</td>
+                                 <td th:text="${@dueñoService.getMascotaById(reserva.mascota,reserva.dueno).nombre}">Mascota</td>
+                                 <td th:text="${#temporals.format(reserva.fecha, 'dd/MM/yyyy HH:mm')}">Fecha</td>
+                                 <td th:text="${reserva.servicios.tipo}">Servicio</td>
+                                 <td th:text="${@empleadoService.obtenerPorId(reserva.idEmpleado).nombre}">Veterinario</td>
+                                 <td th:text="${'$' + reserva.servicios.precio}">Precio</td>
+                                 <td th:text="${reserva.estado}">Estado</td>
                                  <td class="celda-accion">
-                                     <div class="opciones">
+                                     <div class="opciones-citas">
                                          <a th:href="@{/admin/citas/editar/{id}(id=${reserva.idReserva})}">Editar</a>
                                          <form th:action="@{/admin/citas/eliminar/{id}(id=${reserva.idReserva})}" method="POST" onclick="return confirm('¿Seguro?')">
                                              <input type="hidden" name="_method" value="DELETE">
@@ -107,10 +107,9 @@
 
                 <div class="buscador-citas">
                     <input type="text" name="buscar" placeholder="Buscar cita">
-                </div>
-                <div class="agregar">
                     <label for="control-modal-cita" class="btn-agenda">Agregar cita</label>
                 </div>
+
 
                 <input type="checkbox" id="control-modal-cita" class="modal-switch" hidden>
 
@@ -146,26 +145,25 @@
                         <tr>
                             <th>Dueño</th>
                             <th>Mascota</th>
-                            <th>Fecha</th>
-                            <th>Hora</th>
+                            <th>Fecha y Hora</th>
                             <th>Servicio</th>
                             <th>Veterinario</th>
                             <th>Precio</th>
                             <th>Estado</th>
+                            <th style="text-align: center; vertical-align: middle;">Acciones</th>
                         </tr>
                     </thead>
                   <tbody>
                     <tr th:each="reserva : ${listaReservas}" tabindex="0">
-                        <td th:text="${reserva.mascota.dueno.nombre}">Dueño</td>
-                        <td th:text="${reserva.mascota.nombre}">Mascota</td>
-                        <td th:text="${reserva.fecha}">Fecha</td>
-                        <td th:text="${reserva.fecha}">Hora</td>
-                        <td th:text="${reserva.servicio.tipo}">Servicio</td>
-                        <td th:text="${reserva.idEmpleado}">Veterinario</td>
-                        <td th:text="${'$' + reserva.servicio.precio}">Precio</td>
+                        <td th:text="${@dueñoService.obtenerPorId(reserva.dueno).nombre}">Dueño</td>
+                        <td th:text="${@dueñoService.getMascotaById(reserva.mascota,reserva.dueno).nombre}">Mascota</td>
+                        <td th:text="${#temporals.format(reserva.fecha, 'dd/MM/yyyy HH:mm')}">Fecha</td>
+                        <td th:text="${reserva.servicios.tipo}">Servicio</td>
+                        <td th:text="${@empleadoService.obtenerPorId(reserva.idEmpleado).nombre}">Veterinario</td>
+                        <td th:text="${'$' + reserva.servicios.precio}">Precio</td>
                         <td th:text="${reserva.estado}">Estado</td>
                         <td class="celda-accion">
-                            <div class="opciones">
+                            <div class="opciones-citas">
                                 <a th:href="@{/admin/citas/editar/{id}(id=${reserva.idReserva})}">Editar</a>
                                 <form th:action="@{/admin/citas/eliminar/{id}(id=${reserva.idReserva})}" method="POST" onclick="return confirm('¿Seguro?')">
                                     <input type="hidden" name="_method" value="DELETE">
