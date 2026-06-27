@@ -130,9 +130,10 @@
                         <td class="celda-accion">
                             <div class="opciones">
                                 <a th:href="@{/admin/citas/editar/{id}(id=${reserva.idReserva})}">Editar</a>
-                                <a th:href="@{/admin/citas/eliminar/{id}(id=${reserva.idReserva})}"
-                                   onclick="return confirm('¿Seguro?')">Eliminar</a>
-                                <input type="hidden" name="_method" value="DELETE">
+                                <form th:action="@{/admin/citas/eliminar/{id}(id=${reserva.idReserva})}" method="POST" onclick="return confirm('¿Seguro?')">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button type="submit" class="btn-eliminar">Eliminar</button>
+                                </form>
                             </div>
                         </td>
                     </tr>
@@ -167,13 +168,14 @@
                             <span class="precio" th:text="${ '$' + servicio.precio}">$300</span>
                         </div>
                         <div class="servicio-opciones">
-                            <a href="#modal-editar-servicio" class="btn-editar">Editar</a>
-                            <a th:href="@{/admin/servicios/eliminar/{id}(id=${servicio.idServicio})}"
-                               class="btn-eliminar" onclick="return confirm('¿Seguro que deseas eliminar este servicio?')">Eliminar</a>
-                            <input type="hidden" name="_method" value="DELETE">
+                            <a th:href="'#modal-editar-servicio-' + ${servicio.idServicio}" class="btn-editar">Editar</a>
+                            <form th:action="@{/admin/servicios/eliminar/{id}(id=${servicio.idServicio})}" method="POST" onclick="return confirm('¿Seguro que desea eliminar este servicio?')">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button type="submit" class="btn-eliminar">Eliminar</button>
+                            </form>
                         </div>
 
-                        <div id="modal-editar-servicio" class="modal-overlay">
+                        <div th:id="'modal-editar-servicio-' + ${servicio.idServicio}" class="modal-overlay">
                             <div class="modal-caja">
 
                                 <h3>Editar Servicio</h3>
@@ -279,19 +281,21 @@
                     <div class="veterinario-caja-admin" th:each="empleado : ${listaEmpleados}">
                         <div class="info-vet">
                             <h3 th:text="${empleado.nombre + ' ' + empleado.apellidoPaterno}">Dra. María López</h3>
-                            <label th:text="${empleado.especialidad}">Especialidad: <p>Medicina General, Cirugía</p></label>
                             <label th:text="${empleado.puesto}">Puesto: <p>Administrador, Empleado</p></label>
+                            <label th:text="${empleado.especialidad}">Especialidad: <p>Medicina General, Cirugía</p></label>
                             <label th:text="${empleado.correo}">Correo: <p>maria.lopez@ctrlpet.com</p></label>
                             <label th:text="${empleado.telefono}">teléfono: <p>6441589865</p></label>
-                            
+
                         </div>
                         <div class="veterinarios-opciones">
-                            <a href="#modal-editar-veterinario" class="btn-editar">Editar</a>
-                            <a th:href="@{/admin/veterinarios/eliminar/{id}(id=${empleado.idEmpleado})}" class="btn-eliminar" onclick="return confirm('¿Seguro que deseas eliminar a este veterinario?')">Eliminar</a>
-                            <input type="hidden" name="_method" value="DELETE">
+                            <a th:href="'#modal-editar-veterinario-' + ${empleado.idEmpleado}" class="btn-editar">Editar</a>
+                            <form th:action="@{/admin/veterinarios/eliminar/{id}(id=${empleado.idEmpleado})}" method="POST" onclick="return confirm('¿Seguro que deseas eliminar a este veterinario?')">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button type="submit" class="btn-eliminar">Eliminar</button>
+                            </form>
                         </div>
 
-                        <div id="modal-editar-veterinario" class="modal-overlay">
+                        <div th:id="'modal-editar-veterinario-' + ${empleado.idEmpleado}" class="modal-overlay">
                             <div class="modal-caja-ancha">
 
                                 <h3>Editar Veterinario</h3>
@@ -383,7 +387,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
 
                 <input type="checkbox" id="control-modal-veterinario" class="modal-switch" hidden>
@@ -445,7 +448,7 @@
                             <fieldset class="set-campos">
                                 <legend>Días de trabajo: </legend>
                                 <div th:each="dia : ${diasSemana}">
-                                    <input type="checkbox" th:value="${dia}" name="diasSeleccionados" th:id="${'dia:' + dia}" required>
+                                    <input type="checkbox" th:value="${dia}" name="diasSeleccionados" th:id="${'dia:' + dia}">
                                     <label th:for="${'dia:' + dia}" th:text="${dia}"></label>
                                 </div>
                             </fieldset>
@@ -463,6 +466,11 @@
                             <div class="form-grupo">
                                 <label>Correo:</label>
                                 <input type="email" name="correo" required placeholder="mario.perez@ctrlpet.com">
+                            </div>
+
+                            <div class="form-grupo">
+                                <label>Contraseña:</label>
+                                <input type="password" name="contrasenia" required placeholder="**********">
                             </div>
 
                             <div class="form-grupo">
@@ -498,25 +506,26 @@
                     <div class="sucursales-caja-admin" th:each="sucursal : ${listaSucursales}">
                         <div class="info-sucursal">
                             <h3 th:text="${sucursal.nombre}">Centro</h3>
+                            <label> Teléfono: <p th:text="${sucursal.telefono}">6441234567</p></label>
                             <details>
                                 <summary>Dirección:</summary>
-                                <p th:text="${sucursal.direccion.calle}"></p>
-                                <p th:text="${sucursal.direccion.colonia}"></p>
-                                <p th:text="${sucursal.direccion.ciudad}"></p>
-                                <p th:text="${sucursal.direccion.estado}"></p>
-                                <p th:text="${sucursal.direccion.codigoPostal}"></p>
-                                <p th:text="${sucursal.direccion.numeroCasa}"></p>
+                                <p th:text="${sucursal.direccion?.calle}"></p>
+                                <p th:text="${sucursal.direccion?.colonia}"></p>
+                                <p th:text="${sucursal.direccion?.ciudad}"></p>
+                                <p th:text="${sucursal.direccion?.estado}"></p>
+                                <p th:text="${sucursal.direccion?.codigoPostal}"></p>
+                                <p th:text="${sucursal.direccion?.numeroCasa}"></p>
                             </details>
-                            <label> Correo: <p th:text="${sucursal.correo}">centro@ctrlpet.com</p></label>
-                            <label> Teléfono: <p th:text="${sucursal.telefono}">6441234567</p></label>
                         </div>
                         <div class="sucursal-opciones">
-                            <a href="#modal-editar-sucursal" class="btn-editar">Editar</a>
-                            <a th:href="@{/admin/sucursales/eliminar/{id}(id=${sucursal.idSucursal})}" class="btn-eliminar" onclick="return confirm('¿Eliminar?')">Eliminar</a>
-                            <input type="hidden" name="_method" value="DELETE">
+                            <a th:href="'#modal-editar-sucursal-' + ${sucursal.idSucursal}" class="btn-editar">Editar</a>
+                            <form th:action="@{/admin/sucursales/eliminar/{id}(id=${sucursal.idSucursal})}" method="POST" onclick="return confirm('¿Seguro que deseas eliminar a esta sucursal?')">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button type="submit" class="btn-eliminar">Eliminar</button>
+                            </form>
                         </div>
 
-                        <div id="modal-editar-sucursal" class="modal-overlay">
+                        <div th:id="'modal-editar-sucursal-' + ${sucursal.idSucursal}" class="modal-overlay">
                             <div class="modal-caja">
 
                                 <h3>Editar Sucursal</h3>
@@ -538,34 +547,33 @@
                                         <legend> Dirección: </legend>
                                         <div class="form-grupo">
                                             <label for="calleEditar">Calle: </label>
-                                            <input type="text" id="calleEditar" name="calle" th:value="${sucursal.direccion.calle}">
+                                            <input type="text" id="calleEditar" name="calle" th:value="${sucursal.direccion?.calle}">
                                         </div>
 
                                         <div class="form-grupo">
                                             <label for="coloniaEditar">Colonia: </label>
-                                            <input type="text" id="coloniaEditar" name="colonia" th:value="${sucursal.direccion.colonia}">
+                                            <input type="text" id="coloniaEditar" name="colonia" th:value="${sucursal.direccion?.colonia}">
                                         </div>
 
                                         <div class="form-grupo">
                                             <label for="ciudadEditar">Ciudad: </label>
-                                            <input type="text" id="ciudadEditar" name="ciudad" th:value="${sucursal.direccion.ciudad}">
+                                            <input type="text" id="ciudadEditar" name="ciudad" th:value="${sucursal.direccion?.ciudad}">
                                         </div>
 
                                         <div class="form-grupo">
                                             <label for="estadoEditar">Estado: </label>
-                                            <input type="text" id="estadoEditar" name="estado" th:value="${sucursal.direccion.estado}">
+                                            <input type="text" id="estadoEditar" name="estado" th:value="${sucursal.direccion?.estado}">
                                         </div>
 
                                         <div class="form-grupo">
                                             <label for="codigoPostalEditar">Código Postal: </label>
-                                            <input type="text" id="codigoPostalEditar" name="codigoPostal" th:value="${sucursal.direccion.codigoPostal}">
+                                            <input type="text" id="codigoPostalEditar" name="codigoPostal" th:value="${sucursal.direccion?.codigoPostal}">
                                         </div>
 
                                         <div class="form-grupo">
                                             <label for="numeroCasaEditar">Número de casa: </label>
-                                            <input type="text" id="numeroCasaEditar" name="numeroCasa" th:value="${sucursal.direccion.numeroCasa}">
+                                            <input type="text" id="numeroCasaEditar" name="numeroCasa" th:value="${sucursal.direccion?.numeroCasa}">
                                         </div>
-
                                     </fieldset>
 
 
@@ -622,32 +630,32 @@
                                 <legend> Dirección: </legend>
                                 <div class="form-grupo">
                                     <label for="calle">Calle: </label>
-                                    <input type="text" id="calle" name="calle" th:value="${sucursal.direccion.calle}" required>
+                                    <input type="text" id="calle" name="calle" required>
                                 </div>
 
                                 <div class="form-grupo">
                                     <label for="colonia">Colonia: </label>
-                                    <input type="text" id="colonia" name="colonia" th:value="${sucursal.direccion.colonia}" required>
+                                    <input type="text" id="colonia" name="colonia" required>
                                 </div>
 
                                 <div class="form-grupo">
                                     <label for="ciudad">Ciudad: </label>
-                                    <input type="text" id="ciudad" name="ciudad" th:value="${sucursal.direccion.ciudad}" required>
+                                    <input type="text" id="ciudad" name="ciudad" required>
                                 </div>
 
                                 <div class="form-grupo">
                                     <label for="estado">Estado: </label>
-                                    <input type="text" id="estado" name="estado" th:value="${sucursal.direccion.estado}" required>
+                                    <input type="text" id="estado" name="estado" required>
                                 </div>
 
                                 <div class="form-grupo">
                                     <label for="codigoPostal">Código Postal: </label>
-                                    <input type="text" id="codigoPostal" name="codigoPostal" th:value="${sucursal.direccion.codigoPostal}" required>
+                                    <input type="text" id="codigoPostal" name="codigoPostal" required>
                                 </div>
 
                                 <div class="form-grupo">
                                     <label for="numeroCasa">Número de casa: </label>
-                                    <input type="text" id="numeroCasa" name="numeroCasa" th:value="${sucursal.direccion.numeroCasa}" required>
+                                    <input type="text" id="numeroCasa" name="numeroCasa" required>
                                 </div>
 
                             </fieldset>
@@ -679,12 +687,9 @@
                         </form>
                     </div>
                 </div>
-
-
             </section>
         </section>
     </main>
-
     <footer>
         <p>&copy; Copyright Ctrl+PET 2026</p>
     </footer>
