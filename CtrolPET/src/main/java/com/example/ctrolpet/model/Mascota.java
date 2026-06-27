@@ -22,7 +22,7 @@ public class Mascota {
     @Field(name = "fecha_nacimiento")
     private Instant fechaNacimiento;
     //foto
-    private String foto;
+    private String fotoUrl;
 
     @Field(name = "id_historial_clinico")
     private ObjectId idHistorialClinico;
