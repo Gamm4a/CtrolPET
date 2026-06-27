@@ -15,16 +15,16 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Document
-public class Dueño {
+public class Dueno {
 
     @MongoId
-    ObjectId id_dueño;
-    String nombre;
-    String ap_materno;
-    String ap_paterno;
-    Instant fch_nacimiento;
-    String telefono;
-    List<Mascota> mascotas;
-    Direccion direccion;
+    private ObjectId id_dueño;
+    private String nombre;
+    private String ap_materno;
+    private String ap_paterno;
+    private Instant fch_nacimiento;
+    private String telefono;
+    private List<Mascota> mascotas;
+    private Direccion direccion;
 
 }

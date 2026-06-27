@@ -1,8 +1,8 @@
 package repository;
 
-import model.Dueño;
+import model.Dueno;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface DueñoRepository extends MongoRepository<Dueño, ObjectId> {
+public interface DuenoRepository extends MongoRepository<Dueno, ObjectId> {
 }

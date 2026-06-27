@@ -10,9 +10,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @NoArgsConstructor
 @Document
 public class Direccion {
-    String calle;
-    String colonia;
-    int num_casa;
-    String descripcion;
+    private String calle;
+    private String colonia;
+    private int num_casa;
+    private String descripcion;
 
 }

@@ -17,12 +17,12 @@ import java.util.List;
 @Document
 public class Empleado {
     @MongoId
-    ObjectId id_Empleado;
-    String nombre;
-    String ap_paterno;
-    String ap_materno;
-    String telefono;
-    Puesto puesto;
-    List<Horario> horarios;
+    private ObjectId id_Empleado;
+    private String nombre;
+    private String ap_paterno;
+    private String ap_materno;
+    private String telefono;
+    private Puesto puesto;
+    private List<Horario> horarios;
 
 }
