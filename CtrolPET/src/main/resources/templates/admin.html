@@ -15,8 +15,8 @@
     <main>
         
         <section id="dashboard-admin">
-            <input type="radio" name="nav-pestana" id="pestana-inicio" checked>
-            <input type="radio" name="nav-pestana" id="pestana-citas">
+            <input type="radio" name="nav-pestana" id="pestana-inicio" th:checked="${buscar == null}">
+            <input type="radio" name="nav-pestana" id="pestana-citas" th:checked="${buscar != null}">
             <input type="radio" name="nav-pestana" id="pestana-servicios">
             <input type="radio" name="nav-pestana" id="pestana-veterinarios">
             <input type="radio" name="nav-pestana" id="pestana-sucursales">
@@ -48,7 +48,10 @@
                     <h1>Dashboard Administrativo</h1>
                 </div>
                 <div class="buscador-citas">
-                    <input type="text" name="buscar" placeholder="Buscar"></input>
+                    <form th:action="@{/admin}" method="GET" style="display:contents">
+                        <input type="text" name="buscar" placeholder="Buscar" th:value="${buscar}">
+                        <button type="submit" class="btn-agenda">Buscar</button>
+                    </form>
                     <a href="" class="btn-agenda">Ver tabla de dueños</a>
                     <a href="" class="btn-agenda">Ver tabla de mascotas</a>
                     <a href="" class="btn-agenda">Ver tabla de citas</a>
@@ -105,10 +108,13 @@
                     <h1>Gestor de Citas</h1>
                 </div>
 
-                <div class="buscador-citas">
-                    <input type="text" name="buscar" placeholder="Buscar cita">
-                    <label for="control-modal-cita" class="btn-agenda">Agregar cita</label>
-                </div>
+              <div class="buscador-citas">
+                <form th:action="@{/admin}" method="GET" style="display:contents">
+                    <input type="text" name="buscar" placeholder="Buscar cita" th:value="${buscar}">
+                    <button type="submit" class="btn-agenda">Buscar</button>
+                </form>
+                <label for="control-modal-cita" class="btn-agenda">Agregar cita</label>
+            </div>
 
 
                 <input type="checkbox" id="control-modal-cita" class="modal-switch" hidden>

@@ -23,7 +23,7 @@ public class HomeController {
 
 
     @Autowired
-    private DueñoService dueñoService;
+    private DuenoService duenoService;
 
     @Autowired
     private EmpleadoService empleadoService;
@@ -104,7 +104,7 @@ public class HomeController {
         mascotas.add(mascota);
         dueno.setMascotas(mascotas);
 
-        Dueno duenoGuardado = dueñoService.guardar(dueno);
+        Dueno duenoGuardado = duenoService.guardar(dueno);
 
         // Segun aqui es la parte para la cita, pero pues tengo dudas todavía con esto :p
         if (idServicio != null && !idServicio.isEmpty() && fecha != null && hora != null) {
@@ -139,7 +139,7 @@ public class HomeController {
                                 HttpSession session,
                                 Model model){
 
-        Dueno dueno = dueñoService.autenticar(correo, contrasenia);
+        Dueno dueno = duenoService.autenticar(correo, contrasenia);
 
         if(dueno != null){
             session.setAttribute("idDueño", dueno.getIdDueno());
@@ -359,7 +359,9 @@ public class HomeController {
     }
 
     @GetMapping("/admin")
-    public String adminDashboard(HttpSession session, Model model){
+    public String adminDashboard(HttpSession session, Model model,
+        @RequestParam(value = "buscar", required = false) String buscar){
+    
 
         ObjectId idEmpleado = (ObjectId) session.getAttribute("idEmpleado");
 
@@ -367,14 +369,19 @@ public class HomeController {
             return "redirect:/login-admin";
         }
 
+        List<Reserva> todasLasReservas = (buscar != null && !buscar.isBlank()) 
+                ? reservaService.buscar(buscar, duenoService,empleadoService)
+                : reservaService.obtenerTodos();
+    
         Empleado empleadoLogueado = empleadoService.obtenerPorId(idEmpleado);
 
+        model.addAttribute("buscar", buscar);
         model.addAttribute("empleado", empleadoLogueado);
-        model.addAttribute("listaReservas", reservaService.obtenerTodos());
+        model.addAttribute("listaReservas", todasLasReservas);
         model.addAttribute("listaServicios", servicioService.obtenerTodos());
         model.addAttribute("listaEmpleados", empleadoService.obtenerTodos());
         model.addAttribute("listaSucursales", sucursalService.obtenerTodos());
-        model.addAttribute("listaDuenos", dueñoService.obtenerTodos());
+        model.addAttribute("listaDuenos", duenoService.obtenerTodos());
         model.addAttribute("puestos", Puesto.values());
         model.addAttribute("especialidades", Especialidad.values());
         model.addAttribute("diasSemana", DiaSemana.values());
@@ -416,7 +423,7 @@ public class HomeController {
             return "redirect:/login";
         }
 
-        Dueno dueno = dueñoService.obtenerPorId(idDueno);
+        Dueno dueno = duenoService.obtenerPorId(idDueno);
         Empleado empleadoLogueado = empleadoService.obtenerPorId(idEmpleado);
         model.addAttribute("dueno", dueno);
         model.addAttribute("empleado", empleadoLogueado);
@@ -442,7 +449,7 @@ public class HomeController {
             return "redirect:/login";
         }
 
-        Dueno dueno = dueñoService.obtenerPorId(idDueno);
+        Dueno dueno = duenoService.obtenerPorId(idDueno);
         Servicio servicio = servicioService.obtenerPorId(idServicio);
 
         LocalDate fecha = LocalDate.parse(fechaString);
