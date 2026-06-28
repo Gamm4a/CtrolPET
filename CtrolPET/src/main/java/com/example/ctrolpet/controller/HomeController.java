@@ -3,6 +3,7 @@ package com.example.ctrolpet.controller;
 import com.example.ctrolpet.model.*;
 import com.example.ctrolpet.model.Enum.DiaSemana;
 import com.example.ctrolpet.model.Enum.Especialidad;
+import com.example.ctrolpet.model.Enum.EstadoReserva;
 import com.example.ctrolpet.model.Enum.Puesto;
 import com.example.ctrolpet.service.*;
 import jakarta.servlet.http.HttpSession;
@@ -520,5 +521,92 @@ public class HomeController {
         reservaService.guardar(reserva);
 
         return "redirect:/admin";
+    }
+
+    @GetMapping("/admin/duenos")
+    public String verTablaDuenos(HttpSession session, Model model) {
+        ObjectId idEmpleado = (ObjectId) session.getAttribute("idEmpleado");
+        if (idEmpleado == null) {
+            return "redirect:/login-admin";
+        }
+        Empleado empleadoLogueado = empleadoService.obtenerPorId(idEmpleado);
+        model.addAttribute("empleado", empleadoLogueado);
+        model.addAttribute("listaDuenos", dueñoService.obtenerTodos());
+        return "admin-duenos";
+    }
+
+    @GetMapping("/admin/mascotas")
+    public String verTablaMascotas(HttpSession session, Model model) {
+        ObjectId idEmpleado = (ObjectId) session.getAttribute("idEmpleado");
+        if (idEmpleado == null) {
+            return "redirect:/login-admin";
+        }
+        Empleado empleadoLogueado = empleadoService.obtenerPorId(idEmpleado);
+        model.addAttribute("empleado", empleadoLogueado);
+        model.addAttribute("listaDuenos", dueñoService.obtenerTodos());
+        return "admin-mascotas";
+    }
+
+
+    @GetMapping("/admin/citas")
+    public String verTablaCitas(HttpSession session, Model model) {
+        ObjectId idEmpleado = (ObjectId) session.getAttribute("idEmpleado");
+        if (idEmpleado == null) {
+            return "redirect:/login-admin";
+        }
+        Empleado empleadoLogueado = empleadoService.obtenerPorId(idEmpleado);
+        model.addAttribute("empleado", empleadoLogueado);
+        model.addAttribute("listaReservas", reservaService.obtenerTodos());
+        return "admin-citas";
+    }
+
+    @DeleteMapping("/admin/citas/eliminar/{id}")
+    public String eliminarCita(@PathVariable String id, HttpSession session) {
+        ObjectId idEmpleado = (ObjectId) session.getAttribute("idEmpleado");
+        if (idEmpleado == null) {
+            return "redirect:/login-admin";
+        }
+        reservaService.eliminar(new ObjectId(id));
+        return "redirect:/admin/citas";
+    }
+
+    @GetMapping("/admin/citas/editar/{id}")
+    public String editarCita(@PathVariable String id, HttpSession session, Model model) {
+        ObjectId idEmpleado = (ObjectId) session.getAttribute("idEmpleado");
+        if (idEmpleado == null) {
+            return "redirect:/login-admin";
+        }
+        Empleado empleadoLogueado = empleadoService.obtenerPorId(idEmpleado);
+        Reserva reserva = reservaService.obtenerPorId(new ObjectId(id));
+        
+        model.addAttribute("empleado", empleadoLogueado);
+        model.addAttribute("reserva", reserva);
+        model.addAttribute("listaServicios", servicioService.obtenerTodos());
+        model.addAttribute("listaEmpleados", empleadoService.obtenerTodos());
+        model.addAttribute("listaSucursales", sucursalService.obtenerTodos());
+        
+        return "admin-editar-cita";
+    }
+
+    @PatchMapping("/admin/citas/editar/{id}")
+    public String actualizarCita(@PathVariable String id,
+                                 @RequestParam ObjectId idServicio,
+                                 @RequestParam ObjectId idEmpleado,
+                                 @RequestParam ObjectId idSucursal,
+                                 @RequestParam String estado,
+                                 HttpSession session) {
+        ObjectId idEmpleadoSession = (ObjectId) session.getAttribute("idEmpleado");
+        if (idEmpleadoSession == null) {
+            return "redirect:/login-admin";
+        }
+        
+        Reserva reserva = reservaService.obtenerPorId(new ObjectId(id));
+        reserva.setServicios(servicioService.obtenerPorId(idServicio));
+        reserva.setIdEmpleado(idEmpleado);
+        reserva.setIdSucursal(idSucursal);
+        reserva.setEstado(EstadoReserva.valueOf(estado));
+        
+        reservaService.guardar(reserva);
+        return "redirect:/admin/citas";
     }
 }

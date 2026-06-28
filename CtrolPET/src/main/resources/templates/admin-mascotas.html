@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ctrl + PET - Tabla de Mascotas</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+    </style>
+    <link rel="stylesheet" href="/styles/styles.css">
+</head>
+<body>
+    <main>
+        <section class="contenedor-tabla">
+            <div class="tag-rol">
+                <span th:text="${empleado.puesto}">Rol activo</span>
+            </div>
+            <div class="encabezado-admin">
+                <h1>Tabla de Mascotas</h1>
+                <a th:href="@{/admin}" class="btn-volver">Volver al Dashboard</a>
+            </div>
+
+            <div class="buscador-citas">
+                <input type="text" name="buscar" placeholder="Buscar mascota">
+            </div>
+
+            <div class="area-tabla">
+                <table class="tabla-citas-admin">
+                    <thead>
+                        <tr>
+                            <th>Mascota</th>
+                            <th>Especie</th>
+                            <th>Raza</th>
+                            <th>Dueño</th>
+                            <th>Fecha de Nacimiento</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <th:block th:each="dueno : ${listaDuenos}">
+                            <tr th:each="mascota : ${dueno.mascotas}" tabindex="0">
+                                <td th:text="${mascota.nombre}">Mascota</td>
+                                <td th:text="${mascota.especie}">Especie</td>
+                                <td th:text="${mascota.raza}">Raza</td>
+                                <td th:text="${dueno.nombre + ' ' + dueno.apellidoPaterno}">Dueño</td>
+                                <td th:text="${#temporals.format(mascota.fechaNacimiento, 'dd/MM/yyyy')}">Fecha</td>
+                            </tr>
+                        </th:block>
+                        <tr th:if="${#lists.isEmpty(listaDuenos)}">
+                            <td colspan="5">No hay mascotas registradas.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; Copyright Ctrl+PET 2026</p>
+    </footer>
+</body>
+</html>

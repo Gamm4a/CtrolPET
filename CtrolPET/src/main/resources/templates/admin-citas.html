@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ctrl + PET - Tabla de Citas</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+    </style>
+    <link rel="stylesheet" href="/styles/styles.css">
+</head>
+<body>
+    <main>
+        <section class="contenedor-tabla">
+            <div class="tag-rol">
+                <span th:text="${empleado.puesto}">Rol activo</span>
+            </div>
+            <div class="encabezado-admin">
+                <h1>Tabla de Citas</h1>
+                <a th:href="@{/admin}" class="btn-volver">Volver al Dashboard</a>
+            </div>
+
+            <div class="buscador-citas">
+                <input type="text" name="buscar" placeholder="Buscar cita">
+            </div>
+
+            <div class="area-tabla">
+                <table class="tabla-citas-admin">
+                    <thead>
+                        <tr>
+                            <th>Dueño</th>
+                            <th>Mascota</th>
+                            <th>Fecha y Hora</th>
+                            <th>Servicio</th>
+                            <th>Veterinario</th>
+                            <th>Precio</th>
+                            <th>Estado</th>
+                            <th style="text-align: center; vertical-align: middle;">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="reserva : ${listaReservas}" tabindex="0">
+                            <td th:text="${@dueñoService.obtenerPorId(reserva.dueno).nombre}">Dueño</td>
+                            <td th:text="${@dueñoService.getMascotaById(reserva.mascota,reserva.dueno).nombre}">Mascota</td>
+                            <td th:text="${#temporals.format(reserva.fecha, 'dd/MM/yyyy HH:mm')}">Fecha</td>
+                            <td th:text="${reserva.servicios.tipo}">Servicio</td>
+                            <td th:text="${@empleadoService.obtenerPorId(reserva.idEmpleado).nombre}">Veterinario</td>
+                            <td th:text="${'$' + reserva.servicios.precio}">Precio</td>
+                            <td th:text="${reserva.estado}">Estado</td>
+                            <td class="celda-accion">
+                                <div class="opciones-citas">
+                                    <a th:href="@{/admin/citas/editar/{id}(id=${reserva.idReserva})}">Editar</a>
+                                    <form th:action="@{/admin/citas/eliminar/{id}(id=${reserva.idReserva})}" method="POST" style="display:inline;" onclick="return confirm('¿Estás seguro de que deseas eliminar esta cita?')">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <button type="submit" class="btn-eliminar">Eliminar</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(listaReservas)}">
+                            <td colspan="8">No hay citas registradas.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; Copyright Ctrl+PET 2026</p>
+    </footer>
+</body>
+</html>

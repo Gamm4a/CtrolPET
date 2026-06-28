@@ -49,9 +49,9 @@
                 </div>
                 <div class="buscador-citas">
                     <input type="text" name="buscar" placeholder="Buscar"></input>
-                    <a href="" class="btn-agenda">Ver tabla de dueños</a>
-                    <a href="" class="btn-agenda">Ver tabla de mascotas</a>
-                    <a href="" class="btn-agenda">Ver tabla de citas</a>
+                    <a href="/admin/duenos" class="btn-agenda">Ver tabla de dueños</a>
+                    <a href="/admin/mascotas" class="btn-agenda">Ver tabla de mascotas</a>
+                    <a href="/admin/citas" class="btn-agenda">Ver tabla de citas</a>
                 </div>
                
                 <div class="area-tabla">
@@ -483,6 +483,8 @@
                                 <label for="sucursal">Sucursal:</label>
                                 <select name="sucursal" id="sucursal" required>
                                     <option value="" disabled selected>Selecciona una sucursal</option>
+
+
                                     <option th:each="sucursalesDisponibles : ${listaSucursales}"
                                             th:value="${sucursalesDisponibles.idSucursal}"
                                             th:text="${sucursalesDisponibles.nombre}">
@@ -732,11 +734,11 @@
                         </form>
                     </div>
                 </div>
-            </section>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; Copyright Ctrl+PET 2026</p>
-    </footer>
+           </section>
+       </section>
+   </main>
+   <footer>
+       <p>&copy; Copyright Ctrl+PET 2026</p>
+   </footer>
 </body>
 </html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ctrl + PET - Editar Cita</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+    </style>
+    <link rel="stylesheet" href="/styles/styles.css">
+</head>
+<body>
+    <main>
+        <section class="contenedor-editar-cita">
+            <div class="encabezado-admin">
+                <h1>Editar Cita</h1>
+                <a th:href="@{/admin/citas}" class="btn-volver">Volver</a>
+            </div>
+
+            <form th:action="@{/admin/citas/editar/{id}(id=${reserva.idReserva})}" method="POST" class="formulario-editar-cita">
+                <input type="hidden" name="_method" value="PATCH">
+
+                <div class="campo-formulario">
+                    <label>Dueño:</label>
+                    <p th:text="${@dueñoService.obtenerPorId(reserva.dueno).nombre}">Dueño</p>
+                </div>
+
+                <div class="campo-formulario">
+                    <label>Mascota:</label>
+                    <p th:text="${@dueñoService.getMascotaById(reserva.mascota, reserva.dueno).nombre}">Mascota</p>
+                </div>
+
+                <div class="campo-formulario">
+                    <label>Fecha y Hora Actual:</label>
+                    <p th:text="${#temporals.format(reserva.fecha, 'dd/MM/yyyy HH:mm')}">Fecha</p>
+                </div>
+
+                <div class="campo-formulario">
+                    <label for="servicio">Servicio:</label>
+                    <select id="servicio" name="idServicio" required>
+                        <option th:each="servicio : ${listaServicios}"
+                                th:value="${servicio.idServicio}"
+                                th:text="${servicio.tipo}"
+                                th:selected="${servicio.idServicio == reserva.servicios.idServicio}">
+                        </option>
+                    </select>
+                </div>
+
+                <div class="campo-formulario">
+                    <label for="veterinario">Veterinario Asignado:</label>
+                    <select id="veterinario" name="idEmpleado" required>
+                        <option th:each="empleado : ${listaEmpleados}"
+                                th:value="${empleado.idEmpleado}"
+                                th:text="${empleado.nombre}"
+                                th:selected="${empleado.idEmpleado == reserva.idEmpleado}">
+                        </option>
+                    </select>
+                </div>
+
+                <div class="campo-formulario">
+                    <label for="sucursal">Sucursal:</label>
+                    <select id="sucursal" name="idSucursal" required>
+                        <option th:each="sucursal : ${listaSucursales}"
+                                th:value="${sucursal.idSucursal}"
+                                th:text="${sucursal.nombre}"
+                                th:selected="${sucursal.idSucursal == reserva.idSucursal}">
+                        </option>
+                    </select>
+                </div>
+
+                <div class="campo-formulario">
+                    <label for="estado">Estado:</label>
+                    <select id="estado" name="estado" required>
+                        <option value="COMPLETADA" th:selected="${reserva.estado == 'COMPLETADA'}">Completada</option>
+                        <option value="PENDIENTE" th:selected="${reserva.estado == 'PENDIENTE'}">Pendiente</option>
+                        <option value="CANCELADA" th:selected="${reserva.estado == 'CANCELADA'}">Cancelada</option>
+                    </select>
+                </div>
+
+                <div class="form-botones">
+                    <button type="submit" class="btn-continuar">Guardar Cambios</button>
+                    <a th:href="@{/admin/citas}" class="btn-anterior">Cancelar</a>
+                </div>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; Copyright Ctrl+PET 2026</p>
+    </footer>
+</body>
+</html>

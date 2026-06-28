@@ -27,27 +27,7 @@ public class CtrolPetApplication {
     @Bean
     public CommandLineRunner empleadoMockeado() {
         return args -> {
-            Empleado empleado = new Empleado();
-            empleado.setNombre("Sandra");
-            empleado.setApellidoPaterno("Armenta");
-            empleado.setApellidoMaterno("Diaz");
-            empleado.setCorreo("lasandra@hotmail.com");
-            empleado.setContrasenia("pass123");
-            empleado.setTelefono("6441212121");
-            empleado.setPuesto(Puesto.ADMINISTRADOR);
 
-            Set<DiaSemana> dias = Set.of(DiaSemana.LUNES, DiaSemana.MIERCOLES, DiaSemana.VIERNES);
-
-            Horario horario = new Horario();
-            horario.setDias(dias);
-            horario.setHoraEntrada(LocalTime.of(8,00,00));
-            horario.setHoraSalida(LocalTime.of(17,00,00));
-            empleado.setHorarios(horario);
-
-            Empleado empleadoBuscado= empleadosRepository.findByCorreo(empleado.getCorreo()).orElse(null);
-            if (empleadoBuscado == null) {
-                empleadosRepository.save(empleado);
-            }
 
         };
     }
