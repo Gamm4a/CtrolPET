@@ -14,6 +14,8 @@ import com.example.ctrolpet.repository.DuenoRepository;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -187,5 +189,41 @@ public class DuenoService {
         duenoRepository.deleteById(dueno);
     }
 
+    public void actualizarDatosMascota(ObjectId idDueno, ObjectId idMascota, String nombre, String especie, String raza, LocalDate fechaNacimiento){
+        Dueno dueno = obtenerPorId(idDueno);
+
+        if (dueno == null) {
+            throw new NullPointerException("El id del dueño no existe");
+        }
+
+        Instant instant = fechaNacimiento.atStartOfDay(ZoneId.systemDefault()).toInstant();
+        if (dueno.getMascotas() != null) {
+            boolean encontrado = false;
+            for (Mascota mascota : dueno.getMascotas()) {
+                if (mascota.getIdMascota().equals(idMascota)) {
+                    if (nombre != null) {
+                        mascota.setNombre(nombre);
+                    }
+                    if (especie != null) {
+                        mascota.setEspecie(especie);
+                    }
+                    if (raza != null) {
+                        mascota.setRaza(raza);
+                    }
+                    mascota.setFechaNacimiento(instant);
+                    encontrado = true;
+                    break;
+                }
+            }
+            if (!encontrado) {
+                throw new NullPointerException("La mascota no pertenece a este dueño");
+            }
+        }
+        duenoRepository.save(dueno);
+    }
+
+    public void actualizarDueno(){
+
+    }
     
 }

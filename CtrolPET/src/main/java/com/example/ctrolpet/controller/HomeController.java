@@ -595,7 +595,8 @@ public class HomeController {
     @GetMapping("/admin/mascotas/editar/{id}")
     public String editarMascota(@PathVariable ("id") ObjectId idMascota,
                                 @RequestParam ("idDueno") ObjectId idDueno,
-                                HttpSession session, Model model){
+                                HttpSession session, Model model,
+                                @RequestParam(value = "editar", required = false) Boolean editar){
         ObjectId idEmpleado = (ObjectId) session.getAttribute("idEmpleado");
         if (idEmpleado == null) {
             return "redirect:/login-admin";
@@ -607,8 +608,27 @@ public class HomeController {
         model.addAttribute("empleado", empleadoLogueado);
         model.addAttribute("mascota", mascota);
         model.addAttribute("dueno", dueno);
+        model.addAttribute("modoEdicion", editar != null && editar);
 
         return "mascotas";
+    }
+
+    @PutMapping("/admin/mascotas/actualizar/{id}")
+    public String actualizarMascota(@PathVariable("id") ObjectId idMascota,
+                                    @RequestParam("idDueno") ObjectId idDueno,
+                                    @RequestParam("nombre") String nombre,
+                                    @RequestParam("especie") String especie,
+                                    @RequestParam("raza") String raza,
+                                    @RequestParam("fechaNacimiento") LocalDate fechaNacimiento,
+                                    HttpSession session) {
+
+        ObjectId idEmpleado = (ObjectId) session.getAttribute("idEmpleado");
+        if (idEmpleado == null) {
+            return "redirect:/login-admin";
+        }
+
+        duenoService.actualizarDatosMascota(idDueno, idMascota, nombre, especie, raza, fechaNacimiento);
+        return "redirect:/admin/mascotas/editar/" + idMascota.toHexString() + "?idDueno=" + idDueno.toHexString();
     }
 
     @DeleteMapping("/admin/mascotas/eliminar/{id}")
