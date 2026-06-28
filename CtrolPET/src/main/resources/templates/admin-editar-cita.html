@@ -22,12 +22,12 @@
 
                 <div class="campo-formulario">
                     <label>Dueño:</label>
-                    <p th:text="${@dueñoService.obtenerPorId(reserva.dueno).nombre}">Dueño</p>
+                    <p th:text="${@duenoService.obtenerPorId(reserva.dueno).nombre}">Dueño</p>
                 </div>
 
                 <div class="campo-formulario">
                     <label>Mascota:</label>
-                    <p th:text="${@dueñoService.getMascotaById(reserva.mascota, reserva.dueno).nombre}">Mascota</p>
+                    <p th:text="${@duenoService.getMascotaById(reserva.mascota, reserva.dueno).nombre}">Mascota</p>
                 </div>
 
                 <div class="campo-formulario">

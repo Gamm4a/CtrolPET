@@ -44,6 +44,15 @@
                             <td th:text="${dueno.correo}">Correo</td>
                             <td th:text="${dueno.telefono}">Teléfono</td>
                             <td th:text="${dueno.mascotas != null ? dueno.mascotas.size() : 0}">0</td>
+                            <td class="celda-accion">
+                                <div class="opciones-citas">
+                                    <a th:href="@{/admin/duenos/editar/{id}(id=${dueno.idDueno})}">Editar</a>
+                                    <form th:action="@{/admin/duenos/eliminar/{id}(id=${dueno.idDueno})}" method="POST" onclick="return confirm('¿Seguro?')">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <button type="submit" class="btn-eliminar">Eliminar</button>
+                                    </form>
+                                </div>
+                            </td>
                         </tr>
                         <tr th:if="${#lists.isEmpty(listaDuenos)}">
                             <td colspan="6">No hay dueños registrados.</td>

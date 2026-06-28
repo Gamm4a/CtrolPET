@@ -52,13 +52,13 @@
                         <input type="text" name="buscar" placeholder="Buscar" th:value="${buscar}">
                         <button type="submit" class="btn-agenda">Buscar</button>
                     </form>
-                    <a href="" class="btn-agenda">Ver tabla de dueños</a>
-                    <a href="" class="btn-agenda">Ver tabla de mascotas</a>
-                    <a href="" class="btn-agenda">Ver tabla de citas</a>
+                    <a href="/admin/duenos" class="btn-agenda">Ver tabla de dueños</a>
+                    <a href="/admin/mascotas" class="btn-agenda">Ver tabla de mascotas</a>
+                    <a href="/admin/citas" class="btn-agenda">Ver tabla de citas</a>
                 </div>
                
                 <div class="area-tabla">
-                    <table class="tabla-citas-admin">
+                    <table class="tabla-citas-admin" tabindex="0">
                         <thead>
                             <tr>
                                 <th>Dueño</th>
@@ -73,8 +73,8 @@
                         </thead>
                         <tbody>
                              <tr th:each="reserva : ${listaReservas}" tabindex="0">
-                                 <td th:text="${@dueñoService.obtenerPorId(reserva.dueno).nombre}">Dueño</td>
-                                 <td th:text="${@dueñoService.getMascotaById(reserva.mascota,reserva.dueno).nombre}">Mascota</td>
+                                 <td th:text="${@duenoService.obtenerPorId(reserva.dueno).nombre}">Dueño</td>
+                                 <td th:text="${@duenoService.getMascotaById(reserva.mascota,reserva.dueno).nombre}">Mascota</td>
                                  <td th:text="${#temporals.format(reserva.fecha, 'dd/MM/yyyy HH:mm')}">Fecha</td>
                                  <td th:text="${reserva.servicios.tipo}">Servicio</td>
                                  <td th:text="${@empleadoService.obtenerPorId(reserva.idEmpleado).nombre}">Veterinario</td>
@@ -161,8 +161,8 @@
                     </thead>
                   <tbody>
                     <tr th:each="reserva : ${listaReservas}" tabindex="0">
-                        <td th:text="${@dueñoService.obtenerPorId(reserva.dueno).nombre}">Dueño</td>
-                        <td th:text="${@dueñoService.getMascotaById(reserva.mascota,reserva.dueno).nombre}">Mascota</td>
+                        <td th:text="${@duenoService.obtenerPorId(reserva.dueno).nombre}">Dueño</td>
+                        <td th:text="${@duenoService.getMascotaById(reserva.mascota,reserva.dueno).nombre}">Mascota</td>
                         <td th:text="${#temporals.format(reserva.fecha, 'dd/MM/yyyy HH:mm')}">Fecha</td>
                         <td th:text="${reserva.servicios.tipo}">Servicio</td>
                         <td th:text="${@empleadoService.obtenerPorId(reserva.idEmpleado).nombre}">Veterinario</td>

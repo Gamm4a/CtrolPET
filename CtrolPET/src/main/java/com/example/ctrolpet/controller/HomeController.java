@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -538,8 +539,44 @@ public class HomeController {
         }
         Empleado empleadoLogueado = empleadoService.obtenerPorId(idEmpleado);
         model.addAttribute("empleado", empleadoLogueado);
-        model.addAttribute("listaDuenos", dueñoService.obtenerTodos());
+        model.addAttribute("listaDuenos", duenoService.obtenerTodos());
         return "admin-duenos";
+    }
+
+    @GetMapping("/admin/duenos/editar/{id}")
+    public String editarDueno(@PathVariable ("id") ObjectId idDueno, HttpSession session, Model model){
+        ObjectId idEmpleado = (ObjectId) session.getAttribute("idEmpleado");
+        if (idEmpleado == null) {
+            return "redirect:/login-admin";
+        }
+        Empleado empleadoLogueado = empleadoService.obtenerPorId(idEmpleado);
+        Dueno dueno = duenoService.obtenerPorId(idDueno);
+        model.addAttribute("empleado", empleadoLogueado);
+        model.addAttribute("dueno", dueno);
+        model.addAttribute("mascotas", dueno.getMascotas());
+
+        return "duenos";
+    }
+
+    @PutMapping("/admin/mascotas/cambiar-foto/{id}")
+    public String actualizarFotoMascota(@PathVariable("id") ObjectId idMascota,
+                                        @RequestParam("fotoMascota") MultipartFile file,
+                                        @RequestParam("idDueno") ObjectId idDueno,
+                                        HttpSession session) {
+
+        ObjectId idEmpleado = (ObjectId) session.getAttribute("idEmpleado");
+        if (idEmpleado == null) {
+            return "redirect:/login-admin";
+        }
+
+        if (!file.isEmpty()) {
+            Mascota mascota = duenoService.getMascotaById(idMascota, idDueno);
+            if (mascota != null) {
+                duenoService.guardarFotoMascota(idDueno,idMascota,file);
+            }
+        }
+
+        return "redirect:/admin/duenos/editar/" + idDueno.toHexString();
     }
 
     @GetMapping("/admin/mascotas")
@@ -550,8 +587,27 @@ public class HomeController {
         }
         Empleado empleadoLogueado = empleadoService.obtenerPorId(idEmpleado);
         model.addAttribute("empleado", empleadoLogueado);
-        model.addAttribute("listaDuenos", dueñoService.obtenerTodos());
+        model.addAttribute("listaDuenos", duenoService.obtenerTodos());
         return "admin-mascotas";
+    }
+
+    @GetMapping("/admin/mascotas/editar/{id}")
+    public String editarMascota(@PathVariable ("id") ObjectId idMascota,
+                                @RequestParam ("idDueno") ObjectId idDueno,
+                                HttpSession session, Model model){
+        ObjectId idEmpleado = (ObjectId) session.getAttribute("idEmpleado");
+        if (idEmpleado == null) {
+            return "redirect:/login-admin";
+        }
+
+        Dueno dueno = duenoService.obtenerPorId(idDueno);
+        Empleado empleadoLogueado = empleadoService.obtenerPorId(idEmpleado);
+        Mascota mascota = duenoService.getMascotaById(idMascota, idDueno);
+        model.addAttribute("empleado", empleadoLogueado);
+        model.addAttribute("mascota", mascota);
+        model.addAttribute("dueno", dueno);
+
+        return "mascotas";
     }
 
 

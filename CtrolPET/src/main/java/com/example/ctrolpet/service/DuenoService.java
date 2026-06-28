@@ -87,16 +87,31 @@ public class DuenoService {
         }
         return null;
     }
-    public void guardarMascota(Dueno dueno,Mascota mascota, MultipartFile file){
-        List<Mascota> mascotas = dueno.getMascotas();
+    public void guardarFotoMascota(ObjectId idDueno,ObjectId idMascota, MultipartFile file){
+        Dueno dueno = obtenerPorId(idDueno);
+
+        if(dueno == null){
+            throw new NullPointerException("El id del dueno no existe");
+        }
 
         String nombreArchivo = "default";
         if (!file.isEmpty()) {
             nombreArchivo = guardarImagenCloudinary(file);
         }
+
+        if (dueno.getMascotas() != null) {
+            boolean mascotaEncontrada = false;
+
+            for (Mascota mascota : dueno.getMascotas()) {
+                if (mascota.getIdMascota().equals(idMascota)) {
+                    mascota.setFotoUrl(nombreArchivo);
+                    mascotaEncontrada = true;
+                    break;
+                }
+            }
+        }
+        Mascota mascota = getMascotaById(idMascota, dueno.getIdDueno());
         mascota.setFotoUrl(nombreArchivo);
-        mascotas.add(mascota);
-        dueno.setMascotas(mascotas);
         duenoRepository.save(dueno);
     }
 
