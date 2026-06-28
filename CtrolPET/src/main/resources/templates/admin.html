@@ -15,8 +15,8 @@
     <main>
         
         <section id="dashboard-admin">
-            <input type="radio" name="nav-pestana" id="pestana-inicio" checked>
-            <input type="radio" name="nav-pestana" id="pestana-citas">
+            <input type="radio" name="nav-pestana" id="pestana-inicio" th:checked="${buscar == null}">
+            <input type="radio" name="nav-pestana" id="pestana-citas" th:checked="${buscar != null}">
             <input type="radio" name="nav-pestana" id="pestana-servicios">
             <input type="radio" name="nav-pestana" id="pestana-veterinarios">
             <input type="radio" name="nav-pestana" id="pestana-sucursales">
@@ -48,10 +48,13 @@
                     <h1>Dashboard Administrativo</h1>
                 </div>
                 <div class="buscador-citas">
-                    <input type="text" name="buscar" placeholder="Buscar"></input>
-                    <a href="/admin/duenos" class="btn-agenda">Ver tabla de dueños</a>
-                    <a href="/admin/mascotas" class="btn-agenda">Ver tabla de mascotas</a>
-                    <a href="/admin/citas" class="btn-agenda">Ver tabla de citas</a>
+                    <form th:action="@{/admin}" method="GET" style="display:contents">
+                        <input type="text" name="buscar" placeholder="Buscar" th:value="${buscar}">
+                        <button type="submit" class="btn-agenda">Buscar</button>
+                    </form>
+                    <a href="" class="btn-agenda">Ver tabla de dueños</a>
+                    <a href="" class="btn-agenda">Ver tabla de mascotas</a>
+                    <a href="" class="btn-agenda">Ver tabla de citas</a>
                 </div>
                
                 <div class="area-tabla">
@@ -105,10 +108,13 @@
                     <h1>Gestor de Citas</h1>
                 </div>
 
-                <div class="buscador-citas">
-                    <input type="text" name="buscar" placeholder="Buscar cita">
-                    <label for="control-modal-cita" class="btn-agenda">Agregar cita</label>
-                </div>
+              <div class="buscador-citas">
+                <form th:action="@{/admin}" method="GET" style="display:contents">
+                    <input type="text" name="buscar" placeholder="Buscar cita" th:value="${buscar}">
+                    <button type="submit" class="btn-agenda">Buscar</button>
+                </form>
+                <label for="control-modal-cita" class="btn-agenda">Agregar cita</label>
+            </div>
 
 
                 <input type="checkbox" id="control-modal-cita" class="modal-switch" hidden>
@@ -483,8 +489,6 @@
                                 <label for="sucursal">Sucursal:</label>
                                 <select name="sucursal" id="sucursal" required>
                                     <option value="" disabled selected>Selecciona una sucursal</option>
-
-
                                     <option th:each="sucursalesDisponibles : ${listaSucursales}"
                                             th:value="${sucursalesDisponibles.idSucursal}"
                                             th:text="${sucursalesDisponibles.nombre}">
@@ -734,11 +738,11 @@
                         </form>
                     </div>
                 </div>
-           </section>
-       </section>
-   </main>
-   <footer>
-       <p>&copy; Copyright Ctrl+PET 2026</p>
-   </footer>
+            </section>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; Copyright Ctrl+PET 2026</p>
+    </footer>
 </body>
 </html>

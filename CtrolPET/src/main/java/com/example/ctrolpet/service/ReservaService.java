@@ -3,6 +3,8 @@ package com.example.ctrolpet.service;
 
 
 import com.example.ctrolpet.model.Enum.EstadoReserva;
+import com.example.ctrolpet.model.Dueno;
+import com.example.ctrolpet.model.Empleado;
 import com.example.ctrolpet.model.Mascota;
 import com.example.ctrolpet.model.Reserva;
 import com.example.ctrolpet.model.Servicio;
@@ -149,6 +151,37 @@ public class ReservaService {
         Pageable pageable = (Pageable) PageRequest.of(0, 20);
         return reservaRepository.findByServicios(servicio,pageable).getContent();
 
+    }
+
+    public List<Reserva> buscar(String texto, DuenoService duenoService, EmpleadoService empleadoService){
+        List<Reserva> todas = obtenerTodos();
+        if(texto == null || texto.isBlank()){
+            return todas;
+        }
+
+        String textoBuscado = texto.toLowerCase();
+
+         return todas.stream().filter(r -> {
+            Dueno dueno = duenoService.obtenerPorId(r.getDueno());
+            if(dueno != null && dueno.getNombre().toLowerCase().contains(textoBuscado)) return true;
+            
+            if(dueno != null){
+                Mascota mascota = duenoService.getMascotaById(r.getMascota(),r.getDueno());
+                if(mascota != null && mascota.getNombre().toLowerCase().contains(textoBuscado)) return true;
+
+            }
+           Empleado empleado = empleadoService.obtenerPorId(r.getIdEmpleado());
+            if(empleado != null && empleado.getNombre().toLowerCase().contains(textoBuscado)) return true;
+
+            Servicio servicio = r.getServicios();
+            if(servicio != null){
+                if(servicio.getTipo() != null && servicio.getTipo().toLowerCase().contains(textoBuscado)) return true;
+                if(servicio.getDescripcion() != null && servicio.getDescripcion().toLowerCase().contains(textoBuscado)) return true;
+            }
+
+            return false;
+
+        }).collect(java.util.stream.Collectors.toList());
     }
 
 
