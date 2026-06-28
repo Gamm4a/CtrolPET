@@ -24,9 +24,9 @@
                         <img th:src="${mascota?.fotoUrl} ?: @{/imgs/iconos/icono-gato.png}" alt="Foto de la mascota">
 
                         <div class="controles-foto">
-                            <form th:action="@{/admin/mascotas/cambiar-foto/{id}(id=${mascota.idMascota}, idDueno=${dueno.idDueno})}" method="POST" enctype="multipart/form-data" class="forma-foto">
+                            <form th:action="@{/admin/mascotas/cambiar-foto/{id}(id=${mascota.idMascota})}" method="POST" enctype="multipart/form-data" class="forma-foto">
                                 <input type="hidden" name="_method" value="PUT">
-
+                                <input type="hidden" name="idDueno" th:value="${dueno.idDueno}">
                                 <input type="file" name="fotoMascota" accept="image/*" required>
                                 <button type="submit" class="btn-registrarme">Guardar foto</button>
                             </form>

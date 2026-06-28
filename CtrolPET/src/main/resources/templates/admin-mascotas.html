@@ -43,6 +43,16 @@
                                 <td th:text="${mascota.raza}">Raza</td>
                                 <td th:text="${dueno.nombre + ' ' + dueno.apellidoPaterno}">Dueño</td>
                                 <td th:text="${#temporals.format(mascota.fechaNacimiento, 'dd/MM/yyyy')}">Fecha</td>
+                                <td class="celda-accion">
+                                    <div class="opciones-citas">
+                                        <a th:href="@{/admin/mascotas/editar/{id}(id=${mascota.idMascota}, idDueno=${dueno.idDueno})}">Editar</a>
+                                        <form th:action="@{/admin/mascotas/eliminar/{id}(id=${mascota.idMascota}, idDueno=${dueno.idDueno})}" method="POST" onclick="return confirm('¿Seguro que deseas eliminar esta mascota?')">
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <button type="submit" class="btn-eliminar">Eliminar</button>
+                                        </form>
+
+                                    </div>
+                                </td>
                             </tr>
                         </th:block>
                         <tr th:if="${#lists.isEmpty(listaDuenos)}">

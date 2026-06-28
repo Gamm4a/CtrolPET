@@ -579,6 +579,7 @@ public class HomeController {
         return "redirect:/admin/duenos/editar/" + idDueno.toHexString();
     }
 
+
     @GetMapping("/admin/mascotas")
     public String verTablaMascotas(HttpSession session, Model model) {
         ObjectId idEmpleado = (ObjectId) session.getAttribute("idEmpleado");
@@ -608,6 +609,35 @@ public class HomeController {
         model.addAttribute("dueno", dueno);
 
         return "mascotas";
+    }
+
+    @DeleteMapping("/admin/mascotas/eliminar/{id}")
+    public String eliminarMascotaDueno(@PathVariable("id") ObjectId idMascota,
+                                  @RequestParam("idDueno") ObjectId idDueno,
+                                  HttpSession session, Model model) {
+        ObjectId idEmpleado = (ObjectId) session.getAttribute("idEmpleado");
+        if (idEmpleado == null) {
+            return "redirect:/login-admin";
+        }
+
+        Empleado empleadoLogueado = empleadoService.obtenerPorId(idEmpleado);
+        duenoService.eliminarMascota(idDueno, idMascota);
+
+        return "redirect:/admin";
+    }
+
+    @DeleteMapping("/admin/duenos/eliminar/{id}")
+    public String eliminarDueno(@PathVariable("id") ObjectId idDueno,
+                                       HttpSession session, Model model) {
+        ObjectId idEmpleado = (ObjectId) session.getAttribute("idEmpleado");
+        if (idEmpleado == null) {
+            return "redirect:/login-admin";
+        }
+
+        Empleado empleadoLogueado = empleadoService.obtenerPorId(idEmpleado);
+        duenoService.eliminarDueno(idDueno);
+
+        return "redirect:/admin";
     }
 
 

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.example.ctrolpet.repository.DuenoRepository;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -167,5 +168,24 @@ public class DuenoService {
     }
 
 
+    public void eliminarMascota(ObjectId idDueno, ObjectId idMascota){
+        Dueno dueno = obtenerPorId(idDueno);
 
+        if (dueno == null) {
+            throw new NullPointerException("El id del dueño no existe");
+        }
+
+        if (dueno.getMascotas() != null) {
+            dueno.getMascotas().removeIf(mascota -> mascota.getIdMascota().equals(idMascota));
+        }
+
+        duenoRepository.save(dueno);
+    }
+
+    public void eliminarDueno(ObjectId dueno){
+
+        duenoRepository.deleteById(dueno);
+    }
+
+    
 }
