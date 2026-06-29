@@ -13,6 +13,9 @@ import org.springframework.stereotype.Service;
 import com.example.ctrolpet.repository.DuenoRepository;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -87,16 +90,31 @@ public class DuenoService {
         }
         return null;
     }
-    public void guardarMascota(Dueno dueno,Mascota mascota, MultipartFile file){
-        List<Mascota> mascotas = dueno.getMascotas();
+    public void guardarFotoMascota(ObjectId idDueno,ObjectId idMascota, MultipartFile file){
+        Dueno dueno = obtenerPorId(idDueno);
+
+        if(dueno == null){
+            throw new NullPointerException("El id del dueno no existe");
+        }
 
         String nombreArchivo = "default";
         if (!file.isEmpty()) {
             nombreArchivo = guardarImagenCloudinary(file);
         }
+
+        if (dueno.getMascotas() != null) {
+            boolean mascotaEncontrada = false;
+
+            for (Mascota mascota : dueno.getMascotas()) {
+                if (mascota.getIdMascota().equals(idMascota)) {
+                    mascota.setFotoUrl(nombreArchivo);
+                    mascotaEncontrada = true;
+                    break;
+                }
+            }
+        }
+        Mascota mascota = getMascotaById(idMascota, dueno.getIdDueno());
         mascota.setFotoUrl(nombreArchivo);
-        mascotas.add(mascota);
-        dueno.setMascotas(mascotas);
         duenoRepository.save(dueno);
     }
 
@@ -149,6 +167,62 @@ public class DuenoService {
             e.printStackTrace();
             return "default.png";
         }
+    }
+
+    public void eliminarMascota(ObjectId idDueno, ObjectId idMascota){
+        Dueno dueno = obtenerPorId(idDueno);
+
+        if (dueno == null) {
+            throw new NullPointerException("El id del dueño no existe");
+        }
+
+        if (dueno.getMascotas() != null) {
+            dueno.getMascotas().removeIf(mascota -> mascota.getIdMascota().equals(idMascota));
+        }
+
+        duenoRepository.save(dueno);
+    }
+
+    public void eliminarDueno(ObjectId dueno){
+
+        duenoRepository.deleteById(dueno);
+    }
+
+    public void actualizarDatosMascota(ObjectId idDueno, ObjectId idMascota, String nombre, String especie, String raza, LocalDate fechaNacimiento){
+        Dueno dueno = obtenerPorId(idDueno);
+
+        if (dueno == null) {
+            throw new NullPointerException("El id del dueño no existe");
+        }
+
+        Instant instant = fechaNacimiento.atStartOfDay(ZoneId.systemDefault()).toInstant();
+        if (dueno.getMascotas() != null) {
+            boolean encontrado = false;
+            for (Mascota mascota : dueno.getMascotas()) {
+                if (mascota.getIdMascota().equals(idMascota)) {
+                    if (nombre != null) {
+                        mascota.setNombre(nombre);
+                    }
+                    if (especie != null) {
+                        mascota.setEspecie(especie);
+                    }
+                    if (raza != null) {
+                        mascota.setRaza(raza);
+                    }
+                    mascota.setFechaNacimiento(instant);
+                    encontrado = true;
+                    break;
+                }
+            }
+            if (!encontrado) {
+                throw new NullPointerException("La mascota no pertenece a este dueño");
+            }
+        }
+        duenoRepository.save(dueno);
+    }
+
+    public void actualizarDueno(){
+
     }
 
 }

@@ -7,58 +7,66 @@
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
         </style>
-    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="/styles/styles.css">
 
 </head>
 <body>
     <main>
         <section id="gestion-mascota">
-            
+
             <div id="contenedor-mascota">
                 <div class="grupo-botones" id="btn-regresar">
-                    <a th:href="@{/admin}" class="btn-anterior"> Regresar</a>
+                    <a th:href="@{/admin/duenos/editar/{id}(id=${dueno.idDueno.toHexString()})}" class="btn-anterior"> Regresar</a>
                 </div>
+
                 <div class="contenedor-caja-mascota">
                     <div class="contenedor-imagen">
-                        <img th:src="@{/imgs/iconos/icono-gato.png}" alt="Foto Mascota">
+                        <img th:src="${mascota?.fotoUrl} ?: @{/imgs/iconos/icono-gato.png}" alt="Foto de la mascota">
+
                         <div class="controles-foto">
-                            <form th:action="@{/mascota/cambiar-foto/{id}(id=${mascota.id})}" method="PUT" enctype="multipart/form-data" class="forma-foto">
-                            <input type="file" name="foto" accept="image/*" required>
-                            <button type="submit" class="btn-registrarme">Guardar foto</button>
+                            <form th:action="@{/admin/mascotas/cambiar-foto/{id}(id=${mascota.idMascota.toHexString()}, idDueno=${dueno.idDueno.toHexString()})}" method="POST" enctype="multipart/form-data" class="forma-foto">
+                                <input type="hidden" name="_method" value="PUT">
+                                <input type="file" name="fotoMascota" accept="image/*" required>
+                                <button type="submit" class="btn-registrarme">Guardar foto</button>
+                            </form>
                         </div>
                     </div>
-                    <div id="info-mascota" th:if="${modoEdicion != true}">
-                        <h3 th:text="${mascota.nombre}">Nombre</h3>
-                        <p th:text="${mascota.especie}">Especie</p>
-                        <p th:text="${mascota.raza}">Raza</p>
-                        <p th:text="${mascota.edad}">Edad</p>
-                        <p th:text="${mascota.sexo}">Sexo</p>
-                        <p th:text="${mascota.esterilizado} ? 'Esterilizado' : 'No Esterilizado'">Esterilizado</p>
-                        <div class="botones-header">
-                            <label th:href="@{/mascota/gestion/{id}?editar=true(id=${mascota.id})}" class="btn-registrarme">Editar</label>
+
+                    <form th:action="@{/admin/mascotas/actualizar/{id}(id=${mascota.idMascota.toHexString()}, idDueno=${dueno.idDueno.toHexString()})}" method="POST" class="info-mascota">
+                        <input type="hidden" name="_method" value="PUT">
+
+                        <div th:if="${modoEdicion != true}">
+                            <h3 th:text="${mascota.nombre}">Nombre</h3>
+                            <p th:text="'Especie: ' + ${mascota.especie}">Especie</p>
+                            <p th:text="'Raza: ' + ${mascota.raza}">Raza</p>
+                            <p th:text="'Fecha de Nacimiento: ' + ${#temporals.format(mascota.fechaNacimiento, 'dd/MM/yyyy')}">Fecha</p>
                         </div>
-                    </div>  
-                    <div class="info-mascota" th:unless="${modoEdicion != true}">
-                        <form th:action="@{/mascota/actualizar/{id}(id=${mascota.id})}" method="PATCH" id="info-mascota">
+
+                        <div th:if="${modoEdicion == true}">
                             <h3>Editar Datos</h3>
-                            <input type="text" name="nombre" th:value="${mascota.nombre}">
-                            <input type="text" name="especie" th:value="${mascota.especie}">
-                            <input type="text" name="raza" th:value="${mascota.raza}">
-                            <input type="text" name="edad" th:value="${mascota.edad}">
-                            <input type="text" name="sexo" th:value="${mascota.sexo}">
-                            <input type="text" name="esterilizado" th:value="${mascota.esterilizado} ? 'Esterilizado' : 'No Esterilizado'">
-                            
-                            <button type="submit" class="btn-registrarme">Guardar</button>
-                            <a th:href="@{/mascota/gestion/{id}(id=${mascota.id})}" class="btn-anterior">Cancelar</a>
-                        </form>
-                    </div>   
-                    
-                    
+                            <input type="text" name="nombre" th:value="${mascota.nombre}" required>
+                            <input type="text" name="especie" th:value="${mascota.especie}" required>
+                            <input type="text" name="raza" th:value="${mascota.raza}" required>
+                            <input type="date" name="fechaNacimiento" th:value="${mascota.fechaNacimiento}" required>
+                        </div>
+
+                        <div class="botones-header">
+                            <a th:if="${modoEdicion != true}"
+                               th:href="@{/admin/mascotas/editar/{id}?editar=true&idDueno={idD}(id=${mascota.idMascota.toHexString()}, idD=${dueno.idDueno.toHexString()})}"
+                               class="btn-registrarme">Editar</a>
+                            <button th:if="${modoEdicion == true}"
+                                    type="submit"
+                                    class="btn-registrarme">Guardar Cambios</button>
+                            <a th:if="${modoEdicion == true}"
+                               th:href="@{/admin/mascotas/editar/{id}(id=${mascota.idMascota.toHexString()}, idDueno=${dueno.idDueno.toHexString()})}"
+                               class="btn-anterior">Cancelar</a>
+                        </div>
+                    </form>
                 </div>
+
                 <div id="documentos-mascota">
-                    <div id="documentos-mascota-actuales">
+                    <div id="documentos-mascota-actuales" th:if="${historial != null}">
                         <h3>Historial Clínico de la Mascota</h3>
-                        
                         <div class="lista-documentos-mascota">
                             <div class="caja-documento-mascota">
                                 <div class="info-documento-mascota">
@@ -69,55 +77,53 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
+
                 <div id="medicamento-mascota">
                     <div id="contenedor-medicamentos-mascota">
                         <h3>Medicamentos</h3>
                         <h5>Agregar medicamento</h5>
                         <form th:action="@{/medicamentos/agregar}" method="POST" class="forma-medicamento-row">
-                            <input type="text" name="nombre" placeholder="Medicamento (ej. Amoxicilina)" >
+                            <input type="hidden" name="idMascota" th:value="${mascota.idMascota}">
+                            <input type="text" name="nombre" placeholder="Medicamento (ej. Amoxicilina)">
                             <input type="text" name="dosis" placeholder="Dosis (ej. 5 ml / 1 tableta)">
                             <input type="text" name="frecuencia" placeholder="Frecuencia (ej. Cada 12 horas)">
-                            <input type="text" name="duracion" placeholder="Duración (ej. 7 días)" >
+                            <input type="text" name="duracion" placeholder="Duración (ej. 7 días)">
                             <button type="submit" class="btn-agregar">+</button>
                         </form>
                     </div>
-                    <table class="tabla-medicamentos">
+
+                    <table class="tabla-medicamentos" th:if="${historial != null and historial.medicamentos != null}">
                         <thead>
-                            <tr>
-                                <th>Medicamento</th>
-                                <th>Dosis</th>
-                                <th>Frecuencia</th>
-                                <th>Duración</th>
-                            </tr>
+                        <tr>
+                            <th>Medicamento</th>
+                            <th>Dosis</th>
+                            <th>Frecuencia</th>
+                            <th>Duración</th>
+                            <th>Acción</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="med : ${historial.medicamentos}">
-                                <td><strong th:text="${med.nombre}">Amoxicilina</strong></td>
-                                <td th:text="${med.dosis}">5 ml</td>
-                                <td th:text="${med.frecuencia}">Cada 12 horas</td>
-                                <td th:text="${med.duracion}">7 días</td>
-                                <td class="celda-accion">
-                                    <div class="opciones">
-                                        <a th:href="@{/medicamentos/editar/{id}(id=${med.id})}">Editar</a><br>
-                                        <a th:href="@{/medicamentos/eliminar/{id}(id=${med.id})}">Eliminar</a>
-                                    </div>
-                                </td>
-                            </tr>
+                        <tr th:each="med : ${historial.medicamentos}">
+                            <td><strong th:text="${med.nombre}">Amoxicilina</strong></td>
+                            <td th:text="${med.dosis}">5 ml</td>
+                            <td th:text="${med.frecuencia}">Cada 12 horas</td>
+                            <td th:text="${med.duracion}">7 días</td>
+                            <td class="celda-accion">
+                                <div class="opciones">
+                                    <a th:href="@{/medicamentos/editar/{id}(id=${med.id})}">Editar</a>
+                                    <a th:href="@{/medicamentos/eliminar/{id}(id=${med.id})}">Eliminar</a>
+                                </div>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
 
-                <div id="citas-mascota">
-
-                </div>
-
-
+                <div id="citas-mascota"></div>
             </div>
-                  
         </section>
-        
+
     </main>
     <footer>
         <p>&copy; Copyright Ctrl+PET 2026</p>

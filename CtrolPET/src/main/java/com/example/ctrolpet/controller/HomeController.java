@@ -3,6 +3,7 @@ package com.example.ctrolpet.controller;
 import com.example.ctrolpet.model.*;
 import com.example.ctrolpet.model.Enum.DiaSemana;
 import com.example.ctrolpet.model.Enum.Especialidad;
+import com.example.ctrolpet.model.Enum.EstadoReserva;
 import com.example.ctrolpet.model.Enum.Puesto;
 import com.example.ctrolpet.service.*;
 import jakarta.servlet.http.HttpSession;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -590,4 +592,196 @@ public class HomeController {
        
 }
 
+
+    @GetMapping("/admin/duenos")
+    public String verTablaDuenos(HttpSession session, Model model) {
+        ObjectId idEmpleado = (ObjectId) session.getAttribute("idEmpleado");
+        if (idEmpleado == null) {
+            return "redirect:/login-admin";
+        }
+        Empleado empleadoLogueado = empleadoService.obtenerPorId(idEmpleado);
+        model.addAttribute("empleado", empleadoLogueado);
+        model.addAttribute("listaDuenos", duenoService.obtenerTodos());
+        return "admin-duenos";
+    }
+
+    @GetMapping("/admin/duenos/editar/{id}")
+    public String editarDueno(@PathVariable ("id") ObjectId idDueno, HttpSession session, Model model){
+        ObjectId idEmpleado = (ObjectId) session.getAttribute("idEmpleado");
+        if (idEmpleado == null) {
+            return "redirect:/login-admin";
+        }
+        Empleado empleadoLogueado = empleadoService.obtenerPorId(idEmpleado);
+        Dueno dueno = duenoService.obtenerPorId(idDueno);
+        model.addAttribute("empleado", empleadoLogueado);
+        model.addAttribute("dueno", dueno);
+        model.addAttribute("mascotas", dueno.getMascotas());
+
+        return "duenos";
+    }
+
+    @PutMapping("/admin/mascotas/cambiar-foto/{id}")
+    public String actualizarFotoMascota(@PathVariable("id") ObjectId idMascota,
+                                        @RequestParam("fotoMascota") MultipartFile file,
+                                        @RequestParam("idDueno") ObjectId idDueno,
+                                        HttpSession session) {
+
+        ObjectId idEmpleado = (ObjectId) session.getAttribute("idEmpleado");
+        if (idEmpleado == null) {
+            return "redirect:/login-admin";
+        }
+
+        if (!file.isEmpty()) {
+            Mascota mascota = duenoService.getMascotaById(idMascota, idDueno);
+            if (mascota != null) {
+                duenoService.guardarFotoMascota(idDueno,idMascota,file);
+            }
+        }
+
+        return "redirect:/admin/duenos/editar/" + idDueno.toHexString();
+    }
+
+
+    @GetMapping("/admin/mascotas")
+    public String verTablaMascotas(HttpSession session, Model model) {
+        ObjectId idEmpleado = (ObjectId) session.getAttribute("idEmpleado");
+        if (idEmpleado == null) {
+            return "redirect:/login-admin";
+        }
+        Empleado empleadoLogueado = empleadoService.obtenerPorId(idEmpleado);
+        model.addAttribute("empleado", empleadoLogueado);
+        model.addAttribute("listaDuenos", duenoService.obtenerTodos());
+        return "admin-mascotas";
+    }
+
+    @GetMapping("/admin/mascotas/editar/{id}")
+    public String editarMascota(@PathVariable ("id") ObjectId idMascota,
+                                @RequestParam ("idDueno") ObjectId idDueno,
+                                HttpSession session, Model model,
+                                @RequestParam(value = "editar", required = false) Boolean editar){
+        ObjectId idEmpleado = (ObjectId) session.getAttribute("idEmpleado");
+        if (idEmpleado == null) {
+            return "redirect:/login-admin";
+        }
+
+        Dueno dueno = duenoService.obtenerPorId(idDueno);
+        Empleado empleadoLogueado = empleadoService.obtenerPorId(idEmpleado);
+        Mascota mascota = duenoService.getMascotaById(idMascota, idDueno);
+        model.addAttribute("empleado", empleadoLogueado);
+        model.addAttribute("mascota", mascota);
+        model.addAttribute("dueno", dueno);
+        model.addAttribute("modoEdicion", editar != null && editar);
+
+        return "mascotas";
+    }
+
+    @PutMapping("/admin/mascotas/actualizar/{id}")
+    public String actualizarMascota(@PathVariable("id") ObjectId idMascota,
+                                    @RequestParam("idDueno") ObjectId idDueno,
+                                    @RequestParam("nombre") String nombre,
+                                    @RequestParam("especie") String especie,
+                                    @RequestParam("raza") String raza,
+                                    @RequestParam("fechaNacimiento") LocalDate fechaNacimiento,
+                                    HttpSession session) {
+
+        ObjectId idEmpleado = (ObjectId) session.getAttribute("idEmpleado");
+        if (idEmpleado == null) {
+            return "redirect:/login-admin";
+        }
+
+        duenoService.actualizarDatosMascota(idDueno, idMascota, nombre, especie, raza, fechaNacimiento);
+        return "redirect:/admin/mascotas/editar/" + idMascota.toHexString() + "?idDueno=" + idDueno.toHexString();
+    }
+
+    @DeleteMapping("/admin/mascotas/eliminar/{id}")
+    public String eliminarMascotaDueno(@PathVariable("id") ObjectId idMascota,
+                                  @RequestParam("idDueno") ObjectId idDueno,
+                                  HttpSession session, Model model) {
+        ObjectId idEmpleado = (ObjectId) session.getAttribute("idEmpleado");
+        if (idEmpleado == null) {
+            return "redirect:/login-admin";
+        }
+
+        Empleado empleadoLogueado = empleadoService.obtenerPorId(idEmpleado);
+        duenoService.eliminarMascota(idDueno, idMascota);
+
+        return "redirect:/admin";
+    }
+
+    @DeleteMapping("/admin/duenos/eliminar/{id}")
+    public String eliminarDueno(@PathVariable("id") ObjectId idDueno,
+                                       HttpSession session, Model model) {
+        ObjectId idEmpleado = (ObjectId) session.getAttribute("idEmpleado");
+        if (idEmpleado == null) {
+            return "redirect:/login-admin";
+        }
+
+        Empleado empleadoLogueado = empleadoService.obtenerPorId(idEmpleado);
+        duenoService.eliminarDueno(idDueno);
+
+        return "redirect:/admin";
+    }
+
+
+    @GetMapping("/admin/citas")
+    public String verTablaCitas(HttpSession session, Model model) {
+        ObjectId idEmpleado = (ObjectId) session.getAttribute("idEmpleado");
+        if (idEmpleado == null) {
+            return "redirect:/login-admin";
+        }
+        Empleado empleadoLogueado = empleadoService.obtenerPorId(idEmpleado);
+        model.addAttribute("empleado", empleadoLogueado);
+        model.addAttribute("listaReservas", reservaService.obtenerTodos());
+        return "admin-citas";
+    }
+
+    @DeleteMapping("/admin/citas/eliminar/{id}")
+    public String eliminarCita(@PathVariable String id, HttpSession session) {
+        ObjectId idEmpleado = (ObjectId) session.getAttribute("idEmpleado");
+        if (idEmpleado == null) {
+            return "redirect:/login-admin";
+        }
+        reservaService.eliminar(new ObjectId(id));
+        return "redirect:/admin/citas";
+    }
+
+    @GetMapping("/admin/citas/editar/{id}")
+    public String editarCita(@PathVariable String id, HttpSession session, Model model) {
+        ObjectId idEmpleado = (ObjectId) session.getAttribute("idEmpleado");
+        if (idEmpleado == null) {
+            return "redirect:/login-admin";
+        }
+        Empleado empleadoLogueado = empleadoService.obtenerPorId(idEmpleado);
+        Reserva reserva = reservaService.obtenerPorId(new ObjectId(id));
+        
+        model.addAttribute("empleado", empleadoLogueado);
+        model.addAttribute("reserva", reserva);
+        model.addAttribute("listaServicios", servicioService.obtenerTodos());
+        model.addAttribute("listaEmpleados", empleadoService.obtenerTodos());
+        model.addAttribute("listaSucursales", sucursalService.obtenerTodos());
+        
+        return "admin-editar-cita";
+    }
+
+    @PatchMapping("/admin/citas/editar/{id}")
+    public String actualizarCita(@PathVariable String id,
+                                 @RequestParam ObjectId idServicio,
+                                 @RequestParam ObjectId idEmpleado,
+                                 @RequestParam ObjectId idSucursal,
+                                 @RequestParam String estado,
+                                 HttpSession session) {
+        ObjectId idEmpleadoSession = (ObjectId) session.getAttribute("idEmpleado");
+        if (idEmpleadoSession == null) {
+            return "redirect:/login-admin";
+        }
+        
+        Reserva reserva = reservaService.obtenerPorId(new ObjectId(id));
+        reserva.setServicios(servicioService.obtenerPorId(idServicio));
+        reserva.setIdEmpleado(idEmpleado);
+        reserva.setIdSucursal(idSucursal);
+        reserva.setEstado(EstadoReserva.valueOf(estado));
+        
+        reservaService.guardar(reserva);
+        return "redirect:/admin/citas";
+    }
 }
