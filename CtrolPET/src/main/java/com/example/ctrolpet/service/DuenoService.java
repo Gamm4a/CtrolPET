@@ -22,6 +22,7 @@ import java.util.Optional;
 
 @Service
 public class DuenoService {
+
     @Autowired
     private DuenoRepository duenoRepository;
 
@@ -221,9 +222,27 @@ public class DuenoService {
         }
         duenoRepository.save(dueno);
     }
+    public Dueno actualizarDueno(ObjectId idDueno, Dueno duenoActualizado) {
 
-    public void actualizarDueno(){
+        Optional<Dueno> duenoOpcional = duenoRepository.findById(idDueno);
 
+        if (duenoOpcional.isPresent()) {
+            Dueno duenoExistente = duenoOpcional.get();
+
+            // 2. Actualizamos campo por campo los datos modificables
+            duenoExistente.setNombre(duenoActualizado.getNombre());
+            duenoExistente.setApellidoPaterno(duenoActualizado.getApellidoPaterno());
+            duenoExistente.setApellidoMaterno(duenoActualizado.getApellidoMaterno());
+            duenoExistente.setCorreo(duenoActualizado.getCorreo());
+            duenoExistente.setTelefono(duenoActualizado.getTelefono());
+            duenoExistente.setDireccion(duenoActualizado.getDireccion());
+
+
+            return duenoRepository.save(duenoExistente);
+        }
+
+
+        return null;
     }
     
 }

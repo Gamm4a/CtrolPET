@@ -5,13 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f886b2e4-37ce-4367-9158-a23ac65a3544" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ClienteRest/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ClienteRest/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CtrolPET/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/ClienteRestApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/ClienteRestApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/java/com/example/ctrolpet/service/DuenoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/java/com/example/ctrolpet/service/DuenoService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -35,17 +45,27 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "Spring Boot.CtrolPetApplication.executor": "Run",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "git-widget-placeholder": "Hector",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/jesus/OneDrive/Documentos/GitHub/CtrolPET",
+    "last_opened_file_path": "C:/Users/jesus/OneDrive/Documentos/GitHub/CtrolPET/ClienteRest/src/main/java/com/example/ClienteRest",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\jesus\OneDrive\Documentos\GitHub\CtrolPET\ClienteRest\src\main\java\com\example\ClienteRest" />
+    </key>
+  </component>
   <component name="RunManager" selected="Spring Boot.CtrolPetApplication">
     <configuration name="ClienteRestApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="ClienteRest" />
@@ -78,7 +98,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1782890901779</updated>
-      <workItem from="1782890903117" duration="472000" />
+      <workItem from="1782890903117" duration="14672000" />
     </task>
     <servers />
   </component>
