@@ -1,22 +1,31 @@
 package com.example.ctrolpet.service;
 
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
+import com.example.ctrolpet.model.Dueno;
+import com.example.ctrolpet.model.Mascota;
 import com.example.ctrolpet.model.Servicio;
 import com.example.ctrolpet.repository.ServicioRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ServicioService {
 
     @Autowired
     private ServicioRepository servicioRepository;
+
+    @Autowired
+    private Cloudinary cloudinary;
 
     public Servicio guardar(Servicio servicio){
 
@@ -120,4 +129,51 @@ public class ServicioService {
 
         return intervalos;
     }
+
+    public void guardarImagenesServicios(ObjectId idServicio, MultipartFile file){
+        Servicio servicio = obtenerPorId(idServicio);
+
+        if(servicio == null){
+            throw new NullPointerException("El id del servicio no existe");
+        }
+
+        String nombreArchivo = "default";
+        if (!file.isEmpty()) {
+            nombreArchivo = guardarImagenCloudinary(file);
+        }
+
+        if (servicio.getFotos() == null) {
+            servicio.setFotos(new ArrayList<>());
+        }
+
+        servicio.getFotos().add(nombreArchivo);
+        servicioRepository.save(servicio);
+    }
+
+    public void eliminarImagenServicio(ObjectId idServicio, String fotoUrl) {
+        Servicio servicio = obtenerPorId(idServicio);
+
+        if (servicio == null) {
+            throw new NullPointerException("El id del servicio no existe");
+        }
+
+        if (servicio.getFotos() != null) {
+            servicio.getFotos().remove(fotoUrl);
+
+            servicioRepository.save(servicio);
+        }
+    }
+
+    private String guardarImagenCloudinary(MultipartFile file) {
+
+        try {
+            Map uploadResult = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.emptyMap());
+            return uploadResult.get("secure_url").toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "default.png";
+        }
+    }
+
 }
+

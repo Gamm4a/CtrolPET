@@ -188,6 +188,23 @@ public class HomeController {
         return "redirect:/admin";
     }
 
+    @PostMapping("/admin/servicios/subir-foto/{id}")
+    public String subirFotoServicio(@PathVariable("id") ObjectId id,
+                                    @RequestParam("file") MultipartFile file) {
+
+        servicioService.guardarImagenesServicios(id, file);
+        return "redirect:/admin";
+    }
+
+    @DeleteMapping("/admin/servicios/eliminar-foto/{id}")
+    public String eliminarFotoServicio(@PathVariable("id") ObjectId id,
+                                       @RequestParam("fotoUrl") String fotoUrl) {
+
+        servicioService.eliminarImagenServicio(id, fotoUrl);
+
+        return "redirect:/admin";
+    }
+
     @PatchMapping("/admin/servicios/editar/{id}")
     public String editarServicio(@PathVariable("id") ObjectId id,
                                  @RequestParam ("tipo") String tipo,
@@ -472,7 +489,6 @@ public class HomeController {
                         servicio.getDuracion()
                 );
 
-                // Llenamos el mapa: la clave es la hora y el valor es el objeto Empleado completo
                 for (LocalTime hora : rangosDelEmpleado) {
                     mapaHorarios.put(hora, emp);
                 }

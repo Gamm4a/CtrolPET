@@ -209,6 +209,7 @@
                             <span class="duracion" th:text="${servicio.duracion + ' minutos'}">minutos</span>
                         </div>
                         <div class="servicio-opciones">
+                            <a th:href="'#modal-galeria-servicio-' + ${servicio.idServicio}" class="btn-editar">Fotos</a>
                             <a th:href="'#modal-editar-servicio-' + ${servicio.idServicio}" class="btn-editar">Editar</a>
                             <form th:action="@{/admin/servicios/eliminar/{id}(id=${servicio.idServicio})}" method="POST" onclick="return confirm('¿Seguro que desea eliminar este servicio?')">
                                 <input type="hidden" name="_method" value="DELETE">
@@ -257,6 +258,40 @@
                                     <div class="form-botones">
                                         <button type="submit" class="btn-continuar">Guardar Cambios</button>
                                         <a href="#admin-servicios" class="btn-anterior">Cancelar</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div th:id="'modal-galeria-servicio-' + ${servicio.idServicio}" class="modal-overlay">
+                            <div class="modal-caja">
+                                <h3 th:text="'Galería: ' + ${servicio.tipo}">Galería del Servicio</h3>
+
+                                <div class="galeria-contenedor">
+                                    <div th:if="${#lists.isEmpty(servicio.fotos)}">
+                                        <p>Este servicio aún no tiene fotos registradas.</p>
+                                    </div>
+
+                                    <div th:each="foto : ${servicio.fotos}" class="foto-servicios">
+                                        <img th:src="${foto}" alt="Foto del servicio">
+                                        <form th:action="@{/admin/servicios/eliminar-foto/{id}(id=${servicio.idServicio})}" method="POST" class="eliminarFoto" onclick=" return confirm('¿Seguro que deseas borrar esta imagen?')">
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <input type="hidden" name="fotoUrl" th:value="${foto}">
+
+                                            <button type="submit" class="btn-eliminar-foto"> x </button>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <form class="form-modal" th:action="@{/admin/servicios/subir-foto/{id}(id=${servicio.idServicio})}" method="POST" enctype="multipart/form-data">
+                                    <div class="form-grupo">
+                                        <label th:for="'file-' + ${servicio.idServicio}">Subir nueva imagen:</label>
+                                        <input type="file" th:id="'file-' + ${servicio.idServicio}" name="file" accept="image/*" required>
+                                    </div>
+
+                                    <div class="form-botones">
+                                        <button type="submit" class="btn-continuar">Subir Imagen</button>
+                                        <a href="#admin-servicios" class="btn-anterior">Cerrar</a>
                                     </div>
                                 </form>
                             </div>
