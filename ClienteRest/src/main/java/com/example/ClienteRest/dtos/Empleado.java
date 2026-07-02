@@ -4,7 +4,7 @@ import com.example.ClienteRest.dtos.Enum.EspecialidadDTO;
 import com.example.ClienteRest.dtos.Enum.PuestoDTO;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
