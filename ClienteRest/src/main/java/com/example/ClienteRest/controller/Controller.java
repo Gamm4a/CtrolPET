@@ -1,8 +1,6 @@
 package com.example.ClienteRest.controller;
 
 
-import com.example.ClienteRest.dtos.LoginRequestDTO;
-import com.example.ClienteRest.dtos.RegistroDTO;
 import com.example.ctrolpet.model.Dueno;
 
 import com.example.ctrolpet.model.Reserva;

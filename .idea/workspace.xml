@@ -5,11 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f886b2e4-37ce-4367-9158-a23ac65a3544" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClienteRest/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ClienteRest/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/ClienteRestApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/ClienteRestApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/java/com/example/ctrolpet/service/DuenoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/java/com/example/ctrolpet/service/DuenoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/controller/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/dtos/DuenoDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/dtos/LoginRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/dtos/RegistroDTO.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,10 +46,14 @@
       </MavenGeneralSettings>
     </option>
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 1
-}]]></component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 1
+}</component>
   <component name="ProjectId" id="3FtOSWnaBVUk5rP2FRc7JyJNdXZ" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -64,21 +69,24 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "Spring Boot.ClienteRestApplication.executor": "Run",
     "Spring Boot.CtrolPetApplication.executor": "Run",
     "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "Hector",
+    "git-widget-placeholder": "Gamma",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/jesus/OneDrive/Documentos/GitHub/CtrolPET/ClienteRest/src/main/java/com/example/ClienteRest",
+    "last_opened_file_path": "/Users/jesusgammaelsotoescalante/Documents/GitHub/CtrolPET/ClienteRest/src/main/java/com/example/ClienteRest/dtos",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/dtos" />
       <recent name="C:\Users\jesus\OneDrive\Documentos\GitHub\CtrolPET\ClienteRest\src\main\java\com\example\ClienteRest" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.CtrolPetApplication">
+  <component name="RunManager" selected="Spring Boot.ClienteRestApplication">
     <configuration name="ClienteRestApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="ClienteRest" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.ClienteRest.ClienteRestApplication" />
