@@ -4,6 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< Updated upstream
     <list default="true" id="e8018c12-b5ca-4654-82ed-ae1572333451" name="Changes" comment="">
       <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_01_07_26,_5_15 PM_[Changes]/shelved.patch" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_01_07_26,_5_15 PM_[Changes]1/shelved.patch" afterDir="false" />
@@ -35,6 +36,14 @@
       <change beforePath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/dtos/DuenoDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/dtos/DuenoDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/dtos/LoginRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/dtos/MedicamentoDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/dtos/RegistroDTO.java" beforeDir="false" />
+=======
+    <list default="true" id="f886b2e4-37ce-4367-9158-a23ac65a3544" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/controller/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/dtos/DuenoDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/dtos/DuenoDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/java/com/example/ctrolpet/repository/ReservaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/java/com/example/ctrolpet/repository/ReservaRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/java/com/example/ctrolpet/service/ReservaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/java/com/example/ctrolpet/service/ReservaService.java" afterDir="false" />
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,12 +60,49 @@
       </MavenGeneralSettings>
     </option>
   </component>
+<<<<<<< Updated upstream
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;git-widget-placeholder&quot;: &quot;Merging Hector&quot;
   }
 }</component>
   <component name="RunManager" selected="Spring Boot.ClienteRestApplication">
+=======
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="3FtOSWnaBVUk5rP2FRc7JyJNdXZ" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;Spring Boot.CtrolPetApplication.executor&quot;: &quot;Run&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Hector&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/jesus/OneDrive/Documentos/GitHub/CtrolPET/ClienteRest/src/main/java/com/example/ClienteRest&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\jesus\OneDrive\Documentos\GitHub\CtrolPET\ClienteRest\src\main\java\com\example\ClienteRest" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Spring Boot.CtrolPetApplication">
+>>>>>>> Stashed changes
     <configuration name="ClienteRestApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="ClienteRest" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.ClienteRest.ClienteRestApplication" />
@@ -74,6 +120,18 @@
     </configuration>
   </component>
   <component name="TaskManager">
+<<<<<<< Updated upstream
+=======
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f886b2e4-37ce-4367-9158-a23ac65a3544" name="Changes" comment="" />
+      <created>1782890901779</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1782890901779</updated>
+      <workItem from="1782890903117" duration="14731000" />
+      <workItem from="1782948100996" duration="2867000" />
+    </task>
+>>>>>>> Stashed changes
     <servers />
   </component>
 </project>

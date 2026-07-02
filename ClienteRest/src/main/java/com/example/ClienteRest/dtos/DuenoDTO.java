@@ -1,6 +1,11 @@
 package com.example.ClienteRest.dtos;
 
 
+<<<<<<< Updated upstream
+=======
+import com.example.ctrolpet.model.Direccion;
+import com.example.ctrolpet.model.Mascota;
+>>>>>>> Stashed changes
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
