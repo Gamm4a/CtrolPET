@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class HistorialClinico {
+public class HistorialClinicoDTO {
 
     private String idMascota;
     private Instant fecha;

@@ -14,6 +14,6 @@ public class SucursalDTO {
     private String nombre;
     private DireccionDTO direccion;
     private String telefono;
-    private List<ObjectId> empleados;
+    private List<String> empleados;
 
 }
