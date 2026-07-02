@@ -22,6 +22,6 @@ public class MascotaDTO {
     //foto
     private String fotoUrl;
 
-    private ObjectId idHistorialClinico;
+    private String idHistorialClinico;
 
 }
