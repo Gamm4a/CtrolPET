@@ -146,23 +146,23 @@
                 </div>
 
             
-            <form class="formulario-reserva-sin-login">
+            <form class="formulario-reserva-sin-login" th:action="@{/reserva/sin-login}" method="POST">
                     <div class="campo-formulario">
                         <label for="nombre">Nombre completo</label>
-                        <input type="text" id="nombre" placeholder="Ej. Luis Pérez" required>
+                        <input type="text" id="nombre" name="nombre" placeholder="Ej. Luis Pérez" required>
                     </div>
                     <div class="campo-formulario">
                         <label for="telefono">Teléfono</label>
-                        <input type="tel" id="telefono" placeholder="Ej. 6441234567" required>
+                        <input type="tel" id="telefono" name="telefono" placeholder="Ej. 6441234567" required>
                     </div>
                     <div class="campo-formulario">
                         <label for="nombre-mascota">Nombre de tu mascota:</label>
-                        <input type="text" id="nombre-mascota" placeholder="Ej. Oreo" required>
+                        <input type="text" id="nombre-mascota" name="nombreMascota" placeholder="Ej. Oreo" required>
                     </div>
                     <div class="campo-formulario">
 
                     <label for="tipo-mascota">Tipo de mascota</label>
-                    <select id="tipo-mascota" required>
+                    <select id="tipo-mascota" name="especieMascota" required>
                         <option value="">Selecciona un tipo...</option>
                         <option value="perro">Perro</option>
                         <option value="gato">Gato</option>
@@ -173,32 +173,45 @@
 
                     <div class="campo-formulario">
                     <label for="raza-mascota">Raza de tu mascota:</label>
-                     <select id="raza-mascota" required>
+                     <select id="raza-mascota" name="razaMascota" required>
                         <option value="">Selecciona una raza...</option>
+                        <option value="pequeña">Chica</option>
+                        <option value="mediana">Mediana</option>
+                        <option value="grande">Grande</option>
                     </select>
                     </div>
+                    
+                    <div class="campo-formulario">
+                    <label for="sucursalSinLogin">Sucursal:</label>
+                    <select id="sucursalSinLogin" name="idSucursal" required>
+                       <option value="" disabled selected>Selecciona una sucursal...</option>
+                        <option th:each="sucursal : ${listaSucursales}"
+                                th:value="${sucursal.idSucursal}"
+                                th:text="${sucursal.nombre}"></option>
+                    </select>
+                    </div>
+                    
                     <div class="campo-formulario">
                     <label for="servicioSinLogin">Servicio:</label>
-                    <select id="servicioSinLogin" name="servicio" required multiple>
-                        <option value="">Selecciona un servicio...</option>
-                        <option value="consulta">Consulta</option>
-                        <option value="estetica">Estética & Spa</option>
-                        <option value="dental">Cuidado Dental</option>
-                        <option value="diagnostico">Diagnóstico</option>
-                        <option value="cirugia">Cirugía</option>
-                        <option value="hospitalizacion">Hospitalización</option>
+                    <select id="servicioSinLogin" name="idServicio" required>
+                        <option value="" disabled selected>Selecciona un servicio...</option>
+                        <option th:each="servicio : ${listaServicios}"
+                                th:value="${servicio.idServicio}"
+                                th:text="${servicio.tipo}"></option>
                     </select>
                     </div>
 
                      <div class="campo-formulario">
                     <label for="fechaSinLogin">Fecha</label>
-                    <input type="date" id="fechaSinLogin" required>
+                    <input type="date" id="fechaSinLogin" name="fecha" required>
                     </div>
 
                     <div class="campo-formulario">
                         <label for="horaSinLogin">Hora</label>
-                        <input type="time" id="horaSinLogin" required>
+                        <input type="time" id="horaSinLogin" name="hora" required>
                     </div>
+
+                    <button type="submit" class="btn-agendar">Ver horas disponibles</button>
             </form>
 
         </section>

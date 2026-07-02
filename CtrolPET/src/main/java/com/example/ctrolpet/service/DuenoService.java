@@ -170,7 +170,6 @@ public class DuenoService {
         }
     }
 
-
     public void eliminarMascota(ObjectId idDueno, ObjectId idMascota){
         Dueno dueno = obtenerPorId(idDueno);
 
@@ -244,5 +243,5 @@ public class DuenoService {
 
         return null;
     }
-    
+
 }
