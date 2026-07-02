@@ -1,11 +1,9 @@
 package com.example.ClienteRest.controller;
 
 
-import com.example.ctrolpet.model.Dueno;
 
-import com.example.ctrolpet.model.Reserva;
-import com.example.ctrolpet.service.DuenoService;
-import com.example.ctrolpet.service.ReservaService;
+
+
 import jakarta.servlet.http.HttpSession;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -17,8 +17,5 @@
       <module name="ClienteRest" options="-parameters" />
       <module name="CtrolPET" options="-parameters" />
     </option>
-    <bytecodeTargetLevel>
-      <module name="CtrolPET" target="21" />
-    </bytecodeTargetLevel>
   </component>
 </project>
