@@ -13,6 +13,7 @@ import com.example.ctrolpet.service.DuenoService;
 import com.example.ctrolpet.service.ReservaService;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,7 +41,7 @@ public class Controller {
 
 
     @PostMapping("/registro")
-    public ResponseEntity<DuenoDTO> registrarDueno(@RequestBody RegistroDTO registroDTO) {
+    public ResponseEntity<DuenoDTO> registrarDueno(@Valid @RequestBody RegistroDTO registroDTO) {
 
         Dueno dueno = Mapper.toEntity(registroDTO.getDuenoDTO());
 
@@ -59,7 +60,7 @@ public class Controller {
 
 
     @PostMapping("/reservas")
-    public ResponseEntity<ReservaDTO> crearReservaSinLogin(@RequestBody ReservaDTO reservaDTO) {
+    public ResponseEntity<ReservaDTO> crearReservaSinLogin(@Valid @RequestBody ReservaDTO reservaDTO) {
 
         Reserva guardada = reservaService.guardar(Mapper.toEntity(reservaDTO));
 
@@ -69,7 +70,7 @@ public class Controller {
 
 
     @PostMapping("/login")
-    public ResponseEntity<?> iniciarSesionDueno(@RequestBody LoginRequestDTO loginRequestDTO, HttpSession session) {
+    public ResponseEntity<?> iniciarSesionDueno(@Valid @RequestBody LoginRequestDTO loginRequestDTO, HttpSession session) {
 
         Dueno duenoRegistrado = duenoService.autenticar(loginRequestDTO.getCorreo(), loginRequestDTO.getContrasenia());
 
@@ -114,7 +115,7 @@ public class Controller {
     }
 
     @PutMapping("/perfil/{id}/editar")
-    public ResponseEntity<DuenoDTO> editarDueno(@PathVariable("id") ObjectId idDueno, @RequestBody DuenoDTO duenoActualizado, HttpSession session) {
+    public ResponseEntity<DuenoDTO> editarDueno(@PathVariable("id") ObjectId idDueno, @Valid @RequestBody DuenoDTO duenoActualizado, HttpSession session) {
 
         ObjectId idEnSesion = (ObjectId) session.getAttribute("idDueno");
 
@@ -174,7 +175,7 @@ public class Controller {
     }
 
     @PostMapping("/perfil/{id}/mascotas/agregar")
-    public ResponseEntity<MascotaDTO> crearMacotasDueno(@PathVariable("id")ObjectId idDueno, @RequestPart("mascota") MascotaDTO mascotaDTO , HttpSession session, @RequestPart("file") MultipartFile file){
+    public ResponseEntity<MascotaDTO> crearMacotasDueno(@PathVariable("id")ObjectId idDueno, @Valid @RequestPart("mascota") MascotaDTO mascotaDTO , HttpSession session, @RequestPart("file") MultipartFile file){
 
         ObjectId idEnSesion = (ObjectId) session.getAttribute("idDueno");
 
@@ -308,7 +309,7 @@ public class Controller {
 
 
     @PostMapping("/reservas/dueno/{id}")
-    public ResponseEntity<ReservaDTO> crearReservaConLogin(@PathVariable("id")ObjectId idDueno,@RequestBody ReservaDTO reservaDTO, HttpSession session) {
+    public ResponseEntity<ReservaDTO> crearReservaConLogin(@PathVariable("id")ObjectId idDueno,@Valid @RequestBody ReservaDTO reservaDTO, HttpSession session) {
 
         ObjectId idEnSesion = (ObjectId) session.getAttribute("idDueno");
 
