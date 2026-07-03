@@ -155,6 +155,7 @@ public class ReservaService {
     
 
     public List<Reserva> obtenerPorDueno(Dueno dueno){
+
         Pageable pageable = (Pageable) PageRequest.of(0, 20);
         return reservaRepository.findByDueno(dueno.getIdDueno(),pageable).getContent();
 

@@ -3,9 +3,10 @@ package com.example.ClienteRest.controller;
 
 
 
-import com.example.ClienteRest.dtos.LoginRequestDTO;
-import com.example.ClienteRest.dtos.RegistroDTO;
+import com.example.ClienteRest.Mapper.Mapper;
+import com.example.ClienteRest.dtos.*;
 import com.example.ctrolpet.model.Dueno;
+import com.example.ctrolpet.model.Enum.EstadoReserva;
 import com.example.ctrolpet.model.Mascota;
 import com.example.ctrolpet.model.Reserva;
 import com.example.ctrolpet.service.DuenoService;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import java.util.List;
@@ -38,32 +40,37 @@ public class Controller {
 
 
     @PostMapping("/registro")
-    public ResponseEntity<Dueno> registrarDueno(@RequestBody RegistroDTO registroDTO) {
-        Dueno dueno = registroDTO.getDuenoDTO();
-        Reserva reserva = registroDTO.getReservaDTO();
+    public ResponseEntity<DuenoDTO> registrarDueno(@RequestBody RegistroDTO registroDTO) {
+
+        Dueno dueno = Mapper.toEntity(registroDTO.getDuenoDTO());
 
         Dueno duenoRegistrado = duenoService.guardar(dueno);
 
-        if (reserva != null && duenoRegistrado.getMascotas() != null && !duenoRegistrado.getMascotas().isEmpty()) {
+        if (registroDTO.getReservaDTO() != null && duenoRegistrado.getMascotas() != null && !duenoRegistrado.getMascotas().isEmpty()) {
+            Reserva reserva = Mapper.toEntity(registroDTO.getReservaDTO());
             reserva.setMascota(duenoRegistrado.getMascotas().getFirst().getIdMascota());
             reserva.setDueno(duenoRegistrado.getIdDueno());
             reservaService.guardar(reserva);
         }
 
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(duenoRegistrado);
+        return ResponseEntity.status(HttpStatus.CREATED).body(Mapper.toDTO(duenoRegistrado));
     }
 
 
     @PostMapping("/reservas")
-    public ResponseEntity<Reserva> crearReservaSinLogin(@RequestBody Reserva reserva) {
-        Reserva guardada = reservaService.guardar(reserva);
-        return ResponseEntity.status(HttpStatus.CREATED).body(guardada);
+    public ResponseEntity<ReservaDTO> crearReservaSinLogin(@RequestBody ReservaDTO reservaDTO) {
+
+        Reserva guardada = reservaService.guardar(Mapper.toEntity(reservaDTO));
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(Mapper.toDTO(guardada));
+
     }
 
 
     @PostMapping("/login")
     public ResponseEntity<?> iniciarSesionDueno(@RequestBody LoginRequestDTO loginRequestDTO, HttpSession session) {
+
         Dueno duenoRegistrado = duenoService.autenticar(loginRequestDTO.getCorreo(), loginRequestDTO.getContrasenia());
 
         if (duenoRegistrado != null) {
@@ -71,7 +78,7 @@ public class Controller {
             session.setAttribute("idDueno", duenoRegistrado.getIdDueno());
 
 
-            return ResponseEntity.status(HttpStatus.OK).body(duenoRegistrado);
+            return ResponseEntity.status(HttpStatus.OK).body(Mapper.toDTO(duenoRegistrado));
 
         }
 
@@ -83,9 +90,9 @@ public class Controller {
 
 
     @GetMapping({"/{id}", "/perfil/{id}"})
-    public ResponseEntity<Dueno> pantallasDueno(@PathVariable("id") ObjectId idDueno, HttpSession session) {
+    public ResponseEntity<DuenoDTO> pantallasDueno(@PathVariable("id") ObjectId idDueno, HttpSession session) {
 
-        ObjectId idEnSesion = (ObjectId) session.getAttribute("idDueño");
+        ObjectId idEnSesion = (ObjectId) session.getAttribute("idDueno");
 
         if (idEnSesion == null) {
 
@@ -103,13 +110,13 @@ public class Controller {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
-        return ResponseEntity.status(HttpStatus.OK).body(dueno);
+        return ResponseEntity.status(HttpStatus.OK).body(Mapper.toDTO(dueno));
     }
 
     @PutMapping("/perfil/{id}/editar")
-    public ResponseEntity<Dueno> editarDueno(@PathVariable("id") ObjectId idDueno, @RequestBody Dueno duenoActualizado, HttpSession session) {
+    public ResponseEntity<DuenoDTO> editarDueno(@PathVariable("id") ObjectId idDueno, @RequestBody DuenoDTO duenoActualizado, HttpSession session) {
 
-        ObjectId idEnSesion = (ObjectId) session.getAttribute("idDueño");
+        ObjectId idEnSesion = (ObjectId) session.getAttribute("idDueno");
 
         if (idEnSesion == null) {
 
@@ -122,18 +129,18 @@ public class Controller {
         }
 
 
-        Dueno dueno = duenoService.actualizarDueno(idDueno ,duenoActualizado);
+        Dueno dueno = duenoService.actualizarDueno(idDueno ,Mapper.toEntity(duenoActualizado));
         if (dueno == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
-        return ResponseEntity.status(HttpStatus.OK).body(dueno);
+        return ResponseEntity.status(HttpStatus.OK).body(Mapper.toDTO(dueno));
     }
 
     @GetMapping("/perfil/{id}/mascotas")
-    public ResponseEntity<List<Mascota>> obtenerMacotasDueno(@PathVariable("id")ObjectId idDueno, HttpSession session){
+    public ResponseEntity<List<MascotaDTO>> obtenerMacotasDueno(@PathVariable("id")ObjectId idDueno, HttpSession session){
 
-        ObjectId idEnSesion = (ObjectId) session.getAttribute("idDueño");
+        ObjectId idEnSesion = (ObjectId) session.getAttribute("idDueno");
 
         if (idEnSesion == null) {
 
@@ -154,14 +161,22 @@ public class Controller {
 
         List<Mascota> mascotas = dueno.getMascotas();
 
-        return ResponseEntity.status(HttpStatus.OK).body(mascotas);
+        List<MascotaDTO> mascotasDTO = new ArrayList<>();
+
+        for (Mascota mascota: mascotas){
+
+            mascotasDTO.add(Mapper.toDTO(mascota));
+
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(mascotasDTO);
 
     }
 
     @PostMapping("/perfil/{id}/mascotas/agregar")
-    public ResponseEntity<Mascota> crearMacotasDueno(@PathVariable("id")ObjectId idDueno, @RequestBody Mascota mascota , HttpSession session, @RequestBody MultipartFile file){
+    public ResponseEntity<MascotaDTO> crearMacotasDueno(@PathVariable("id")ObjectId idDueno, @RequestPart("mascota") MascotaDTO mascotaDTO , HttpSession session, @RequestPart("file") MultipartFile file){
 
-        ObjectId idEnSesion = (ObjectId) session.getAttribute("idDueño");
+        ObjectId idEnSesion = (ObjectId) session.getAttribute("idDueno");
 
         if (idEnSesion == null) {
 
@@ -180,20 +195,19 @@ public class Controller {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
-        dueno.getMascotas().add(mascota);
-        duenoService.guardarMascota(idDueno, mascota, file);
+        duenoService.guardarMascota(idDueno, Mapper.toEntity(mascotaDTO), file);
 
         Mascota mascotaRegistrada = duenoService.obtenerPorId(idDueno).getMascotas().getLast();
 
 
-        return ResponseEntity.status(HttpStatus.OK).body(mascotaRegistrada);
+        return ResponseEntity.status(HttpStatus.OK).body(Mapper.toDTO(mascotaRegistrada));
 
     }
 
     @GetMapping("/perfil/{id}/citas")
-    public ResponseEntity<List<Reserva>> obtenerM(@PathVariable("id")ObjectId idDueno, HttpSession session){
+    public ResponseEntity<List<ReservaDTO>> obtenerCitasDueno(@PathVariable("id")ObjectId idDueno, HttpSession session){
 
-        ObjectId idEnSesion = (ObjectId) session.getAttribute("idDueño");
+        ObjectId idEnSesion = (ObjectId) session.getAttribute("idDueno");
 
         if (idEnSesion == null) {
 
@@ -212,12 +226,106 @@ public class Controller {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
-        reservaService.obtene
+        List<Reserva> reservas = reservaService.obtenerPorDueno(dueno);
+        List<ReservaDTO> reservasDTO = new ArrayList<>();
 
-        return ResponseEntity.status(HttpStatus.OK).body(mascotas);
+        for (Reserva reserva: reservas){
+
+            reservasDTO.add(Mapper.toDTO(reserva));
+
+        }
+
+
+
+        return ResponseEntity.status(HttpStatus.OK).body(reservasDTO);
+
+    }
+
+    @PutMapping("/perfil/{id}/citas/cancelar")
+    public ResponseEntity<ReservaDTO> cancelarCita(@PathVariable("id") ObjectId idDueno, @RequestParam ObjectId idReserva, HttpSession session) {
+
+        ObjectId idEnSesion = (ObjectId) session.getAttribute("idDueno");
+
+        if (idEnSesion == null) {
+
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        if (!idEnSesion.equals(idDueno)) {
+
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
+
+        Dueno dueno = duenoService.obtenerPorId(idDueno);
+
+
+        if (dueno == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        Reserva reserva = reservaService.obtenerPorId(idReserva);
+
+        if (!dueno.getIdDueno().equals(reserva.getDueno())){
+
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+
+        }
+
+        Reserva cancelar = new Reserva();
+        cancelar.setEstado(EstadoReserva.CANCELADO);
+
+        reserva = reservaService.actualizarParcial(idReserva, cancelar);
+
+        return ResponseEntity.status(HttpStatus.OK).body(Mapper.toDTO(reserva));
+
+
+    }
+
+    @GetMapping("/perfil/{id}/logout")
+    public ResponseEntity<?> cerrarSesion(@PathVariable("id")ObjectId idDueno, HttpSession session){
+
+        ObjectId idEnSesion = (ObjectId) session.getAttribute("idDueno");
+
+        if (idEnSesion == null) {
+
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        if (!idEnSesion.equals(idDueno)) {
+
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
+        session.invalidate();
+
+        Map<String, String> exito = new HashMap<>();
+        exito.put("exito", "Sesión cerrada");
+
+        return ResponseEntity.status(HttpStatus.OK).body(exito);
 
     }
 
 
+    @PostMapping("/reservas/dueno/{id}")
+    public ResponseEntity<ReservaDTO> crearReservaConLogin(@PathVariable("id")ObjectId idDueno,@RequestBody ReservaDTO reservaDTO, HttpSession session) {
+
+        ObjectId idEnSesion = (ObjectId) session.getAttribute("idDueno");
+
+        if (idEnSesion == null) {
+
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        if (!idEnSesion.equals(idDueno)) {
+
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
+        Reserva guardada = reservaService.guardar(Mapper.toEntity(reservaDTO));
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(Mapper.toDTO(guardada));
+
+    }
 
 }
