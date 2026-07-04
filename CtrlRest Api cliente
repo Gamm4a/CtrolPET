@@ -303,7 +303,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/api/6a44da0095d6d7acd2c99104",
+              "raw": "http://localhost:8080/api/6a44da0095d6d7acd2c99106",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -311,14 +311,14 @@
               "port": "8080",
               "path": [
                 "api",
-                "6a44da0095d6d7acd2c99104"
+                "6a44da0095d6d7acd2c99106"
               ]
             }
           },
           "response": []
         },
         {
-          "name": "mascotas",
+          "name": "mascotasDueno",
           "request": {
             "method": "GET",
             "header": [],
@@ -340,7 +340,7 @@
           "response": []
         },
         {
-          "name": "New Request",
+          "name": "citasDueno",
           "request": {
             "method": "GET",
             "header": [],
