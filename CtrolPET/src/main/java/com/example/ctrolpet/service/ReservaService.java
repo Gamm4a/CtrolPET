@@ -15,9 +15,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-
-
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -185,5 +185,23 @@ public class ReservaService {
         }).collect(java.util.stream.Collectors.toList());
     }
 
+    public List<Reserva> filtrarPorFecha(List<Reserva> reservas,LocalDate desde, LocalDate hasta){
+       List<Reserva> resultado = new ArrayList<>();
 
+       for (Reserva r : reservas) {
+            if (r.getFecha() == null) {
+                continue;
+            }
+            LocalDate fechaReserva = r.getFecha().toLocalDate();
+
+            boolean cumpleDesde = (desde== null) || !fechaReserva.isBefore(desde);
+            boolean cumpleHasta = (hasta == null) || !fechaReserva.isAfter(hasta);
+
+            if(cumpleDesde && cumpleHasta){
+                 resultado.add(r);
+            }
+        }
+
+       return resultado;
+    }
 }

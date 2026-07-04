@@ -9,6 +9,7 @@ import com.example.ctrolpet.service.*;
 import jakarta.servlet.http.HttpSession;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -362,7 +363,12 @@ public class HomeController {
 
     @GetMapping("/admin")
     public String adminDashboard(HttpSession session, Model model,
-        @RequestParam(value = "buscar", required = false) String buscar){
+        @RequestParam(value = "buscar", required = false) String buscar,
+        @RequestParam(value = "desde",required = false) 
+        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate desde,
+        @RequestParam(value = "hasta",required = false) 
+        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate hasta)
+         {
     
 
         ObjectId idEmpleado = (ObjectId) session.getAttribute("idEmpleado");
@@ -374,10 +380,16 @@ public class HomeController {
         List<Reserva> todasLasReservas = (buscar != null && !buscar.isBlank()) 
                 ? reservaService.buscar(buscar, duenoService,empleadoService)
                 : reservaService.obtenerTodos();
+
+        if(desde != null || hasta != null){
+            todasLasReservas = reservaService.filtrarPorFecha(todasLasReservas,desde,hasta);
+        }
     
         Empleado empleadoLogueado = empleadoService.obtenerPorId(idEmpleado);
 
         model.addAttribute("buscar", buscar);
+        model.addAttribute("desde", desde);
+        model.addAttribute("hasta", hasta);
         model.addAttribute("empleado", empleadoLogueado);
         model.addAttribute("listaReservas", todasLasReservas);
         model.addAttribute("listaServicios", servicioService.obtenerTodos());
@@ -724,14 +736,33 @@ public class HomeController {
 
 
     @GetMapping("/admin/citas")
-    public String verTablaCitas(HttpSession session, Model model) {
+    public String verTablaCitas(HttpSession session, Model model,  
+        @RequestParam(value = "buscar", required = false) String buscar,
+        @RequestParam(value = "desde",required = false) 
+        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate desde,
+        @RequestParam(value = "hasta",required = false) 
+        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate hasta)
+
+     {
         ObjectId idEmpleado = (ObjectId) session.getAttribute("idEmpleado");
         if (idEmpleado == null) {
             return "redirect:/login-admin";
         }
+
+         List<Reserva> listaReservas = (buscar != null && !buscar.isBlank()) 
+                ? reservaService.buscar(buscar, duenoService,empleadoService)
+                : reservaService.obtenerTodos();
+
+        if(desde != null || hasta != null){
+            listaReservas = reservaService.filtrarPorFecha(listaReservas,desde,hasta);
+        }
+
         Empleado empleadoLogueado = empleadoService.obtenerPorId(idEmpleado);
         model.addAttribute("empleado", empleadoLogueado);
-        model.addAttribute("listaReservas", reservaService.obtenerTodos());
+        model.addAttribute("buscar", buscar);
+        model.addAttribute("desde", desde);
+        model.addAttribute("hasta", hasta);
+        model.addAttribute("listaReservas", listaReservas);
         return "admin-citas";
     }
 

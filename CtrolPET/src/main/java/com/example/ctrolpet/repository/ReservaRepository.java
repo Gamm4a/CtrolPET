@@ -20,4 +20,6 @@ public interface ReservaRepository extends MongoRepository<Reserva, ObjectId> {
 
     Page<Reserva> findByServicios(Servicio servicio, Pageable pageable);
 
+    
+
 }
