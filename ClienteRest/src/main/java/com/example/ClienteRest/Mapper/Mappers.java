@@ -45,7 +45,7 @@ public class Mappers {
 
     public static DuenoDTO toDTO(Dueno entity){
         DuenoDTO duenoDTO = new DuenoDTO();
-        if (duenoDTO.getIdDueno() != null) {
+        if (entity.getIdDueno() != null) {
 
             duenoDTO.setIdDueno(entity.getIdDueno().toString());
 
@@ -119,13 +119,19 @@ public class Mappers {
 
     public static ReservaDTO toDTO(Reserva entity){
     ReservaDTO reservaDTO= new ReservaDTO();
-    reservaDTO.setIdReserva(entity.getIdReserva().toString());
+    if (entity.getIdReserva() != null) {
+        reservaDTO.setIdReserva(entity.getIdReserva().toString());
+    }
     reservaDTO.setIdEmpleado(entity.getIdEmpleado().toString());
     reservaDTO.setFecha(entity.getFecha());
     reservaDTO.setEstado(Mappers.toDTO(entity.getEstado()));
     reservaDTO.setIdSucursal(entity.getIdSucursal().toString());
-    reservaDTO.setDueno(entity.getDueno().toString());
-    reservaDTO.setMascota(entity.getMascota().toString());
+    if (entity.getDueno() != null) {
+        reservaDTO.setDueno(entity.getDueno().toString());
+    }
+    if (entity.getMascota() != null) {
+        reservaDTO.setMascota(entity.getMascota().toString());
+    }
     reservaDTO.setServicios(Mappers.toDTO(entity.getServicios()));
     return reservaDTO;
     }
@@ -259,13 +265,20 @@ public class Mappers {
 
     public static Reserva toEntity(ReservaDTO dto){
         Reserva reserva = new Reserva();
-        reserva.setIdReserva(new ObjectId(dto.getIdReserva()));
+
+        if (dto.getIdReserva() != null) {
+            reserva.setIdReserva(new ObjectId(dto.getIdReserva()));
+        }
         reserva.setIdEmpleado(new ObjectId(dto.getIdEmpleado()));
         reserva.setFecha(dto.getFecha());
         reserva.setEstado(toEntity(dto.getEstado()));
         reserva.setIdSucursal(new ObjectId(dto.getIdSucursal()));
-        reserva.setDueno(new ObjectId(dto.getDueno()));
-        reserva.setMascota(new ObjectId(dto.getMascota()));
+        if (dto.getDueno() != null) {
+            reserva.setDueno(new ObjectId(dto.getDueno()));
+        }
+        if (dto.getMascota() != null) {
+            reserva.setMascota(new ObjectId(dto.getMascota()));
+        }
         reserva.setServicios(toEntity(dto.getServicios()));
 
         return reserva;
