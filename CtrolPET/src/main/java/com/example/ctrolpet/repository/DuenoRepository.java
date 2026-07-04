@@ -8,4 +8,5 @@ import java.util.Optional;
 
 public interface DuenoRepository extends MongoRepository<Dueno, ObjectId> {
     Optional<Dueno> findByCorreo(String correo);
-}
+    }
+
