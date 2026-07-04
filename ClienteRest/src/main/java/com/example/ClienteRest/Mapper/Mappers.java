@@ -26,6 +26,9 @@ public class Mappers {
         return direccionDTO;
     }
 
+    public static EspecialidadDTO toDTO(Especialidad entity){
+        return EspecialidadDTO.valueOf(entity.name());
+    }
 
     public static DiaSemanaDTO toDTO(DiaSemana entity){
         return DiaSemanaDTO.valueOf(entity.name());
@@ -39,17 +42,15 @@ public class Mappers {
         return PuestoDTO.valueOf(entity.name());
     }
 
-    public static PuestoDTO toDTO(PuestoDTO entity){
-        return PuestoDTO.valueOf(entity.name());
-    }
-
     public static DuenoDTO toDTO(Dueno entity){
         DuenoDTO duenoDTO = new DuenoDTO();
+
         if (entity.getIdDueno() != null) {
 
             duenoDTO.setIdDueno(entity.getIdDueno().toString());
 
         }
+
         duenoDTO.setNombre(entity.getNombre());
         duenoDTO.setApellidoPaterno(entity.getApellidoPaterno());
         duenoDTO.setApellidoMaterno(entity.getApellidoMaterno());
@@ -71,11 +72,6 @@ public class Mappers {
     }
 
 
-    public static EspecialidadDTO toDTO(Especialidad entity){
-        return EspecialidadDTO.valueOf(entity.name());
-    }
-
-
 
     public static EmpleadoDTO toDTO(Empleado entity){
         EmpleadoDTO empleadoDTO = new EmpleadoDTO();
@@ -93,52 +89,50 @@ public class Mappers {
     }
 
     public static SucursalDTO toDTO(Sucursal entity){
-    SucursalDTO sucursalDTO = new SucursalDTO();
-    sucursalDTO.setIdSucursal(entity.getIdSucursal().toString());
-    sucursalDTO.setNombre(entity.getNombre());
-    sucursalDTO.setDireccion(Mappers.ToDTO(entity.getDireccion()));
-    sucursalDTO.setTelefono(entity.getTelefono());
-    for (ObjectId empleado : entity.getEmpleados()) {
-        sucursalDTO.getEmpleados().add(empleado.toString());
-    }
-    return sucursalDTO;
+        SucursalDTO sucursalDTO = new SucursalDTO();
+        sucursalDTO.setIdSucursal(entity.getIdSucursal().toString());
+        sucursalDTO.setNombre(entity.getNombre());
+        sucursalDTO.setDireccion(Mappers.ToDTO(entity.getDireccion()));
+        sucursalDTO.setTelefono(entity.getTelefono());
+        for (ObjectId empleado : entity.getEmpleados()) {
+            sucursalDTO.getEmpleados().add(empleado.toString());
+        }
+        return sucursalDTO;
 
 
     }
 
     public static ServicioDTO toDTO(Servicio entity){
-    ServicioDTO servicioDTO = new ServicioDTO();
-    servicioDTO.setIdServicio(entity.getIdServicio().toString());
-    servicioDTO.setTipo(entity.getTipo());
-    servicioDTO.setDescripcion(entity.getDescripcion());
-    servicioDTO.setPrecio(entity.getPrecio());
-    servicioDTO.setCategoria(Mappers.toDTO(entity.getCategoria()));
-    servicioDTO.setDuracion(entity.getDuracion());
-    return servicioDTO;
+        ServicioDTO servicioDTO = new ServicioDTO();
+        servicioDTO.setIdServicio(entity.getIdServicio().toString());
+        servicioDTO.setTipo(entity.getTipo());
+        servicioDTO.setDescripcion(entity.getDescripcion());
+        servicioDTO.setPrecio(entity.getPrecio());
+        servicioDTO.setCategoria(Mappers.toDTO(entity.getCategoria()));
+        servicioDTO.setDuracion(entity.getDuracion());
+        return servicioDTO;
     }
 
     public static ReservaDTO toDTO(Reserva entity){
-    ReservaDTO reservaDTO= new ReservaDTO();
-    if (entity.getIdReserva() != null) {
+        ReservaDTO reservaDTO= new ReservaDTO();
         reservaDTO.setIdReserva(entity.getIdReserva().toString());
-    }
-    reservaDTO.setIdEmpleado(entity.getIdEmpleado().toString());
-    reservaDTO.setFecha(entity.getFecha());
-    reservaDTO.setEstado(Mappers.toDTO(entity.getEstado()));
-    reservaDTO.setIdSucursal(entity.getIdSucursal().toString());
-    if (entity.getDueno() != null) {
-        reservaDTO.setDueno(entity.getDueno().toString());
-    }
-    if (entity.getMascota() != null) {
-        reservaDTO.setMascota(entity.getMascota().toString());
-    }
-    reservaDTO.setServicios(Mappers.toDTO(entity.getServicios()));
-    return reservaDTO;
+        reservaDTO.setIdEmpleado(entity.getIdEmpleado().toString());
+        reservaDTO.setFecha(entity.getFecha());
+        reservaDTO.setEstado(Mappers.toDTO(entity.getEstado()));
+        reservaDTO.setIdSucursal(entity.getIdSucursal().toString());
+        if (entity.getDueno() != null) {
+            reservaDTO.setDueno(entity.getDueno().toString());
+        }
+        if (entity.getMascota() != null) {
+            reservaDTO.setMascota(entity.getMascota().toString());
+        }
+        reservaDTO.setServicios(Mappers.toDTO(entity.getServicios()));
+        return reservaDTO;
     }
 
     public static MedicamentoDTO toDTO(Medicamento entity){
         MedicamentoDTO medicamentoDTO = new MedicamentoDTO();
-        medicamentoDTO.setIdMedicmento(entity.getIdMedicmento().toString());
+        medicamentoDTO.setIdMedicamento(entity.getIdMedicmento().toString());
         medicamentoDTO.setNombre(entity.getNombre());
         medicamentoDTO.setDosis(entity.getDosis());
         medicamentoDTO.setFrecuencia(entity.getFrecuencia());
@@ -161,13 +155,17 @@ public class Mappers {
 
     public static MascotaDTO toDTO(Mascota entity){
         MascotaDTO mascotaDTO = new MascotaDTO();
-        mascotaDTO.setIdMascota(entity.getIdMascota().toString());
+        if (entity.getIdMascota() != null) {
+            mascotaDTO.setIdMascota(entity.getIdMascota().toString());
+        }
         mascotaDTO.setNombre(entity.getNombre());
         mascotaDTO.setEspecie(entity.getEspecie());
         mascotaDTO.setRaza(entity.getRaza());
         mascotaDTO.setFechaNacimiento(entity.getFechaNacimiento());
         mascotaDTO.setFotoUrl(entity.getFotoUrl());
-        mascotaDTO.setIdHistorialClinico(entity.getIdHistorialClinico().toString());
+        if (entity.getIdHistorialClinico()!= null) {
+            mascotaDTO.setIdHistorialClinico(entity.getIdHistorialClinico().toString());
+        }
         return mascotaDTO;
     }
 
@@ -265,20 +263,21 @@ public class Mappers {
 
     public static Reserva toEntity(ReservaDTO dto){
         Reserva reserva = new Reserva();
-
-        if (dto.getIdReserva() != null) {
+        if (dto.getIdReserva() != null && !dto.getIdReserva().isBlank()) {
             reserva.setIdReserva(new ObjectId(dto.getIdReserva()));
         }
         reserva.setIdEmpleado(new ObjectId(dto.getIdEmpleado()));
+        if (dto.getDueno() != null && !dto.getDueno().isBlank()) {
+            reserva.setDueno(new ObjectId(dto.getDueno()));
+        }
+
+        if (dto.getMascota() != null && !dto.getMascota().isBlank()) {
+            reserva.setMascota(new ObjectId(dto.getMascota()));
+        }
         reserva.setFecha(dto.getFecha());
         reserva.setEstado(toEntity(dto.getEstado()));
         reserva.setIdSucursal(new ObjectId(dto.getIdSucursal()));
-        if (dto.getDueno() != null) {
-            reserva.setDueno(new ObjectId(dto.getDueno()));
-        }
-        if (dto.getMascota() != null) {
-            reserva.setMascota(new ObjectId(dto.getMascota()));
-        }
+
         reserva.setServicios(toEntity(dto.getServicios()));
 
         return reserva;
@@ -286,7 +285,7 @@ public class Mappers {
 
     public static Medicamento toEntity(MedicamentoDTO dto){
         Medicamento medicamento = new Medicamento();
-        medicamento.setIdMedicmento(new ObjectId(dto.getIdMedicmento()));
+        medicamento.setIdMedicmento(new ObjectId(dto.getIdMedicamento()));
         medicamento.setNombre(dto.getNombre());
         medicamento.setDosis(dto.getDosis());
         medicamento.setFrecuencia(dto.getFrecuencia());
@@ -309,13 +308,17 @@ public class Mappers {
 
     public static Mascota toEntity(MascotaDTO dto){
         Mascota mascota = new Mascota();
-        mascota.setIdMascota(new ObjectId(dto.getIdMascota()));
+        if (dto.getIdMascota() != null && !dto.getIdMascota().isBlank()) {
+            mascota.setIdMascota(new ObjectId(dto.getIdMascota()));
+        }
         mascota.setNombre(dto.getNombre());
         mascota.setEspecie(dto.getEspecie());
         mascota.setRaza(dto.getRaza());
         mascota.setFechaNacimiento(dto.getFechaNacimiento());
         mascota.setFotoUrl(dto.getFotoUrl());
-        mascota.setIdHistorialClinico(new ObjectId(dto.getIdHistorialClinico()));
+        if (dto.getIdHistorialClinico() != null && !dto.getIdHistorialClinico().isBlank()) {
+            mascota.setIdHistorialClinico(new ObjectId(dto.getIdHistorialClinico()));
+        }
         return mascota;
     }
 
