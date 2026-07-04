@@ -5,6 +5,8 @@ package com.example.ClienteRest.controller;
 
 import com.example.ClienteRest.Mapper.Mapper;
 import com.example.ClienteRest.dtos.*;
+import com.example.ctrolpet.exception.ResourceNotFoundException;
+import com.example.ctrolpet.exception.UnauthorizedActionException;
 import com.example.ctrolpet.model.Dueno;
 import com.example.ctrolpet.model.Enum.EstadoReserva;
 import com.example.ctrolpet.model.Mascota;
@@ -74,42 +76,35 @@ public class Controller {
 
         Dueno duenoRegistrado = duenoService.autenticar(loginRequestDTO.getCorreo(), loginRequestDTO.getContrasenia());
 
-        if (duenoRegistrado != null) {
 
-            session.setAttribute("idDueno", duenoRegistrado.getIdDueno());
-
-
-            return ResponseEntity.status(HttpStatus.OK).body(Mapper.toDTO(duenoRegistrado));
-
-        }
+        session.setAttribute("idDueno", duenoRegistrado.getIdDueno());
+        return ResponseEntity.status(HttpStatus.OK).body(Mapper.toDTO(duenoRegistrado));
 
 
-        Map<String, String> error = new HashMap<>();
-        error.put("error", "Credenciales Incorrectas");
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(error);
+
     }
 
 
     @GetMapping({"/{id}", "/perfil/{id}"})
-    public ResponseEntity<DuenoDTO> pantallasDueno(@PathVariable("id") ObjectId idDueno, HttpSession session) {
+    public ResponseEntity<DuenoDTO> pantallasDueno(@PathVariable("id") ObjectId idDueno, HttpSession session) throws UnauthorizedActionException, ResourceNotFoundException {
 
         ObjectId idEnSesion = (ObjectId) session.getAttribute("idDueno");
 
         if (idEnSesion == null) {
 
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            throw new UnauthorizedActionException("No hay una sesión inciada");
+
         }
 
         if (!idEnSesion.equals(idDueno)) {
 
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+            throw new UnauthorizedActionException("No tienes acceso a esta cuenta");
+
         }
 
 
         Dueno dueno = duenoService.obtenerPorId(idDueno);
-        if (dueno == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+
 
         return ResponseEntity.status(HttpStatus.OK).body(Mapper.toDTO(dueno));
     }
@@ -121,19 +116,21 @@ public class Controller {
 
         if (idEnSesion == null) {
 
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            throw new UnauthorizedActionException("No hay una sesión inciada");
+
         }
 
         if (!idEnSesion.equals(idDueno)) {
 
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+            throw new UnauthorizedActionException("No tienes acceso a esta cuenta");
+
         }
 
+        Dueno dueno = duenoService.obtenerPorId(idDueno);
 
-        Dueno dueno = duenoService.actualizarDueno(idDueno ,Mapper.toEntity(duenoActualizado));
-        if (dueno == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+
+        dueno = duenoService.actualizarDueno(idDueno ,Mapper.toEntity(duenoActualizado));
+
 
         return ResponseEntity.status(HttpStatus.OK).body(Mapper.toDTO(dueno));
     }
@@ -145,20 +142,18 @@ public class Controller {
 
         if (idEnSesion == null) {
 
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            throw new UnauthorizedActionException("No hay una sesión inciada");
+
         }
 
         if (!idEnSesion.equals(idDueno)) {
 
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-        }
+            throw new UnauthorizedActionException("No tienes acceso a esta cuenta");
 
+        }
 
         Dueno dueno = duenoService.obtenerPorId(idDueno);
 
-        if (dueno == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
 
         List<Mascota> mascotas = dueno.getMascotas();
 
@@ -181,20 +176,18 @@ public class Controller {
 
         if (idEnSesion == null) {
 
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            throw new UnauthorizedActionException("No hay una sesión inciada");
+
         }
 
         if (!idEnSesion.equals(idDueno)) {
 
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-        }
+            throw new UnauthorizedActionException("No tienes acceso a esta cuenta");
 
+        }
 
         Dueno dueno = duenoService.obtenerPorId(idDueno);
 
-        if (dueno == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
 
         duenoService.guardarMascota(idDueno, Mapper.toEntity(mascotaDTO), file);
 
@@ -212,20 +205,18 @@ public class Controller {
 
         if (idEnSesion == null) {
 
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            throw new UnauthorizedActionException("No hay una sesión inciada");
+
         }
 
         if (!idEnSesion.equals(idDueno)) {
 
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-        }
+            throw new UnauthorizedActionException("No tienes acceso a esta cuenta");
 
+        }
 
         Dueno dueno = duenoService.obtenerPorId(idDueno);
 
-        if (dueno == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
 
         List<Reserva> reservas = reservaService.obtenerPorDueno(dueno);
         List<ReservaDTO> reservasDTO = new ArrayList<>();
@@ -243,44 +234,31 @@ public class Controller {
     }
 
     @PutMapping("/perfil/{id}/citas/cancelar")
-    public ResponseEntity<ReservaDTO> cancelarCita(@PathVariable("id") ObjectId idDueno, @RequestParam ObjectId idReserva, HttpSession session) {
+    public ResponseEntity<ReservaDTO> cancelarCita(@PathVariable("id") ObjectId idDueno, @RequestBody Map<String, String> body, HttpSession session) {
 
-        ObjectId idEnSesion = (ObjectId) session.getAttribute("idDueno");
+        // ... Conservas tus validaciones de sesión idEnSesion ...
 
-        if (idEnSesion == null) {
-
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        // Extraes el string limpio desde el JSON
+        String idReservaStr = body.get("idReserva");
+        if (idReservaStr == null || idReservaStr.length() != 24) {
+            throw new IllegalArgumentException("El ID de la reserva no es válido.");
         }
-
-        if (!idEnSesion.equals(idDueno)) {
-
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-        }
-
 
         Dueno dueno = duenoService.obtenerPorId(idDueno);
 
-
-        if (dueno == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-
-        Reserva reserva = reservaService.obtenerPorId(idReserva);
+        // Ahora sí, usas el String limpio para crear el ObjectId
+        Reserva reserva = reservaService.obtenerPorId(new ObjectId(idReservaStr));
 
         if (!dueno.getIdDueno().equals(reserva.getDueno())){
-
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-
+            throw new UnauthorizedActionException("No tienes acceso a esta cuenta");
         }
 
         Reserva cancelar = new Reserva();
         cancelar.setEstado(EstadoReserva.CANCELADO);
 
-        reserva = reservaService.actualizarParcial(idReserva, cancelar);
+        reserva = reservaService.actualizarParcial(new ObjectId(idReservaStr), cancelar);
 
         return ResponseEntity.status(HttpStatus.OK).body(Mapper.toDTO(reserva));
-
-
     }
 
     @GetMapping("/perfil/{id}/logout")
@@ -290,12 +268,14 @@ public class Controller {
 
         if (idEnSesion == null) {
 
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            throw new UnauthorizedActionException("No hay una sesión inciada");
+
         }
 
         if (!idEnSesion.equals(idDueno)) {
 
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+            throw new UnauthorizedActionException("No tienes acceso a esta cuenta");
+
         }
 
         session.invalidate();
@@ -315,12 +295,14 @@ public class Controller {
 
         if (idEnSesion == null) {
 
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            throw new UnauthorizedActionException("No hay una sesión inciada");
+
         }
 
         if (!idEnSesion.equals(idDueno)) {
 
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+            throw new UnauthorizedActionException("No tienes acceso a esta cuenta");
+
         }
 
         Reserva guardada = reservaService.guardar(Mapper.toEntity(reservaDTO));
