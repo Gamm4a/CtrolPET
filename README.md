@@ -23,14 +23,9 @@ El sistema permite a los administradores configurar la disponibilidad de servici
 ##  Casos de Uso
 
 ###  Backoffice / Panel Administrativo
-- **[Crear servicio](ca://s?q=Crear_servicio_veterinaria)**: registrar consulta, vacunación, cirugía, etc.
-- **[Configurar horarios](ca://s?q=Configurar_horarios_veterinaria)**: definir disponibilidad semanal.
-- **[Bloquear fechas](ca://s?q=Bloquear_fechas_veterinaria)**: vacaciones o mantenimiento.
+- **[Crear servicio](ca://s?q=Crear_servicio_veterinaria)**: registrar consulta, desparasitación, cirugía, etc.
 - **[Ver agenda](ca://s?q=Ver_agenda_veterinaria)**: citas organizadas por día/semana.
 - **[Confirmar o cancelar](ca://s?q=Confirmar_o_cancelar_reservacion)**: gestión de estados de citas.
-- **[Reservación manual](ca://s?q=Reservacion_manual_veterinaria)**: registro de citas telefónicas o presenciales.
-- **[Historial por cliente](ca://s?q=Historial_por_cliente_veterinaria)**: seguimiento de pacientes frecuentes.
-- **[Resumen de ocupación](ca://s?q=Resumen_ocupacion_veterinaria)**: métricas de uso de servicios.
 
 ###  Storefront / Portal del Cliente
 - **[Explorar servicios](ca://s?q=Explorar_servicios_veterinaria)**: descripción, duración y costo.
@@ -43,8 +38,8 @@ El sistema permite a los administradores configurar la disponibilidad de servici
 ---
 
 ##  Tecnologías Utilizadas
-- **Frontend**: Html/Css  
-- **Backend**: Java  
+- **Frontend**: Html/Css, thymeleaf, JavaScript
+- **Backend**: Java/JavaScript
 - **Base de Datos**: NoSQL (MongoDB)   
 
 ---
@@ -53,3 +48,12 @@ El sistema permite a los administradores configurar la disponibilidad de servici
 1. Clonar el repositorio:
    ```bash
    git clone https://github.com/Gamm4a/CtrolPET.git
+
+2. En las pruebas Postman el orden de ejecución es el siguiente:
+     1. Crear Dueño
+     2. Login
+        .
+        .
+        .
+      10. logout
+

@@ -1,0 +1,367 @@
+{
+  "info": {
+    "_postman_id": "dbf2cc10-57ea-4371-a347-fceb15b92e63",
+    "name": "My Collection",
+    "description": "### Welcome to Postman! This is your first collection. \n\nCollections are your starting point for building and testing APIs. You can use this one to:\n\n• Group related requests\n• Test your API in real-world scenarios\n• Document and share your requests\n\nUpdate the name and overview whenever you’re ready to make it yours.\n\n[Learn more about Postman Collections.](https://learning.postman.com/docs/collections/collections-overview/)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "55444034",
+    "_collection_link": "https://go.postman.co/collection/55444034-dbf2cc10-57ea-4371-a347-fceb15b92e63?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Api CtrlPet",
+      "item": [
+        {
+          "name": "actualizarDueno",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "\r\n\r\n{\r\n  \"idDueno\": \"6a44da0095d6d7acd2c99104\",\r\n  \"nombre\": \"Valentino\",\r\n  \"apellidoPaterno\": \"Ramírez\",\r\n  \"apellidoMaterno\": \"Morales\",\r\n  \"correo\": \"valentina.ramirez@email.com\",\r\n  \"contrasenia\": \"pass12345*\", \r\n  \"fechaNacimiento\": \"1999-07-08T09:12:32.762Z\",\r\n  \"telefono\": \"+526621234510\",\r\n  \"direccion\": {\r\n    \"calle\": \"Avenida Siempre Viva\",\r\n    \"colonia\": \"Centro\",\r\n    \"ciudad\": \"Ciudad Obregón\",\r\n    \"estado\": \"Sonora\",\r\n    \"codigoPostal\": \"85000\",\r\n    \"numeroCasa\": \"456\"\r\n  }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/perfil/6a44da0095d6d7acd2c99104/editar",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "perfil",
+                "6a44da0095d6d7acd2c99104",
+                "editar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "reserva sin login",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "\r\n\r\n  {\r\n    \"idReserva\": null,\r\n    \"idEmpleado\": \"647f1f77bcf86cd799439011\",\r\n    \"fecha\": \"2026-10-15T10:00:00\",\r\n    \"estado\": \"PENDIENTE\",\r\n    \"idSucursal\": \"647f1f77bcf86cd799439022\",\r\n    \"dueno\": null,\r\n    \"mascota\": null,\r\n    \"servicios\": {\r\n      \"idServicio\": \"647f1f77bcf86cd799439033\",\r\n      \"tipo\": \"Consulta General\",\r\n      \"descripcion\": \"Revisión médica rutinaria completa para la mascota.\",\r\n      \"precio\": 350.0,\r\n      \"categoria\": \"CONSULTA\",\r\n      \"duracion\": 30\r\n    }\r\n  }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/reservas",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "reservas"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "login",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "\r\n{\r\n    \"correo\":\"valentina.ramirez@email.com\",\r\n    \"contrasenia\": \"pass123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "crearDueno",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"duenoDTO\": {\r\n    \"idDueno\": null,\r\n    \"nombre\": \"Carlos\",\r\n    \"apellidoPaterno\": \"Mendoza\",\r\n    \"apellidoMaterno\": \"Alvarado\",\r\n    \"correo\": \"carlos.mendoza@example.com\",\r\n    \"contrasenia\": \"Password123*\",\r\n    \"fechaNacimiento\": \"1995-04-15T00:00:00Z\",\r\n    \"telefono\": \"+523344556677\",\r\n    \"direccion\": {\r\n      \"calle\": \"Avenida Tecnológico\",\r\n      \"colonia\": \"Centro\",\r\n      \"ciudad\": \"Ciudad Obregón\",\r\n      \"estado\": \"Sonora\",\r\n      \"codigoPostal\": \"85000\",\r\n      \"numeroCasa\": \"123-A\"\r\n    },\r\n    \"mascotas\": [\r\n      {\r\n        \"idMascota\": null,\r\n        \"nombre\": \"Max\",\r\n        \"especie\": \"perro\",\r\n        \"raza\": \"chihuahua\",\r\n        \"fechaNacimiento\": \"1995-04-15T00:00:00Z\"\r\n      }\r\n    ]\r\n  },\r\n  \"reservaDTO\": {\r\n    \"idReserva\": null,\r\n    \"idEmpleado\": \"647f1f77bcf86cd799439011\",\r\n    \"fecha\": \"2026-10-15T10:00:00\",\r\n    \"estado\": \"PENDIENTE\",\r\n    \"idSucursal\": \"647f1f77bcf86cd799439022\",\r\n    \"dueno\": null,\r\n    \"mascota\": null,\r\n    \"servicios\": {\r\n      \"idServicio\": \"647f1f77bcf86cd799439033\",\r\n      \"tipo\": \"Consulta General\",\r\n      \"descripcion\": \"Revisión médica rutinaria completa para la mascota.\",\r\n      \"precio\": 350.0,\r\n      \"categoria\": \"CONSULTA\",\r\n      \"duracion\": 30\r\n    }\r\n  }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/registro",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "registro"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "mascotasAgregar",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "mascota",
+                  "value": "{\n  \"idMascota\": null,\n  \"nombre\": \"Rocky\",\n  \"especie\": \"Canino\",\n  \"raza\": \"Golden Retriever\",\n  \"fechaNacimiento\": \"2024-05-10T08:00:00Z\",\n  \"fotoUrl\": null,\n  \"idHistorialClinico\": null\n}",
+                  "type": "text",
+                  "uuid": "dd997cb6-cded-4433-9462-437614475a35",
+                  "contentType": "application/json"
+                },
+                {
+                  "key": "file",
+                  "type": "file",
+                  "uuid": "43282b97-82a2-4b02-b9b7-f5caae51551f",
+                  "value": null
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/perfil/6a44da0095d6d7acd2c99104/mascotas/agregar",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "perfil",
+                "6a44da0095d6d7acd2c99104",
+                "mascotas",
+                "agregar"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": "",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "",
+                  "value": "",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "citasCancelar",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "\r\n{\r\n  \"idReserva\": \"6a44da0095d6d7acd2c9910a\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/perfil/6a44da0095d6d7acd2c99104/citas/cancelar",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "perfil",
+                "6a44da0095d6d7acd2c99104",
+                "citas",
+                "cancelar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "logout",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "\r\n{\r\n  \"idReserva\": \"6a44da0095d6d7acd2c9910a\"\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/perfil/6a44da0095d6d7acd2c99104/logout",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "perfil",
+                "6a44da0095d6d7acd2c99104",
+                "logout"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "reserva con login",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "\r\n{\r\n    \"idReserva\": null,\r\n    \"idEmpleado\": \"647f1f77bcf86cd799439011\",\r\n    \"fecha\": \"2026-10-15T10:00:00\",\r\n    \"estado\": \"PENDIENTE\",\r\n    \"idSucursal\": \"647f1f77bcf86cd799439022\",\r\n    \"dueno\": \"6a44da0095d6d7acd2c99104\",\r\n    \"mascota\": \"6a44da0095d6d7acd2c990f5\",\r\n    \"servicios\": {\r\n      \"idServicio\": \"647f1f77bcf86cd799439033\",\r\n      \"tipo\": \"Consulta General\",\r\n      \"descripcion\": \"Revisión médica rutinaria completa para la mascota.\",\r\n      \"precio\": 350.0,\r\n      \"categoria\": \"CONSULTA\",\r\n      \"duracion\": 30\r\n    }\r\n  }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/reservas/dueno/6a44da0095d6d7acd2c99104",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "reservas",
+                "dueno",
+                "6a44da0095d6d7acd2c99104"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "dueno",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/6a44da0095d6d7acd2c99106",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "6a44da0095d6d7acd2c99106"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "mascotasDueno",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/perfil/6a44da0095d6d7acd2c99104/mascotas",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "perfil",
+                "6a44da0095d6d7acd2c99104",
+                "mascotas"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "citasDueno",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/perfil/6a44da0095d6d7acd2c99104/citas",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "perfil",
+                "6a44da0095d6d7acd2c99104",
+                "citas"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

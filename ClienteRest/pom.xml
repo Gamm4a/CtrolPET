@@ -75,19 +75,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mongodb</artifactId>
 		</dependency>
-
-		<dependency>
-			<groupId>com.cloudinary</groupId>
-			<artifactId>cloudinary-http44</artifactId>
-			<version>1.36.0</version>
-		</dependency>
 		<dependency>
 			<groupId>com.example</groupId>
 			<artifactId>CtrolPET</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
-
 	</dependencies>
 
 	<build>
@@ -95,6 +88,14 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>25</source>
+					<target>25</target>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

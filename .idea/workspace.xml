@@ -4,51 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-<<<<<<< Updated upstream
-    <list default="true" id="e8018c12-b5ca-4654-82ed-ae1572333451" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_01_07_26,_5_15 PM_[Changes]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_01_07_26,_5_15 PM_[Changes]1/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ClienteRest/.ai/mcp/mcp.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ClienteRest/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ClienteRest/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ClienteRest/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ClienteRest/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ClienteRest/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ClienteRest/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ClienteRest/HELP.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/dtos/DireccionDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/dtos/Empleado.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/dtos/Enum/DiaSemanaDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/dtos/Enum/EspecialidadDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/dtos/Enum/EstadoReservaDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/dtos/Enum/PuestoDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/dtos/HistorialClinico.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/dtos/HorarioDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/dtos/MascotaDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/dtos/ReservaDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/dtos/ServicioDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/dtos/SucursalDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/controller/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/dtos/DuenoDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/dtos/DuenoDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/dtos/LoginRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/dtos/MedicamentoDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/dtos/RegistroDTO.java" beforeDir="false" />
-=======
     <list default="true" id="f886b2e4-37ce-4367-9158-a23ac65a3544" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/controller/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/dtos/DuenoDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/dtos/DuenoDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/java/com/example/ctrolpet/repository/ReservaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/java/com/example/ctrolpet/repository/ReservaRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/java/com/example/ctrolpet/service/ReservaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/java/com/example/ctrolpet/service/ReservaService.java" afterDir="false" />
->>>>>>> Stashed changes
+      <change beforePath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/Mapper/Mappers.java" beforeDir="false" afterPath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/Mapper/Mappers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/dtos/MedicamentoDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/dtos/MedicamentoDTO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -60,49 +30,41 @@
       </MavenGeneralSettings>
     </option>
   </component>
-<<<<<<< Updated upstream
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;git-widget-placeholder&quot;: &quot;Merging Hector&quot;
-  }
-}</component>
-  <component name="RunManager" selected="Spring Boot.ClienteRestApplication">
-=======
   <component name="ProjectColorInfo">{
-  &quot;customColor&quot;: &quot;&quot;,
-  &quot;associatedIndex&quot;: 1
-}</component>
+    &quot;customColor&quot;: &quot;&quot;,
+    &quot;associatedIndex&quot;: 1
+    }</component>
   <component name="ProjectId" id="3FtOSWnaBVUk5rP2FRc7JyJNdXZ" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;Spring Boot.CtrolPetApplication.executor&quot;: &quot;Run&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Hector&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/jesus/OneDrive/Documentos/GitHub/CtrolPET/ClienteRest/src/main/java/com/example/ClienteRest&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "Spring Boot.ClienteRestApplication.executor": "Run",
+    "Spring Boot.CtrolPetApplication.executor": "Run",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/jesus/OneDrive/Documentos/GitHub/CtrolPET/ClienteRest/src/main/java/com/example/ClienteRest",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\jesus\OneDrive\Documentos\GitHub\CtrolPET\ClienteRest\src\main\java\com\example\ClienteRest" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.CtrolPetApplication">
->>>>>>> Stashed changes
+  <component name="RunManager" selected="Spring Boot.ClienteRestApplication">
     <configuration name="ClienteRestApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="ClienteRest" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.ClienteRest.ClienteRestApplication" />
@@ -119,9 +81,15 @@
       </method>
     </configuration>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-37e91769500f-intellij.indexing.shared.core-IU-261.24374.151" />
+        <option value="bundled-js-predefined-d6986cc7102b-31caf2ab9e3c-JavaScript-IU-261.24374.151" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="TaskManager">
-<<<<<<< Updated upstream
-=======
     <task active="true" id="Default" summary="Default task">
       <changelist id="f886b2e4-37ce-4367-9158-a23ac65a3544" name="Changes" comment="" />
       <created>1782890901779</created>
@@ -131,7 +99,20 @@
       <workItem from="1782890903117" duration="14731000" />
       <workItem from="1782948100996" duration="2867000" />
     </task>
->>>>>>> Stashed changes
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/CtrolPET/src/main/java/com/example/ctrolpet/service/DuenoService.java</url>
+          <line>53</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

@@ -29,7 +29,7 @@ public class SucursalDTO {
     @NotBlank(message = "El teléfono de la sucursal es obligatorio")
     @Pattern(regexp = "^\\+?[0-9]{10,15}$", message = "El teléfono debe contener entre 10 y 15 dígitos numéricos")
     private String telefono;
-    
+
     private List<String> empleados;
 
 }

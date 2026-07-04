@@ -31,10 +31,8 @@ public class ReservaDTO {
     @NotBlank(message = "La sucursal es obligatoria")
     private String idSucursal;
 
-    @NotBlank(message = "El dueño de la mascota es obligatorio")
     private String dueno;
 
-    @NotBlank(message = "La mascota es obligatoria")
     private String mascota;
 
     @NotNull(message = "El servicio solicitado es obligatorio")

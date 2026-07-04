@@ -1,6 +1,7 @@
-package com.example.ClienteRest.exception;
+package com.example.ctrolpet.exception;
 
-import com.example.ClienteRest.dtos.ErrorDto;
+
+import com.example.ctrolpet.dto.ErrorDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -80,6 +81,23 @@ public class GlobalExcetionHandler {
         );
 
         return new ResponseEntity<>(errorDto, HttpStatus.NOT_FOUND);
+
+    }
+
+    @ExceptionHandler(EmailDuplicateException.class)
+    public ResponseEntity<ErrorDto> manejarCorreosDuenoRepetido(EmailDuplicateException ex){
+
+        List<String> detalles = new ArrayList<>();
+
+        detalles.add(ex.getMessage());
+
+        ErrorDto errorDto = new ErrorDto(
+                "Email repetido",
+                detalles,
+                LocalDateTime.now()
+        );
+
+        return new ResponseEntity<>(errorDto, HttpStatus.CONFLICT);
 
     }
 

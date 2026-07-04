@@ -1,4 +1,4 @@
-package com.example.ClienteRest.dtos;
+package com.example.ctrolpet.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
