@@ -2,6 +2,7 @@ package com.example.ctrolpet.service;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.example.ctrolpet.exception.EmailDuplicateException;
 import com.example.ctrolpet.model.Dueno;
 import com.example.ctrolpet.model.Mascota;
 import jakarta.servlet.http.HttpSession;
@@ -75,9 +76,14 @@ public class DuenoService {
 
     }
 
-    public Dueno guardar(Dueno dueno){
+    public Dueno guardar(Dueno dueno)throws EmailDuplicateException {
 
-        return duenoRepository.save(dueno);
+        if (dueno.equals(duenoRepository.findByCorreo(dueno.getCorreo()))) {
+
+            return duenoRepository.save(dueno);
+        }
+
+        throw new EmailDuplicateException("Este email ya esta registrado");
 
     }
 

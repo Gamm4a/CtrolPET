@@ -1,4 +1,4 @@
-package com.example.ClienteRest.exception;
+package com.example.ctrolpet.exception;
 
 public class UnauthorizedActionException extends RuntimeException{
 
