@@ -78,7 +78,7 @@ public class DuenoService {
 
     public Dueno guardar(Dueno dueno)throws EmailDuplicateException {
 
-        if (dueno.equals(duenoRepository.findByCorreo(dueno.getCorreo()))) {
+        if (!dueno.equals(duenoRepository.findByCorreo(dueno.getCorreo()))) {
 
             return duenoRepository.save(dueno);
         }

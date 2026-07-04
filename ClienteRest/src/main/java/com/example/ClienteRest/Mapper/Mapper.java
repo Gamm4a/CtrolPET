@@ -44,7 +44,11 @@ public class Mapper {
 
     public static DuenoDTO toDTO(Dueno entity){
         DuenoDTO duenoDTO = new DuenoDTO();
-        duenoDTO.setIdDueno(entity.getIdDueno().toString());
+        if (duenoDTO.getIdDueno() != null) {
+
+            duenoDTO.setIdDueno(entity.getIdDueno().toString());
+
+        }
         duenoDTO.setNombre(entity.getNombre());
         duenoDTO.setApellidoPaterno(entity.getApellidoPaterno());
         duenoDTO.setApellidoMaterno(entity.getApellidoMaterno());
@@ -183,7 +187,12 @@ public class Mapper {
 
     public static Dueno toEntity(DuenoDTO dto){
         Dueno dueno = new Dueno();
-        dueno.setIdDueno(new ObjectId(dto.getIdDueno()));
+
+        if (dto.getIdDueno() != null) {
+
+            dueno.setIdDueno(new ObjectId(dto.getIdDueno()));
+
+        }
         dueno.setNombre(dto.getNombre());
         dueno.setApellidoPaterno(dto.getApellidoPaterno());
         dueno.setApellidoMaterno(dto.getApellidoMaterno());
