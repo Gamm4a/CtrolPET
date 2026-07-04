@@ -74,7 +74,7 @@ public class Controller {
 
 
         session.setAttribute("idDueno", duenoRegistrado.getIdDueno());
-        return ResponseEntity.status(HttpStatus.OK).body(Mapper.toDTO(duenoRegistrado));
+        return ResponseEntity.status(HttpStatus.OK).body(Mappers.toDTO(duenoRegistrado));
 
 
 
@@ -125,7 +125,7 @@ public class Controller {
         Dueno dueno = duenoService.obtenerPorId(idDueno);
 
 
-        dueno = duenoService.actualizarDueno(idDueno ,Mapper.toEntity(duenoActualizado));
+        dueno = duenoService.actualizarDueno(idDueno ,Mappers.toEntity(duenoActualizado));
 
 
         return ResponseEntity.status(HttpStatus.OK).body(Mappers.toDTO(dueno));
@@ -225,7 +225,7 @@ public class Controller {
 
         for (Reserva reserva: reservas){
 
-            reservasDTO.add(Mapper.toDTO(reserva));
+            reservasDTO.add(Mappers.toDTO(reserva));
 
         }
 
@@ -237,7 +237,6 @@ public class Controller {
 
     @PutMapping("/perfil/{id}/citas/cancelar")
     public ResponseEntity<ReservaDTO> cancelarCita(@PathVariable("id") ObjectId idDueno, @RequestBody Map<String, String> body, HttpSession session) {
-
         // ... Conservas tus validaciones de sesión idEnSesion ...
 
         // Extraes el string limpio desde el JSON
@@ -245,12 +244,6 @@ public class Controller {
         if (idReservaStr == null || idReservaStr.length() != 24) {
             throw new IllegalArgumentException("El ID de la reserva no es válido.");
         }
-
-        if (!idEnSesion.equals(idDueno)) {
-
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-        }
-
 
         Dueno dueno = duenoService.obtenerPorId(idDueno);
 
@@ -267,6 +260,7 @@ public class Controller {
         reserva = reservaService.actualizarParcial(new ObjectId(idReservaStr), cancelar);
 
         return ResponseEntity.status(HttpStatus.OK).body(Mappers.toDTO(reserva));
+
 
 
     }
