@@ -505,9 +505,7 @@ public class HomeController {
                               HttpSession session) {
 
         ObjectId idEmpleado = (ObjectId) session.getAttribute("idEmpleado");
-        if (idEmpleado == null) {
-            return "redirect:/login";
-        }
+       
 
         String[] partes = horaCombinada.split("_");
         ObjectId idVeterinarioElegido = new ObjectId(partes[0]);
@@ -528,8 +526,72 @@ public class HomeController {
         reserva.setDueno(idDueno);
         reservaService.guardar(reserva);
 
-        return "redirect:/admin";
+        if (idEmpleado != null) {
+            return "redirect:/admin";
+        }
+        return "redirect:/";
     }
+    @PostMapping("/reserva/sin-login")
+    public String crearReservaSinLogin(@RequestParam("nombre") String nombre,
+                                    @RequestParam("telefono") String telefono,
+                                    @RequestParam("nombreMascota") String nombreMascota,
+                                    @RequestParam("especieMascota") String especieMascota,
+                                    @RequestParam("razaMascota") String razaMascota,
+                                    @RequestParam("idSucursal") ObjectId idSucursal,
+                                    @RequestParam("idServicio") ObjectId idServicio,
+                                    @RequestParam("fecha") String fechaString,
+                                    Model model){
+
+       
+            Mascota mascota = new Mascota();
+            mascota.setIdMascota(new ObjectId());
+            mascota.setNombre(nombreMascota);
+            mascota.setEspecie(especieMascota);
+            mascota.setRaza(razaMascota);
+
+            Dueno dueno = new Dueno();
+            dueno.setNombre(nombre);
+            dueno.setTelefono(telefono);
+            dueno.setMascotas(new ArrayList<>(List.of(mascota)));
+
+            dueno = duenoService.guardar(dueno);
+
+            Servicio servicio = servicioService.obtenerPorId(idServicio);
+
+            LocalDate fecha = LocalDate.parse(fechaString);
+            DayOfWeek diaIngles = fecha.getDayOfWeek();
+            String diaEspañol = diaIngles.getDisplayName(TextStyle.FULL, new Locale("es", "MX")).toUpperCase();
+           diaEspañol = java.text.Normalizer.normalize(diaEspañol, java.text.Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+
+            String especialidadRequerida = servicio.getCategoria().name();
+            List<Empleado> vetsDisponibles = empleadoService.empleadoDisponible(especialidadRequerida, diaEspañol);
+            Map<LocalTime, Empleado> mapaHorarios = new TreeMap<>();
+
+            for(Empleado emp : vetsDisponibles){
+                if(emp.getSucursal() != null && emp.getSucursal().equals(idSucursal)){
+                    List<LocalTime> rangosDelEmpleado = servicioService.rangoCitas(
+                        emp.getHorarios().getHoraEntrada(), emp.getHorarios().getHoraSalida(), servicio.getDuracion());
+
+                        for(LocalTime hora : rangosDelEmpleado){
+                            mapaHorarios.put(hora, emp);
+                        }
+                }
+            }
+            model.addAttribute("mapaHorarios",mapaHorarios);
+            model.addAttribute("dueno",dueno);
+            model.addAttribute("listaMascotas",dueno.getMascotas());
+            model.addAttribute("listaServicios",servicioService.obtenerTodos());
+            model.addAttribute("listaSucursales",sucursalService.obtenerTodos());
+            model.addAttribute("mascotaSeleccionada",mascota.getIdMascota());
+            model.addAttribute("sucursalSeleccionada",idSucursal);
+            model.addAttribute("servicioSeleccionado",idServicio);
+            model.addAttribute("fechaSeleccionada",fechaString);
+            model.addAttribute("esInvitado",true);
+
+            return "reserva";
+       
+}
+
 
     @GetMapping("/admin/duenos")
     public String verTablaDuenos(HttpSession session, Model model) {
