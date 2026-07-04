@@ -26,7 +26,6 @@ public class Mapper {
         return direccionDTO;
     }
 
-    public static EspecialidadDTO ToDTO(Especialidad entity){
         return EspecialidadDTO.valueOf(entity.name());
     }
 
@@ -48,6 +47,7 @@ public class Mapper {
 
     public static DuenoDTO toDTO(Dueno entity){
         DuenoDTO duenoDTO = new DuenoDTO();
+        duenoDTO.setIdDueno(entity.getIdDueno().toString());
         duenoDTO.setNombre(entity.getNombre());
         duenoDTO.setApellidoPaterno(entity.getApellidoPaterno());
         duenoDTO.setApellidoMaterno(entity.getApellidoMaterno());
@@ -72,6 +72,7 @@ public class Mapper {
 
     public static EmpleadoDTO toDTO(Empleado entity){
         EmpleadoDTO empleadoDTO = new EmpleadoDTO();
+        empleadoDTO.setIdEmpleado(entity.getIdEmpleado().toString());
         empleadoDTO.setNombre(entity.getNombre());
         empleadoDTO.setApellidoPaterno(entity.getApellidoPaterno());
         empleadoDTO.setApellidoMaterno(entity.getApellidoMaterno());
@@ -86,6 +87,7 @@ public class Mapper {
 
     public static SucursalDTO toDTO(Sucursal entity){
     SucursalDTO sucursalDTO = new SucursalDTO();
+    sucursalDTO.setIdSucursal(entity.getIdSucursal().toString());
     sucursalDTO.setNombre(entity.getNombre());
     sucursalDTO.setDireccion(Mapper.ToDTO(entity.getDireccion()));
     sucursalDTO.setTelefono(entity.getTelefono());
@@ -99,6 +101,7 @@ public class Mapper {
 
     public static ServicioDTO toDTO(Servicio entity){
     ServicioDTO servicioDTO = new ServicioDTO();
+    servicioDTO.setIdServicio(entity.getIdServicio().toString());
     servicioDTO.setTipo(entity.getTipo());
     servicioDTO.setDescripcion(entity.getDescripcion());
     servicioDTO.setPrecio(entity.getPrecio());
@@ -109,6 +112,7 @@ public class Mapper {
 
     public static ReservaDTO toDTO(Reserva entity){
     ReservaDTO reservaDTO= new ReservaDTO();
+    reservaDTO.setIdReserva(entity.getIdReserva().toString());
     reservaDTO.setIdEmpleado(entity.getIdEmpleado().toString());
     reservaDTO.setFecha(entity.getFecha());
     reservaDTO.setEstado(Mapper.toDTO(entity.getEstado()));
@@ -121,6 +125,7 @@ public class Mapper {
 
     public static MedicamentoDTO toDTO(Medicamento entity){
         MedicamentoDTO medicamentoDTO = new MedicamentoDTO();
+        medicamentoDTO.setIdMedicamento(entity.getIdMedicmento().toString());
         medicamentoDTO.setNombre(entity.getNombre());
         medicamentoDTO.setDosis(entity.getDosis());
         medicamentoDTO.setFrecuencia(entity.getFrecuencia());
@@ -130,6 +135,7 @@ public class Mapper {
 
     public static HistorialClinicoDTO toDTO(HistorialClinico entity){
         HistorialClinicoDTO historialClinicoDTO = new HistorialClinicoDTO();
+        historialClinicoDTO.setIdHistorialClinico(entity.getIdHistorialClinico().toString());
         historialClinicoDTO.setIdMascota(entity.getIdMascota().toString());
         historialClinicoDTO.setFecha(entity.getFecha());
         historialClinicoDTO.setDiagnostico(entity.getDiagnostico());
@@ -142,6 +148,7 @@ public class Mapper {
 
     public static MascotaDTO toDTO(Mascota entity){
         MascotaDTO mascotaDTO = new MascotaDTO();
+        mascotaDTO.setIdMascota(entity.getIdMascota().toString());
         mascotaDTO.setNombre(entity.getNombre());
         mascotaDTO.setEspecie(entity.getEspecie());
         mascotaDTO.setRaza(entity.getRaza());
@@ -179,6 +186,7 @@ public class Mapper {
 
     public static Dueno toEntity(DuenoDTO dto){
         Dueno dueno = new Dueno();
+        dueno.setIdDueno(new ObjectId(dto.getIdDueno()));
         dueno.setNombre(dto.getNombre());
         dueno.setApellidoPaterno(dto.getApellidoPaterno());
         dueno.setApellidoMaterno(dto.getApellidoMaterno());
@@ -201,6 +209,7 @@ public class Mapper {
 
     public static Empleado toEntity(EmpleadoDTO dto){
         Empleado empleado = new Empleado();
+        empleado.setIdEmpleado(new ObjectId(dto.getIdEmpleado()));
         empleado.setNombre(dto.getNombre());
         empleado.setApellidoPaterno(dto.getApellidoPaterno());
         empleado.setApellidoMaterno(dto.getApellidoMaterno());
@@ -215,6 +224,7 @@ public class Mapper {
 
     public static Sucursal toEntity(SucursalDTO dto){
         Sucursal sucursal = new Sucursal();
+        sucursal.setIdSucursal(new ObjectId(dto.getIdSucursal()));
         sucursal.setNombre(dto.getNombre());
         sucursal.setDireccion(toEntity(dto.getDireccion()));
         sucursal.setTelefono(dto.getTelefono());
@@ -226,6 +236,7 @@ public class Mapper {
 
     public static Servicio toEntity(ServicioDTO dto){
         Servicio servicio = new Servicio();
+        servicio.setIdServicio(new ObjectId(dto.getIdServicio()));
         servicio.setTipo(dto.getTipo());
         servicio.setDescripcion(dto.getDescripcion());
         servicio.setPrecio(dto.getPrecio());
@@ -236,6 +247,7 @@ public class Mapper {
 
     public static Reserva toEntity(ReservaDTO dto){
         Reserva reserva = new Reserva();
+        reserva.setIdReserva(new ObjectId(dto.getIdReserva()));
         reserva.setIdEmpleado(new ObjectId(dto.getIdEmpleado()));
         reserva.setFecha(dto.getFecha());
         reserva.setEstado(toEntity(dto.getEstado()));
@@ -249,6 +261,7 @@ public class Mapper {
 
     public static Medicamento toEntity(MedicamentoDTO dto){
         Medicamento medicamento = new Medicamento();
+        medicamento.setIdMedicmento(new ObjectId(dto.getIdMedicamento()));
         medicamento.setNombre(dto.getNombre());
         medicamento.setDosis(dto.getDosis());
         medicamento.setFrecuencia(dto.getFrecuencia());
@@ -258,6 +271,7 @@ public class Mapper {
 
     public static HistorialClinico toEntity(HistorialClinicoDTO dto){
         HistorialClinico historial = new HistorialClinico();
+        historial.setIdHistorialClinico(new ObjectId(dto.getIdHistorialClinico()));
         historial.setIdMascota(new ObjectId(dto.getIdMascota()));
         historial.setFecha(dto.getFecha());
         historial.setDiagnostico(dto.getDiagnostico());
@@ -270,6 +284,7 @@ public class Mapper {
 
     public static Mascota toEntity(MascotaDTO dto){
         Mascota mascota = new Mascota();
+        mascota.setIdMascota(new ObjectId(dto.getIdMascota()));
         mascota.setNombre(dto.getNombre());
         mascota.setEspecie(dto.getEspecie());
         mascota.setRaza(dto.getRaza());

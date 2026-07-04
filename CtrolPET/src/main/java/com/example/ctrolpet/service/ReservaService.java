@@ -154,6 +154,13 @@ public class ReservaService {
     }
     
 
+    public List<Reserva> obtenerPorDueno(Dueno dueno){
+
+        Pageable pageable = (Pageable) PageRequest.of(0, 20);
+        return reservaRepository.findByDueno(dueno.getIdDueno(),pageable).getContent();
+
+    }
+
     public List<Reserva> buscar(String texto, DuenoService duenoService, EmpleadoService empleadoService){
         List<Reserva> todas = obtenerTodos();
         if(texto == null || texto.isBlank()){
