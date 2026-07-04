@@ -91,7 +91,7 @@ public class DuenoService {
             throw new EmailDuplicateException("Este email ya está registrado");
         }
 
-        throw new EmailDuplicateException("Este email ya esta registrado");
+        return duenoRepository.save(dueno);
 
     }
 
