@@ -48,3 +48,12 @@ El sistema permite a los administradores configurar la disponibilidad de servici
 1. Clonar el repositorio:
    ```bash
    git clone https://github.com/Gamm4a/CtrolPET.git
+
+2. En las pruebas Postman el orden de ejecución es el siguiente:
+     1. Crear Dueño
+     2. Login
+        .
+        .
+        .
+      10. logout
+
