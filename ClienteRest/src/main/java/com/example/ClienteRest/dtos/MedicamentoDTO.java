@@ -12,7 +12,7 @@ import org.bson.types.ObjectId;
 @NoArgsConstructor
 public class MedicamentoDTO {
 
-    private String idMedicamento;
+    private String idMedicmento;
 
     @NotBlank(message = "El nombre del medicamento es obligatorio")
     @Size(min = 2, max = 100, message = "El nombre del medicamento debe tener entre 2 y 100 caracteres")

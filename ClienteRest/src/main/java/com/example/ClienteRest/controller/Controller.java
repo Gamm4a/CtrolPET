@@ -1,9 +1,5 @@
 package com.example.ClienteRest.controller;
-
-
-
-
-import com.example.ClienteRest.Mapper.Mapper;
+import com.example.ClienteRest.Mapper.Mappers;
 import com.example.ClienteRest.dtos.*;
 import com.example.ctrolpet.model.Dueno;
 import com.example.ctrolpet.model.Enum.EstadoReserva;
@@ -43,28 +39,28 @@ public class Controller {
     @PostMapping("/registro")
     public ResponseEntity<DuenoDTO> registrarDueno(@Valid @RequestBody RegistroDTO registroDTO) {
 
-        Dueno dueno = Mapper.toEntity(registroDTO.getDuenoDTO());
+        Dueno dueno = Mappers.toEntity(registroDTO.getDuenoDTO());
 
         Dueno duenoRegistrado = duenoService.guardar(dueno);
 
         if (registroDTO.getReservaDTO() != null && duenoRegistrado.getMascotas() != null && !duenoRegistrado.getMascotas().isEmpty()) {
-            Reserva reserva = Mapper.toEntity(registroDTO.getReservaDTO());
+            Reserva reserva = Mappers.toEntity(registroDTO.getReservaDTO());
             reserva.setMascota(duenoRegistrado.getMascotas().getFirst().getIdMascota());
             reserva.setDueno(duenoRegistrado.getIdDueno());
             reservaService.guardar(reserva);
         }
 
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(Mapper.toDTO(duenoRegistrado));
+        return ResponseEntity.status(HttpStatus.CREATED).body(Mappers.toDTO(duenoRegistrado));
     }
 
 
     @PostMapping("/reservas")
     public ResponseEntity<ReservaDTO> crearReservaSinLogin(@Valid @RequestBody ReservaDTO reservaDTO) {
 
-        Reserva guardada = reservaService.guardar(Mapper.toEntity(reservaDTO));
+        Reserva guardada = reservaService.guardar(Mappers.toEntity(reservaDTO));
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(Mapper.toDTO(guardada));
+        return ResponseEntity.status(HttpStatus.CREATED).body(Mappers.toDTO(guardada));
 
     }
 
@@ -79,7 +75,7 @@ public class Controller {
             session.setAttribute("idDueno", duenoRegistrado.getIdDueno());
 
 
-            return ResponseEntity.status(HttpStatus.OK).body(Mapper.toDTO(duenoRegistrado));
+            return ResponseEntity.status(HttpStatus.OK).body(Mappers.toDTO(duenoRegistrado));
 
         }
 
@@ -111,7 +107,7 @@ public class Controller {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
-        return ResponseEntity.status(HttpStatus.OK).body(Mapper.toDTO(dueno));
+        return ResponseEntity.status(HttpStatus.OK).body(Mappers.toDTO(dueno));
     }
 
     @PutMapping("/perfil/{id}/editar")
@@ -130,12 +126,12 @@ public class Controller {
         }
 
 
-        Dueno dueno = duenoService.actualizarDueno(idDueno ,Mapper.toEntity(duenoActualizado));
+        Dueno dueno = duenoService.actualizarDueno(idDueno ,Mappers.toEntity(duenoActualizado));
         if (dueno == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
-        return ResponseEntity.status(HttpStatus.OK).body(Mapper.toDTO(dueno));
+        return ResponseEntity.status(HttpStatus.OK).body(Mappers.toDTO(dueno));
     }
 
     @GetMapping("/perfil/{id}/mascotas")
@@ -166,7 +162,7 @@ public class Controller {
 
         for (Mascota mascota: mascotas){
 
-            mascotasDTO.add(Mapper.toDTO(mascota));
+            mascotasDTO.add(Mappers.toDTO(mascota));
 
         }
 
@@ -196,12 +192,12 @@ public class Controller {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
-        duenoService.guardarMascota(idDueno, Mapper.toEntity(mascotaDTO), file);
+        duenoService.guardarMascota(idDueno, Mappers.toEntity(mascotaDTO), file);
 
         Mascota mascotaRegistrada = duenoService.obtenerPorId(idDueno).getMascotas().getLast();
 
 
-        return ResponseEntity.status(HttpStatus.OK).body(Mapper.toDTO(mascotaRegistrada));
+        return ResponseEntity.status(HttpStatus.OK).body(Mappers.toDTO(mascotaRegistrada));
 
     }
 
@@ -232,7 +228,7 @@ public class Controller {
 
         for (Reserva reserva: reservas){
 
-            reservasDTO.add(Mapper.toDTO(reserva));
+            reservasDTO.add(Mappers.toDTO(reserva));
 
         }
 
@@ -278,7 +274,7 @@ public class Controller {
 
         reserva = reservaService.actualizarParcial(idReserva, cancelar);
 
-        return ResponseEntity.status(HttpStatus.OK).body(Mapper.toDTO(reserva));
+        return ResponseEntity.status(HttpStatus.OK).body(Mappers.toDTO(reserva));
 
 
     }
@@ -323,9 +319,9 @@ public class Controller {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
 
-        Reserva guardada = reservaService.guardar(Mapper.toEntity(reservaDTO));
+        Reserva guardada = reservaService.guardar(Mappers.toEntity(reservaDTO));
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(Mapper.toDTO(guardada));
+        return ResponseEntity.status(HttpStatus.CREATED).body(Mappers.toDTO(guardada));
 
     }
 
