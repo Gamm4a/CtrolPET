@@ -2,6 +2,7 @@ package com.example.ctrolpet.service;
 
 
 
+import com.example.ctrolpet.exception.ResourceNotFoundException;
 import com.example.ctrolpet.model.Enum.EstadoReserva;
 import com.example.ctrolpet.model.Dueno;
 import com.example.ctrolpet.model.Empleado;
@@ -31,23 +32,6 @@ public class ReservaService {
 
         reserva.setEstado(EstadoReserva.PENDIENTE);
 
-        if (reserva.getMascota() == null) {
-            throw new IllegalArgumentException("La reserva debe estar asociada a una mascota válida.");
-        }
-
-        if (reserva.getServicios() == null) {
-            throw new IllegalArgumentException("Debe seleccionar un servicio para la reserva.");
-        }
-
-        if (reserva.getIdEmpleado() == null) {
-            throw new IllegalArgumentException("Debe asignar un empleado/especialista a la reserva.");
-        }
-
-        if (reserva.getFecha() == null || !LocalDateTime.now().isBefore(reserva.getFecha())) {
-            throw new IllegalArgumentException("La fecha de la reserva debe ser un momento en el futuro.");
-        }
-
-
         return reservaRepository.save(reserva);
     }
 
@@ -59,9 +43,9 @@ public class ReservaService {
 
     }
 
-    public Reserva obtenerPorId(ObjectId id){
+    public Reserva obtenerPorId(ObjectId id) throws ResourceNotFoundException{
 
-        return reservaRepository.findById(id).orElse(null);
+        return reservaRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No existe una reserva con el ID especificado"));
 
     }
 
@@ -153,6 +137,13 @@ public class ReservaService {
 
     }
     
+
+    public List<Reserva> obtenerPorDueno(Dueno dueno){
+
+        Pageable pageable = (Pageable) PageRequest.of(0, 20);
+        return reservaRepository.findByDueno(dueno.getIdDueno(),pageable).getContent();
+
+    }
 
     public List<Reserva> buscar(String texto, DuenoService duenoService, EmpleadoService empleadoService){
         List<Reserva> todas = obtenerTodos();

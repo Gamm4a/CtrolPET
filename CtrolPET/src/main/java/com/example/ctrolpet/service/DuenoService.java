@@ -2,6 +2,9 @@ package com.example.ctrolpet.service;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.example.ctrolpet.exception.BadCredentialsException;
+import com.example.ctrolpet.exception.EmailDuplicateException;
+import com.example.ctrolpet.exception.ResourceNotFoundException;
 import com.example.ctrolpet.model.Dueno;
 import com.example.ctrolpet.model.Mascota;
 import jakarta.servlet.http.HttpSession;
@@ -22,6 +25,7 @@ import java.util.Optional;
 
 @Service
 public class DuenoService {
+
     @Autowired
     private DuenoRepository duenoRepository;
 
@@ -34,20 +38,24 @@ public class DuenoService {
     @Autowired
     private HttpSession httpSession;
 
-    public Dueno autenticar(String correo, String contrasenia){
+    public Dueno autenticar(String correo, String contrasenia) throws BadCredentialsException {
         Optional<Dueno> dueñoOptional = duenoRepository.findByCorreo(correo);
 
-        if(dueñoOptional.isPresent()){
-            Dueno dueno = dueñoOptional.get();
-            if(contrasenia.matches(dueno.getContrasenia())){
-                return dueno;
-            }
+        if(!dueñoOptional.isPresent()) {
+            throw new BadCredentialsException("Email no registrado");
+        }
+
+        Dueno dueno = dueñoOptional.get();
+
+        if(!contrasenia.matches(dueno.getContrasenia())){
+            throw new BadCredentialsException("Contraseña incorrecta");
+        }
+
+        return dueno;
 //            if(passwordEncoder.matches(contrasenia, dueno.getContrasenia())){
 //                return dueno;
 //            }
-        }
 
-        return null;
     }
 
     public Dueno obtenerDuenoLogueado(){
@@ -68,15 +76,22 @@ public class DuenoService {
 
     }
 
-    public Dueno obtenerPorId(ObjectId id){
+    public Dueno obtenerPorId(ObjectId id) throws ResourceNotFoundException {
 
-        return duenoRepository.findById(id).orElse(null);
+        return duenoRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("No existe un dueño con el ID especificado"));
 
     }
 
-    public Dueno guardar(Dueno dueno){
+    public Dueno guardar(Dueno dueno)throws EmailDuplicateException {
 
-        return duenoRepository.save(dueno);
+        Optional<Dueno> duenoExistente = duenoRepository.findByCorreo(dueno.getCorreo());
+
+        if (duenoExistente.isPresent()) {
+            throw new EmailDuplicateException("Este email ya está registrado");
+        }
+
+        throw new EmailDuplicateException("Este email ya esta registrado");
 
     }
 
@@ -119,6 +134,7 @@ public class DuenoService {
     }
 
     public void guardarMascota(ObjectId idDueno,Mascota mascota, MultipartFile file){
+
         Dueno dueno = obtenerPorId(idDueno);
 
         if(dueno == null){
@@ -220,9 +236,27 @@ public class DuenoService {
         }
         duenoRepository.save(dueno);
     }
+    public Dueno actualizarDueno(ObjectId idDueno, Dueno duenoActualizado) {
 
-    public void actualizarDueno(){
+        Optional<Dueno> duenoOpcional = duenoRepository.findById(idDueno);
 
+        if (duenoOpcional.isPresent()) {
+            Dueno duenoExistente = duenoOpcional.get();
+
+            // 2. Actualizamos campo por campo los datos modificables
+            duenoExistente.setNombre(duenoActualizado.getNombre());
+            duenoExistente.setApellidoPaterno(duenoActualizado.getApellidoPaterno());
+            duenoExistente.setApellidoMaterno(duenoActualizado.getApellidoMaterno());
+            duenoExistente.setCorreo(duenoActualizado.getCorreo());
+            duenoExistente.setTelefono(duenoActualizado.getTelefono());
+            duenoExistente.setDireccion(duenoActualizado.getDireccion());
+
+
+            return duenoRepository.save(duenoExistente);
+        }
+
+
+        return null;
     }
 
 }
