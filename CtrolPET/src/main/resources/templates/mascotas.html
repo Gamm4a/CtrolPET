@@ -25,15 +25,15 @@
 
                         <div class="controles-foto">
                             <form th:action="@{/admin/mascotas/cambiar-foto/{id}(id=${mascota.idMascota.toHexString()}, idDueno=${dueno.idDueno.toHexString()})}" method="POST" enctype="multipart/form-data" class="forma-foto">
-                                <input type="hidden" name="_method" value="PUT">
                                 <input type="file" name="fotoMascota" accept="image/*" required>
                                 <button type="submit" class="btn-registrarme">Guardar foto</button>
                             </form>
                         </div>
                     </div>
 
-                    <form th:action="@{/admin/mascotas/actualizar/{id}(id=${mascota.idMascota.toHexString()}, idDueno=${dueno.idDueno.toHexString()})}" method="POST" class="info-mascota">
-                        <input type="hidden" name="_method" value="PUT">
+                    <form th:action="@{/admin/mascotas/actualizar/{id}(id=${mascota.idMascota.toHexString()}, idDueno=${dueno.idDueno.toHexString()})}"
+                          th:method="POST"
+                          class="info-mascota">
 
                         <div th:if="${modoEdicion != true}">
                             <h3 th:text="${mascota.nombre}">Nombre</h3>
@@ -50,7 +50,7 @@
                             <input type="date" name="fechaNacimiento" th:value="${mascota.fechaNacimiento}" required>
                         </div>
 
-                        <div class="botones-header">
+                        <div class="botones-contenedor">
                             <a th:if="${modoEdicion != true}"
                                th:href="@{/admin/mascotas/editar/{id}?editar=true&idDueno={idD}(id=${mascota.idMascota.toHexString()}, idD=${dueno.idDueno.toHexString()})}"
                                class="btn-registrarme">Editar</a>
@@ -59,7 +59,7 @@
                                     class="btn-registrarme">Guardar Cambios</button>
                             <a th:if="${modoEdicion == true}"
                                th:href="@{/admin/mascotas/editar/{id}(id=${mascota.idMascota.toHexString()}, idDueno=${dueno.idDueno.toHexString()})}"
-                               class="btn-anterior">Cancelar</a>
+                               class="btn-registrarme">Cancelar</a>
                         </div>
                     </form>
                 </div>

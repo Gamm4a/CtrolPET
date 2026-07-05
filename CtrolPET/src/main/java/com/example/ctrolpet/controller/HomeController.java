@@ -622,7 +622,10 @@ public class HomeController {
     }
 
     @GetMapping("/admin/duenos/editar/{id}")
-    public String editarDueno(@PathVariable ("id") ObjectId idDueno, HttpSession session, Model model){
+    public String editarDueno(@PathVariable ("id") ObjectId idDueno,
+                              HttpSession session,
+                              Model model,
+                              @RequestParam(value = "editar", required = false) Boolean editar){
         ObjectId idEmpleado = (ObjectId) session.getAttribute("idEmpleado");
         if (idEmpleado == null) {
             return "redirect:/login-admin";
@@ -632,11 +635,32 @@ public class HomeController {
         model.addAttribute("empleado", empleadoLogueado);
         model.addAttribute("dueno", dueno);
         model.addAttribute("mascotas", dueno.getMascotas());
+        model.addAttribute("modoEdicion", editar != null && editar);
 
         return "duenos";
     }
 
-    @PutMapping("/admin/mascotas/cambiar-foto/{id}")
+    @PostMapping("/admin/duenos/actualizar/{id}")
+    public String actualizarDueno(@PathVariable("id") ObjectId idDueno,
+                                  @RequestParam("nombre") String nombre,
+                                  @RequestParam("apellidoPaterno") String apellidoPaterno,
+                                  @RequestParam("apellidoMaterno") String apellidoMaterno,
+                                  @RequestParam("telefono") String telefono,
+                                  @RequestParam("correo") String correo,
+                                  @RequestParam("fechaNacimiento") LocalDate fechaNacimiento,
+                                  HttpSession session) {
+
+        ObjectId idEmpleado = (ObjectId) session.getAttribute("idEmpleado");
+        if (idEmpleado == null) {
+            return "redirect:/login-admin";
+        }
+
+        duenoService.actualizarDatosDueno(idDueno, nombre, apellidoPaterno, apellidoMaterno, telefono, correo, fechaNacimiento);
+
+        return "redirect:/admin/duenos/editar/" + idDueno.toHexString();
+    }
+
+    @PostMapping("/admin/mascotas/cambiar-foto/{id}")
     public String actualizarFotoMascota(@PathVariable("id") ObjectId idMascota,
                                         @RequestParam("fotoMascota") MultipartFile file,
                                         @RequestParam("idDueno") ObjectId idDueno,
@@ -691,7 +715,7 @@ public class HomeController {
         return "mascotas";
     }
 
-    @PutMapping("/admin/mascotas/actualizar/{id}")
+    @PostMapping("/admin/mascotas/actualizar/{id}")
     public String actualizarMascota(@PathVariable("id") ObjectId idMascota,
                                     @RequestParam("idDueno") ObjectId idDueno,
                                     @RequestParam("nombre") String nombre,

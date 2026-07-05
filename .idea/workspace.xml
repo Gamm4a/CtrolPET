@@ -5,8 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f886b2e4-37ce-4367-9158-a23ac65a3544" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/Mapper/Mappers.java" beforeDir="false" afterPath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/Mapper/Mappers.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/dtos/MedicamentoDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/dtos/MedicamentoDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/java/com/example/ctrolpet/controller/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/java/com/example/ctrolpet/controller/HomeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/java/com/example/ctrolpet/service/DuenoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/java/com/example/ctrolpet/service/DuenoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/styles/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/styles/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/resources/templates/duenos.html" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/resources/templates/duenos.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/resources/templates/mascotas.html" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/resources/templates/mascotas.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +26,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/CtrolPET/src/main/resources/templates/duenos.html" root0="SKIP_INSPECTION" />
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
@@ -52,9 +59,13 @@
     "Spring Boot.ClienteRestApplication.executor": "Run",
     "Spring Boot.CtrolPetApplication.executor": "Run",
     "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "Zaira",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/jesus/OneDrive/Documentos/GitHub/CtrolPET/ClienteRest/src/main/java/com/example/ClienteRest",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
