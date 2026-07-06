@@ -7,10 +7,9 @@
     <list default="true" id="f886b2e4-37ce-4367-9158-a23ac65a3544" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/java/com/example/ctrolpet/controller/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/java/com/example/ctrolpet/controller/HomeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/java/com/example/ctrolpet/repository/ReservaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/java/com/example/ctrolpet/repository/ReservaRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/java/com/example/ctrolpet/service/DuenoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/java/com/example/ctrolpet/service/DuenoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/styles/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/styles/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/resources/templates/duenos.html" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/resources/templates/duenos.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/resources/templates/mascotas.html" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/resources/templates/mascotas.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/java/com/example/ctrolpet/service/ReservaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/java/com/example/ctrolpet/service/ReservaService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

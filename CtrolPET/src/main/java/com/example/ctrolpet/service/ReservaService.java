@@ -17,8 +17,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
-
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -176,5 +177,23 @@ public class ReservaService {
         }).collect(java.util.stream.Collectors.toList());
     }
 
+    public boolean horarioOcupado(LocalTime horaEvaluar, int duracionNueva, List<Reserva> reservasExistentes) {
+        LocalTime finNueva = horaEvaluar.plusMinutes(duracionNueva);
+
+        for (Reserva cita : reservasExistentes) {
+            LocalTime inicioExistente = cita.getFecha().toLocalTime();
+            LocalTime finExistente = inicioExistente.plusMinutes(cita.getServicios().getDuracion());
+            if (horaEvaluar.isBefore(finExistente) && finNueva.isAfter(inicioExistente)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public List<Reserva> obtenerPorEmpleadoYFecha(ObjectId idEmpleado, LocalDate fecha) {
+        LocalDateTime inicioDia = fecha.atStartOfDay();
+        LocalDateTime finDia = fecha.atTime(LocalTime.MAX);
+        return reservaRepository.findByIdEmpleadoAndFechaBetween(idEmpleado, inicioDia, finDia);
+    }
 
 }

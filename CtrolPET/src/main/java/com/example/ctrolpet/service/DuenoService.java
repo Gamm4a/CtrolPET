@@ -276,7 +276,6 @@ public class DuenoService {
         if (duenoOpcional.isPresent()) {
             Dueno duenoExistente = duenoOpcional.get();
 
-            // 2. Actualizamos campo por campo los datos modificables
             duenoExistente.setNombre(duenoActualizado.getNombre());
             duenoExistente.setApellidoPaterno(duenoActualizado.getApellidoPaterno());
             duenoExistente.setApellidoMaterno(duenoActualizado.getApellidoMaterno());

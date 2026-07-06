@@ -483,6 +483,7 @@ public class HomeController {
 
         for (Empleado emp : vetsDisponibles) {
             if (emp.getSucursal() != null && emp.getSucursal().equals(idSucursal)) {
+                List<Reserva> citasDelDia = reservaService.obtenerPorEmpleadoYFecha(emp.getIdEmpleado(), fecha);
                 List<LocalTime> rangosDelEmpleado = servicioService.rangoCitas(
                         emp.getHorarios().getHoraEntrada(),
                         emp.getHorarios().getHoraSalida(),
@@ -490,7 +491,9 @@ public class HomeController {
                 );
 
                 for (LocalTime hora : rangosDelEmpleado) {
-                    mapaHorarios.put(hora, emp);
+                    if (!reservaService.horarioOcupado(hora, servicio.getDuracion(), citasDelDia)) {
+                        mapaHorarios.put(hora, emp);
+                    }
                 }
             }
         }
