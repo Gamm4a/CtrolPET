@@ -20,9 +20,13 @@
                 <a th:href="@{/admin}" class="btn-volver">Volver al Dashboard</a>
             </div>
 
-            <div class="buscador-citas">
-                <input type="text" name="buscar" placeholder="Buscar cita">
-            </div>
+            <form th:action="@{/admin/citas}" method="GET" class="buscador-citas">
+                <input type="text" name="buscar" placeholder="Buscar cita" th:value="${buscar}">
+                <button type="submit" class="btn-agenda">Buscar</button>
+                <input type="date" name="desde" th:value="${desde}">
+                <input type="date" name="hasta" th:value="${hasta}">
+                <button type="submit" class="btn-agenda">Filtrar por fecha</button>
+            </form>
 
             <div class="area-tabla">
                 <table class="tabla-citas-admin">
