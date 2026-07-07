@@ -11,6 +11,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 @Repository
 public interface ReservaRepository extends MongoRepository<Reserva, ObjectId> {
 
@@ -21,7 +24,7 @@ public interface ReservaRepository extends MongoRepository<Reserva, ObjectId> {
     Page<Reserva> findByMascota(Mascota mascota, Pageable pageable);
 
     Page<Reserva> findByServicios(Servicio servicio, Pageable pageable);
-
     Page<Reserva> findByDueno(ObjectId dueno, Pageable pageable);
+    List<Reserva> findByIdEmpleadoAndFechaBetween(ObjectId idEmpleado, LocalDateTime inicio, LocalDateTime fin);
 
 }

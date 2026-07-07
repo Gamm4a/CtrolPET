@@ -95,6 +95,39 @@ public class DuenoService {
 
     }
 
+    public void actualizarDatosDueno(ObjectId idDueno, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String correo, LocalDate fechaNacimiento){
+        Dueno dueno = obtenerPorId(idDueno);
+
+        if (dueno == null) {
+            throw new NullPointerException("El id del dueño no existe");
+        }
+
+        Instant instant = fechaNacimiento.atStartOfDay(ZoneId.systemDefault()).toInstant();
+        dueno.setFechaNacimiento(instant);
+        if (nombre != null){
+            dueno.setNombre(nombre);
+        }
+
+        if (apellidoPaterno != null){
+            dueno.setApellidoPaterno(apellidoPaterno);
+        }
+
+        if (apellidoMaterno != null){
+            dueno.setApellidoMaterno(apellidoMaterno);
+        }
+
+        if (telefono != null){
+            dueno.setTelefono(telefono);
+        }
+
+        if (correo != null){
+            dueno.setCorreo(correo);
+        }
+
+
+        duenoRepository.save(dueno);
+    }
+
     public Mascota getMascotaById(ObjectId idMascota, ObjectId idDueno){
         Optional <Dueno> duenoOptional = duenoRepository.findById(idDueno);
         List<Mascota> mascotas = duenoOptional.get().getMascotas();
@@ -243,7 +276,6 @@ public class DuenoService {
         if (duenoOpcional.isPresent()) {
             Dueno duenoExistente = duenoOpcional.get();
 
-            // 2. Actualizamos campo por campo los datos modificables
             duenoExistente.setNombre(duenoActualizado.getNombre());
             duenoExistente.setApellidoPaterno(duenoActualizado.getApellidoPaterno());
             duenoExistente.setApellidoMaterno(duenoActualizado.getApellidoMaterno());

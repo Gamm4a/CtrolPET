@@ -90,11 +90,11 @@ public class SEEDERS {
     private List<Servicio> seedServicios() {
         List<Servicio> servicios = new ArrayList<>();
 
-        servicios.add(new Servicio(null, "Consulta General", "Revisión médica general de la mascota", 300.0, Especialidad.CONSULTA, 30));
-        servicios.add(new Servicio(null, "Limpieza Dental", "Limpieza dental completa con ultrasonido", 800.0, Especialidad.DENTAL, 60));
-        servicios.add(new Servicio(null, "Baño y Corte", "Servicio de estética completo", 350.0, Especialidad.ESTETICA, 90));
-        servicios.add(new Servicio(null, "Radiografía", "Estudio radiográfico diagnóstico", 500.0, Especialidad.DIAGNOSTICO, 45));
-        servicios.add(new Servicio(null, "Esterilización", "Cirugía de esterilización", 1500.0, Especialidad.CIRUGIA, 120));
+        servicios.add(new Servicio(null, "Consulta General", "Revisión médica general de la mascota", 300.0, Especialidad.CONSULTA, 30, new ArrayList<>()));
+        servicios.add(new Servicio(null, "Limpieza Dental", "Limpieza dental completa con ultrasonido", 800.0, Especialidad.DENTAL, 60, new ArrayList<>()));
+        servicios.add(new Servicio(null, "Baño y Corte", "Servicio de estética completo", 350.0, Especialidad.ESTETICA, 90, new ArrayList<>()));
+        servicios.add(new Servicio(null, "Radiografía", "Estudio radiográfico diagnóstico", 500.0, Especialidad.DIAGNOSTICO, 45, new ArrayList<>()));
+        servicios.add(new Servicio(null, "Esterilización", "Cirugía de esterilización", 1500.0, Especialidad.CIRUGIA, 120, new ArrayList<>()));
 
         return servicioRepository.saveAll(servicios);
     }

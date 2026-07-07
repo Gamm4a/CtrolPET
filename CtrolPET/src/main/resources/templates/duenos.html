@@ -25,28 +25,40 @@
                         <img th:src="@{/imgs/iconos/icono-perfil-usuario.png}" alt="Perfil">
                     </div>
 
-                    <div id="info-dueno" th:if="${modoEdicion != true}">
-                        <h3>Cliente</h3>
-                        <p th:text="${dueno.nombre} + ' ' + ${dueno.apellidoPaterno} + ' ' + ${dueno.apellidoMaterno}">Nombre</p>
-                        <p th:text="${dueno.telefono}">Teléfono</p>
-                        <p th:text="${dueno.correo}">Correo</p>
-                        <p th:text="${dueno.fechaNacimiento}">Fecha Nacimiento</p>
-                        <a th:href="@{/dueno/gestion/{id}?editar=true(id=${dueno.idDueno})}" class="btn-registrarme">Editar</a>
-                    </div>
+                    <form th:action="@{/admin/duenos/actualizar/{id}(id=${dueno.idDueno.toHexString()})}"
+                          method="POST"
+                          class="info-dueno">
 
-                    <div class="info-dueno" th:unless="${modoEdicion != true}">
-                        <form th:action="@{/dueno/actualizar/{id}(id=${dueno.idDueno})}" method="POST" id="info-dueno-editar">
-                            <input type="hidden" name="_method" value="PATCH">
+                        <div id="info-dueno" th:if="${modoEdicion != true}">
+                            <h3>Cliente</h3>
+                            <p th:text="${dueno.nombre} + ' ' + ${dueno.apellidoPaterno} + ' ' + ${dueno.apellidoMaterno}">Nombre</p>
+                            <p th:text="${dueno.telefono}">Teléfono</p>
+                            <p th:text="${dueno.correo}">Correo</p>
+                            <p th:text="${#temporals.format(dueno.fechaNacimiento, 'dd/MM/yyyy')}">Fecha Nacimiento</p>
+                        </div>
+
+                        <div class="info-dueno" th:unless="${modoEdicion != true}">
                             <h3>Editar Datos</h3>
-                            <input type="text" name="nombre" th:value="${dueno.nombre}">
-                            <input type="text" name="apellidoPaterno" th:value="${dueno.apellidoPaterno}">
-                            <input type="text" name="apellidoMaterno" th:value="${dueno.apellidoMaterno}">
-                            <input type="text" name="correo" th:value="${dueno.correo}">
-                            <input type="text" name="fechaNacimiento" th:value="${dueno.fechaNacimiento}">
-                            <button type="submit" class="btn-registrarme">Guardar</button>
-                            <a th:href="@{/dueno/gestion/{id}(id=${dueno.idDueno})}" class="btn-anterior">Cancelar</a>
-                        </form>
-                    </div>
+                                <input type="text" name="nombre" th:value="${dueno.nombre}">
+                                <input type="text" name="apellidoPaterno" th:value="${dueno.apellidoPaterno}">
+                                <input type="text" name="apellidoMaterno" th:value="${dueno.apellidoMaterno}">
+                                <input type="text" name="correo" th:value="${dueno.correo}">
+                                <input type="date" name="fechaNacimiento" th:value="${dueno.fechaNacimiento}">
+                        </div>
+                        <div class="botones-contenedor">
+                            <a th:if="${modoEdicion != true}"
+                               th:href="@{/admin/duenos/editar/{id}?editar=true(id=${dueno.idDueno.toHexString()})}"
+                               class="btn-registrarme">Editar</a>
+
+                            <button th:if="${modoEdicion == true}"
+                                    type="submit"
+                                    class="btn-registrarme">Guardar Cambios</button>
+
+                            <a th:if="${modoEdicion == true}"
+                               th:href="@{/admin/duenos/editar/{id}(id=${dueno.idDueno.toHexString()})}"
+                               class="btn-anterior">Cancelar</a>
+                        </div>
+                    </form>
                 </div>
 
                 <div id="duenos-mascotas">
@@ -58,16 +70,12 @@
                             <a th:href="@{/admin/mascotas/editar/{id}(id=${pet.idMascota}, idDueno=${id})}" class="tarjeta-mascota">
                                 <div class="contenedor-foto-mascota" style="position: relative;">
                                     <img th:src="${pet?.fotoUrl} ?: @{/imgs/iconos/icono-gato.png}" alt="Foto de la mascota">
-
-                                    <label th:for="${'toggle-foto-' + pet.idMascota}" class="btn-cambiar-foto" onclick="event.preventDefault(); event.stopPropagation();" title="Cambiar foto">
-                                        📷
-                                    </label>
                                 </div>
                                 <div class="info-mascota">
                                     <h3 th:text="${pet.nombre}">Nombre</h3>
                                     <p th:text="${pet.especie}">Especie</p>
                                     <p th:text="${pet.raza}">Raza</p>
-                                    <p th:text="${pet.fechaNacimiento}">Fecha Nacimiento</p>
+                                    <p th:text="${#temporals.format(pet.fechaNacimiento, 'dd/MM/yyyy')}">Fecha Nacimiento</p>
                                 </div>
                             </a>
                         </div>
@@ -76,9 +84,7 @@
                             <div class="modal-caja">
                                 <h3>Actualizar foto de <span th:text="${pet.nombre}"></span></h3>
 
-                                <form th:action="@{/admin/mascotas/cambiar-foto/{id}(id=${pet.idMascota})}" method="PUT" enctype="multipart/form-data" class="form-modal">
-                                    <input type="hidden" name="_method" value="PUT">
-                                    <input type="hidden" name="idDueno" th:value="${dueno.idDueno}">
+                                <form th:action="@{/admin/mascotas/cambiar-foto/{id}(id=${pet.idMascota})}" method="POST" enctype="multipart/form-data" class="form-modal">
 
                                     <div class="form-grupo">
                                         <label>Selecciona la nueva imagen:</label>

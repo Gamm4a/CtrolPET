@@ -1555,7 +1555,6 @@ input[name="pasos"] {
 }
 
 
-
 .btn-registrarme {
     background-color: var(--highlight);
 }
@@ -1692,6 +1691,10 @@ input[name="pasos"] {
 
 }
 
+#dashboard-admin {
+    padding-left: 260px;
+    box-sizing: border-box;
+}
 
 .tag-rol {
     justify-self: flex-end;
@@ -1701,7 +1704,10 @@ input[name="pasos"] {
 .nav-aside-admin {
     background-color: var(--texto);
     border-radius: var(--radio);
-    width: 30vh;
+    width: 260px;
+    position: fixed;
+    top: 0;
+    left: 0;
     height: 100vh;
 }
 
@@ -1872,17 +1878,24 @@ input[name="pasos"] {
 
 .contenedor-caja-mascota,
 .contenedor-caja-dueno {
-    display: flex;
-    width: 500px;
-    margin-bottom: var(--espacio);
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        text-align: left;
+        max-width: 500px;
+        width:fit-content;
+        margin-bottom: var(--espacio);
+        padding-right: var(--espacio);
 }
+
 
 .contenedor-caja-mascota img,
 .contenedor-caja-dueno img{
-    display: flex;
-    flex-direction: column;
-    width: 200px;
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
     padding: var(--espacio);
+    flex-shrink: 0;
 }
 
 .controles-foto {
@@ -1896,16 +1909,95 @@ input[name="pasos"] {
     align-items: center;
 }
 
+.tarjeta-mascota-wrapper {
+    width: 100%;
+}
+
 .tarjeta-mascota {
+    display: flex;
+    color: var(--texto);
+    flex-direction: row;
+    align-items: center;
     width: 100%;
     text-decoration: none;
     cursor: pointer;
 }
 
-.tarjeta-mascota:hover {
+.contenedor-caja-mascota:hover {
     transform: translateY(-2px);
     box-shadow:var(--sombra);
     transition: all 0.2s ease;
+}
+
+.tarjeta-mascota:hover {
+    color: var(--highlight);
+}
+
+#contenedor-mascota .contenedor-caja-mascota {
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: var(--espacio);
+    padding: var(--espacio);
+}
+
+#contenedor-mascota .contenedor-imagen {
+    flex-shrink: 0;
+    width: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--espacio-cercano);
+}
+
+#contenedor-mascota .contenedor-imagen img {
+    width: 130px;
+    height: 130px;
+    object-fit: cover;
+    padding: 0;
+}
+
+.forma-foto {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+}
+
+.forma-foto input[type="file"] {
+    font-size: 11px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.forma-foto button, .botones-contenedor button {
+    border: none;
+    padding: var(--espacio-cercano);
+}
+
+.forma-foto .btn-registrarme {
+    padding: 5px 10px;
+    font-size: 12px;
+}
+
+#contenedor-mascota .info-mascota,
+#contenedor-dueno .info-dueno{
+    flex-grow: 1;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: var(--espacio);
+    gap: 8px;
+}
+
+#contenedor-mascota .info-mascota input,
+#contenedor-dueno .info-dueno input{
+    display: block;
+    width: 100%;
+    margin-bottom: 5px;
+    padding: 6px;
+    border: 1px solid var(--secundario-transparente);
+    border-radius: 4px;
 }
 
 #documentos-mascota {
@@ -1914,17 +2006,37 @@ input[name="pasos"] {
 
 
 #duenos-mascotas {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
-    grid-auto-rows: auto;
-    grid-auto-flow: dense;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--espacio);
+    justify-content: center;
     padding: var(--espacio-cercano);
     width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
 }
 
 #documentos-mascota .form-grupo {
     margin: 0 auto;
     width: 100vh;
+}
+
+.botones-contenedor {
+    display: flex;
+    gap: var(--espacio-cercano);
+    margin-top: 15px;
+    margin-right: var(--espacio-cercano);
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.botones-contenedor .btn-registrarme,
+.botones-contenedor .btn-anterior {
+    display: inline-block;
+    padding: 8px 16px;
+    text-align: center;
+    white-space: nowrap;
+    text-decoration: none;
 }
 
 #documentos-mascota h3,
@@ -2128,9 +2240,65 @@ input[name="pasos"] {
     pointer-events: auto;
 }
 
+.galeria-contenedor {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 100px));
+    gap: 10px;
+    margin: 20px 0;
+    max-height: 200px;
+    overflow-y: auto;
+    padding: 5px;
+    border: 1px solid var(--secundario-transparente);
+    border-radius: var(--radio);
+}
+
+.foto-servicios {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border-radius: var(--radio);
+    overflow: hidden;
+    box-shadow: var(--sombra);
+}
+
+.foto-servicios img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.eliminarFoto {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    margin: 0;
+}
+
+.btn-eliminar-foto {
+    background-color: rgba(255,107,107,0.5);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 0;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    box-shadow: var(--sombra);
+}
+
+.btn-eliminar-foto:hover {
+    background-color: var(--error);
+}
+
 [id^="modal-editar-servicio-"]:target,
 [id^="modal-editar-veterinario-"]:target,
-[id^="modal-editar-sucursal-"]:target {
+[id^="modal-editar-sucursal-"]:target,
+[id^="modal-galeria-servicio-"]:target{
     opacity: 1;
     pointer-events: auto;
 }
@@ -2374,6 +2542,7 @@ input[name="pasos"] {
 
     #dashboard-admin{
         overflow-x: auto;
+
     }
     
 }
