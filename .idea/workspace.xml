@@ -5,10 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f886b2e4-37ce-4367-9158-a23ac65a3544" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/controller/DuenoController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/controller/ReservaController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/controller/ServiciosController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/js/servicios.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/controller/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/Mapper/Mappers.java" beforeDir="false" afterPath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/Mapper/Mappers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/dtos/ServicioDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/dtos/ServicioDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/java/com/example/ctrolpet/controller/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/java/com/example/ctrolpet/controller/HomeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/styles/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/styles/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/resources/templates/servicios.html" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/resources/templates/servicios.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +63,7 @@
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "git-widget-placeholder": "Zaira",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/jesus/OneDrive/Documentos/GitHub/CtrolPET/ClienteRest/src/main/java/com/example/ClienteRest",
+    "last_opened_file_path": "C:/Users/Zaira/Documents/GitHub/CtrolPET",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -70,6 +74,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Zaira\Documents\GitHub\CtrolPET\CtrolPET\src\main\resources\static\js" />
       <recent name="C:\Users\jesus\OneDrive\Documentos\GitHub\CtrolPET\ClienteRest\src\main\java\com\example\ClienteRest" />
     </key>
   </component>

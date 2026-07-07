@@ -110,6 +110,7 @@ public class Mappers {
         servicioDTO.setPrecio(entity.getPrecio());
         servicioDTO.setCategoria(Mappers.toDTO(entity.getCategoria()));
         servicioDTO.setDuracion(entity.getDuracion());
+        servicioDTO.setFotos(entity.getFotos());
         return servicioDTO;
     }
 

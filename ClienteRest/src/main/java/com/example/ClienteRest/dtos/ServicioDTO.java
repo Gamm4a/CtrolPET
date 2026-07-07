@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import com.example.ClienteRest.dtos.Enum.EspecialidadDTO;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -33,5 +35,7 @@ public class ServicioDTO {
     @Min(value = 5, message = "La duración mínima del servicio debe ser de 5 minutos")
     @Max(value = 480, message = "La duración no puede exceder los 480 minutos (8 horas)")
     private Integer duracion;
+
+    private List<String> fotos;
 
 }
