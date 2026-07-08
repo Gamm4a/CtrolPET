@@ -4,6 +4,7 @@ import com.example.ClienteRest.Mapper.Mappers;
 import com.example.ClienteRest.dtos.DuenoDTO;
 import com.example.ClienteRest.dtos.MascotaDTO;
 import com.example.ClienteRest.dtos.ReservaDTO;
+import com.example.ClienteRest.services.JwtService;
 import com.example.ctrolpet.exception.ResourceNotFoundException;
 import com.example.ctrolpet.exception.UnauthorizedActionException;
 import com.example.ctrolpet.model.Dueno;
@@ -12,6 +13,7 @@ import com.example.ctrolpet.model.Mascota;
 import com.example.ctrolpet.model.Reserva;
 import com.example.ctrolpet.service.DuenoService;
 import com.example.ctrolpet.service.ReservaService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.bson.types.ObjectId;
@@ -36,135 +38,90 @@ public class DuenoController {
     @Autowired
     private ReservaService reservaService;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<DuenoDTO> pantallasDueno(@PathVariable("id") ObjectId idDueno, HttpSession session) throws UnauthorizedActionException, ResourceNotFoundException {
+    @Autowired
+    private JwtService jwtService;
 
-        ObjectId idEnSesion = (ObjectId) session.getAttribute("idDueno");
-        if (idEnSesion == null) {
-            throw new UnauthorizedActionException("No hay una sesión inciada");
+
+    private Dueno validarAccesoDueno(ObjectId idDueno, HttpServletRequest request) {
+        String emailEnToken = (String) request.getAttribute("email");
+        Dueno dueno = duenoService.obtenerPorId(idDueno);
+
+        if (dueno == null) {
+            throw new ResourceNotFoundException("El dueño no existe");
         }
 
-        if (!idEnSesion.equals(idDueno)) {
+
+        if (!dueno.getCorreo().equals(emailEnToken)) {
             throw new UnauthorizedActionException("No tienes acceso a esta cuenta");
         }
 
+        return dueno;
+    }
 
-        Dueno dueno = duenoService.obtenerPorId(idDueno);
+    @GetMapping("/{id}")
+    public ResponseEntity<DuenoDTO> pantallasDueno(@PathVariable("id") ObjectId idDueno, HttpServletRequest request) {
+        Dueno dueno = validarAccesoDueno(idDueno, request);
         return ResponseEntity.status(HttpStatus.OK).body(Mappers.toDTO(dueno));
     }
 
     @PutMapping("/{id}/editar")
-    public ResponseEntity<DuenoDTO> editarDueno(@PathVariable("id") ObjectId idDueno, @Valid @RequestBody DuenoDTO duenoActualizado, HttpSession session) {
-        ObjectId idEnSesion = (ObjectId) session.getAttribute("idDueno");
-        if (idEnSesion == null) {
-            throw new UnauthorizedActionException("No hay una sesión inciada");
-        }
+    public ResponseEntity<DuenoDTO> editarDueno(@PathVariable("id") ObjectId idDueno, @Valid @RequestBody DuenoDTO duenoActualizado, HttpServletRequest request) {
+        validarAccesoDueno(idDueno, request);
 
-        if (!idEnSesion.equals(idDueno)) {
-            throw new UnauthorizedActionException("No tienes acceso a esta cuenta");
-        }
-
-        Dueno dueno = duenoService.obtenerPorId(idDueno);
-        dueno = duenoService.actualizarDueno(idDueno ,Mappers.toEntity(duenoActualizado));
-
+        Dueno dueno = duenoService.actualizarDueno(idDueno, Mappers.toEntity(duenoActualizado));
         return ResponseEntity.status(HttpStatus.OK).body(Mappers.toDTO(dueno));
     }
 
     @GetMapping("/{id}/mascotas")
-    public ResponseEntity<List<MascotaDTO>> obtenerMacotasDueno(@PathVariable("id")ObjectId idDueno, HttpSession session){
-
-        ObjectId idEnSesion = (ObjectId) session.getAttribute("idDueno");
-
-        if (idEnSesion == null) {
-            throw new UnauthorizedActionException("No hay una sesión inciada");
-        }
-
-        if (!idEnSesion.equals(idDueno)) {
-            throw new UnauthorizedActionException("No tienes acceso a esta cuenta");
-        }
-
-        Dueno dueno = duenoService.obtenerPorId(idDueno);
-
+    public ResponseEntity<List<MascotaDTO>> obtenerMacotasDueno(@PathVariable("id") ObjectId idDueno, HttpServletRequest request) {
+        Dueno dueno = validarAccesoDueno(idDueno, request);
 
         List<Mascota> mascotas = dueno.getMascotas();
         List<MascotaDTO> mascotasDTO = new ArrayList<>();
-
-        for (Mascota mascota: mascotas){
-            mascotasDTO.add(Mappers.toDTO(mascota));
+        if (mascotas != null) {
+            for (Mascota mascota : mascotas) {
+                mascotasDTO.add(Mappers.toDTO(mascota));
+            }
         }
-
         return ResponseEntity.status(HttpStatus.OK).body(mascotasDTO);
-
     }
 
     @PostMapping("/{id}/mascotas/agregar")
-    public ResponseEntity<MascotaDTO> crearMacotasDueno(@PathVariable("id")ObjectId idDueno, @Valid @RequestPart("mascota") MascotaDTO mascotaDTO , HttpSession session, @RequestPart("file") MultipartFile file){
-
-        ObjectId idEnSesion = (ObjectId) session.getAttribute("idDueno");
-
-        if (idEnSesion == null) {
-            throw new UnauthorizedActionException("No hay una sesión inciada");
-        }
-
-        if (!idEnSesion.equals(idDueno)) {
-            throw new UnauthorizedActionException("No tienes acceso a esta cuenta");
-        }
-
-        Dueno dueno = duenoService.obtenerPorId(idDueno);
-
-        if (dueno == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+    public ResponseEntity<MascotaDTO> crearMacotasDueno(@PathVariable("id") ObjectId idDueno, @Valid @RequestPart("mascota") MascotaDTO mascotaDTO, @RequestPart("file") MultipartFile file, HttpServletRequest request) {
+        validarAccesoDueno(idDueno, request);
 
         duenoService.guardarMascota(idDueno, Mappers.toEntity(mascotaDTO), file);
         Mascota mascotaRegistrada = duenoService.obtenerPorId(idDueno).getMascotas().getLast();
         return ResponseEntity.status(HttpStatus.OK).body(Mappers.toDTO(mascotaRegistrada));
-
     }
 
     @GetMapping("/{id}/citas")
-    public ResponseEntity<List<ReservaDTO>> obtenerCitasDueno(@PathVariable("id")ObjectId idDueno, HttpSession session){
-
-        ObjectId idEnSesion = (ObjectId) session.getAttribute("idDueno");
-
-        if (idEnSesion == null) {
-            throw new UnauthorizedActionException("No hay una sesión inciada");
-        }
-
-        if (!idEnSesion.equals(idDueno)) {
-            throw new UnauthorizedActionException("No tienes acceso a esta cuenta");
-        }
-
-        Dueno dueno = duenoService.obtenerPorId(idDueno);
-
-        if (dueno == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+    public ResponseEntity<List<ReservaDTO>> obtenerCitasDueno(@PathVariable("id") ObjectId idDueno, HttpServletRequest request) {
+        Dueno dueno = validarAccesoDueno(idDueno, request);
 
         List<Reserva> reservas = reservaService.obtenerPorDueno(dueno);
         List<ReservaDTO> reservasDTO = new ArrayList<>();
-
-        for (Reserva reserva: reservas){
-            reservasDTO.add(Mappers.toDTO(reserva));
+        if (reservas != null) {
+            for (Reserva reserva : reservas) {
+                reservasDTO.add(Mappers.toDTO(reserva));
+            }
         }
-
         return ResponseEntity.status(HttpStatus.OK).body(reservasDTO);
-
     }
 
     @PutMapping("/{id}/citas/cancelar")
-    public ResponseEntity<ReservaDTO> cancelarCita(@PathVariable("id") ObjectId idDueno, @RequestBody Map<String, String> body, HttpSession session) {
+    public ResponseEntity<ReservaDTO> cancelarCita(@PathVariable("id") ObjectId idDueno, @RequestBody Map<String, String> body, HttpServletRequest request) {
+        validarAccesoDueno(idDueno, request);
 
         String idReservaStr = body.get("idReserva");
         if (idReservaStr == null || idReservaStr.length() != 24) {
             throw new IllegalArgumentException("El ID de la reserva no es válido.");
         }
 
-        Dueno dueno = duenoService.obtenerPorId(idDueno);
         Reserva reserva = reservaService.obtenerPorId(new ObjectId(idReservaStr));
 
-        if (!dueno.getIdDueno().equals(reserva.getDueno())){
-            throw new UnauthorizedActionException("No tienes acceso a esta cuenta");
+        if (!idDueno.equals(reserva.getDueno())) {
+            throw new UnauthorizedActionException("Esta reserva no pertenece a este usuario");
         }
 
         Reserva cancelar = new Reserva();
@@ -172,28 +129,26 @@ public class DuenoController {
 
         reserva = reservaService.actualizarParcial(new ObjectId(idReservaStr), cancelar);
         return ResponseEntity.status(HttpStatus.OK).body(Mappers.toDTO(reserva));
-
     }
 
-    @GetMapping("/{id}/logout")
-    public ResponseEntity<?> cerrarSesion(@PathVariable("id")ObjectId idDueno, HttpSession session){
+    @GetMapping("/logout")
+    public ResponseEntity<?> cerrarSesion(@RequestHeader("Authorization") String tokenHeader){
 
-        ObjectId idEnSesion = (ObjectId) session.getAttribute("idDueno");
-
-        if (idEnSesion == null) {
-            throw new UnauthorizedActionException("No hay una sesión inciada");
+        if (tokenHeader == null || !tokenHeader.startsWith("Bearer ")) {
+            Map<String, String> error = new HashMap<>();
+            error.put("error", "No se proporcionó un token válido");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }
 
-        if (!idEnSesion.equals(idDueno)) {
-            throw new UnauthorizedActionException("No tienes acceso a esta cuenta");
-        }
+        // Extraemos el token puro (quitando "Bearer ")
+        String token = tokenHeader.substring(7);
 
-        session.invalidate();
+        // Lo mandamos a la lista negra de tu JwtService
+        jwtService.invalidateToken(token);
 
         Map<String, String> exito = new HashMap<>();
-        exito.put("exito", "Sesión cerrada");
+        exito.put("exito", "Sesión cerrada correctamente. Token invalidado.");
 
         return ResponseEntity.status(HttpStatus.OK).body(exito);
-
     }
 }
