@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * ============================================================
@@ -55,6 +57,8 @@ public class JwtService {
      */
     @Value("${jwt.expiration}")
     private long expiration;
+
+    private final Set<String> blacklistedTokens = ConcurrentHashMap.newKeySet();
 
     // ================================================================
     //  MÉTODO PRIVADO: construir la clave de firma
@@ -156,6 +160,11 @@ public class JwtService {
      */
     public boolean isTokenValid(String token) {
         try {
+
+            if (blacklistedTokens.contains(token)) {
+                return false;
+            }
+
             Jwts.parser()
                     .verifyWith(getSigningKey())
                     .build()
@@ -166,4 +175,12 @@ public class JwtService {
             return false;
         }
     }
+
+
+    public void invalidateToken(String token) {
+        // Guardamos el token en la lista negra
+        blacklistedTokens.add(token);
+
+    }
+
 }

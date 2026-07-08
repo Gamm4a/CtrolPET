@@ -76,18 +76,17 @@ public class JwtFilter extends OncePerRequestFilter {
         if (method.equalsIgnoreCase("OPTIONS")) return true;
 
         // El login siempre es público (es donde se obtiene el token)
-        if (path.equals("/api/auth/login") && method.equals("POST")) return true;
+        if (path.equals("/api/login") && method.equals("POST")) return true;
 
         // El registro de usuarios es público (no necesitas estar logueado para registrarte)
-        if (path.equals("/api/users") && method.equals("POST")) return true;
+        if (path.equals("/api/registro") && method.equals("POST")) return true;
 
-        // Ver todos los posts o un post específico es público
-        if (path.equals("/api/posts") && method.equals("GET")) return true;
-        if (path.startsWith("/api/posts/") && method.equals("GET")
-                && !path.equals("/api/posts/mine")) return true;
+        // Ver todos los servicios es público
+        if (path.equals("/api/servicios") && method.equals("GET")) return true;
 
-        // Ver comentarios de un post es público
-        if (path.startsWith("/api/comments/post/") && method.equals("GET")) return true;
+
+        // hacer una reserva sin login es publico
+        if (path.startsWith("/api/reservas") && method.equals("POST")) return true;
 
         // Todo lo demás requiere autenticación
         return false;
@@ -151,11 +150,11 @@ public class JwtFilter extends OncePerRequestFilter {
         //
         // Guardamos el username (subject del token) como atributo del request.
         // Esto permite que cualquier Controller recupere el username del token
-        // con: request.getAttribute("username")
+        // con: request.getAttribute("email")
         // → Se usa en GET /api/posts/mine para filtrar por el usuario autenticado.
         //
         String username = jwtService.extractEmail(token);
-        request.setAttribute("username", username);
+        request.setAttribute("email", username);
 
         // Continuamos la cadena: el request pasa al Controller
         chain.doFilter(request, response);

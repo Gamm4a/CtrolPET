@@ -12,7 +12,7 @@ import com.example.ctrolpet.model.Enum.EstadoReserva;
 import com.example.ctrolpet.model.Enum.Puesto;
 import org.bson.types.ObjectId;
 
-public class Mapper {
+public class Mappers {
 
 
     public static DireccionDTO ToDTO(Direccion entity){
@@ -80,11 +80,11 @@ public class Mapper {
         empleadoDTO.setApellidoPaterno(entity.getApellidoPaterno());
         empleadoDTO.setApellidoMaterno(entity.getApellidoMaterno());
         empleadoDTO.setSucursal(entity.getSucursal().toString());
-        empleadoDTO.setEspecialidad(Mapper.toDTO(entity.getEspecialidad()));
+        empleadoDTO.setEspecialidad(Mappers.toDTO(entity.getEspecialidad()));
         empleadoDTO.setCorreo(entity.getCorreo());
         empleadoDTO.setTelefono(entity.getTelefono());
-        empleadoDTO.setPuesto(Mapper.toDTO(entity.getPuesto()));
-        empleadoDTO.setHorarios(Mapper.toDTO(entity.getHorarios()));
+        empleadoDTO.setPuesto(Mappers.toDTO(entity.getPuesto()));
+        empleadoDTO.setHorarios(Mappers.toDTO(entity.getHorarios()));
         return empleadoDTO;
     }
 
@@ -92,7 +92,7 @@ public class Mapper {
     SucursalDTO sucursalDTO = new SucursalDTO();
     sucursalDTO.setIdSucursal(entity.getIdSucursal().toString());
     sucursalDTO.setNombre(entity.getNombre());
-    sucursalDTO.setDireccion(Mapper.ToDTO(entity.getDireccion()));
+    sucursalDTO.setDireccion(Mappers.ToDTO(entity.getDireccion()));
     sucursalDTO.setTelefono(entity.getTelefono());
     for (ObjectId empleado : entity.getEmpleados()) {
         sucursalDTO.getEmpleados().add(empleado.toString());
@@ -108,7 +108,7 @@ public class Mapper {
     servicioDTO.setTipo(entity.getTipo());
     servicioDTO.setDescripcion(entity.getDescripcion());
     servicioDTO.setPrecio(entity.getPrecio());
-    servicioDTO.setCategoria(Mapper.toDTO(entity.getCategoria()));
+    servicioDTO.setCategoria(Mappers.toDTO(entity.getCategoria()));
     servicioDTO.setDuracion(entity.getDuracion());
     return servicioDTO;
     }
@@ -118,7 +118,7 @@ public class Mapper {
     reservaDTO.setIdReserva(entity.getIdReserva().toString());
     reservaDTO.setIdEmpleado(entity.getIdEmpleado().toString());
     reservaDTO.setFecha(entity.getFecha());
-    reservaDTO.setEstado(Mapper.toDTO(entity.getEstado()));
+    reservaDTO.setEstado(Mappers.toDTO(entity.getEstado()));
     reservaDTO.setIdSucursal(entity.getIdSucursal().toString());
     if (entity.getDueno() != null) {
         reservaDTO.setDueno(entity.getDueno().toString());
@@ -126,7 +126,7 @@ public class Mapper {
     if (entity.getMascota() != null) {
         reservaDTO.setMascota(entity.getMascota().toString());
     }
-    reservaDTO.setServicios(Mapper.toDTO(entity.getServicios()));
+    reservaDTO.setServicios(Mappers.toDTO(entity.getServicios()));
     return reservaDTO;
     }
 
