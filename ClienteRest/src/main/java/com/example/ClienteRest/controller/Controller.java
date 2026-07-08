@@ -1,6 +1,7 @@
 package com.example.ClienteRest.controller;
 import com.example.ClienteRest.Mapper.Mappers;
 import com.example.ClienteRest.dtos.*;
+import com.example.ClienteRest.services.JwtService;
 import com.example.ctrolpet.exception.ResourceNotFoundException;
 import com.example.ctrolpet.exception.UnauthorizedActionException;
 import com.example.ctrolpet.model.Dueno;
@@ -37,6 +38,9 @@ public class Controller {
     @Autowired
     private ReservaService reservaService;
 
+    @Autowired
+    private JwtService jwtService;
+
 
     @PostMapping("/registro")
     public ResponseEntity<DuenoDTO> registrarDueno(@Valid @RequestBody RegistroDTO registroDTO) {
@@ -56,10 +60,13 @@ public class Controller {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> iniciarSesionDueno(@Valid @RequestBody LoginRequestDTO loginRequestDTO, HttpSession session) {
+    public ResponseEntity<?> iniciarSesionDueno(@Valid @RequestBody LoginRequestDTO loginRequestDTO) {
         Dueno duenoRegistrado = duenoService.autenticar(loginRequestDTO.getCorreo(), loginRequestDTO.getContrasenia());
-        session.setAttribute("idDueno", duenoRegistrado.getIdDueno());
-        return ResponseEntity.status(HttpStatus.OK).body(Mappers.toDTO(duenoRegistrado));
+
+        String token = jwtService.generateToken(duenoRegistrado.getCorreo());
+
+
+        return ResponseEntity.ok(new LoginResponse(token));
     }
 
 

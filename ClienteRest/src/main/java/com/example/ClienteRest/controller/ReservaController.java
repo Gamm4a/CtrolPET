@@ -2,9 +2,14 @@ package com.example.ClienteRest.controller;
 
 import com.example.ClienteRest.Mapper.Mappers;
 import com.example.ClienteRest.dtos.ReservaDTO;
+import com.example.ClienteRest.services.JwtService;
+import com.example.ctrolpet.exception.ResourceNotFoundException;
 import com.example.ctrolpet.exception.UnauthorizedActionException;
+import com.example.ctrolpet.model.Dueno;
 import com.example.ctrolpet.model.Reserva;
+import com.example.ctrolpet.service.DuenoService;
 import com.example.ctrolpet.service.ReservaService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.bson.types.ObjectId;
@@ -20,6 +25,12 @@ public class ReservaController {
     @Autowired
     private ReservaService reservaService;
 
+    @Autowired
+    private JwtService jwtService;
+
+    @Autowired
+    private DuenoService duenoService;
+
     @PostMapping
     public ResponseEntity<ReservaDTO> crearReservaSinLogin(@Valid @RequestBody ReservaDTO reservaDTO) {
         Reserva guardada = reservaService.guardar(Mappers.toEntity(reservaDTO));
@@ -27,15 +38,16 @@ public class ReservaController {
     }
 
     @PostMapping("/dueno/{id}")
-    public ResponseEntity<ReservaDTO> crearReservaConLogin(@PathVariable("id") ObjectId idDueno, @Valid @RequestBody ReservaDTO reservaDTO, HttpSession session) {
+    public ResponseEntity<ReservaDTO> crearReservaConLogin(@PathVariable("id") ObjectId idDueno, @Valid @RequestBody ReservaDTO reservaDTO, HttpServletRequest request) {
 
-        ObjectId idEnSesion = (ObjectId) session.getAttribute("idDueno");
+        String emailEnToken = (String) request.getAttribute("email");
+        Dueno dueno = duenoService.obtenerPorId(idDueno);
 
-        if (idEnSesion == null) {
-            throw new UnauthorizedActionException("No hay una sesión inciada");
+        if (dueno == null) {
+            throw new ResourceNotFoundException("El dueño no existe");
         }
 
-        if (!idEnSesion.equals(idDueno)) {
+        if (!dueno.getCorreo().equals(emailEnToken)) {
             throw new UnauthorizedActionException("No tienes acceso a esta cuenta");
         }
 
