@@ -118,6 +118,7 @@
                 <button type="submit" class="btn-agendar"
                         th:text="${mapaHorarios == null} ? 'Ver horas disponibles' : 'Agendar mi cita'">
                 </button>
+                 <p id="mensaje-reserva-logueado" ></p>
             </form>
         </section>
 
@@ -212,6 +213,8 @@
                     </div>
 
                     <button type="submit" class="btn-agendar">Ver horas disponibles</button>
+                    <p id="mensaje-reserva" ></p>
+                   
             </form>
 
         </section>
@@ -219,5 +222,6 @@
     <footer>
         <p>&copy; Copyright Ctrl+PET 2026</p>
     </footer>
+    <script src="/js/reserva.js"></script>
 </body>
 </html>

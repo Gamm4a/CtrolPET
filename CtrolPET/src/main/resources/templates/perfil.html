@@ -32,7 +32,7 @@
       <a href="../templates/perfil.html">Perfil</a>
     </nav>
     <div class="botones-header">
-      <a class="btn-cerrar-sesion">Cerrar Sesión</a>
+      <a class="btn-cerrar-sesion" id="btn-cerrar-sesion">Cerrar Sesión</a>
     </div>
   </header>
 
@@ -59,7 +59,7 @@
         <p>Mis Citas</p>
       </label>
 
-      <div class="menu-item" data-target="cerrar">
+      <div class="menu-item" data-target="cerrar" id="btn-cerrar-sesion-2">
         <img src="imgs/iconos/icono-perfil-cerrar-sesion.png" alt="icono-cerrar-sesión"/>
         <p>Cerrar Sesión</p>
       </div>
@@ -71,13 +71,13 @@
         <h2>MI PERFIL</h2>
         <div id="contenido-perfil">
           <div class="datos-usuario">
-            <div><label>Nombre completo:</label><input type="text" placeholder="nombre ejemplo" disabled></div>
-            <div><label>Correo electrónico:</label><input type="email" placeholder="correo ejemplo" disabled></div>
-            <div><label>Teléfono:</label><input type="text" placeholder="numero ejemplo" disabled></div>
+            <div><label>Nombre completo:</label><input type="text" id="nombre-perfil" placeholder="nombre ejemplo"  disabled></div>
+            <div><label>Correo electrónico:</label><input type="email" id="correo-perfil" placeholder="correo ejemplo" disabled></div>
+            <div><label>Teléfono:</label><input type="text" id="telefono-perfil" placeholder="numero ejemplo" disabled></div>
           </div>
           <div class="der-main-panel">
             <img id="imagen-usuario" src="imgs/iconos/icono-perfil-usuario.png" alt="imagen del usuario">
-            <a class="btn-editar-perfil">Editar Perfil</a>
+            <a class="btn-editar-perfil" id="btn-editar-perfil">Editar Perfil</a>
           </div>
         </div>
       </div>
@@ -95,10 +95,8 @@
           </div>
 
           <div class="botones-mascotas">
-
-            <a class="btn-agregar-mascota">Agregar Mascota</a>
-            <a class="btn-Agendar-cita">Agendar Cita</a>
-
+            <a class="btn-agregar-mascota" id="btn-agregar-mascota">Agregar Mascota</a>
+            <a class="btn-Agendar-cita" id="btn-agendar-cita-mascota">Agendar Cita</a>
           </div>
 
         </div>
@@ -107,20 +105,20 @@
 
           <div class="info-izquierda">
             <div class="header-mascota">
-              <div class="foto"></div>
+              <div class="foto" id="foto-mascota"></div>
               <div class="nombre-raza">
-                <h3>nombre mascota ejemplo</h3>
-                <p>raza ejemplo&bull; n años</p>
+                <h3 id="nombre-mascota-dashboard">nombre mascota ejemplo</h3>
+                <p><span id="raza-mascota-dashboard">raza ejemplo</span>&bull; <span id="edad-mascota-dashboard">n años</span></p>
               </div>
             </div>
 
             <div class="apariencia">
               <h4>Apariencia:</h4>
-              <p><strong>Género:</strong> ...</p>
-              <p><strong>Color:</strong> ...</p>
-              <p><strong>Peso:</strong> ...</p>
-              <p><strong>Distintivos:</strong> ...</p>
-              <p><strong>Esterilización:</strong> ...</p>
+              <p><strong>Género:</strong> <span id="genero-mascota">...</span></p>
+              <p><strong>Color:</strong> <span id="color-mascota">...</span></p>
+              <p><strong>Peso:</strong> <span id="peso-mascota">...</span></p>
+              <p><strong>Distintivos:</strong> <span id="distintivos-mascota">...</span></p>
+              <p><strong>Esterilización:</strong> <span id="esterilizacion-mascota">...</span></p>
             </div>
           </div>
 
@@ -130,7 +128,7 @@
               <div class="tarjeta-header">
                 <h4>Resumen</h4>
               </div>
-              <div class="tarjeta-body">
+              <div class="tarjeta-body" id="resumen-mascota-body">
                 <div class="barra-estado vacuna">
                   <span>Vacunas ejemplo</span>
                   <span class="estado azul">Al corriente</span>
@@ -145,9 +143,9 @@
             <div class="tarjeta-info">
               <div class="tarjeta-header">
                 <h4>Citas</h4>
-                <a href="#" class="ver-todo">Ver todo</a>
+                <a href="#" class="ver-todo" id="ver-todo-citas-mascota">Ver todo</a>
               </div>
-              <div class="tarjeta-body">
+              <div class="tarjeta-body" id="citas-mascota-body">
                 <div class="item-lista">
                   <div class="item-row">
                     <strong>cita ejemplo</strong>
@@ -161,9 +159,9 @@
             <div class="tarjeta-info">
               <div class="tarjeta-header">
                 <h4>Medicamentos</h4>
-                <a href="#" class="ver-todo">Ver todo</a>
+                <a href="#" class="ver-todo" id="ver-todo-medicamentos">Ver todo</a>
               </div>
-              <div class="tarjeta-body">
+              <div class="tarjeta-body" id="medicamentos-mascota-body">
                 <div class="item-lista">
                   <strong>Vacuna: ejemplo</strong>
                   <span class="item-fecha">Jue, 12 de febrero, 2026 11:30 AM(fecha ejemplo)</span>
@@ -174,10 +172,9 @@
             <div class="tarjeta-info">
               <div class="tarjeta-header">
                 <h4>Documentos</h4>
-                <a href="#" class="ver-todo">Ver todo</a>
+                <a href="#" class="ver-todo" id="ver-todo-documentos">Ver todo</a>
               </div>
-              <div class="tarjeta-body">
-                <div class="item-lista doc-row">
+              <div class="tarjeta-body" id="documentos-mascota-body">
                   <div class="doc-info">
                     <span class="icono-pdf">📄</span>
                     <div class="doc-texto">
@@ -207,21 +204,21 @@
               <h4>Selecciona un rango de fechas</h4>
               <h3>Buscar por fecha 🗓️</h3>
               <div class="selectores-fecha">
-                <input type="date" class="selector-fecha">
-                <input type="date" class="selector-fecha">
+                <input type="date" class="selector-fecha" id="filtro-fecha-desde">
+                <input type="date" class="selector-fecha" id="filtro-fecha-hasta">
               </div>
               <div class="botones-filtro">
-                <input type="button" value="Cancelar">
-                <input type="button" value="Aceptar">
+                <input type="button" value="Cancelar" id="btn-cancelar-filtro-citas">
+                <input type="button" value="Aceptar" id="btn-aceptar-filtro-citas">
               </div>
             </div>
             <div class="boton-citas">
-              <a class="btn-agenda">Agendar cita</a>
+              <a class="btn-agenda" id="btn-agenda-citas">Agendar cita</a>
             </div>
           </div>
           <div class="area-tabla">
 
-            <table class="tabla-citas">
+            <table class="tabla-citas" id="tabla-citas">
               <thead>
               <tr>
                 <th>Mascota</th>
@@ -233,7 +230,8 @@
                 <th>Estado</th>
               </tr>
               </thead>
-              <tbody>
+              <tbody id="tabla-citas-body">
+              
               <tr>
                 <td>Suzy</td>
                 <td>22/06/2026</td>
@@ -260,10 +258,8 @@
       </div>
 
     </div>
+    <script src="/js/perfil.js"></script>
   </main>
-
-
-
   <footer>
     <p>&copy; Copyright Ctrl+PET 2026</p>
   </footer>
