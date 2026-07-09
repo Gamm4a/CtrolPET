@@ -131,10 +131,12 @@ public class DuenoController {
         return ResponseEntity.status(HttpStatus.OK).body(Mappers.toDTO(reserva));
     }
 
-    @GetMapping("/{id}/logout")
-    public ResponseEntity<?> cerrarSesion(@PathVariable("id")ObjectId idDueno, HttpSession session){
+    @GetMapping("/logout")
+    public ResponseEntity<?> cerrarSesion(@RequestHeader("Authorization") String tokenHeader){
 
-        ObjectId idEnSesion = (ObjectId) session.getAttribute("idDueno");
+        if (tokenHeader == null || !tokenHeader.startsWith("Bearer ")) {
+            Map<String, String> error = new HashMap<>();
+            error.put("error", "No se proporcionó un token válido");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }
 

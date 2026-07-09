@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/styles/styles.css">
 
 </head>
-<body>
+<body id="index-html">
 
     <header>
         <div class="logo">
@@ -29,13 +29,13 @@
             <a th:href="@{/servicios}">Servicios</a>
             <a th:href="@{/contacto}">Contacto</a>
         </nav>
-        <div class="botones-header">
+        <div class="botones-header" id="contenedor-botones-auth">
             <a th:href="@{/login}" class="btn-login">Iniciar Sesión</a>
             <a th:href="@{/registro}" class="btn-register">Registrarse</a>
         </div>
     </header>
 
-    <main>
+    <main id="contenido-publico">
         <section class="banner">
             <div class="imagen-banner">
             <div class="contenido-banner">
@@ -97,12 +97,6 @@
                     <label for="servicio">Servicio</label>
                     <select id="servicio" required>
                         <option value="">Selecciona un servicio...</option>
-                        <option value="consulta">Consulta</option>
-                        <option value="estetica">Estética & Spa</option>
-                        <option value="dental">Cuidado Dental</option>
-                        <option value="diagnostico">Diagnóstico</option>
-                        <option value="cirugia">Cirugía</option>
-                        <option value="hospitalizacion">Hospitalización</option>
                     </select>
                 </div>
                 <div class="campo-formulario">
@@ -187,9 +181,20 @@
     </section>
     </main>
 
+    <main id="contenido-dashboard">
+        <section class="dashboard-dueno">
+            <h2>¡Bienvenido de vuelta!</h2>
+            <h3>Tus Mascotas Registradas</h3>
+
+            <div class="grid-mascotas" id="contenedor-mascotas"></div>
+
+            <button class="btn-reserva">Agendar nueva cita</button>
+        </section>
+    </main>
+
     <footer>
         <p>&copy; Copyright Ctrl+PET 2026</p>
     </footer>
-
+    <script src="/js/app.js" type="module"></script>
 </body>
 </html>

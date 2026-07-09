@@ -527,58 +527,17 @@ footer {
 
 
 .grid-servicios {
-    display: grid; 
-    grid-auto-columns: 1fr; 
-    grid-template-columns: 1.5fr 0.9fr 0.9fr 0.9fr; 
-    grid-template-rows: auto auto; 
-    row-gap: 10px; 
-    column-gap: 20px;
-    padding: var(--espacio);
-    margin-bottom: var(--espacio);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--espacio) 20px;
+    align-content: center;
 }
 
-#nuestros-servicios {
-    grid-area: 1 / 1 / 3 / 2;
-}
-#imagen-servicios {
-    grid-area: 2 / 1 / 5 / 2;;
-}
-#icono-servicio-1{
-     grid-area: 1 / 2 / 2 / 3;
-}
-#icono-servicio-2{
-     grid-area: 1 / 3 / 2 / 4;
-}
-#icono-servicio-3{
-     grid-area: 1 / 4 / 2 / 5;
-}
-#icono-servicio-4{
-     grid-area: 3 / 2 / 4 / 3;
-}
-#icono-servicio-5{
-     grid-area: 3 / 3 / 4 / 4;
-}
-#icono-servicio-6{
-     grid-area: 3 / 4 / 4 / 5;
-}
-
-#texto-servicio-1{
-     grid-area: 2 / 2 / 3 / 3;
-}
-#texto-servicio-2{
-     grid-area: 2 / 3 / 3 / 4;
-}
-#texto-servicio-3{
-     grid-area: 2 / 4 / 3 / 5;
-}
-#texto-servicio-4{
-     grid-area: 4 / 2 / 5 / 3;
-}
-#texto-servicio-5{
-     grid-area: 4 / 3 / 5 / 4;
-}
-#texto-servicio-6{
-     grid-area: 4 / 4 / 5 / 5;
+#contenedor-servicios {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px 20px;
+    align-content: center;
 }
 
 .btn-agenda, .btn-editar-perfil {
@@ -595,43 +554,30 @@ footer {
 }
 
 #nuestros-servicios {
-    display:flex;
+    display: flex;
     flex-direction: column;
-    padding-right: var(--espacio);
-    text-align: center;
-    gap: var(--espacio);
-    padding: var(--espacio);
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: var(--espacio) auto;
+}
+
+#nuestros-servicios a{
+    margin: var(--espacio);
 }
 
 #imagen-servicios {
     padding-right: var(--espacio);
     padding-top: 50px;
+    margin: 0 auto;
 }
 
-#imagen-servicios img{
+#imagen-servicios img {
     width: 100%;
+    max-width: 320px;
+    height: auto;
+    object-fit: cover;
 }
 
-#texto-servicio-1 h3, #texto-servicio-2 h3, #texto-servicio-3 h3,
-#texto-servicio-4 h3, #texto-servicio-5 h3, #texto-servicio-6 h3 {
-    text-align: center;
-    color: var(--texto);
-    padding-bottom: var(--espacio-cercano);
-}
-
-
-#texto-servicio-1 p, #texto-servicio-2 p, #texto-servicio-3 p,
-#texto-servicio-4 p, #texto-servicio-5 p, #texto-servicio-6 p {
-    text-align: center;
-    color: var(--texto);
-}
-
-
-#icono-servicio-1, #icono-servicio-2, #icono-servicio-3,
-#icono-servicio-4, #icono-servicio-5, #icono-servicio-6 {
-    justify-self: center;
-    align-self: center;
-}
 
 
 /*AQUI EMPIEZA EL REGISTRO*/
@@ -2350,6 +2296,70 @@ input[name="pasos"] {
     justify-content: flex-start;
 }
 
+/*SERVICIOS PARA USUARIO*/
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+}
+
+.contenedor-imagenes-modal {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 80%;
+    margin-top: 20px;
+}
+
+.contenedor-imagenes-modal img {
+    max-width: 250px;
+    border-radius: 8px;
+    object-fit: cover;
+    box-shadow: var(--sombra);
+}
+
+.cerrar-modal {
+    position: absolute;
+    top: 20px; right: 30px;
+    font-size: 40px;
+    cursor: pointer;
+}
+
+.icono-servicio {
+    width: 80px;
+    height: 80px;
+    border-radius: var(--espacio-cercano);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: antiquewhite;
+}
+
+.icono-servicio img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+#imagenes-modal-lista img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
 
 /*esta es la logica de cambio de pestañas en admin*/
 

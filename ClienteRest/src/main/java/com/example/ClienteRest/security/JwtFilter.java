@@ -72,6 +72,22 @@ public class JwtFilter extends OncePerRequestFilter {
         String method = request.getMethod();    // GET, POST, PUT, DELETE...
         String path   = request.getRequestURI(); // /api/auth/login, /api/posts, etc.
 
+        if (method.equals("GET")) {
+            if (path.equals("/") ||
+                    path.startsWith("/index") ||
+                    path.startsWith("/login") ||
+                    path.startsWith("/registro") ||
+                    path.startsWith("/servicios") ||
+                    path.startsWith("/contacto") ||
+                    path.startsWith("/styles/") ||
+                    path.startsWith("/js/") ||
+                    path.startsWith("/imgs/")) {
+                return true;
+            }
+        }
+
+        if (path.startsWith("/api/servicios") && method.equals("GET")) return true;
+
         // Las solicitudes preflight de CORS usan el método OPTIONS y no deben requerir token
         if (method.equalsIgnoreCase("OPTIONS")) return true;
 
@@ -80,10 +96,6 @@ public class JwtFilter extends OncePerRequestFilter {
 
         // El registro de usuarios es público (no necesitas estar logueado para registrarte)
         if (path.equals("/api/registro") && method.equals("POST")) return true;
-
-        // Ver todos los servicios es público
-        if (path.equals("/api/servicios") && method.equals("GET")) return true;
-
 
         // hacer una reserva sin login es publico
         if (path.startsWith("/api/reservas") && method.equals("POST")) return true;
