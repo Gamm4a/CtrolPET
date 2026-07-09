@@ -86,7 +86,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
 
         // hacer una reserva sin login es publico
-        if (path.startsWith("/api/reservas") && method.equals("POST")) return true;
+        if (path.equals("/api/reservas") && method.equals("POST")) return true;
 
         // Todo lo demás requiere autenticación
         return false;
@@ -153,8 +153,8 @@ public class JwtFilter extends OncePerRequestFilter {
         // con: request.getAttribute("email")
         // → Se usa en GET /api/posts/mine para filtrar por el usuario autenticado.
         //
-        String username = jwtService.extractEmail(token);
-        request.setAttribute("email", username);
+        String email = jwtService.extractEmail(token);
+        request.setAttribute("email", email);
 
         // Continuamos la cadena: el request pasa al Controller
         chain.doFilter(request, response);

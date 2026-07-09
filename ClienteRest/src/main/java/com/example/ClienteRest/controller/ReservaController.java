@@ -26,10 +26,23 @@ public class ReservaController {
     private ReservaService reservaService;
 
     @Autowired
-    private JwtService jwtService;
-
-    @Autowired
     private DuenoService duenoService;
+
+    private Dueno validarAccesoDueno(ObjectId idDueno, HttpServletRequest request) {
+        String emailEnToken = (String) request.getAttribute("email");
+        Dueno dueno = duenoService.obtenerPorId(idDueno);
+
+        if (dueno == null) {
+            throw new ResourceNotFoundException("El dueño no existe");
+        }
+
+
+        if (!dueno.getCorreo().equals(emailEnToken)) {
+            throw new UnauthorizedActionException("No tienes acceso a esta cuenta");
+        }
+
+        return dueno;
+    }
 
     @PostMapping
     public ResponseEntity<ReservaDTO> crearReservaSinLogin(@Valid @RequestBody ReservaDTO reservaDTO) {
@@ -40,16 +53,7 @@ public class ReservaController {
     @PostMapping("/dueno/{id}")
     public ResponseEntity<ReservaDTO> crearReservaConLogin(@PathVariable("id") ObjectId idDueno, @Valid @RequestBody ReservaDTO reservaDTO, HttpServletRequest request) {
 
-        String emailEnToken = (String) request.getAttribute("email");
-        Dueno dueno = duenoService.obtenerPorId(idDueno);
-
-        if (dueno == null) {
-            throw new ResourceNotFoundException("El dueño no existe");
-        }
-
-        if (!dueno.getCorreo().equals(emailEnToken)) {
-            throw new UnauthorizedActionException("No tienes acceso a esta cuenta");
-        }
+        validarAccesoDueno(idDueno, request);
 
         Reserva guardada = reservaService.guardar(Mappers.toEntity(reservaDTO));
         return ResponseEntity.status(HttpStatus.CREATED).body(Mappers.toDTO(guardada));

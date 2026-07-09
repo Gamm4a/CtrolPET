@@ -12,6 +12,8 @@ import com.example.ctrolpet.model.Enum.EstadoReserva;
 import com.example.ctrolpet.model.Enum.Puesto;
 import org.bson.types.ObjectId;
 
+import java.util.ArrayList;
+
 public class Mappers {
 
 
@@ -20,6 +22,7 @@ public class Mappers {
         direccionDTO.setCalle(entity.getCalle());
         direccionDTO.setNumeroCasa(entity.getNumeroCasa());
         direccionDTO.setColonia(entity.getColonia());
+        direccionDTO.setEstado(entity.getEstado());
         direccionDTO.setCiudad(entity.getCiudad());
         direccionDTO.setCodigoPostal(entity.getCodigoPostal());
 
@@ -55,9 +58,19 @@ public class Mappers {
         duenoDTO.setApellidoPaterno(entity.getApellidoPaterno());
         duenoDTO.setApellidoMaterno(entity.getApellidoMaterno());
         duenoDTO.setCorreo(entity.getCorreo());
+        duenoDTO.setContrasenia(entity.getContrasenia());
         duenoDTO.setFechaNacimiento(entity.getFechaNacimiento());
         duenoDTO.setTelefono(entity.getTelefono());
         duenoDTO.setDireccion(ToDTO(entity.getDireccion()));
+
+        duenoDTO.setMascotas(new ArrayList<>());
+
+        for (Mascota mascota:entity.getMascotas()){
+
+            duenoDTO.getMascotas().add(toDTO(mascota));
+
+        }
+
         return duenoDTO;
     }
 
@@ -171,6 +184,7 @@ public class Mappers {
 
     public static Direccion toEntity(DireccionDTO dto){
         Direccion direccion = new Direccion();
+        direccion.setEstado(dto.getEstado());
         direccion.setCalle(dto.getCalle());
         direccion.setNumeroCasa(dto.getNumeroCasa());
         direccion.setColonia(dto.getColonia());
@@ -207,9 +221,20 @@ public class Mappers {
         dueno.setApellidoPaterno(dto.getApellidoPaterno());
         dueno.setApellidoMaterno(dto.getApellidoMaterno());
         dueno.setCorreo(dto.getCorreo());
+        dueno.setContrasenia(dto.getContrasenia());
         dueno.setFechaNacimiento(dto.getFechaNacimiento());
         dueno.setTelefono(dto.getTelefono());
         dueno.setDireccion(toEntity(dto.getDireccion()));
+
+        if (dto.getMascotas() != null) {
+
+            dueno.setMascotas(new ArrayList<>());
+            for (MascotaDTO mascota : dto.getMascotas()) {
+
+                dueno.getMascotas().add(toEntity(mascota));
+
+            }
+        }
         return dueno;
     }
 

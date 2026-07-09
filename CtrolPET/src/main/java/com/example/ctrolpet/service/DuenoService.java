@@ -47,7 +47,7 @@ public class DuenoService {
 
         Dueno dueno = dueñoOptional.get();
 
-        if(!contrasenia.matches(dueno.getContrasenia())){
+        if(!contrasenia.equals(dueno.getContrasenia())){
             throw new BadCredentialsException("Contraseña incorrecta");
         }
 
@@ -91,7 +91,7 @@ public class DuenoService {
             throw new EmailDuplicateException("Este email ya está registrado");
         }
 
-        throw new EmailDuplicateException("Este email ya esta registrado");
+        return duenoRepository.save(dueno);
 
     }
 
@@ -148,6 +148,7 @@ public class DuenoService {
             nombreArchivo = guardarImagenCloudinary(file);
         }
         mascota.setFotoUrl(nombreArchivo);
+        mascota.setIdMascota(new ObjectId());
         mascotas.add(mascota);
         dueno.setMascotas(mascotas);
         duenoRepository.save(dueno);
