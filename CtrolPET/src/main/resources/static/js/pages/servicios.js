@@ -1,4 +1,6 @@
-document.addEventListener('DOMContentLoaded', obtenerServicios);
+export function initServicios() {
+    obtenerServicios();
+}
 
 async function obtenerServicios() {
     const contenedor = document.getElementById('contenedor-servicios');

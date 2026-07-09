@@ -5,11 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f886b2e4-37ce-4367-9158-a23ac65a3544" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/js/services/auth.service.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/Mapper/Mappers.java" beforeDir="false" afterPath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/Mapper/Mappers.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/controller/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/security/JwtFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/security/JwtFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/dtos/LoginResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/dtos/LoginResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/js/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/js/api.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/js/pages/inicio.js" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/js/pages/inicio.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/js/pages/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/js/pages/login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/js/pages/servicios.js" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/js/pages/servicios.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/styles/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/styles/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/resources/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/resources/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/resources/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/resources/templates/servicios.html" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/resources/templates/servicios.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

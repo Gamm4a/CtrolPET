@@ -13,18 +13,7 @@ export async function registrarDueno(datos) {
     }
 }
 
-export async function login(correo, contrasenia) {
-    try {
-        const response = await fetch(`${BASE_URL}/login`, {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({correo, contrasenia})
-        });
-        return await response.json();
-    } catch(error) {
-        return { error: true };
-    }
-}
+
 
 export async function crearReservaSinLogin(datosReserva) {
     try {
@@ -41,7 +30,7 @@ export async function crearReservaSinLogin(datosReserva) {
 
 export async function obtenerPerfil(idDueno, token) {
     try {
-        const response = await fetch(`${BASE_URL}/perfil/{id}`, {
+        const response = await fetch(`/api/dueno/${idDueno}`, {
             method: "GET",
             headers: { "Authorization": "Bearer " + token }
         });
