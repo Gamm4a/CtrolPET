@@ -1,4 +1,5 @@
 import * as index from "./pages/inicio.js";
+import AuthService from "./services/auth.service.js";
 
 document.addEventListener('DOMContentLoaded', () => {
     //falta agregarles estos id a los body de los html
@@ -6,7 +7,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     switch (paginaActual) {
         case 'index-html':
-            index.initIndexSinLogin();
+            if (AuthService.isAutenticate()){
+                index.initIndexLogin();
+            } else {
+                index.initIndexSinLogin();
+            }
             break;
     }
 });
