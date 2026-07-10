@@ -53,7 +53,6 @@ public class ReservaController {
     @Autowired
     private EmpleadoService empleadoService;
 
-
     @GetMapping("/horarios")
     public ResponseEntity<Map<LocalTime, String>> obtenerHorariosDisponibles(
             @RequestParam String idSucursal,
@@ -80,7 +79,8 @@ public class ReservaController {
 
             for (LocalTime hora : rangos) {
                 if (!reservaService.horarioOcupado(hora, servicio.getDuracion(), reservasDelDia)) {
-                    mapaHorarios.put(hora, emp.getIdEmpleado().toString() + "|" + emp.getNombre() + " " + emp.getApellidoPaterno());
+                    mapaHorarios.put(hora,
+                            emp.getIdEmpleado().toString() + "|" + emp.getNombre() + " " + emp.getApellidoPaterno());
                 }
             }
         }
@@ -88,25 +88,25 @@ public class ReservaController {
         return ResponseEntity.ok(mapaHorarios);
     }
 
-    //  Crear reserva sin login
+    // Crear reserva sin login
     @PostMapping
     public ResponseEntity<ReservaDTO> crearReservaSinLogin(@Valid @RequestBody ReservaSinLoginDTO datos) {
 
-        //  Mascota nueva (aún no tiene dueño registrado)
+        // Mascota nueva (aún no tiene dueño registrado)
         Mascota mascota = new Mascota();
         mascota.setIdMascota(new ObjectId());
         mascota.setNombre(datos.getNombreMascota());
         mascota.setEspecie(datos.getEspecieMascota());
         mascota.setRaza(datos.getRazaMascota());
 
-        //  solo nombre y teléfono, sin correo/contraseña
+        // solo nombre y teléfono, sin correo/contraseña
         Dueno dueno = new Dueno();
         dueno.setNombre(datos.getNombre());
         dueno.setTelefono(datos.getTelefono());
         dueno.setMascotas(new ArrayList<>(List.of(mascota)));
         Dueno duenoGuardado = duenoService.guardar(dueno);
 
-        //  Buscar un veterinario disponible para ese servicio
+        // Buscar un veterinario disponible para ese servicio
         Servicio servicio = servicioService.obtenerPorId(new ObjectId(datos.getIdServicio()));
         ObjectId idSucursal = new ObjectId(datos.getIdSucursal());
         String diaSemana = diaEnEspanol(datos.getFecha());
@@ -114,7 +114,8 @@ public class ReservaController {
         Empleado empleadoAsignado = null;
         for (Empleado emp : empleadoService.empleadoDisponible(servicio.getCategoria().name(), diaSemana)) {
             if (emp.getSucursal() != null && emp.getSucursal().equals(idSucursal)) {
-                List<Reserva> reservasDelDia = reservaService.obtenerPorEmpleadoYFecha(emp.getIdEmpleado(), datos.getFecha());
+                List<Reserva> reservasDelDia = reservaService.obtenerPorEmpleadoYFecha(emp.getIdEmpleado(),
+                        datos.getFecha());
                 if (!reservaService.horarioOcupado(datos.getHora(), servicio.getDuracion(), reservasDelDia)) {
                     empleadoAsignado = emp;
                     break;
@@ -126,7 +127,7 @@ public class ReservaController {
             throw new IllegalArgumentException("No hay veterinarios disponibles en ese horario");
         }
 
-        //  Crear y guardar la reserva
+        // Crear y guardar la reserva
         Reserva reserva = new Reserva();
         reserva.setIdEmpleado(empleadoAsignado.getIdEmpleado());
         reserva.setFecha(LocalDateTime.of(datos.getFecha(), datos.getHora()));
@@ -140,9 +141,10 @@ public class ReservaController {
         return ResponseEntity.status(HttpStatus.CREATED).body(Mappers.toDTO(guardada));
     }
 
-    //  Crear reserva con login 
+    // Crear reserva con login
     @PostMapping("/dueno/{id}")
-    public ResponseEntity<ReservaDTO> crearReservaConLogin(@PathVariable("id") ObjectId idDueno, @Valid @RequestBody ReservaDTO reservaDTO, HttpServletRequest request) {
+    public ResponseEntity<ReservaDTO> crearReservaConLogin(@PathVariable("id") ObjectId idDueno,
+            @Valid @RequestBody ReservaDTO reservaDTO, HttpServletRequest request) {
 
         String emailEnToken = (String) request.getAttribute("email");
         Dueno dueno = duenoService.obtenerPorId(idDueno);

@@ -65,7 +65,13 @@ export async function initIndexLogin() {
         `;
         contenedorMascotas.appendChild(tarjeta);
     });
+    const btnAgendar = document.querySelector("#contenido-dashboard .btn-reserva");
+    if (btnAgendar) {
+        btnAgendar.addEventListener("click", () => {
+            window.location.href = "/reserva";
+        });
 
+    }
 }
 
 export function initIndexSinLogin() {
@@ -83,6 +89,7 @@ export function initIndexSinLogin() {
         e.preventDefault();
 
         //falta la llamada a crearReservaSinLogin()
+         window.location.href = "/reserva";
     });
 
 }

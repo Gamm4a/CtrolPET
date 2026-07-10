@@ -1,3 +1,28 @@
+
+const token = localStorage.getItem('token');
+const idDueno = localStorage.getItem('idDueno');
+
+if (token && idDueno) {
+    document.querySelector('.contenedor-reserva-sin-login').style.display = 'none';
+    document.querySelector('.contenedor-reserva-logueado').style.display = 'grid';
+
+    fetch(`/api/dueno/${idDueno}/mascotas`, {
+        headers: { "Authorization": "Bearer " + token }
+    })
+    .then(res => res.json())
+    .then(mascotas => {
+        const select = document.getElementById('mascota');
+        select.innerHTML = '';
+        mascotas.forEach(m => {
+            const option = document.createElement('option');
+            option.value = m.idMascota;
+            option.textContent = m.nombre;
+            select.appendChild(option);
+        });
+    })
+    .catch(() => console.error("No se pudieron cargar las mascotas"));
+}
+
 // se necesita el objeto completo, no solo el id, para el DTO
 let serviciosDisponibles = [];
 
@@ -44,10 +69,11 @@ if (formularioLogueado) {
 
             const selectHora = document.getElementById('hora');
             selectHora.innerHTML = '<option value="" disabled selected>Selecciona una hora</option>';
-            for (const hora in horariosLogueado) {
+            for (const [hora, valor] of Object.entries(horariosLogueado)) {
+                const [idEmpleado, nombreEmpleado] = valor.split("|");
                 const option = document.createElement('option');
                 option.value = hora;
-                option.textContent = hora.substring(0, 5);
+                option.textContent = `${hora.substring(0, 5)} - ${nombreEmpleado}`;
                 selectHora.appendChild(option);
             }
 
@@ -67,11 +93,11 @@ if (formularioLogueado) {
             return;
         }
 
-        const idEmpleado = horariosLogueado[hora];
+        const idEmpleado = horariosLogueado[hora].split("|")[0];
         const idDueno = localStorage.getItem('idDueno');
         const token = localStorage.getItem('token');
         const servicioCompleto = serviciosDisponibles.find(s => s.idServicio === servicio);
-
+        const fechaHoraCompleta = `${fecha}T${hora}`;
         const response = await fetch(`/api/reservas/dueno/${idDueno}`, {
             method: "POST",
             headers: {
@@ -80,7 +106,7 @@ if (formularioLogueado) {
             },
             body: JSON.stringify({
                 idEmpleado: idEmpleado,
-                fecha: fecha,
+                fecha: fechaHoraCompleta,
                 estado: "PENDIENTE",
                 idSucursal: sucursal,
                 dueno: idDueno,

@@ -1279,8 +1279,9 @@ input[name="pasos"] {
 
 .imagen-reserva-logueado img {
     width: 100%;
+    max-height: 400px;
     border-radius: var(--radio);
-    object-fit: cover;
+    object-fit: contain;
 }
 
 .formulario-reserva-logueado {
@@ -1438,7 +1439,7 @@ input[name="pasos"] {
 }
 
 .modal-contenido h2{
-    color:#2E7D32;
+    color:hsl(123, 46%, 34%);
     margin-bottom:20px;
 }
 

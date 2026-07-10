@@ -89,7 +89,8 @@ public class JwtFilter extends OncePerRequestFilter {
         if (path.startsWith("/reserva") && method.equals("POST")) return true;
         if (path.startsWith("/api/reservas/horarios") && method.equals("GET")) return true;
         if (path.startsWith("/api/servicios") && method.equals("GET")) return true;
-
+        if (path.equals("/api/login") && method.equals("POST")) return true;
+        if (path.equals("/api/registro") && method.equals("POST")) return true;
         // Las solicitudes preflight de CORS usan el método OPTIONS y no deben requerir token
         if (method.equalsIgnoreCase("OPTIONS")) return true;
 
@@ -100,7 +101,7 @@ public class JwtFilter extends OncePerRequestFilter {
         if (path.equals("/api/registro") && method.equals("POST")) return true;
 
         // hacer una reserva sin login es publico
-        if (path.startsWith("/api/reservas") && method.equals("POST")) return true;
+       if (path.equals("/api/reservas") && method.equals("POST")) return true;
 
         // Todo lo demás requiere autenticación
         return false;
