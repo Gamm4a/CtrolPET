@@ -173,7 +173,7 @@ public class EmpleadoService {
 
 
     public List<Empleado> empleadoDisponible(String especialidad, String dia){
-        return empleadosRepository.findByEspecialidadAndDias(especialidad,dia);
+       return empleadosRepository.findByEspecialidadAndHorariosDias(especialidad, dia);
     }
 }
 

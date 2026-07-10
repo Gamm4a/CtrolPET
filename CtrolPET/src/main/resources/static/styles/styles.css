@@ -1,4 +1,3 @@
-
 .nunito {
   font-family: "Nunito", sans-serif;
   font-optical-sizing: auto;
@@ -1246,8 +1245,9 @@ input[name="pasos"] {
     text-align: center;
     text-decoration: none;
 }
+
 /* AQUI EMPIEZA LA RESERVA PARA USUARIO LOGUEADO */
- 
+
 .contenedor-reserva-logueado {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -1292,124 +1292,15 @@ input[name="pasos"] {
     margin-bottom: var(--espacio-cercano);
 }
 
-.btn-agendar {
-    background: var(--acento);
-    color: white;
-    border: none;
-    padding: 15px 30px;
-    font-size: 18px;
-    font-weight: bold;
-    border-radius: var(--radio);
-    cursor: pointer;
-    box-shadow: var(--sombra);
-    font-family: var(--font-estilo);
-    width: max-content;
-    margin-top: var(--espacio-cercano);
-}
-
-.btn-agendar:hover {
-    background: var(--highlight);
-}
-
-#icon-menu {
-    width: 50px;
-    height: 50px;
-    position: absolute;
-    right: 20px;
-    top: 16px;
-    padding: 10px;
-    font-size: 20px;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-}
-
 /* AQUI TERMINA LA RESERVA PARA USUARIO LOGUEADO */
 
 
-/* PARA RESERVA MOBILE */
+/* AQUI EMPIEZA LA RESERVA SIN LOGIN */
 
-@media (max-width: 768px) {
-    .pagina-citas {
-        min-width: 0;
-        width: 100%;
-        overflow-x: hidden;
-    }
-
-    .imagen-reserva-logueado {
-        display: none;
-    }
-
-    .contenedor-reserva-logueado {
-        display: block;
-        width: 100%;
-        max-width: 100%;
-        margin: 0;
-        padding: 20px;
-        box-sizing: border-box;
-    }
-
-    .formulario-reserva-logueado {
-        width: 100%;
-        max-width: 100%;
-    }
-
-    .campo-formulario {
-        width: 100%;
-    }
-
-    .campo-formulario select,
-    .campo-formulario input {
-        width: 100%;
-        box-sizing: border-box;
-    }
-
-    .btn-agendar {
-        width: 100%;
-        padding: 12px 20px;
-        font-size: 1rem;
-    }
-
-    header {
-        padding: 10px 15px;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-    }
-
-    #icon-menu {
-        display: flex;
-        font-size: 30px;
-        cursor: pointer;
-    }
-
-    .header-nav,
-    .botones-header {
-        display: none;
-        width: 100%;
-    }
-
-    #menu-hamburguer:checked ~ header {
-        flex-direction: column;
-    }
-
-    #menu-hamburguer:checked ~ header .header-nav,
-    #menu-hamburguer:checked ~ header .botones-header {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-        padding-bottom: 10px;
-    }
-}
-
-/* AQUI TERMINA RESERVA MOBILE */
-
-.contenedor-reserva-logueado, .contedor-reserva-sin-login {
+.contenedor-reserva-sin-login {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    max-width: 1000px;
+    grid-template-columns: 0.8fr 1.2fr;
+    max-width: 1100px;
     width: 100%;
     margin: 0 auto;
     align-items: start;
@@ -1417,39 +1308,46 @@ input[name="pasos"] {
     padding: 50px 60px;
 }
 
-.imagen-reserva-logueado, .imagen-reserva-sin-login {
+.imagen-reserva-sin-login {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
     gap: var(--espacio-cercano);
+    max-height: 500px;
+    padding-top: 30px;
 }
-
-
-.imagen-reserva-logueado p {
+.imagen-reserva-sin-login p {
     font-size: 1.1rem;
     font-weight: 600;
     color: var(--texto);
-    text-align: center;
-}
-
-.imagen-reserva-logueado img {
+    text-align: end;
+    margin-bottom: 30px;
+    line-height: 1.4;
     width: 100%;
+    margin-left: -50px;
+    margin-right: -60px;
+}
+.imagen-reserva-sin-login p a {
+    display: block;
+    margin-top: 5px;
+}
+.imagen-reserva-sin-login img {
+    width: 100%;
+    max-height: 420px;
     border-radius: var(--radio);
     object-fit: cover;
 }
 
-.formulario-reserva-logueado, .formulario-reserva-sin-login {
+.formulario-reserva-sin-login {
     display: flex;
     flex-direction: column;
     gap: var(--espacio-cercano);
 }
 
-.formulario-reserva-logueado h2 {
-    font-size: 1.6rem;
-    color: var(--texto);
-    text-align: center;
-    margin-bottom: var(--espacio-cercano);
-}
+/* AQUI TERMINA LA RESERVA SIN LOGIN */
+
+
+/* Botones y elementos compartidos entre ambos formularios de reserva */
 
 .btn-agendar {
     background: var(--acento);
@@ -1509,8 +1407,82 @@ input[name="pasos"] {
     background-color: var(--secundario);
 }
 
-/* AQUI TERMINA LA RESERVA PARA USUARIO LOGUEADO */
+/* MODAL DE RESERVA */
+.modal-reserva{
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.45);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+.modal-contenido{
+    background: #fff;
+    width: 400px;
+    max-width: 90%;
+    border-radius: 18px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 15px 40px rgba(0,0,0,.2);
+    animation: aparecer .35s ease;
+}
 
+.modal-contenido img{
+    width: 80px;
+    margin-bottom: 15px;
+}
+
+.modal-contenido h2{
+    color:#2E7D32;
+    margin-bottom:20px;
+}
+
+.modal-contenido p{
+    text-align:left;
+    background:#f8f9fa;
+    padding:10px 15px;
+    border-radius:10px;
+    margin:10px 0;
+}
+
+.modal-contenido strong{
+    color:#555;
+}
+
+.modal-contenido button{
+    margin-top:20px;
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:12px;
+    background:#4CAF50;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.modal-contenido button:hover{
+    background:#43A047;
+    transform:translateY(-2px);
+}
+
+@keyframes aparecer{
+    from{
+        transform:scale(.8);
+        opacity:0;
+    }
+    to{
+        transform:scale(1);
+        opacity:1;
+    }
+}
+
+@keyframes fade{
+    from{opacity:0;}
+    to{opacity:1;}
+}
 
 /* PARA RESERVA MOBILE */
 

@@ -85,12 +85,12 @@ public class DuenoService {
 
     public Dueno guardar(Dueno dueno)throws EmailDuplicateException {
 
+        if(dueno.getCorreo() != null){
         Optional<Dueno> duenoExistente = duenoRepository.findByCorreo(dueno.getCorreo());
-
-        if (duenoExistente.isPresent()) {
+        if(duenoExistente.isPresent()){
             throw new EmailDuplicateException("Este email ya está registrado");
         }
-
+    }
         return duenoRepository.save(dueno);
 
     }

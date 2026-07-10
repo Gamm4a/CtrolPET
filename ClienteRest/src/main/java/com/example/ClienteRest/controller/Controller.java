@@ -2,31 +2,16 @@ package com.example.ClienteRest.controller;
 import com.example.ClienteRest.Mapper.Mappers;
 import com.example.ClienteRest.dtos.*;
 import com.example.ClienteRest.services.JwtService;
-import com.example.ctrolpet.exception.ResourceNotFoundException;
-import com.example.ctrolpet.exception.UnauthorizedActionException;
 import com.example.ctrolpet.model.Dueno;
-import com.example.ctrolpet.model.Enum.EstadoReserva;
-import com.example.ctrolpet.model.Mascota;
 import com.example.ctrolpet.model.Reserva;
 import com.example.ctrolpet.service.DuenoService;
 import com.example.ctrolpet.service.ReservaService;
-
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -57,7 +42,7 @@ public class Controller {
 
 
         return ResponseEntity.status(HttpStatus.CREATED).body(Mappers.toDTO(duenoRegistrado));
-    }
+    };
 
     @PostMapping("/login")
     public ResponseEntity<?> iniciarSesionDueno(@Valid @RequestBody LoginRequestDTO loginRequestDTO) {
@@ -66,6 +51,4 @@ public class Controller {
         String token = jwtService.generateToken(duenoRegistrado.getCorreo());
         return ResponseEntity.ok(new LoginResponse(token));
     }
-
-
 }

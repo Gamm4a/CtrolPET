@@ -16,5 +16,5 @@ import java.util.Optional;
 public interface EmpleadosRepository extends MongoRepository<Empleado, ObjectId> {
     Optional<Empleado> findByCorreo(String correo);
     @Query("{ 'especialidad': ?0, 'horarios.dias': ?1 }")
-    List<Empleado> findByEspecialidadAndDias(String especialidad, String dia);
+   List<Empleado> findByEspecialidadAndHorariosDias(String especialidad, String dia);
 }

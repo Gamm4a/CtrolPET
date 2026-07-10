@@ -10,9 +10,6 @@
     
     <link rel="stylesheet" href="/styles/styles.css">
 
-
-
-
 </head>
 <body class="pagina-citas">
     <input type="checkbox" id="menu-toggle" hidden>
@@ -207,17 +204,38 @@
                     <input type="date" id="fechaSinLogin" name="fecha" required>
                     </div>
 
-                    <div class="campo-formulario">
-                        <label for="horaSinLogin">Hora</label>
-                        <input type="time" id="horaSinLogin" name="hora" required>
+                    <div class="campo-formulario" id="campo-hora-sin-login" style="display:none;">
+                        <label for="horaSinLogin">Hora disponible</label>
+                        <select id="horaSinLogin" name="hora">
+                            <option value="" disabled selected>Selecciona una hora</option>
+                        </select>
                     </div>
 
-                    <button type="submit" class="btn-agendar">Ver horas disponibles</button>
+                    <button type="submit" id="btn-agendar-sin-login" class="btn-agendar">Ver horas disponibles</button>
                     <p id="mensaje-reserva" ></p>
                    
             </form>
 
         </section>
+      <div id="modal-reserva-exitosa" class="modal-reserva" style="display:none;">
+    <div class="modal-contenido">
+        <img src="imgs/iconos/huella.png" alt="huella check">
+        <h2>¡Reserva creada con éxito!</h2>
+        <p><strong>Fecha:</strong> <span id="modal-fecha"></span></p>
+        <p><strong>Servicio:</strong> <span id="modal-servicio"></span></p>
+        <p><strong>Precio:</strong> <span id="modal-precio"></span></p>
+        <p><strong>Estado:</strong> <span id="modal-estado"></span></p>
+        <button id="btn-cerrar-modal-exito">Aceptar</button>
+    </div>
+</div>
+
+<div id="modal-reserva-error" class="modal-reserva" style="display:none;">
+    <div class="modal-contenido">
+        <h2>¡Ocurrió un error, verifica tus datos!</h2>
+        <button id="btn-cerrar-modal">Aceptar</button>
+    </div>
+</div>
+
     </main>
     <footer>
         <p>&copy; Copyright Ctrl+PET 2026</p>
