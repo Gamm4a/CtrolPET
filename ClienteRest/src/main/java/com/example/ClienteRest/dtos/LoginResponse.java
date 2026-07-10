@@ -2,6 +2,7 @@ package com.example.ClienteRest.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.bson.types.ObjectId;
 
 /**
  * ============================================================
@@ -41,4 +42,5 @@ public class LoginResponse {
      * "exp" es la fecha de expiración.
      */
     private String token;
+    private String idDueno;
 }

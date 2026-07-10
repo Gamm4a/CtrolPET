@@ -1,11 +1,12 @@
 import * as loader from "../loaders.js"
+import { obtenerPerfil } from "../api.js"
 //ocupo traer la autenticacion? creo y tengo que traer la funcionalidad de reserva sin login
 
 const publico = document.getElementById("contenido-publico");
 const dashboard = document.getElementById("contenido-dashboard");
 const contenedorMascotas = document.getElementById("contenedor-mascotas");
 
-export function initIndexLogin() {
+export async function initIndexLogin() {
 
     const botonesAuth = document.getElementById("contenedor-botones-auth");
 
@@ -27,28 +28,40 @@ export function initIndexLogin() {
     const token = localStorage.getItem("token");
     const idDueno = localStorage.getItem("idDueno");
 
-    //ocupamos algo como esto:
-   // const perfil = await obtenerPerfil(idDueno, token);
+    //Borrar esto:
+    console.log("Datos recuperados en Index - ID:", idDueno, "Token válido:", !!token);
 
-    if (perfil.error || !perfil.mascotas || perfil.mascotas.length === 0) {
+    const perfil = await obtenerPerfil(idDueno, token);
+
+    //borrar esto:
+    console.log("Perfil recibido de la API:", perfil);
+
+
+    if (!perfil || !perfil.mascotas) {
+        contenedorMascotas.innerHTML = `<p class="sin-mascotas">Hubo un problema al cargar tu perfil. Por favor, intenta más tarde.</p>`;
+        return;
+    }
+
+    if (perfil.mascotas.length === 0) {
         contenedorMascotas.innerHTML = `<p class="sin-mascotas">Aún no tienes mascotas registradas. ¡Registra una en tu perfil!</p>`;
         return;
     }
 
     contenedorMascotas.innerHTML = "";
+
     perfil.mascotas.forEach(mascota => {
-        const tieneFoto = mascota.fotoUrl;
-        const fotoMascota = tieneFoto ? mascota.fotoUrl : '/imgs/iconos/icono-gato.png'
-        const edadMascota = calcularEdad(mascota.fechaNacimiento)
+        const fotoMascota = mascota.fotoUrl ? mascota.fotoUrl : '/imgs/iconos/icono-gato.png';
+        const edadMascota = calcularEdad(mascota.fechaNacimiento);
+
         const tarjeta = document.createElement("article");
         tarjeta.className = "servicio-caja";
         tarjeta.innerHTML = `
             <div class="icono">
-                <img src="${fotoMascota}" alt="mascota">
+                <img src="${fotoMascota}" alt="Foto de ${mascota.nombre}">
             </div>
             <h3>${mascota.nombre}</h3>
-            <p>Raza: ${mascota.raza || 'No especificada'}</p>
-            <p>Edad: ${edadMascota} años</p>
+            <p><strong>Raza:</strong> ${mascota.raza}</p>
+            <p><strong>Edad:</strong> ${edadMascota}</p>
         `;
         contenedorMascotas.appendChild(tarjeta);
     });
@@ -65,20 +78,11 @@ export function initIndexSinLogin() {
 
     loader.cargarServicios("servicio");
 
-    const chkRegistro = document.getElementById("chk-registro");
-    const camposRegistro = document.querySelector(".campos-registro");
-    if (chkRegistro && camposRegistro) {
-        camposRegistro.style.display = "none";
-        chkRegistro.addEventListener("change", (e) => {
-            camposRegistro.style.display = e.target.checked ? "grid" : "none";
-            camposRegistro.querySelectorAll("input").forEach(i => i.required = e.target.checked);
-        });
-    }
 
     formulario.addEventListener("submit", async (e) => {
         e.preventDefault();
 
-        //falta la validación de contraseñas y llamada a crearReservaSinLogin() ...
+        //falta la llamada a crearReservaSinLogin()
     });
 
 }

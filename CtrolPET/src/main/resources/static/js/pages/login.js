@@ -1,32 +1,34 @@
-const btn = document.getElementById('btn-login');
-btn.addEventListener('click',async function (e) {
+import AuthService from "../services/auth.service.js";
+
+export function initLogin() {
+    const btnLogin = document.getElementById('btn-login');
+
+    if (btnLogin) {
+        btnLogin.addEventListener('click', login);
+    }
+}
+
+async function login(e) {
     e.preventDefault();
 
-    const correo = document.getElementById('correo').value;
-    const contrasenia = document.getElementById('contrasenia').value;
+    const correo = document.getElementById('correo').value.trim();
+    const contrasenia = document.getElementById('contrasenia').value.trim();
 
-    if(!correo || !contrasenia){
-         alert("Por favor de completar todos los campos")
-            return;
+    if (!correo || !contrasenia) {
+        alert('Por favor, llena todos los campos.');
+        return;
     }
 
-     //en este se necesita mandar el token 
-      const response = await fetch('/api/login', {
-        method: "POST",
-        headers: {"Content-Type": "application/json" 
-                 
-        },
-        body: JSON.stringify({
-          correo:correo,
-          contrasenia:contrasenia
+    const data = await AuthService.login(correo, contrasenia);
 
-      })
-    })
-       const resultado = await response.json();
-      //si es verdadero se deberia de guardar el token
-       if(response.ok){
-         
-       }else{
-          mensaje.innerHTML ="Ocurrió un error, verifica tus datos" ;
-     }
-})
+    //BORRAR ESTO
+    console.log("Respuesta del servidor en Login:", data);
+
+    if (data && !data.error && data.token) {
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('idDueno', data.idDueno);
+        window.location.href = '/';
+    } else {
+        alert('Correo o contraseña incorrectos.');
+    }
+}

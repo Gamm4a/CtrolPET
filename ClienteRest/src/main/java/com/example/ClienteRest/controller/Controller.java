@@ -49,6 +49,6 @@ public class Controller {
         Dueno duenoRegistrado = duenoService.autenticar(loginRequestDTO.getCorreo(), loginRequestDTO.getContrasenia());
 
         String token = jwtService.generateToken(duenoRegistrado.getCorreo());
-        return ResponseEntity.ok(new LoginResponse(token));
+        return ResponseEntity.ok(new LoginResponse(token, duenoRegistrado.getIdDueno().toHexString()));
     }
 }

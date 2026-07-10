@@ -12,6 +12,9 @@ import com.example.ctrolpet.model.Enum.EstadoReserva;
 import com.example.ctrolpet.model.Enum.Puesto;
 import org.bson.types.ObjectId;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Mappers {
 
 
@@ -58,6 +61,14 @@ public class Mappers {
         duenoDTO.setFechaNacimiento(entity.getFechaNacimiento());
         duenoDTO.setTelefono(entity.getTelefono());
         duenoDTO.setDireccion(ToDTO(entity.getDireccion()));
+        List<MascotaDTO> mascotasDTOList = new ArrayList<>();
+        if (entity.getMascotas() != null && !entity.getMascotas().isEmpty()){
+            for (Mascota m: entity.getMascotas()){
+                mascotasDTOList.add(Mappers.toDTO(m));
+            }
+            duenoDTO.setMascotas(mascotasDTOList);
+        }
+
         return duenoDTO;
     }
 
@@ -110,6 +121,7 @@ public class Mappers {
     servicioDTO.setPrecio(entity.getPrecio());
     servicioDTO.setCategoria(Mappers.toDTO(entity.getCategoria()));
     servicioDTO.setDuracion(entity.getDuracion());
+    servicioDTO.setFotos(entity.getFotos());
     return servicioDTO;
     }
 
