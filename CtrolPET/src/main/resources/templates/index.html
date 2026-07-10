@@ -49,32 +49,14 @@
 
         <section class="seccion-servicios-index">
             <h2>Nuestros servicios incluyen:</h2>
-            <div class="grid-servicios-index">
-                <article class="servicio-caja">
-                    <div class="icono">
-                        <img src="/imgs/iconos/icono-consulta.png" alt="icono de un estetoscopio.">
-                    </div>
-                    <h3>Consultas</h3>
-                    <p>Chequeos preventivos y evaluación de malestares específicos.</p>
-                </article>
-                
-                <article class="servicio-caja"> 
-                    <div class="icono">
-                        <img src="/imgs/iconos/icono-grooming.png" alt="icono de unas tijeras para cabello.">
-                    </div>
-                    <h3>Estética & Spa</h3>
-                    <p>Técnicas profesionales de higiene y estética, con cuidado integral de la piel, uñas y oídos.</p>
-                </article>
-
-                <article class="servicio-caja">
-                    <div class="icono">
-                        <img src="/imgs/iconos/icono-dentista.png" alt="icono de un cepillo de dientes.">
-                    </div>
-                    <h3>Cuidado Dental</h3>
-                    <p>Evaluación especializada, diagnóstico y tratamiento de la salud bucal de mascotas.</p>
-                </article>
-                
+            <div class="grid-servicios-index" id="contenedor-servicios-index">
                 <a th:href="@{servicios}" class="btn-servicios-sig" aria-label="Ver más servicios">❯</a>
+            </div>
+            <div id="modal-galeria" class="modal">
+                <span class="cerrar-modal">&times;</span>
+                <h2 id="modal-titulo-servicio"></h2>
+                <div class="contenedor-imagenes-modal" id="imagenes-modal-lista">
+                </div>
             </div>
         </section>
 
@@ -165,7 +147,7 @@
 
             <div class="grid-mascotas" id="contenedor-mascotas"></div>
 
-            <button class="btn-reserva">Agendar nueva cita</button>
+
         </section>
     </main>
 

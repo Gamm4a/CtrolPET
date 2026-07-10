@@ -2,8 +2,9 @@ export function initServicios() {
     obtenerServicios();
 }
 
-async function obtenerServicios() {
-    const contenedor = document.getElementById('contenedor-servicios');
+export async function obtenerServicios(limite = null) {
+    const contenedor = document.querySelector('#contenedor-servicios-index, #contenedor-servicios');
+    const botonMas = contenedor.querySelector('.btn-servicios-sig');
 
     try {
         const respuesta = await fetch('/api/servicios');
@@ -12,7 +13,11 @@ async function obtenerServicios() {
             throw new Error('No se pudieron cargar los servicios');
         }
 
-        const servicios = await respuesta.json();
+        let servicios = await respuesta.json();
+
+        if (limite !== null) {
+            servicios = servicios.slice(0, limite);
+        }
 
         contenedor.innerHTML = '';
 
@@ -22,8 +27,8 @@ async function obtenerServicios() {
             const primeraFoto = tieneFotos ? servicio.fotos[0] : '/imgs/iconos/logo.png';
 
             const servicioHtml = `
-            <div class="tarjeta-servicio" data-imagenes="${imagenesString}" data-nombre="${servicio.tipo}">
-                <div class="icono-servicio">
+            <div class="servicio-caja tarjeta-servicio" data-imagenes="${imagenesString}" data-nombre="${servicio.tipo}">
+                <div class="icono icono-servicio">
                     <img src="${primeraFoto}" alt="icono de ${servicio.tipo}">
                 </div>
                 <div class="texto-servicio">
@@ -36,11 +41,18 @@ async function obtenerServicios() {
             contenedor.innerHTML += servicioHtml;
         });
 
+
+        if (botonMas) {
+            contenedor.appendChild(botonMas);
+        }
+
     configurarClicsServicios();
 
     } catch (error) {
         console.error('Error:', error);
-        contenedor.innerHTML = '<p>Lo sentimos, no pudimos cargar los servicios en este momento.</p>';
+        if (!botonMas) {
+            contenedor.innerHTML = '<p>Lo sentimos, no pudimos cargar los servicios en este momento.</p>';
+        }
     }
 }
 
