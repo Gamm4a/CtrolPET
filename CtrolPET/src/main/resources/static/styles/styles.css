@@ -204,13 +204,26 @@ header {
     padding: var(--espacio);
 }
 
-.grid-servicios-index {
+#contenedor-servicios-index {
     display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
     align-items: center;
     gap: var(--espacio);
     margin: var(--espacio);
     max-width: 1400px;
     width: 100%;
+}
+
+#contenedor-servicios-index .servicio-caja {
+    flex: 1;
+    min-width: 0;
+}
+
+#contenedor-servicios-index .servicio-caja .icono {
+    width: 100%;
+    object-fit: cover;
 }
 
 .servicio-caja {
@@ -232,6 +245,7 @@ header {
 }
 
 .btn-servicios-sig {
+    flex-shrink: 0;
     background: var(--secundario-transparente);
     border: none;
     width: 50px;
@@ -527,7 +541,7 @@ footer {
 
 .grid-servicios {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 3.5fr 6.5fr;
     gap: var(--espacio) 20px;
     align-content: center;
 }
@@ -537,6 +551,11 @@ footer {
     grid-template-columns: repeat(3, 1fr);
     gap: 30px 20px;
     align-content: center;
+    margin: var(--espacio);
+}
+
+#contenedor-servicios .icono{
+    width: 100%;
 }
 
 .btn-agenda, .btn-editar-perfil {
@@ -559,6 +578,12 @@ footer {
     align-items: flex-start;
     margin: var(--espacio) auto;
 }
+
+#nuestros-servicios h1{
+    text-align: center;
+    padding: var(--espacio-cercano);
+}
+
 
 #nuestros-servicios a{
     margin: var(--espacio);
@@ -725,8 +750,19 @@ input[name="pasos"] {
 
 /*INDEX CON LOGIN DE USUARIO CLIENTE*/
 #contenido-dashboard .dashboard-dueno {
+    padding: var(--espacio);
+}
 
+#contenido-dashboard .grid-mascotas {
+    display: flex;
+    gap: var(--espacio);
+    margin: var(--espacio);
+    flex-wrap: wrap;
+    overflow-y: auto;
+}
 
+#contenido-dashboard .grid-mascotas img{
+    max-width: 300px;
 }
 /*Aqui empieza la ventana de perfil*/
 

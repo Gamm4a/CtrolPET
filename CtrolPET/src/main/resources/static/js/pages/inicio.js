@@ -1,10 +1,13 @@
 import * as loader from "../loaders.js"
 import { obtenerPerfil } from "../api.js"
+import { obtenerServicios } from "./servicios.js";
+
 //ocupo traer la autenticacion? creo y tengo que traer la funcionalidad de reserva sin login
 
 const publico = document.getElementById("contenido-publico");
 const dashboard = document.getElementById("contenido-dashboard");
 const contenedorMascotas = document.getElementById("contenedor-mascotas");
+const gridServiciosIndex = document.getElementById("contenedor-servicios");
 
 export async function initIndexLogin() {
 
@@ -49,22 +52,7 @@ export async function initIndexLogin() {
 
     contenedorMascotas.innerHTML = "";
 
-    perfil.mascotas.forEach(mascota => {
-        const fotoMascota = mascota.fotoUrl ? mascota.fotoUrl : '/imgs/iconos/icono-gato.png';
-        const edadMascota = calcularEdad(mascota.fechaNacimiento);
-
-        const tarjeta = document.createElement("article");
-        tarjeta.className = "servicio-caja";
-        tarjeta.innerHTML = `
-            <div class="icono">
-                <img src="${fotoMascota}" alt="Foto de ${mascota.nombre}">
-            </div>
-            <h3>${mascota.nombre}</h3>
-            <p><strong>Raza:</strong> ${mascota.raza}</p>
-            <p><strong>Edad:</strong> ${edadMascota}</p>
-        `;
-        contenedorMascotas.appendChild(tarjeta);
-    });
+    renderTarjetasMascotas(perfil.mascotas)
 
 }
 
@@ -77,7 +65,7 @@ export function initIndexSinLogin() {
     if (!formulario) return;
 
     loader.cargarServicios("servicio");
-
+    obtenerServicios(3);
 
     formulario.addEventListener("submit", async (e) => {
         e.preventDefault();
@@ -102,4 +90,34 @@ function calcularEdad(fechaNacimiento) {
         edad--;
     }
     return edad;
+}
+
+function renderTarjetasMascotas(mascotas){
+    mascotas.forEach(mascota => {
+        const fotoMascota = mascota.fotoUrl ? mascota.fotoUrl : '/imgs/iconos/icono-gato.png';
+        const edadMascota = calcularEdad(mascota.fechaNacimiento);
+
+        const tarjeta = document.createElement("article");
+        tarjeta.className = "servicio-caja";
+        tarjeta.innerHTML = `
+            <div class="icono">
+                <img src="${fotoMascota}" alt="Foto de ${mascota.nombre}">
+            </div>
+            <h3>${mascota.nombre}</h3>
+            <p><strong>Raza:</strong> ${mascota.raza}</p>
+            <p><strong>Edad:</strong> ${edadMascota}</p>
+            <button class="btn-reserva agendar-cita" data-id="${mascota.id}">Agendar nueva cita</button>
+        `;
+
+        const buttons = document.querySelectorAll('.agendar-cita')
+
+        buttons.forEach(btn => {
+            btn.addEventListener(`click`, ()=>{
+                const id = parseInt(btn.getAttribute('data-id'))
+                const mascota = mascotas.find(m => m.id === id)
+                //aqui falta agregar algo para que el boton lleve a la reserva ya con esta mascota seleccionada
+            })
+        })
+        contenedorMascotas.appendChild(tarjeta);
+    });
 }
