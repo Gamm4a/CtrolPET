@@ -22,6 +22,7 @@ public class Mappers {
         direccionDTO.setCalle(entity.getCalle());
         direccionDTO.setNumeroCasa(entity.getNumeroCasa());
         direccionDTO.setColonia(entity.getColonia());
+        direccionDTO.setEstado(entity.getEstado());
         direccionDTO.setCiudad(entity.getCiudad());
         direccionDTO.setEstado(entity.getEstado());
         direccionDTO.setCodigoPostal(entity.getCodigoPostal());
@@ -59,6 +60,7 @@ public class Mappers {
         duenoDTO.setApellidoPaterno(entity.getApellidoPaterno());
         duenoDTO.setApellidoMaterno(entity.getApellidoMaterno());
         duenoDTO.setCorreo(entity.getCorreo());
+        duenoDTO.setContrasenia(entity.getContrasenia());
         duenoDTO.setFechaNacimiento(entity.getFechaNacimiento());
         duenoDTO.setTelefono(entity.getTelefono());
         duenoDTO.setDireccion(ToDTO(entity.getDireccion()));
