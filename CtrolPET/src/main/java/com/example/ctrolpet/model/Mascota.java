@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import java.time.Instant;
 
@@ -18,6 +19,7 @@ import java.time.Instant;
 @NoArgsConstructor
 public class Mascota {
 
+    @MongoId
     @Field(name = "id_mascota")
     private ObjectId idMascota;
 

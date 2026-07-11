@@ -168,8 +168,8 @@ public class JwtFilter extends OncePerRequestFilter {
         // con: request.getAttribute("email")
         // → Se usa en GET /api/posts/mine para filtrar por el usuario autenticado.
         //
-        String username = jwtService.extractEmail(token);
-        request.setAttribute("email", username);
+        String email = jwtService.extractEmail(token);
+        request.setAttribute("email", email);
 
         // Continuamos la cadena: el request pasa al Controller
         chain.doFilter(request, response);
