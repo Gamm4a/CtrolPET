@@ -39,87 +39,68 @@
         </div>
     </header>
     <main>
-        <section class="contenedor-reserva-logueado" th:if="${dueno != null}">
+      <section class="contenedor-reserva-logueado" style="display:none;">
             <div class="imagen-reserva-logueado">
                 <p>¡Estamos ansiosos por verte!</p>
                 <img th:src="@{/imgs/otras/imagen-agendarConLogin.png}" alt="Veterinaria con un gatito">
             </div>
 
-            <form class="formulario-reserva-logueado"
-                  th:action="${mapaHorarios == null} ? @{/reserva/filtrar-horarios} : @{/reserva/guardar}"
-                  method="POST">
+            <form class="formulario-reserva-logueado">
 
                 <h2>Agendar Cita</h2>
 
-                <input type="hidden" name="idDueno" th:value="${dueno.idDueno}">
-
                 <div class="campo-formulario">
                     <label for="mascota">Mascota</label>
-                    <select id="mascota" name="idMascota" required th:disabled="${mapaHorarios != null}">
+                    <select id="mascota" name="idMascota" required>
                         <option th:each="mascota : ${listaMascotas}"
                                 th:value="${mascota.idMascota}"
-                                th:text="${mascota.nombre}"
-                                th:selected="${mascota.idMascota == mascotaSeleccionada}">
+                                th:text="${mascota.nombre}">
                         </option>
                     </select>
-                    <input type="hidden" name="idMascota" th:if="${mapaHorarios != null}" th:value="${mascotaSeleccionada}">
                 </div>
 
                 <div class="campo-formulario">
                     <label for="sucursal">Sucursal:</label>
-                    <select name="idSucursal" id="sucursal" required th:disabled="${mapaHorarios != null}">
-                        <option value="" disabled th:selected="${sucursalSeleccionada == null}">Selecciona una sucursal</option>
+                    <select name="idSucursal" id="sucursal" required>
+                        <option value="" disabled selected>Selecciona una sucursal</option>
                         <option th:each="sucursalesDisponibles : ${listaSucursales}"
                                 th:value="${sucursalesDisponibles.idSucursal}"
-                                th:text="${sucursalesDisponibles.nombre}"
-                                th:selected="${sucursalesDisponibles.idSucursal == sucursalSeleccionada}">
+                                th:text="${sucursalesDisponibles.nombre}">
                         </option>
                     </select>
-                    <input type="hidden" name="idSucursal" th:if="${mapaHorarios != null}" th:value="${sucursalSeleccionada}">
                 </div>
 
                 <div class="campo-formulario">
                     <label for="servicio">Servicio:</label>
-                    <select id="servicio" name="idServicio" required th:disabled="${mapaHorarios != null}">
-                        <option value="" disabled th:selected="${servicioSeleccionado == null}">Selecciona un servicio...</option>
+                    <select id="servicio" name="idServicio" required>
+                        <option value="" disabled selected>Selecciona un servicio...</option>
                         <option th:each="servicio : ${listaServicios}"
                                 th:value="${servicio.idServicio}"
-                                th:text="${servicio.tipo}"
-                                th:selected="${servicio.idServicio == servicioSeleccionado}">
+                                th:text="${servicio.tipo}">
                         </option>
                     </select>
-                    <input type="hidden" name="idServicio" th:if="${mapaHorarios != null}" th:value="${servicioSeleccionado}">
                 </div>
 
                 <div class="campo-formulario">
                     <label for="fecha">Fecha</label>
-                    <input type="date" id="fecha" name="fecha" required
-                           th:value="${fechaSeleccionada}"
-                           th:disabled="${mapaHorarios != null}">
-                    <input type="hidden" name="fecha" th:if="${mapaHorarios != null}" th:value="${fechaSeleccionada}">
+                    <input type="date" id="fecha" name="fecha" required>
                 </div>
 
-                <div class="campo-formulario" th:if="${mapaHorarios != null}">
+                <div class="campo-formulario" id="campo-hora-logueado" style="display:none;">
                     <label for="hora">Hora disponible:</label>
-                    <select id="hora" name="horaCombinada" required>
+                    <select id="hora" name="hora" >
                         <option value="" disabled selected>Selecciona una hora</option>
-
-                        <option th:each="entry : ${mapaHorarios}"
-                                th:value="${entry.value.idEmpleado + '_' + #temporals.format(entry.key, 'HH:mm')}"
-                                th:text="${#temporals.format(entry.key, 'HH:mm') + ' - ' + entry.value.nombre}">
-                        </option>
-
                     </select>
                 </div>
 
-                <button type="submit" class="btn-agendar"
-                        th:text="${mapaHorarios == null} ? 'Ver horas disponibles' : 'Agendar mi cita'">
+                <button type="submit" class="btn-agendar" id="btn-agendar-logueado">
+                    Ver horas disponibles
                 </button>
-                 <p id="mensaje-reserva-logueado" ></p>
+                <p id="mensaje-reserva-logueado"></p>
             </form>
         </section>
 
-        <section class="contenedor-reserva-sin-login" th:unless="${dueno != null}">
+       <section class="contenedor-reserva-sin-login">
 
             <div class="imagen-reserva-sin-login">
                 <p>¿Cambiaste de opinión y sí deseas un expediente digital para tu mascota?  <a th:href="@{/registro}">¡Regístrate!</a></p>

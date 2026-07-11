@@ -31,13 +31,8 @@ export async function initIndexLogin() {
     const token = localStorage.getItem("token");
     const idDueno = localStorage.getItem("idDueno");
 
-    //Borrar esto:
-    console.log("Datos recuperados en Index - ID:", idDueno, "Token válido:", !!token);
-
     const perfil = await obtenerPerfil(idDueno, token);
 
-    //borrar esto:
-    console.log("Perfil recibido de la API:", perfil);
 
 
     if (!perfil || !perfil.mascotas) {
@@ -54,7 +49,8 @@ export async function initIndexLogin() {
 
     renderTarjetasMascotas(perfil.mascotas)
 
-}
+    }
+
 
 export function initIndexSinLogin() {
     const formulario = document.querySelector(".formulario-reserva");
@@ -74,6 +70,7 @@ export function initIndexSinLogin() {
         e.preventDefault();
 
         //falta la llamada a crearReservaSinLogin()
+         window.location.href = "/reserva";
     });
 
 }

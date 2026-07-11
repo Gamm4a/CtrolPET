@@ -10,20 +10,18 @@ import jakarta.servlet.http.HttpSession;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.*;
-import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.*;
 
 @Controller
 public class HomeController {
-
 
     @Autowired
     private DuenoService duenoService;
@@ -40,31 +38,31 @@ public class HomeController {
     @Autowired
     private ServicioService servicioService;
 
-    @GetMapping({"/", "/index", "/index.html"})
+    @GetMapping({ "/", "/index", "/index.html" })
     public String index() {
         return "index";
     }
 
-    @GetMapping({"/login", "/login.html"})
-    public String mostrarLogin(){
+    @GetMapping({ "/login", "/login.html" })
+    public String mostrarLogin() {
         return "login";
     }
 
-    @GetMapping({"/login-admin", "/login-admin.html"})
-    public String mostrarLoginAdmin(){
+    @GetMapping({ "/login-admin", "/login-admin.html" })
+    public String mostrarLoginAdmin() {
         return "login-admin";
     }
 
-    @GetMapping({"/registro", "/registro.html"})
+    @GetMapping({ "/registro", "/registro.html" })
     public String mostrarRegistro() {
         return "registro";
     }
 
     @PostMapping("/login-admin")
     public String procesarLoginAdmin(@RequestParam("correo") String correo,
-                                @RequestParam("contrasenia") String contrasenia,
-                                HttpSession session,
-                                Model model){
+            @RequestParam("contrasenia") String contrasenia,
+            HttpSession session,
+            Model model) {
 
         Empleado empleado = empleadoService.autenticar(correo, contrasenia);
 
@@ -79,11 +77,11 @@ public class HomeController {
     }
 
     @PostMapping("/admin/servicios/guardar")
-    public String guardarServicio(@RequestParam ("tipo") String tipo,
-                                  @RequestParam("especialidad") String categoria,
-                                  @RequestParam ("descripcion") String descripcion,
-                                  @RequestParam ("precio") Double precio,
-                                  @RequestParam("duracion") Integer duracion){
+    public String guardarServicio(@RequestParam("tipo") String tipo,
+            @RequestParam("especialidad") String categoria,
+            @RequestParam("descripcion") String descripcion,
+            @RequestParam("precio") Double precio,
+            @RequestParam("duracion") Integer duracion) {
 
         Servicio servicioNuevo = new Servicio();
         servicioNuevo.setTipo(tipo);
@@ -98,7 +96,7 @@ public class HomeController {
 
     @PostMapping("/admin/servicios/subir-foto/{id}")
     public String subirFotoServicio(@PathVariable("id") ObjectId id,
-                                    @RequestParam("file") MultipartFile file) {
+            @RequestParam("file") MultipartFile file) {
 
         servicioService.guardarImagenesServicios(id, file);
         return "redirect:/admin";
@@ -106,7 +104,7 @@ public class HomeController {
 
     @DeleteMapping("/admin/servicios/eliminar-foto/{id}")
     public String eliminarFotoServicio(@PathVariable("id") ObjectId id,
-                                       @RequestParam("fotoUrl") String fotoUrl) {
+            @RequestParam("fotoUrl") String fotoUrl) {
 
         servicioService.eliminarImagenServicio(id, fotoUrl);
 
@@ -115,11 +113,11 @@ public class HomeController {
 
     @PatchMapping("/admin/servicios/editar/{id}")
     public String editarServicio(@PathVariable("id") ObjectId id,
-                                 @RequestParam ("tipo") String tipo,
-                                 @RequestParam("especialidad") String categoria,
-                                 @RequestParam ("descripcion") String descripcion,
-                                 @RequestParam ("precio") Double precio,
-                                 @RequestParam("duracion") Integer duracion){
+            @RequestParam("tipo") String tipo,
+            @RequestParam("especialidad") String categoria,
+            @RequestParam("descripcion") String descripcion,
+            @RequestParam("precio") Double precio,
+            @RequestParam("duracion") Integer duracion) {
 
         Servicio servicioEditar = new Servicio();
         servicioEditar.setTipo(tipo);
@@ -133,7 +131,7 @@ public class HomeController {
     }
 
     @DeleteMapping("/admin/servicios/eliminar/{id}")
-    public String eliminarServicio(@PathVariable("id") ObjectId id){
+    public String eliminarServicio(@PathVariable("id") ObjectId id) {
         servicioService.eliminar(id);
 
         return "redirect:/admin";
@@ -141,17 +139,17 @@ public class HomeController {
 
     @PostMapping("/admin/veterinarios/guardar")
     public String guardarVeterinario(@RequestParam("nombre") String nombre,
-                                     @RequestParam("apellidoPaterno") String apellidoPaterno,
-                                     @RequestParam("apellidoMaterno") String apellidoMaterno,
-                                     @RequestParam("sucursal") ObjectId sucursal,
-                                     @RequestParam("especialidad") String especialidad,
-                                     @RequestParam("telefono") String telefono,
-                                     @RequestParam("correo") String correo,
-                                     @RequestParam("contrasenia") String contrasenia,
-                                     @RequestParam("puesto") String puesto,
-                                     @RequestParam("diasSeleccionados") List<DiaSemana> diasSeleccionados,
-                                     @RequestParam("horaEntrada") LocalTime horaEntrada,
-                                     @RequestParam("horaSalida") LocalTime horaSalida){
+            @RequestParam("apellidoPaterno") String apellidoPaterno,
+            @RequestParam("apellidoMaterno") String apellidoMaterno,
+            @RequestParam("sucursal") ObjectId sucursal,
+            @RequestParam("especialidad") String especialidad,
+            @RequestParam("telefono") String telefono,
+            @RequestParam("correo") String correo,
+            @RequestParam("contrasenia") String contrasenia,
+            @RequestParam("puesto") String puesto,
+            @RequestParam("diasSeleccionados") List<DiaSemana> diasSeleccionados,
+            @RequestParam("horaEntrada") LocalTime horaEntrada,
+            @RequestParam("horaSalida") LocalTime horaSalida) {
 
         Horario horario = new Horario();
         horario.setDias(new HashSet<>(diasSeleccionados));
@@ -178,16 +176,16 @@ public class HomeController {
 
     @PatchMapping("/admin/veterinarios/editar/{id}")
     public String editarVeterinario(@PathVariable("id") ObjectId id, @RequestParam("nombre") String nombre,
-                                     @RequestParam("apellidoPaterno") String apellidoPaterno,
-                                     @RequestParam("apellidoMaterno") String apellidoMaterno,
-                                     @RequestParam("sucursal") ObjectId sucursal,
-                                     @RequestParam("especialidad") String especialidad,
-                                     @RequestParam("telefono") String telefono,
-                                     @RequestParam("correo") String correo,
-                                     @RequestParam("puesto") String puesto,
-                                     @RequestParam("diasSeleccionados") List<DiaSemana> diasSeleccionados,
-                                     @RequestParam("horaEntrada") LocalTime horaEntrada,
-                                     @RequestParam("horaSalida") LocalTime horaSalida){
+            @RequestParam("apellidoPaterno") String apellidoPaterno,
+            @RequestParam("apellidoMaterno") String apellidoMaterno,
+            @RequestParam("sucursal") ObjectId sucursal,
+            @RequestParam("especialidad") String especialidad,
+            @RequestParam("telefono") String telefono,
+            @RequestParam("correo") String correo,
+            @RequestParam("puesto") String puesto,
+            @RequestParam("diasSeleccionados") List<DiaSemana> diasSeleccionados,
+            @RequestParam("horaEntrada") LocalTime horaEntrada,
+            @RequestParam("horaSalida") LocalTime horaSalida) {
 
         Horario horario = new Horario();
         horario.setDias(new HashSet<>(diasSeleccionados));
@@ -208,7 +206,7 @@ public class HomeController {
 
         ObjectId sucursalActual = empleadoService.obtenerPorId(id).getSucursal();
 
-        if (sucursal != sucursalActual){
+        if (sucursal != sucursalActual) {
             sucursalService.actualizarEmpleados(sucursalActual, sucursal, empleado.getIdEmpleado());
         }
 
@@ -216,21 +214,21 @@ public class HomeController {
     }
 
     @DeleteMapping("/admin/veterinarios/eliminar/{id}")
-    public String eliminarVeterinario(@PathVariable ("id") ObjectId id){
+    public String eliminarVeterinario(@PathVariable("id") ObjectId id) {
         empleadoService.eliminar(id);
 
         return "redirect:/admin";
     }
 
-    @PostMapping ("/admin/sucursales/guardar")
+    @PostMapping("/admin/sucursales/guardar")
     public String guardarSucursal(@RequestParam("nombre") String nombre,
-                                  @RequestParam("telefono") String telefono,
-                                  @RequestParam("calle") String calle,
-                                  @RequestParam("colonia") String colonia,
-                                  @RequestParam("ciudad") String ciudad,
-                                  @RequestParam("estado") String estado,
-                                  @RequestParam("codigoPostal") String codigoPostal,
-                                  @RequestParam("numeroCasa") String numeroCasa){
+            @RequestParam("telefono") String telefono,
+            @RequestParam("calle") String calle,
+            @RequestParam("colonia") String colonia,
+            @RequestParam("ciudad") String ciudad,
+            @RequestParam("estado") String estado,
+            @RequestParam("codigoPostal") String codigoPostal,
+            @RequestParam("numeroCasa") String numeroCasa) {
 
         Direccion direccion = new Direccion();
         direccion.setCalle(calle);
@@ -250,15 +248,15 @@ public class HomeController {
         return "redirect:/admin";
     }
 
-    @PatchMapping ("/admin/sucursales/editar/{id}")
+    @PatchMapping("/admin/sucursales/editar/{id}")
     public String editarSucursal(@PathVariable("id") ObjectId id, @RequestParam("nombre") String nombre,
-                                  @RequestParam("telefono") String telefono,
-                                  @RequestParam("calle") String calle,
-                                  @RequestParam("colonia") String colonia,
-                                  @RequestParam("ciudad") String ciudad,
-                                  @RequestParam("estado") String estado,
-                                  @RequestParam("codigoPostal") String codigoPostal,
-                                  @RequestParam("numeroCasa") String numeroCasa) {
+            @RequestParam("telefono") String telefono,
+            @RequestParam("calle") String calle,
+            @RequestParam("colonia") String colonia,
+            @RequestParam("ciudad") String ciudad,
+            @RequestParam("estado") String estado,
+            @RequestParam("codigoPostal") String codigoPostal,
+            @RequestParam("numeroCasa") String numeroCasa) {
 
         Direccion direccion = new Direccion();
         direccion.setCalle(calle);
@@ -278,8 +276,8 @@ public class HomeController {
         return "redirect:/admin";
     }
 
-    @DeleteMapping ("/admin/sucursales/eliminar/{id}")
-    public String eliminarSucursal(@PathVariable("id") ObjectId id){
+    @DeleteMapping("/admin/sucursales/eliminar/{id}")
+    public String eliminarSucursal(@PathVariable("id") ObjectId id) {
         sucursalService.eliminar(id);
 
         return "redirect:/admin";
@@ -287,13 +285,9 @@ public class HomeController {
 
     @GetMapping("/admin")
     public String adminDashboard(HttpSession session, Model model,
-        @RequestParam(value = "buscar", required = false) String buscar,
-        @RequestParam(value = "desde",required = false) 
-        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate desde,
-        @RequestParam(value = "hasta",required = false) 
-        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate hasta)
-         {
-    
+            @RequestParam(value = "buscar", required = false) String buscar,
+            @RequestParam(value = "desde", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate desde,
+            @RequestParam(value = "hasta", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate hasta) {
 
         ObjectId idEmpleado = (ObjectId) session.getAttribute("idEmpleado");
 
@@ -301,14 +295,14 @@ public class HomeController {
             return "redirect:/login-admin";
         }
 
-        List<Reserva> todasLasReservas = (buscar != null && !buscar.isBlank()) 
-                ? reservaService.buscar(buscar, duenoService,empleadoService)
+        List<Reserva> todasLasReservas = (buscar != null && !buscar.isBlank())
+                ? reservaService.buscar(buscar, duenoService, empleadoService)
                 : reservaService.obtenerTodos();
 
-        if(desde != null || hasta != null){
-            todasLasReservas = reservaService.filtrarPorFecha(todasLasReservas,desde,hasta);
+        if (desde != null || hasta != null) {
+            todasLasReservas = reservaService.filtrarPorFecha(todasLasReservas, desde, hasta);
         }
-    
+
         Empleado empleadoLogueado = empleadoService.obtenerPorId(idEmpleado);
 
         model.addAttribute("buscar", buscar);
@@ -328,32 +322,37 @@ public class HomeController {
     }
 
     @GetMapping("/logout")
-    public String cerrarSesion(HttpSession session){
+    public String cerrarSesion(HttpSession session) {
         session.invalidate();
         return "redirect:/";
     }
 
     @GetMapping("/servicios")
-    public String servicios(){
+    public String servicios() {
         return "servicios";
     }
 
     @GetMapping("/contacto")
-    public String contacto(){
+    public String contacto() {
         return "contacto";
     }
 
     @GetMapping("/reserva")
-    public String reservaSinLogin(Model model){
+    public String reservaSinLogin(Model model,HttpSession session) {
         model.addAttribute("listaServicios", servicioService.obtenerTodos());
         model.addAttribute("listaSucursales", sucursalService.obtenerTodos());
         model.addAttribute("listaVeterinarios", empleadoService.obtenerTodos());
+        ObjectId idDueno = (ObjectId) session.getAttribute("idDueño");
+        if (idDueno != null) {
+            Dueno dueno = duenoService.obtenerPorId(idDueno);
+            model.addAttribute("dueno", dueno);
+            model.addAttribute("listaMascotas", dueno.getMascotas());
+        }
         return "reserva";
     }
 
     @PostMapping("/reserva/dueno")
-    public String reservaConLogin(@RequestParam("idDueno") ObjectId idDueno, Model model,HttpSession session) {
-
+    public String reservaConLogin(@RequestParam("idDueno") ObjectId idDueno, Model model, HttpSession session) {
 
         ObjectId idEmpleado = (ObjectId) session.getAttribute("idEmpleado");
 
@@ -375,11 +374,11 @@ public class HomeController {
 
     @PostMapping("/reserva/filtrar-horarios")
     public String filtrarHorarios(@RequestParam("idDueno") ObjectId idDueno,
-                                  @RequestParam("idMascota") ObjectId idMascota,
-                                  @RequestParam("idSucursal") ObjectId idSucursal,
-                                  @RequestParam("idServicio") ObjectId idServicio,
-                                  @RequestParam("fecha") String fechaString,
-                                  Model model,HttpSession session) {
+            @RequestParam("idMascota") ObjectId idMascota,
+            @RequestParam("idSucursal") ObjectId idSucursal,
+            @RequestParam("idServicio") ObjectId idServicio,
+            @RequestParam("fecha") String fechaString,
+            Model model, HttpSession session) {
 
         ObjectId idEmpleado = (ObjectId) session.getAttribute("idEmpleado");
 
@@ -406,8 +405,7 @@ public class HomeController {
                 List<LocalTime> rangosDelEmpleado = servicioService.rangoCitas(
                         emp.getHorarios().getHoraEntrada(),
                         emp.getHorarios().getHoraSalida(),
-                        servicio.getDuracion()
-                );
+                        servicio.getDuracion());
 
                 for (LocalTime hora : rangosDelEmpleado) {
                     if (!reservaService.horarioOcupado(hora, servicio.getDuracion(), citasDelDia)) {
@@ -416,7 +414,6 @@ public class HomeController {
                 }
             }
         }
-
 
         model.addAttribute("mapaHorarios", mapaHorarios);
         model.addAttribute("dueno", dueno);
@@ -435,15 +432,14 @@ public class HomeController {
 
     @PostMapping("/reserva/guardar")
     public String guardarCita(@RequestParam("idDueno") ObjectId idDueno,
-                              @RequestParam("idMascota") ObjectId idMascota,
-                              @RequestParam("idSucursal") ObjectId idSucursal,
-                              @RequestParam("idServicio") ObjectId idServicio,
-                              @RequestParam("fecha") String fechaString,
-                              @RequestParam("horaCombinada") String horaCombinada,
-                              HttpSession session) {
+            @RequestParam("idMascota") ObjectId idMascota,
+            @RequestParam("idSucursal") ObjectId idSucursal,
+            @RequestParam("idServicio") ObjectId idServicio,
+            @RequestParam("fecha") String fechaString,
+            @RequestParam("horaCombinada") String horaCombinada,
+            HttpSession session) {
 
         ObjectId idEmpleado = (ObjectId) session.getAttribute("idEmpleado");
-       
 
         String[] partes = horaCombinada.split("_");
         ObjectId idVeterinarioElegido = new ObjectId(partes[0]);
@@ -469,67 +465,67 @@ public class HomeController {
         }
         return "redirect:/";
     }
+
     @PostMapping("/reserva/sin-login")
     public String crearReservaSinLogin(@RequestParam("nombre") String nombre,
-                                    @RequestParam("telefono") String telefono,
-                                    @RequestParam("nombreMascota") String nombreMascota,
-                                    @RequestParam("especieMascota") String especieMascota,
-                                    @RequestParam("razaMascota") String razaMascota,
-                                    @RequestParam("idSucursal") ObjectId idSucursal,
-                                    @RequestParam("idServicio") ObjectId idServicio,
-                                    @RequestParam("fecha") String fechaString,
-                                    Model model){
+            @RequestParam("telefono") String telefono,
+            @RequestParam("nombreMascota") String nombreMascota,
+            @RequestParam("especieMascota") String especieMascota,
+            @RequestParam("razaMascota") String razaMascota,
+            @RequestParam("idSucursal") ObjectId idSucursal,
+            @RequestParam("idServicio") ObjectId idServicio,
+            @RequestParam("fecha") String fechaString,
+            Model model) {
 
-       
-            Mascota mascota = new Mascota();
-            mascota.setIdMascota(new ObjectId());
-            mascota.setNombre(nombreMascota);
-            mascota.setEspecie(especieMascota);
-            mascota.setRaza(razaMascota);
+        Mascota mascota = new Mascota();
+        mascota.setIdMascota(new ObjectId());
+        mascota.setNombre(nombreMascota);
+        mascota.setEspecie(especieMascota);
+        mascota.setRaza(razaMascota);
 
-            Dueno dueno = new Dueno();
-            dueno.setNombre(nombre);
-            dueno.setTelefono(telefono);
-            dueno.setMascotas(new ArrayList<>(List.of(mascota)));
+        Dueno dueno = new Dueno();
+        dueno.setNombre(nombre);
+        dueno.setTelefono(telefono);
+        dueno.setMascotas(new ArrayList<>(List.of(mascota)));
 
-            dueno = duenoService.guardar(dueno);
+        dueno = duenoService.guardar(dueno);
 
-            Servicio servicio = servicioService.obtenerPorId(idServicio);
+        Servicio servicio = servicioService.obtenerPorId(idServicio);
 
-            LocalDate fecha = LocalDate.parse(fechaString);
-            DayOfWeek diaIngles = fecha.getDayOfWeek();
-            String diaEspañol = diaIngles.getDisplayName(TextStyle.FULL, new Locale("es", "MX")).toUpperCase();
-           diaEspañol = java.text.Normalizer.normalize(diaEspañol, java.text.Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+        LocalDate fecha = LocalDate.parse(fechaString);
+        DayOfWeek diaIngles = fecha.getDayOfWeek();
+        String diaEspañol = diaIngles.getDisplayName(TextStyle.FULL, new Locale("es", "MX")).toUpperCase();
+        diaEspañol = java.text.Normalizer.normalize(diaEspañol, java.text.Normalizer.Form.NFD)
+                .replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
 
-            String especialidadRequerida = servicio.getCategoria().name();
-            List<Empleado> vetsDisponibles = empleadoService.empleadoDisponible(especialidadRequerida, diaEspañol);
-            Map<LocalTime, Empleado> mapaHorarios = new TreeMap<>();
+        String especialidadRequerida = servicio.getCategoria().name();
+        List<Empleado> vetsDisponibles = empleadoService.empleadoDisponible(especialidadRequerida, diaEspañol);
+        Map<LocalTime, Empleado> mapaHorarios = new TreeMap<>();
 
-            for(Empleado emp : vetsDisponibles){
-                if(emp.getSucursal() != null && emp.getSucursal().equals(idSucursal)){
-                    List<LocalTime> rangosDelEmpleado = servicioService.rangoCitas(
+        for (Empleado emp : vetsDisponibles) {
+            if (emp.getSucursal() != null && emp.getSucursal().equals(idSucursal)) {
+                List<LocalTime> rangosDelEmpleado = servicioService.rangoCitas(
                         emp.getHorarios().getHoraEntrada(), emp.getHorarios().getHoraSalida(), servicio.getDuracion());
 
-                        for(LocalTime hora : rangosDelEmpleado){
-                            mapaHorarios.put(hora, emp);
-                        }
+                for (LocalTime hora : rangosDelEmpleado) {
+                    mapaHorarios.put(hora, emp);
                 }
             }
-            model.addAttribute("mapaHorarios",mapaHorarios);
-            model.addAttribute("dueno",dueno);
-            model.addAttribute("listaMascotas",dueno.getMascotas());
-            model.addAttribute("listaServicios",servicioService.obtenerTodos());
-            model.addAttribute("listaSucursales",sucursalService.obtenerTodos());
-            model.addAttribute("mascotaSeleccionada",mascota.getIdMascota());
-            model.addAttribute("sucursalSeleccionada",idSucursal);
-            model.addAttribute("servicioSeleccionado",idServicio);
-            model.addAttribute("fechaSeleccionada",fechaString);
-            model.addAttribute("esInvitado",true);
+        }
+        model.addAttribute("mapaHorarios", mapaHorarios);
+        model.addAttribute("dueno", dueno);
+        model.addAttribute("listaMascotas", dueno.getMascotas());
+        model.addAttribute("listaServicios", servicioService.obtenerTodos());
+        model.addAttribute("listaSucursales", sucursalService.obtenerTodos());
+        model.addAttribute("mascotaSeleccionada", mascota.getIdMascota());
+        model.addAttribute("sucursalSeleccionada", idSucursal);
+        model.addAttribute("servicioSeleccionado", idServicio);
+        model.addAttribute("fechaSeleccionada", fechaString);
+        model.addAttribute("esInvitado", true);
 
-            return "reserva";
-       
-}
+        return "reserva";
 
+    }
 
     @GetMapping("/admin/duenos")
     public String verTablaDuenos(HttpSession session, Model model) {
@@ -544,10 +540,10 @@ public class HomeController {
     }
 
     @GetMapping("/admin/duenos/editar/{id}")
-    public String editarDueno(@PathVariable ("id") ObjectId idDueno,
-                              HttpSession session,
-                              Model model,
-                              @RequestParam(value = "editar", required = false) Boolean editar){
+    public String editarDueno(@PathVariable("id") ObjectId idDueno,
+            HttpSession session,
+            Model model,
+            @RequestParam(value = "editar", required = false) Boolean editar) {
         ObjectId idEmpleado = (ObjectId) session.getAttribute("idEmpleado");
         if (idEmpleado == null) {
             return "redirect:/login-admin";
@@ -564,29 +560,30 @@ public class HomeController {
 
     @PostMapping("/admin/duenos/actualizar/{id}")
     public String actualizarDueno(@PathVariable("id") ObjectId idDueno,
-                                  @RequestParam("nombre") String nombre,
-                                  @RequestParam("apellidoPaterno") String apellidoPaterno,
-                                  @RequestParam("apellidoMaterno") String apellidoMaterno,
-                                  @RequestParam("telefono") String telefono,
-                                  @RequestParam("correo") String correo,
-                                  @RequestParam("fechaNacimiento") LocalDate fechaNacimiento,
-                                  HttpSession session) {
+            @RequestParam("nombre") String nombre,
+            @RequestParam("apellidoPaterno") String apellidoPaterno,
+            @RequestParam("apellidoMaterno") String apellidoMaterno,
+            @RequestParam("telefono") String telefono,
+            @RequestParam("correo") String correo,
+            @RequestParam("fechaNacimiento") LocalDate fechaNacimiento,
+            HttpSession session) {
 
         ObjectId idEmpleado = (ObjectId) session.getAttribute("idEmpleado");
         if (idEmpleado == null) {
             return "redirect:/login-admin";
         }
 
-        duenoService.actualizarDatosDueno(idDueno, nombre, apellidoPaterno, apellidoMaterno, telefono, correo, fechaNacimiento);
+        duenoService.actualizarDatosDueno(idDueno, nombre, apellidoPaterno, apellidoMaterno, telefono, correo,
+                fechaNacimiento);
 
         return "redirect:/admin/duenos/editar/" + idDueno.toHexString();
     }
 
     @PostMapping("/admin/mascotas/cambiar-foto/{id}")
     public String actualizarFotoMascota(@PathVariable("id") ObjectId idMascota,
-                                        @RequestParam("fotoMascota") MultipartFile file,
-                                        @RequestParam("idDueno") ObjectId idDueno,
-                                        HttpSession session) {
+            @RequestParam("fotoMascota") MultipartFile file,
+            @RequestParam("idDueno") ObjectId idDueno,
+            HttpSession session) {
 
         ObjectId idEmpleado = (ObjectId) session.getAttribute("idEmpleado");
         if (idEmpleado == null) {
@@ -596,13 +593,12 @@ public class HomeController {
         if (!file.isEmpty()) {
             Mascota mascota = duenoService.getMascotaById(idMascota, idDueno);
             if (mascota != null) {
-                duenoService.guardarFotoMascota(idDueno,idMascota,file);
+                duenoService.guardarFotoMascota(idDueno, idMascota, file);
             }
         }
 
         return "redirect:/admin/duenos/editar/" + idDueno.toHexString();
     }
-
 
     @GetMapping("/admin/mascotas")
     public String verTablaMascotas(HttpSession session, Model model) {
@@ -617,10 +613,10 @@ public class HomeController {
     }
 
     @GetMapping("/admin/mascotas/editar/{id}")
-    public String editarMascota(@PathVariable ("id") ObjectId idMascota,
-                                @RequestParam ("idDueno") ObjectId idDueno,
-                                HttpSession session, Model model,
-                                @RequestParam(value = "editar", required = false) Boolean editar){
+    public String editarMascota(@PathVariable("id") ObjectId idMascota,
+            @RequestParam("idDueno") ObjectId idDueno,
+            HttpSession session, Model model,
+            @RequestParam(value = "editar", required = false) Boolean editar) {
         ObjectId idEmpleado = (ObjectId) session.getAttribute("idEmpleado");
         if (idEmpleado == null) {
             return "redirect:/login-admin";
@@ -639,12 +635,12 @@ public class HomeController {
 
     @PostMapping("/admin/mascotas/actualizar/{id}")
     public String actualizarMascota(@PathVariable("id") ObjectId idMascota,
-                                    @RequestParam("idDueno") ObjectId idDueno,
-                                    @RequestParam("nombre") String nombre,
-                                    @RequestParam("especie") String especie,
-                                    @RequestParam("raza") String raza,
-                                    @RequestParam("fechaNacimiento") LocalDate fechaNacimiento,
-                                    HttpSession session) {
+            @RequestParam("idDueno") ObjectId idDueno,
+            @RequestParam("nombre") String nombre,
+            @RequestParam("especie") String especie,
+            @RequestParam("raza") String raza,
+            @RequestParam("fechaNacimiento") LocalDate fechaNacimiento,
+            HttpSession session) {
 
         ObjectId idEmpleado = (ObjectId) session.getAttribute("idEmpleado");
         if (idEmpleado == null) {
@@ -657,8 +653,8 @@ public class HomeController {
 
     @DeleteMapping("/admin/mascotas/eliminar/{id}")
     public String eliminarMascotaDueno(@PathVariable("id") ObjectId idMascota,
-                                  @RequestParam("idDueno") ObjectId idDueno,
-                                  HttpSession session, Model model) {
+            @RequestParam("idDueno") ObjectId idDueno,
+            HttpSession session, Model model) {
         ObjectId idEmpleado = (ObjectId) session.getAttribute("idEmpleado");
         if (idEmpleado == null) {
             return "redirect:/login-admin";
@@ -672,7 +668,7 @@ public class HomeController {
 
     @DeleteMapping("/admin/duenos/eliminar/{id}")
     public String eliminarDueno(@PathVariable("id") ObjectId idDueno,
-                                       HttpSession session, Model model) {
+            HttpSession session, Model model) {
         ObjectId idEmpleado = (ObjectId) session.getAttribute("idEmpleado");
         if (idEmpleado == null) {
             return "redirect:/login-admin";
@@ -684,27 +680,24 @@ public class HomeController {
         return "redirect:/admin";
     }
 
-
     @GetMapping("/admin/citas")
-    public String verTablaCitas(HttpSession session, Model model,  
-        @RequestParam(value = "buscar", required = false) String buscar,
-        @RequestParam(value = "desde",required = false) 
-        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate desde,
-        @RequestParam(value = "hasta",required = false) 
-        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate hasta)
+    public String verTablaCitas(HttpSession session, Model model,
+            @RequestParam(value = "buscar", required = false) String buscar,
+            @RequestParam(value = "desde", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate desde,
+            @RequestParam(value = "hasta", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate hasta)
 
-     {
+    {
         ObjectId idEmpleado = (ObjectId) session.getAttribute("idEmpleado");
         if (idEmpleado == null) {
             return "redirect:/login-admin";
         }
 
-         List<Reserva> listaReservas = (buscar != null && !buscar.isBlank()) 
-                ? reservaService.buscar(buscar, duenoService,empleadoService)
+        List<Reserva> listaReservas = (buscar != null && !buscar.isBlank())
+                ? reservaService.buscar(buscar, duenoService, empleadoService)
                 : reservaService.obtenerTodos();
 
-        if(desde != null || hasta != null){
-            listaReservas = reservaService.filtrarPorFecha(listaReservas,desde,hasta);
+        if (desde != null || hasta != null) {
+            listaReservas = reservaService.filtrarPorFecha(listaReservas, desde, hasta);
         }
 
         Empleado empleadoLogueado = empleadoService.obtenerPorId(idEmpleado);
@@ -734,34 +727,34 @@ public class HomeController {
         }
         Empleado empleadoLogueado = empleadoService.obtenerPorId(idEmpleado);
         Reserva reserva = reservaService.obtenerPorId(new ObjectId(id));
-        
+
         model.addAttribute("empleado", empleadoLogueado);
         model.addAttribute("reserva", reserva);
         model.addAttribute("listaServicios", servicioService.obtenerTodos());
         model.addAttribute("listaEmpleados", empleadoService.obtenerTodos());
         model.addAttribute("listaSucursales", sucursalService.obtenerTodos());
-        
+
         return "admin-editar-cita";
     }
 
     @PatchMapping("/admin/citas/editar/{id}")
     public String actualizarCita(@PathVariable String id,
-                                 @RequestParam ObjectId idServicio,
-                                 @RequestParam ObjectId idEmpleado,
-                                 @RequestParam ObjectId idSucursal,
-                                 @RequestParam String estado,
-                                 HttpSession session) {
+            @RequestParam ObjectId idServicio,
+            @RequestParam ObjectId idEmpleado,
+            @RequestParam ObjectId idSucursal,
+            @RequestParam String estado,
+            HttpSession session) {
         ObjectId idEmpleadoSession = (ObjectId) session.getAttribute("idEmpleado");
         if (idEmpleadoSession == null) {
             return "redirect:/login-admin";
         }
-        
+
         Reserva reserva = reservaService.obtenerPorId(new ObjectId(id));
         reserva.setServicios(servicioService.obtenerPorId(idServicio));
         reserva.setIdEmpleado(idEmpleado);
         reserva.setIdSucursal(idSucursal);
         reserva.setEstado(EstadoReserva.valueOf(estado));
-        
+
         reservaService.guardar(reserva);
         return "redirect:/admin/citas";
     }

@@ -21,9 +21,6 @@ async function login(e) {
 
     const data = await AuthService.login(correo, contrasenia);
 
-    //BORRAR ESTO
-    console.log("Respuesta del servidor en Login:", data);
-
     if (data && !data.error && data.token) {
         localStorage.setItem('token', data.token);
         localStorage.setItem('idDueno', data.idDueno);
