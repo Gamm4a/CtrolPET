@@ -1,47 +1,17 @@
+import { obtenerPerfil } from "../api.js";
 
-/* CODIGO QUE YA ESTABA
-async function cargarPerfil(params) {
-    //se supone que tienes que verificar si existe el token para poder ver tu perfil
-    const token = localStorage.getItem('token');
-    if (!token) {
-        window.location.href = "/login" //si no, que se rediriga al login?
-        return;
-    }
-    const nombre = document.getElementById('nombre-perfil');
-    const correo = document.getElementById('correo-perfil');
-    const telefono = document.getElementById('telefono-perfil');
-
-    const response = await fetch('/api/perfil/{id}', {
-        method: "GET",
-       headers: { "Authorization": "Bearer " + token }
-    });
-   
-    const resultado = await response.json();
-    nombre.value = resultado.nombre;
-    correo.value = resultado.correo;
-    telefono.value = resultado.telefono;
-   
-    const mascotaSeleccionada = document.getElementById('mascota-select');
-
-    resultado.mascotas.forEach(function(mascota) {
-        const element = document.createElement('option');
-        element.innerHTML = mascotaSeleccionada.nombre;
-        mascotas.appendChild(element);
-    });
-}
-*/
 const API_URL = "http://localhost:8080/api/dueno";
-const token = localStorage.getItem("jwt");
+const token = localStorage.getItem("token");
 const idDueno = localStorage.getItem("idDueno");
+
+if (!token || !idDueno) {
+    window.location.href = "/login.html";
+}
 
 // ------------------ PERFIL ------------------
 async function cargarPerfil() {
     try {
-        const response = await fetch(`${API_URL}/${idDueno}`, {
-            headers: { "Authorization": `Bearer ${token}` }
-        });
-        if (!response.ok) throw new Error("Error al cargar perfil");
-        const dueno = await response.json();
+        const dueno = await obtenerPerfil(idDueno, token);
 
         document.getElementById("nombre-perfil").value = dueno.nombre;
         document.getElementById("correo-perfil").value = dueno.correo;
@@ -79,6 +49,8 @@ document.getElementById("btn-editar-perfil").addEventListener("click", async () 
 });
 
 // ------------------ MASCOTAS ------------------
+let listaMascotas = [];
+
 async function cargarMascotas() {
     try {
         const response = await fetch(`${API_URL}/${idDueno}/mascotas`, {
@@ -86,6 +58,7 @@ async function cargarMascotas() {
         });
         if (!response.ok) throw new Error("Error al cargar mascotas");
         const mascotas = await response.json();
+        listaMascotas = mascotas;
 
         const select = document.getElementById("mascota-select");
         select.innerHTML = "";
@@ -114,9 +87,10 @@ function mostrarMascota(mascota) {
     document.getElementById("esterilizacion-mascota").textContent = mascota.esterilizado ? "Sí" : "No";
 }
 
-document.getElementById("mascota-select").addEventListener("change", async (e) => {
+document.getElementById("mascota-select").addEventListener("change", (e) => {
     const idMascota = e.target.value;
-    // Aquí podrías buscar la mascota seleccionada en la lista cargada
+    const mascota = listaMascotas.find(m => m.id === idMascota);
+    if (mascota) mostrarMascota(mascota);
 });
 
 // ------------------ CITAS ------------------
@@ -140,12 +114,37 @@ async function cargarCitas() {
         <td>${c.veterinario}</td>
         <td>${c.costo}</td>
         <td>${c.estado}</td>
+        <td>${c.estado === "ACTIVA" ? `<button class="btn-cancelar" data-id="${c.id}">Cancelar</button>` : ""}</td>
       `;
             tbody.appendChild(tr);
+        });
+
+        document.querySelectorAll(".btn-cancelar").forEach(btn => {
+            btn.addEventListener("click", () => cancelarCita(btn.dataset.id));
         });
     } catch (error) {
         console.error(error);
         alert("No se pudieron cargar las citas");
+    }
+}
+
+async function cancelarCita(idReserva) {
+    try {
+        const response = await fetch(`${API_URL}/${idDueno}/citas/cancelar`, {
+            method: "PUT",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ idReserva })
+        });
+        if (!response.ok) throw new Error("Error al cancelar cita");
+        await response.json();
+        alert("Cita cancelada correctamente");
+        cargarCitas();
+    } catch (error) {
+        console.error(error);
+        alert("No se pudo cancelar la cita");
     }
 }
 
@@ -156,10 +155,10 @@ async function cerrarSesion() {
             headers: { "Authorization": `Bearer ${token}` }
         });
         if (!response.ok) throw new Error("Error al cerrar sesión");
-        localStorage.removeItem("jwt");
+        localStorage.removeItem("token");
         localStorage.removeItem("idDueno");
         alert("Sesión cerrada correctamente");
-        window.location.href = "/index.html";
+        window.location.href = "/login.html";
     } catch (error) {
         console.error(error);
         alert("No se pudo cerrar sesión");
@@ -173,6 +172,3 @@ document.getElementById("btn-cerrar-sesion-2").addEventListener("click", cerrarS
 cargarPerfil();
 cargarMascotas();
 cargarCitas();
-
-
-
