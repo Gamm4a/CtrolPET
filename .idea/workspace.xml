@@ -3,13 +3,13 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
+  <component name="BackgroundAgentGlobalSettings">
+    <option name="selectedModelId" value="auto" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="f886b2e4-37ce-4367-9158-a23ac65a3544" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/js/pages/inicio.js" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/js/pages/inicio.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/js/pages/servicios.js" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/js/pages/servicios.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/styles/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/styles/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/resources/templates/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,17 +36,36 @@
       </MavenGeneralSettings>
     </option>
   </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
   <component name="ProjectColorInfo">{
     &quot;customColor&quot;: &quot;&quot;,
     &quot;associatedIndex&quot;: 1
     }</component>
   <component name="ProjectId" id="3FtOSWnaBVUk5rP2FRc7JyJNdXZ" />
+  <component name="ProjectSessionTemplates">
+    <option name="panelTemplate">
+      <template>
+        <option name="modeId" value="Agent" />
+        <option name="model">
+          <model>
+            <option name="modelType" value="builtin_family" />
+            <option name="modelValue" value="auto" />
+          </model>
+        </option>
+        <option name="targetType" value="BACKGROUND" />
+      </template>
+    </option>
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "JavaScript Debug.index.html.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
@@ -58,7 +77,7 @@
     "Spring Boot.ClienteRestApplication.executor": "Run",
     "Spring Boot.CtrolPetApplication.executor": "Run",
     "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "Zaira",
+    "git-widget-placeholder": "Gamma",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Ixchel/Documents/ctrl+pet/CtrolPET",
     "node.js.detected.package.eslint": "true",
@@ -78,7 +97,10 @@
       <recent name="C:\Users\Zaira\Documents\GitHub\CtrolPET\CtrolPET\src\main\resources\static\js\pages" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.ClienteRestApplication">
+  <component name="RunManager" selected="Spring Boot.CtrolPetApplication">
+    <configuration name="index.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/CtrolPET/templates/index.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <method v="2">
         <option name="Make" enabled="true" />
@@ -103,6 +125,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JavaScript Debug.index.html" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
