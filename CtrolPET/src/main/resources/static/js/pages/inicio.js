@@ -1,6 +1,7 @@
 import * as loader from "../loaders.js"
 import { obtenerPerfil } from "../api.js"
 import { obtenerServicios } from "./servicios.js";
+import { reservaSinLogin } from "./reserva.js";
 
 //ocupo traer la autenticacion? creo y tengo que traer la funcionalidad de reserva sin login
 
@@ -54,24 +55,19 @@ export async function initIndexLogin() {
 
 export function initIndexSinLogin() {
     const formulario = document.querySelector(".formulario-reserva");
-    const selectServicio = document.getElementById("servicio");
+    const selectServicio = document.getElementById("servicioSinLogin");
     const selectSucursal = document.getElementById("sucursalSinLogin");
     dashboard.style.display = "none";
     publico.style.display = "block";
 
     if (!formulario) return;
 
-    loader.cargarServicios("servicio");
+    loader.cargarServicios("servicioSinLogin");
     loader.cargarSucursales("sucursalSinLogin");
     obtenerServicios(3);
 
 
-    formulario.addEventListener("submit", async (e) => {
-        e.preventDefault();
-
-        //falta la llamada a crearReservaSinLogin()
-         window.location.href = "/reserva";
-    });
+    reservaSinLogin(formulario);
 
 }
 

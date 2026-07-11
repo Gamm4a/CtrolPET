@@ -129,49 +129,57 @@ if (formularioLogueado) {
 }
 
 //  Reserva sin login
-const formulario = document.querySelector(".formulario-reserva-sin-login");
-let horariosSinLogin = null;
 
-if (formulario) {
-    formulario.addEventListener('submit', async function (e) {
-        e.preventDefault();
 
-        const nombre = document.getElementById('nombre').value;
-        const apellidoPaterno = document.getElementById('apellidoPaterno').value;
-        const apellidoMaterno = document.getElementById('apellidoMaterno').value;
-        const telefono = document.getElementById('telefono').value;
-        const nombreMascota = document.getElementById('nombre-mascota').value;
-        const tipoMascota = document.getElementById('tipo-mascota').value;
-        const razaMascota = document.getElementById('raza-mascota').value;
-        const sucursalSinLogin = document.getElementById('sucursalSinLogin').value;
-        const servicioSinLogin = document.getElementById('servicioSinLogin').value;
-        const fechaSinLogin = document.getElementById('fechaSinLogin').value;
-        const mensaje = document.getElementById('mensaje-reserva');
 
-        if (!nombre || !telefono || !nombreMascota || !tipoMascota || !razaMascota
-            || !sucursalSinLogin || !servicioSinLogin || !fechaSinLogin) {
-            alert("Por favor completa todos los campos");
+
+
+export function reservaSinLogin(formulario){
+    const form = document.querySelector(".formulario-reserva-sin-login");
+    if (!form) return;
+
+    let horariosSinLogin = null;
+
+    const selectSucursal = document.getElementById('sucursalSinLogin');
+    const selectServicio = document.getElementById('servicioSinLogin');
+    const selectFecha = document.getElementById('fechaSinLogin');
+    const selectHora = document.getElementById('horaSinLogin');
+    const campoHoraContainer = document.getElementById('campo-hora-sin-login');
+    const mensaje = document.getElementById('mensaje-reserva');
+
+    async function actualizarHorarios() {
+        const sucursal = selectSucursal.value;
+        const servicio = selectServicio.value;
+        const fecha = selectFecha.value;
+
+        if (!sucursal || !servicio || !fecha) {
+            campoHoraContainer.style.display = "none";
+            selectHora.innerHTML = '<option value="" disabled selected>Selecciona una hora</option>';
+            horariosSinLogin = null;
             return;
         }
 
-        if (horariosSinLogin === null) {
-            const params = new URLSearchParams({ idSucursal: sucursalSinLogin, idServicio: servicioSinLogin, fecha: fechaSinLogin });
+        mensaje.innerHTML = "Buscando horarios disponibles...";
+
+        try {
+            const params = new URLSearchParams({ idSucursal: sucursal, idServicio: servicio, fecha: fecha });
             const response = await fetch(`/api/reservas/horarios?${params}`);
 
             if (!response.ok) {
                 mensaje.innerHTML = "Ocurrió un error buscando horarios";
+                campoHoraContainer.style.display = "none";
                 return;
             }
 
             horariosSinLogin = await response.json();
 
-            if (Object.keys(horariosSinLogin).length === 0) {
+            if (!horariosSinLogin || Object.keys(horariosSinLogin).length === 0) {
                 mensaje.innerHTML = "No hay horarios disponibles ese día";
+                campoHoraContainer.style.display = "none";
                 horariosSinLogin = null;
                 return;
             }
 
-            const selectHora = document.getElementById('horaSinLogin');
             selectHora.innerHTML = '<option value="" disabled selected>Selecciona una hora</option>';
             for (const [hora, valor] of Object.entries(horariosSinLogin)) {
                 const [idEmpleado, nombreEmpleado] = valor.split("|");
@@ -181,61 +189,83 @@ if (formulario) {
                 selectHora.appendChild(option);
             }
 
-
-            document.getElementById('campo-hora-sin-login').style.display = "block";
-            document.getElementById('nombre').disabled = true;
-            document.getElementById('telefono').disabled = true;
-            document.getElementById('nombre-mascota').disabled = true;
-            document.getElementById('tipo-mascota').disabled = true;
-            document.getElementById('raza-mascota').disabled = true;
-            document.getElementById('sucursalSinLogin').disabled = true;
-            document.getElementById('servicioSinLogin').disabled = true;
-            document.getElementById('fechaSinLogin').disabled = true;
-            document.getElementById('btn-agendar-sin-login').textContent = "Agendar mi cita";
+            campoHoraContainer.style.display = "block";
             mensaje.innerHTML = "";
+
+        } catch (error) {
+            console.error("Error al buscar horarios:", error);
+            mensaje.innerHTML = "Error de conexión al buscar horarios";
+        }
+    }
+
+    selectSucursal.addEventListener('change', actualizarHorarios);
+    selectServicio.addEventListener('change', actualizarHorarios);
+    selectFecha.addEventListener('change', actualizarHorarios);
+
+
+    form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const nombre = document.getElementById('nombre').value;
+        const apellidoPaterno = document.getElementById('apellidoPaterno').value;
+        const apellidoMaterno = document.getElementById('apellidoMaterno').value;
+        const telefono = document.getElementById('telefono').value;
+        const nombreMascota = document.getElementById('nombre-mascota').value;
+        const tipoMascota = document.getElementById('tipo-mascota').value;
+        const razaMascota = document.getElementById('raza-mascota').value;
+        const sucursalSinLogin = selectSucursal.value;
+        const servicioSinLogin = selectServicio.value;
+        const fechaSinLogin = selectFecha.value;
+        const horaSinLogin = selectHora.value;
+
+        if (!nombre || !apellidoPaterno || !apellidoMaterno || !telefono || !nombreMascota ||
+            !tipoMascota || !razaMascota || !sucursalSinLogin || !servicioSinLogin || !fechaSinLogin) {
+            alert("Por favor completa todos los campos principales");
             return;
         }
 
-        const horaSinLogin = document.getElementById('horaSinLogin').value;
-        if (!horaSinLogin) {
-            alert("Selecciona una hora");
+        if (!horaSinLogin || !horariosSinLogin) {
+            alert("Por favor, selecciona un horario válido");
             return;
         }
 
         const idEmpleado = horariosSinLogin[horaSinLogin].split("|")[0];
 
-        const response = await fetch("/api/reservas", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                nombre, telefono, nombreMascota,
-                especieMascota: tipoMascota,
-                razaMascota,
-                idSucursal: sucursalSinLogin,
-                idServicio: servicioSinLogin,
-                fecha: fechaSinLogin,
-                hora: horaSinLogin
-            })
+            const response = await fetch("/api/reservas", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    nombre, telefono, nombreMascota,
+                    especieMascota: tipoMascota,
+                    razaMascota,
+                    idSucursal: sucursalSinLogin,
+                    idServicio: servicioSinLogin,
+                    fecha: fechaSinLogin,
+                    hora: horaSinLogin
+                })
+            });
+
+            if (response.ok) {
+                const reserva = await response.json();
+                document.getElementById('modal-fecha').textContent = new Date(reserva.fecha).toLocaleString('es');
+                document.getElementById('modal-servicio').textContent = reserva.servicios.tipo;
+                document.getElementById('modal-precio').textContent = "$" + reserva.servicios.precio;
+                document.getElementById('modal-estado').textContent = reserva.estado;
+                document.getElementById('modal-reserva-exitosa').style.display = "flex";
+            } else {
+                document.getElementById('modal-reserva-error').style.display = "flex";
+
+            }
         });
 
-        if (response.ok) {
-            const reserva = await response.json();
-            document.getElementById('modal-fecha').textContent = new Date(reserva.fecha).toLocaleString('es');
-            document.getElementById('modal-servicio').textContent = reserva.servicios.tipo;
-            document.getElementById('modal-precio').textContent = "$" + reserva.servicios.precio;
-            document.getElementById('modal-estado').textContent = reserva.estado;
-            document.getElementById('modal-reserva-exitosa').style.display = "flex";
-        } else {
-            document.getElementById('modal-reserva-error').style.display = "flex";
+        document.getElementById('btn-cerrar-modal-exito').addEventListener('click', function () {
+            window.location.href = "/";
+        });
 
-        }
-    });
+        document.getElementById('btn-cerrar-modal').addEventListener('click', function () {
+            document.getElementById('modal-reserva-error').style.display = "none";
+        });
+
+
 
 }
-document.getElementById('btn-cerrar-modal-exito').addEventListener('click', function () {
-    window.location.href = "/";
-});
-
-document.getElementById('btn-cerrar-modal').addEventListener('click', function () {
-    document.getElementById('modal-reserva-error').style.display = "none";
-});

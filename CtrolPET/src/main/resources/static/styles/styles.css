@@ -309,6 +309,11 @@ header {
     overflow: hidden;
 }
 
+.imagen-reserva-index h2{
+    text-align: center;
+    padding: var(--espacio);
+}
+
 .imagen-reserva-index h2 span {
     color: var(--highlight);
     font-weight: bold;
@@ -1342,41 +1347,36 @@ input[name="pasos"] {
 
 .contenedor-reserva-sin-login {
     display: grid;
-    grid-template-columns: 0.8fr 1.2fr;
-    max-width: 1100px;
-    width: 100%;
-    margin: 0 auto;
+    grid-template-columns: 3.5fr 6.5fr;
     align-items: start;
-    gap: 60px;
-    padding: 50px 60px;
+    padding: var(--espacio);
+}
+
+.contenedor-reserva-sin-login .formulario-reserva-sin-login {
+    margin: 70px;
 }
 
 .imagen-reserva-sin-login {
     display: flex;
     flex-direction: column;
-    align-items: stretch;
     gap: var(--espacio-cercano);
-    max-height: 500px;
     padding-top: 30px;
 }
 .imagen-reserva-sin-login p {
     font-size: 1.1rem;
     font-weight: 600;
     color: var(--texto);
-    text-align: end;
     margin-bottom: 30px;
     line-height: 1.4;
     width: 100%;
-    margin-left: -50px;
-    margin-right: -60px;
+    text-align: center;
 }
 .imagen-reserva-sin-login p a {
     display: block;
     margin-top: 5px;
 }
 .imagen-reserva-sin-login img {
-    width: 100%;
-    max-height: 420px;
+    height: auto;
     border-radius: var(--radio);
     object-fit: cover;
 }

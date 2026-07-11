@@ -22,7 +22,7 @@ document.getElementById('btn-enviar-registro').addEventListener('click', async f
     const nombreMascota = document.getElementById('nombre-mascota').value;
     const tipoMascota = document.getElementById('tipo-mascota').value;
     const razaMascota = document.getElementById('raza-mascota').value;
-    const edadMascota = document.getElementById('fechaNacimiento').value;
+    const edadMascota = document.getElementById('fechaNacimientoMascota').value;
     const sexoMascota = document.querySelector('input[name="sexoMascota"]:checked');
     const servicio = document.getElementById('servicio').value;
     const fecha = document.getElementById('fecha').value;
@@ -40,7 +40,7 @@ document.getElementById('btn-enviar-registro').addEventListener('click', async f
         return;
     }
 
-    if (!nombreMascota || !tipoMascota || !razaMascota || !sexoMascota) {
+    if (!nombreMascota || !tipoMascota || !razaMascota || !sexoMascota || edadMascota) {
         alert('Por favor completa todos los campos del Paso 3 (Mascota)');
         document.getElementById('switch-paso3').checked = true;
         return;

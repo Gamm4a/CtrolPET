@@ -70,7 +70,7 @@
                     <img src="/imgs/index/imagen-formulario-index.png" alt="Perrito y gatito juntos">
                 </div>
                 
-                <form class="formulario-reserva">
+                <form class="formulario-reserva formulario-reserva-sin-login" >
                     <div class="campo-formulario">
                         <label for="nombre">Nombre:</label>
                         <input type="text" id="nombre" name="nombre" placeholder="Ej. Luis" required>
@@ -84,30 +84,25 @@
                         <input type="text" id="apellidoMaterno" name="apellidoMaterno" placeholder="Ej. Gonzáles" required>
                     </div>
                     <div class="campo-formulario">
+                        <label for="telefono">Teléfono</label>
+                        <input type="tel" id="telefono" name="telefono" placeholder="Ej. 6441234567" required>
+                    </div>
+                    <div class="campo-formulario">
                         <label for="nombre-mascota">Nombre de tu mascota:</label>
                         <input type="text" id="nombre-mascota" name="nombreMascota" placeholder="Ej. Oreo" required>
                     </div>
-                <div class="campo-formulario">
-                    <label for="servicio">Servicio</label>
-                    <select id="servicio" required>
-                        <option value="">Selecciona un servicio...</option>
-                    </select>
-                </div>
-                <div class="campo-formulario">
-                    <label for="telefono">Teléfono</label>
-                    <input type="tel" id="telefono" placeholder="Ej. 6441234567" required>
-                </div>
+                    <div class="campo-formulario">
 
-                <div class="campo-formulario">
-                    <label for="tipo-mascota">Tipo de mascota</label>
-                    <select id="tipo-mascota" required>
-                        <option value="">Selecciona un tipo...</option>
-                        <option value="perro">Perro</option>
-                        <option value="gato">Gato</option>
-                        <option value="roedor">Roedor</option>
-                        <option value="ave">Ave</option>
-                    </select>
-                </div>
+                        <label for="tipo-mascota">Tipo de mascota</label>
+                        <select id="tipo-mascota" name="especieMascota" required>
+                            <option value="">Selecciona un tipo...</option>
+                            <option value="perro">Perro</option>
+                            <option value="gato">Gato</option>
+                            <option value="roedor">Roedor</option>
+                            <option value="ave">Ave</option>
+                        </select>
+                    </div>
+
                     <div class="campo-formulario">
                         <label for="raza-mascota">Raza de tu mascota:</label>
                         <select id="raza-mascota" name="razaMascota" required>
@@ -122,21 +117,56 @@
                         <label for="sucursalSinLogin">Sucursal:</label>
                         <select id="sucursalSinLogin" name="idSucursal" required>
                             <option value="" disabled selected>Selecciona una sucursal...</option>
+                            <option th:each="sucursal : ${listaSucursales}"
+                                    th:value="${sucursal.idSucursal}"
+                                    th:text="${sucursal.nombre}"></option>
                         </select>
                     </div>
 
                     <div class="campo-formulario">
-                        <label for="fecha">Fecha</label>
-                        <input type="date" id="fecha" required>
+                        <label for="servicioSinLogin">Servicio:</label>
+                        <select id="servicioSinLogin" name="idServicio" required>
+                            <option value="" disabled selected>Selecciona un servicio...</option>
+                            <option th:each="servicio : ${listaServicios}"
+                                    th:value="${servicio.idServicio}"
+                                    th:text="${servicio.tipo}"></option>
+                        </select>
                     </div>
 
-                <div class="campo-formulario">
-                    <label for="hora">Hora</label>
-                    <input type="time" id="hora" required>
-                </div>
+                    <div class="campo-formulario">
+                        <label for="fechaSinLogin">Fecha</label>
+                        <input type="date" id="fechaSinLogin" name="fecha" required>
+                    </div>
+
+                    <div class="campo-formulario" id="campo-hora-sin-login">
+                        <label for="horaSinLogin">Hora disponible</label>
+                        <select id="horaSinLogin" name="hora">
+                            <option value="" disabled selected>Selecciona una hora</option>
+                        </select>
+                    </div>
+                    <p id="mensaje-reserva" ></p>
 
                 <button type="submit" class="btn-submit">Agendar mi cita</button>
+
             </form>
+                <div id="modal-reserva-exitosa" class="modal-reserva" style="display:none;">
+                    <div class="modal-contenido">
+                        <img src="imgs/iconos/huella.png" alt="huella check">
+                        <h2>¡Reserva creada con éxito!</h2>
+                        <p><strong>Fecha:</strong> <span id="modal-fecha"></span></p>
+                        <p><strong>Servicio:</strong> <span id="modal-servicio"></span></p>
+                        <p><strong>Precio:</strong> <span id="modal-precio"></span></p>
+                        <p><strong>Estado:</strong> <span id="modal-estado"></span></p>
+                        <button id="btn-cerrar-modal-exito">Aceptar</button>
+                    </div>
+                </div>
+
+                <div id="modal-reserva-error" class="modal-reserva" style="display:none;">
+                    <div class="modal-contenido">
+                        <h2>¡Ocurrió un error, verifica tus datos!</h2>
+                        <button id="btn-cerrar-modal">Aceptar</button>
+                    </div>
+                </div>
             </div>
 
             <div class="seccion-proceso">
