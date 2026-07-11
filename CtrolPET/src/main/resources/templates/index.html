@@ -71,10 +71,22 @@
                 </div>
                 
                 <form class="formulario-reserva">
-                <div class="campo-formulario">
-                    <label for="nombre">Nombre completo</label>
-                    <input type="text" id="nombre" placeholder="Ej. Luis Pérez" required>
-                </div>
+                    <div class="campo-formulario">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" id="nombre" name="nombre" placeholder="Ej. Luis" required>
+                    </div>
+                    <div class="campo-formulario">
+                        <label for="apellidoPaterno">Apellido Paterno:</label>
+                        <input type="text" id="apellidoPaterno" name="apellidoPaterno" placeholder="Ej. Pérez" required>
+                    </div>
+                    <div class="campo-formulario">
+                        <label for="apellidoMaterno">Apellido Materno:</label>
+                        <input type="text" id="apellidoMaterno" name="apellidoMaterno" placeholder="Ej. Gonzáles" required>
+                    </div>
+                    <div class="campo-formulario">
+                        <label for="nombre-mascota">Nombre de tu mascota:</label>
+                        <input type="text" id="nombre-mascota" name="nombreMascota" placeholder="Ej. Oreo" required>
+                    </div>
                 <div class="campo-formulario">
                     <label for="servicio">Servicio</label>
                     <select id="servicio" required>
@@ -85,10 +97,7 @@
                     <label for="telefono">Teléfono</label>
                     <input type="tel" id="telefono" placeholder="Ej. 6441234567" required>
                 </div>
-                <div class="campo-formulario">
-                    <label for="fecha">Fecha</label>
-                    <input type="date" id="fecha" required>
-                </div>
+
                 <div class="campo-formulario">
                     <label for="tipo-mascota">Tipo de mascota</label>
                     <select id="tipo-mascota" required>
@@ -99,6 +108,28 @@
                         <option value="ave">Ave</option>
                     </select>
                 </div>
+                    <div class="campo-formulario">
+                        <label for="raza-mascota">Raza de tu mascota:</label>
+                        <select id="raza-mascota" name="razaMascota" required>
+                            <option value="">Selecciona una raza...</option>
+                            <option value="Pequeña">Pequeña</option>
+                            <option value="Mediana">Mediana</option>
+                            <option value="Grande">Grande</option>
+                        </select>
+                    </div>
+
+                    <div class="campo-formulario">
+                        <label for="sucursalSinLogin">Sucursal:</label>
+                        <select id="sucursalSinLogin" name="idSucursal" required>
+                            <option value="" disabled selected>Selecciona una sucursal...</option>
+                        </select>
+                    </div>
+
+                    <div class="campo-formulario">
+                        <label for="fecha">Fecha</label>
+                        <input type="date" id="fecha" required>
+                    </div>
+
                 <div class="campo-formulario">
                     <label for="hora">Hora</label>
                     <input type="time" id="hora" required>

@@ -146,8 +146,16 @@
             
             <form class="formulario-reserva-sin-login" th:action="@{/reserva/sin-login}" method="POST">
                     <div class="campo-formulario">
-                        <label for="nombre">Nombre completo</label>
-                        <input type="text" id="nombre" name="nombre" placeholder="Ej. Luis Pérez" required>
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" id="nombre" name="nombre" placeholder="Ej. Luis" required>
+                    </div>
+                    <div class="campo-formulario">
+                        <label for="apellidoPaterno">Apellido Paterno:</label>
+                        <input type="text" id="apellidoPaterno" name="apellidoPaterno" placeholder="Ej. Pérez" required>
+                    </div>
+                    <div class="campo-formulario">
+                        <label for="apellidoMaterno">Apellido Materno:</label>
+                        <input type="text" id="apellidoMaterno" name="apellidoMaterno" placeholder="Ej. Gonzáles" required>
                     </div>
                     <div class="campo-formulario">
                         <label for="telefono">Teléfono</label>
@@ -173,9 +181,9 @@
                     <label for="raza-mascota">Raza de tu mascota:</label>
                      <select id="raza-mascota" name="razaMascota" required>
                         <option value="">Selecciona una raza...</option>
-                        <option value="pequeña">Chica</option>
-                        <option value="mediana">Mediana</option>
-                        <option value="grande">Grande</option>
+                        <option value="Pequeña">Pequeña</option>
+                        <option value="Mediana">Mediana</option>
+                        <option value="Grande">Grande</option>
                     </select>
                     </div>
                     

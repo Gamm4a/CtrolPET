@@ -59,13 +59,16 @@ export async function initIndexLogin() {
 export function initIndexSinLogin() {
     const formulario = document.querySelector(".formulario-reserva");
     const selectServicio = document.getElementById("servicio");
+    const selectSucursal = document.getElementById("sucursalSinLogin");
     dashboard.style.display = "none";
     publico.style.display = "block";
 
     if (!formulario) return;
 
     loader.cargarServicios("servicio");
+    loader.cargarSucursales("sucursalSinLogin");
     obtenerServicios(3);
+
 
     formulario.addEventListener("submit", async (e) => {
         e.preventDefault();

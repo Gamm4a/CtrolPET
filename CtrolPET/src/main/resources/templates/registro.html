@@ -80,8 +80,16 @@
             <div class="contenedor-formulario-registro"  id="paso1">
                 <div class="formulario-reserva">
                     <div class="campo-formulario">
-                        <label for="nombre">Nombre completo</label>
-                        <input type="text" id="nombre" name="nombre" placeholder="Ej. Luis Pérez" required>
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" id="nombre" name="nombre" placeholder="Ej. Luis" required>
+                    </div>
+                    <div class="campo-formulario">
+                        <label for="apellidoPaterno">Apellido Paterno:</label>
+                        <input type="text" id="apellidoPaterno" name="apellidoPaterno" placeholder="Ej. Pérez" required>
+                    </div>
+                    <div class="campo-formulario">
+                        <label for="apellidoMaterno">Apellido Materno:</label>
+                        <input type="text" id="apellidoMaterno" name="apellidoMaterno" placeholder="Ej. Gonzáles" required>
                     </div>
                     <div class="campo-formulario">
                         <label for="telefono">Teléfono</label>
@@ -117,7 +125,6 @@
                         <input type="text" id="nombre-mascota" name="nombreMascota" placeholder="Ej. Oreo" required>
                     </div>
                     <div class="campo-formulario">
-
                     <label for="tipo-mascota">Tipo de mascota</label>
                     <select id="tipo-mascota" name="tipoMascota" required>
                         <option value="">Selecciona un tipo...</option>
@@ -132,22 +139,16 @@
                     <label for="raza-mascota">Raza de tu mascota:</label>
                      <select id="raza-mascota" name="razaMascota" required>
                         <option value="">Selecciona una raza...</option>
-                         <option value="pequenia">Pequeña</option>
-                         <option value="mediana">Mediana</option>
-                         <option value="grande">Grande</option>
+                         <option value="Pequenia">Pequeña</option>
+                         <option value="Mediana">Mediana</option>
+                         <option value="Grande">Grande</option>
 
                     </select>
                     </div>
                     <div class="campo-formulario">
-                        <label for="edad-mascota">Edad de tu mascota:</label>
-                        <input type="number" id="edad-mascota" name="edadMascota" required>
-
-                     <select id="edad-mascota-tiempo" name="edadMascotaTiempo" required>
-                        <option value="anios">años</option>
-                        <option value="meses">meses</option>
-                    </select>
+                        <label for="fechaNacimiento">Fecha de nacimiento de tu mascota:</label>
+                        <input type="date" id="fechaNacimiento" name="fechaNacimiento" required>
                     </div>
-
                     <div class="campo-formulario">
                         <div class="radio-mascota">
                         <label>Sexo de tu mascota:</label>
@@ -167,47 +168,15 @@
                                     value="masculino"
                                     >
                                 <label for="rad_masculino">Masculino</label>
-
                             </div>
                         </div>
-
                     </div>
-
-
-                    <div class="campo-formulario">
-                        <div class="radio-mascota">
-                        <label>¿Su mascota está esterilizada?:</label>
-                            <div>
-                                <input
-                                        type="radio"
-                                        id="rad_no_esterilizado"
-                                        name="esterilizadoMascota"
-                                        value="false"
-                                        required>
-                                <label for="rad_no_esterilizado">No</label>
-                                <input
-                                        type="radio"
-                                        id="rad_esterilizado"
-                                        name="esterilizadoMascota"
-                                        value="true"
-                                        >
-                                <label for="rad_esterilizado">Sí</label>
-
-                            </div>
-                        </div>
-
-                    </div>
-
                 <div class="grupo-botones">
                     <label for="switch-paso1" class="btn-anterior">Anterior</label>
                     <label for="switch-paso3" class="btn-continuar">Continuar</label>
                 </div>
-
-
-                </div>
-
             </div>
-
+            </div>
             <div class="contenedor-formulario-registro"  id="paso3">
                 <div class="formulario-reserva">
 
@@ -238,10 +207,7 @@
                         <label for="switch-paso2" class="btn-anterior">Anterior</label>
                         <button type="button" class="btn-continuar" id="btn-enviar-registro">Continuar</button>
                     </div>
-
-
                 </div>
-
             </div>
 
             <div class="contenedor-formulario-registro" id="paso4">

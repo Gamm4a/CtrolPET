@@ -24,6 +24,7 @@ public class Mappers {
         direccionDTO.setNumeroCasa(entity.getNumeroCasa());
         direccionDTO.setColonia(entity.getColonia());
         direccionDTO.setCiudad(entity.getCiudad());
+        direccionDTO.setEstado(entity.getEstado());
         direccionDTO.setCodigoPostal(entity.getCodigoPostal());
 
         return direccionDTO;
@@ -101,13 +102,20 @@ public class Mappers {
 
     public static SucursalDTO toDTO(Sucursal entity){
     SucursalDTO sucursalDTO = new SucursalDTO();
+    sucursalDTO.setEmpleados(new ArrayList<>());
     sucursalDTO.setIdSucursal(entity.getIdSucursal().toString());
     sucursalDTO.setNombre(entity.getNombre());
-    sucursalDTO.setDireccion(Mappers.ToDTO(entity.getDireccion()));
-    sucursalDTO.setTelefono(entity.getTelefono());
-    for (ObjectId empleado : entity.getEmpleados()) {
-        sucursalDTO.getEmpleados().add(empleado.toString());
+    if (entity.getDireccion() != null) {
+        sucursalDTO.setDireccion(Mappers.ToDTO(entity.getDireccion()));
     }
+    sucursalDTO.setTelefono(entity.getTelefono());
+        if (entity.getEmpleados() != null) {
+            for (ObjectId empleado : entity.getEmpleados()) {
+                if (empleado != null) {
+                    sucursalDTO.getEmpleados().add(empleado.toString());
+                }
+            }
+        }
     return sucursalDTO;
 
 

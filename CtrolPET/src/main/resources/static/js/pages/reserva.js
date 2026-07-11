@@ -111,6 +111,8 @@ if (formulario) {
         e.preventDefault();
 
         const nombre = document.getElementById('nombre').value;
+        const apellidoPaterno = document.getElementById('apellidoPaterno').value;
+        const apellidoMaterno = document.getElementById('apellidoMaterno').value;
         const telefono = document.getElementById('telefono').value;
         const nombreMascota = document.getElementById('nombre-mascota').value;
         const tipoMascota = document.getElementById('tipo-mascota').value;

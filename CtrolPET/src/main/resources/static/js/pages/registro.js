@@ -6,6 +6,8 @@ document.getElementById('btn-enviar-registro').addEventListener('click', async f
 
     // Validar paso 1
     const nombre = document.getElementById('nombre').value;
+    const apellidoPaterno = document.getElementById('apellidoPaterno').value;
+    const apellidoMaterno = document.getElementById('apellidoMaterno').value;
     const telefono = document.getElementById('telefono').value;
     const correo = document.getElementById('correo').value;
     const contrasenia = document.getElementById('contrasenia').value;
@@ -14,21 +16,19 @@ document.getElementById('btn-enviar-registro').addEventListener('click', async f
     const nombreMascota = document.getElementById('nombre-mascota').value;
     const tipoMascota = document.getElementById('tipo-mascota').value;
     const razaMascota = document.getElementById('raza-mascota').value;
-    const edadMascota = document.getElementById('edad-mascota').value;
+    const edadMascota = document.getElementById('fechaNacimiento').value;
     const sexoMascota = document.querySelector('input[name="sexoMascota"]:checked');
-    const esterilizado = document.querySelector('input[name="esterilizadoMascota"]:checked');
-
     const servicio = document.getElementById('servicio').value;
     const fecha = document.getElementById('fecha').value;
     const hora = document.getElementById('hora').value;
 
-    if (!nombre || !telefono || !correo || !contrasenia) {
+    if (!nombre || !apellidoPaterno || !apellidoMaterno || !telefono || !correo || !contrasenia) {
         alert('Por favor completa todos los campos del Paso 1 (Tu Información)');
         document.getElementById('switch-paso1').checked = true;
         return;
     }
 
-    if (!nombreMascota || !tipoMascota || !razaMascota || !edadMascota || !sexoMascota || !esterilizado) {
+    if (!nombreMascota || !tipoMascota || !razaMascota || !edadMascota || !sexoMascota) {
         alert('Por favor completa todos los campos del Paso 2 (Información de la mascota)');
         document.getElementById('switch-paso2').checked = true;
         return;
