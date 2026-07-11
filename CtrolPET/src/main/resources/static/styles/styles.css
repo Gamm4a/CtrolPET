@@ -667,7 +667,7 @@ input[name="pasos"] {
     display: none;
 }
 
-#paso2, #paso3, #paso4 {
+#paso2, #paso3, #paso4, #paso5{
     display: none;
 }
 
@@ -685,6 +685,9 @@ input[name="pasos"] {
 
 #switch-paso4:checked ~ #paso4 {
   display: block;
+}
+#switch-paso5:checked ~ #paso5 {
+    display: block;
 }
 
 #switch-paso1:checked ~ .contenedor-stepper #step-1,
@@ -2550,7 +2553,8 @@ input[name="pasos"] {
     #switch-paso1:checked ~ .contenedor-stepper .step:nth-child(1),
     #switch-paso2:checked ~ .contenedor-stepper .step:nth-child(2),
     #switch-paso3:checked ~ .contenedor-stepper .step:nth-child(3),
-    #switch-paso4:checked ~ .contenedor-stepper .step:nth-child(4) {
+    #switch-paso4:checked ~ .contenedor-stepper .step:nth-child(4),
+    #switch-paso5:checked ~ .contenedor-stepper .step:nth-child(5) {
         display: flex;
     }
 

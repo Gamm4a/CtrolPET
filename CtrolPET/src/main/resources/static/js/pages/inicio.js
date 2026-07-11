@@ -31,13 +31,8 @@ export async function initIndexLogin() {
     const token = localStorage.getItem("token");
     const idDueno = localStorage.getItem("idDueno");
 
-    //Borrar esto:
-    console.log("Datos recuperados en Index - ID:", idDueno, "Token válido:", !!token);
-
     const perfil = await obtenerPerfil(idDueno, token);
 
-    //borrar esto:
-    console.log("Perfil recibido de la API:", perfil);
 
 
     if (!perfil || !perfil.mascotas) {

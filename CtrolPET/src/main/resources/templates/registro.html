@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ctrl + PET - Registro</title>
-        <style>
-            @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
-        </style>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+    </style>
     <link rel="stylesheet" href="/styles/styles.css">
-
 </head>
 <body>
 
@@ -16,14 +15,12 @@
         <div class="logo">
             <img src="/imgs/iconos/logo.png" alt="logo de ctrl+PET.">
         </div>
-
         <input type="checkbox" id="anvorguesa">
         <label for="anvorguesa" class="menu-button">
             <span></span>
             <span></span>
             <span></span>
         </label>
-
         <nav class="header-nav">
             <a th:href="@{/}">Inicio</a>
             <a th:href="@{/servicios}">Servicios</a>
@@ -36,232 +33,233 @@
     </header>
 
     <main>
-        <form th:action="@{/registro}" method="post" id="form-registro-completo">
+        <form id="form-registro-completo">
         <section class="formulario-registro">
             <input type="radio" name="pasos" id="switch-paso1" checked>
             <input type="radio" name="pasos" id="switch-paso2">
             <input type="radio" name="pasos" id="switch-paso3">
             <input type="radio" name="pasos" id="switch-paso4">
+            <input type="radio" name="pasos" id="switch-paso5">
 
             <div class="contenedor-stepper">
                 <div class="step">
                     <div class="numero-step" id="step-1">1</div>
                     <div class="texto-step">
-                    <strong>Tu Información</strong>
-                    <span>Llena tus datos</span>
+                        <strong>Tu Información</strong>
+                        <span>Llena tus datos</span>
                     </div>
                 </div>
-
                 <div class="step">
-                    <div class="numero-step"  id="step-2">2</div>
+                    <div class="numero-step" id="step-2">2</div>
                     <div class="texto-step">
-                    <strong>Información de la mascota</strong>
-                    <span>Cuéntanos de tu mejor amigo</span>
+                        <strong>Tu Dirección</strong>
+                        <span>Llena tus datos</span>
                     </div>
                 </div>
-
                 <div class="step">
-                    <div class="numero-step"  id="step-3">3</div>
+                    <div class="numero-step" id="step-3">3</div>
                     <div class="texto-step">
-                    <strong>Agendar cita</strong>
-                    <span>Visítanos cuando quieras</span>
+                        <strong>Información de la mascota</strong>
+                        <span>Cuéntanos de tu mejor amigo</span>
                     </div>
                 </div>
-
                 <div class="step">
-                    <div class="numero-step"  id="step-4">4</div>
+                    <div class="numero-step" id="step-4">4</div>
                     <div class="texto-step">
-                    <strong>Finalizar</strong>
-                    <span>Bienvenido a la familia</span>
+                        <strong>Agendar cita</strong>
+                        <span>Visítanos cuando quieras</span>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="numero-step" id="step-5">5</div>
+                    <div class="texto-step">
+                        <strong>Finalizar</strong>
+                        <span>Bienvenido a la familia</span>
                     </div>
                 </div>
             </div>
 
-            <div class="contenedor-formulario-registro"  id="paso1">
+            <div class="contenedor-formulario-registro" id="paso1">
                 <div class="formulario-reserva">
                     <div class="campo-formulario">
-                        <label for="nombre">Nombre completo</label>
-                        <input type="text" id="nombre" name="nombre" placeholder="Ej. Luis Pérez" required>
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" name="nombre" placeholder="Ej. Luis Antonio" required>
+                    </div>
+                    <div class="campo-formulario">
+                        <label for="apellidoPaterno">Apellido Paterno</label>
+                        <input type="text" id="apellidoPaterno" name="apellidoPaterno" placeholder="Ej. Pérez" required>
+                    </div>
+                    <div class="campo-formulario">
+                        <label for="apellidoMaterno">Apellido Materno</label>
+                        <input type="text" id="apellidoMaterno" name="apellidoMaterno" placeholder="Ej. Martinez" required>
                     </div>
                     <div class="campo-formulario">
                         <label for="telefono">Teléfono</label>
                         <input type="tel" id="telefono" name="telefono" placeholder="Ej. 6441234567" required>
                     </div>
                     <div class="campo-formulario">
-                        <label for="correo">Correo electrónico: </label>
+                        <label for="fechaNacimiento">Fecha de nacimiento</label>
+                        <input type="date" id="fechaNacimiento" name="fechaNacimiento" required>
+                    </div>
+                    <div class="campo-formulario">
+                        <label for="correo">Correo electrónico</label>
                         <input type="email" id="correo" name="correo" placeholder="Ej. luis.perez@gmail.com" required>
                     </div>
                     <div class="campo-formulario">
-                        <label for="correo-confirmar">Confirma tu correo electrónico: </label>
+                        <label for="correo-confirmar">Confirma tu correo electrónico</label>
                         <input type="email" id="correo-confirmar" placeholder="Repite tu correo">
                     </div>
                     <div class="campo-formulario">
-                        <label for="contrasenia">Contraseña: </label>
+                        <label for="contrasenia">Contraseña</label>
                         <input type="password" id="contrasenia" name="contrasenia" placeholder="***********" required>
                     </div>
                     <div class="campo-formulario">
-                        <label for="contrasenia-confirmar">Confirma tu contraseña: </label>
-                        <input type="password" id="contrasenia-confirmar" placeholder="Repite tu contraseña" >
+                        <label for="contrasenia-confirmar">Confirma tu contraseña</label>
+                        <input type="password" id="contrasenia-confirmar" placeholder="Repite tu contraseña">
                     </div>
                     <div class="grupo-botones">
                         <label for="switch-paso2" class="btn-continuar">Continuar</label>
                     </div>
-                    <p id="mensaje-registro">
+                    <p id="mensaje-registro"></p>
                 </div>
             </div>
 
-            <div class="contenedor-formulario-registro"  id="paso2">
+            <div class="contenedor-formulario-registro" id="paso2">
                 <div class="formulario-reserva">
                     <div class="campo-formulario">
-                        <label for="nombre-mascota">Nombre de tu mascota:</label>
+                        <label for="calle">Calle</label>
+                        <input type="text" id="calle" name="calle" placeholder="Ej. Av. Guerrero" required>
+                    </div>
+                    <div class="campo-formulario">
+                        <label for="colonia">Colonia</label>
+                        <input type="text" id="colonia" name="colonia" placeholder="Ej. Centro" required>
+                    </div>
+                    <div class="campo-formulario">
+                        <label for="ciudad">Ciudad</label>
+                        <input type="text" id="ciudad" name="ciudad" placeholder="Ej. Obregón" required>
+                    </div>
+                    <div class="campo-formulario">
+                        <label for="estado">Estado</label>
+                        <input type="text" id="estadoDireccion" name="estado" placeholder="Ej. Sonora" required>
+                    </div>
+                    <div class="campo-formulario">
+                        <label for="codigoPostal">Código Postal</label>
+                        <input type="text" id="codigoPostal" name="codigoPostal" placeholder="Ej. 85000" required>
+                    </div>
+                    <div class="campo-formulario">
+                        <label for="numeroCasa">Número de casa</label>
+                        <input type="text" id="numeroCasa" name="numeroCasa" placeholder="Ej. 145">
+                    </div>
+                    <div class="grupo-botones">
+                        <label for="switch-paso1" class="btn-anterior">Anterior</label>
+                        <label for="switch-paso3" class="btn-continuar">Continuar</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contenedor-formulario-registro" id="paso3">
+                <div class="formulario-reserva">
+                    <div class="campo-formulario">
+                        <label for="nombre-mascota">Nombre de tu mascota</label>
                         <input type="text" id="nombre-mascota" name="nombreMascota" placeholder="Ej. Oreo" required>
                     </div>
                     <div class="campo-formulario">
-
-                    <label for="tipo-mascota">Tipo de mascota</label>
-                    <select id="tipo-mascota" name="tipoMascota" required>
-                        <option value="">Selecciona un tipo...</option>
-                        <option value="perro">Perro</option>
-                        <option value="gato">Gato</option>
-                        <option value="roedor">Roedor</option>
-                        <option value="ave">Ave</option>
-                    </select>
+                        <label for="tipo-mascota">Tipo de mascota</label>
+                        <select id="tipo-mascota" name="tipoMascota" required>
+                            <option value="">Selecciona un tipo...</option>
+                            <option value="Perro">Perro</option>
+                            <option value="Gato">Gato</option>
+                            <option value="Roedor">Roedor</option>
+                            <option value="Ave">Ave</option>
+                        </select>
                     </div>
-
-                    <div class="campo-formulario">
-                    <label for="raza-mascota">Raza de tu mascota:</label>
-                     <select id="raza-mascota" name="razaMascota" required>
+                   <div class="campo-formulario">
+                    <label for="raza-mascota">Raza de tu mascota</label>
+                    <select id="raza-mascota" name="razaMascota" required>
                         <option value="">Selecciona una raza...</option>
-                         <option value="pequenia">Pequeña</option>
-                         <option value="mediana">Mediana</option>
-                         <option value="grande">Grande</option>
-
+                        <option value="pequenia">Pequeña</option>
+                        <option value="mediana">Mediana</option>
+                        <option value="grande">Grande</option>
                     </select>
                     </div>
                     <div class="campo-formulario">
-                        <label for="edad-mascota">Edad de tu mascota:</label>
-                        <input type="number" id="edad-mascota" name="edadMascota" required>
-
-                     <select id="edad-mascota-tiempo" name="edadMascotaTiempo" required>
-                        <option value="anios">años</option>
-                        <option value="meses">meses</option>
-                    </select>
+                        <label for="fechaNacimientoMascota">Fecha de nacimiento de tu mascota</label>
+                        <input type="date" id="fechaNacimientoMascota" name="fechaNacimientoMascota">
                     </div>
-
                     <div class="campo-formulario">
                         <div class="radio-mascota">
-                        <label>Sexo de tu mascota:</label>
+                            <label>Sexo de tu mascota:</label>
                             <div>
-                                <input
-                                    type="radio"
-                                    id="rad_femenino"
-                                    name="sexoMascota"
-                                    value="femenino"
-                                    required>
-
+                                <input type="radio" id="rad_femenino" name="sexoMascota" value="femenino" required>
                                 <label for="rad_femenino">Femenino</label>
-                                <input
-                                    type="radio"
-                                    id="rad_masculino"
-                                    name="sexoMascota"
-                                    value="masculino"
-                                    >
+                                <input type="radio" id="rad_masculino" name="sexoMascota" value="masculino">
                                 <label for="rad_masculino">Masculino</label>
-
                             </div>
                         </div>
-
                     </div>
-
-
                     <div class="campo-formulario">
                         <div class="radio-mascota">
-                        <label>¿Su mascota está esterilizada?:</label>
+                            <label>¿Su mascota está esterilizada?:</label>
                             <div>
-                                <input
-                                        type="radio"
-                                        id="rad_no_esterilizado"
-                                        name="esterilizadoMascota"
-                                        value="false"
-                                        required>
+                                <input type="radio" id="rad_no_esterilizado" name="esterilizadoMascota" value="false" required>
                                 <label for="rad_no_esterilizado">No</label>
-                                <input
-                                        type="radio"
-                                        id="rad_esterilizado"
-                                        name="esterilizadoMascota"
-                                        value="true"
-                                        >
+                                <input type="radio" id="rad_esterilizado" name="esterilizadoMascota" value="true">
                                 <label for="rad_esterilizado">Sí</label>
-
                             </div>
                         </div>
-
                     </div>
-
-                <div class="grupo-botones">
-                    <label for="switch-paso1" class="btn-anterior">Anterior</label>
-                    <label for="switch-paso3" class="btn-continuar">Continuar</label>
+                    <div class="grupo-botones">
+                        <label for="switch-paso2" class="btn-anterior">Anterior</label>
+                        <label for="switch-paso4" class="btn-continuar">Continuar</label>
+                    </div>
                 </div>
-
-
-                </div>
-
             </div>
 
-            <div class="contenedor-formulario-registro"  id="paso3">
+            <div class="contenedor-formulario-registro" id="paso4">
                 <div class="formulario-reserva">
-
                     <div class="campo-formulario">
-                    <label for="servicio">Servicio (opcional):</label>
-                    <select id="servicio" name="idServicio">
-                        <option value="">Selecciona un servicio...</option>
-                        <option value="consulta">Consulta</option>
-                        <option value="estetica">Estética & Spa</option>
-                        <option value="dental">Cuidado Dental</option>
-                        <option value="diagnostico">Diagnóstico</option>
-                        <option value="cirugia">Cirugía</option>
-                        <option value="hospitalizacion">Hospitalización</option>
-                    </select>
+                        <label for="servicio">Servicio (opcional)</label>
+                        <select id="servicio" name="idServicio">
+                            <option value="">Selecciona un servicio...</option>
+                            <option value="consulta">Consulta</option>
+                            <option value="estetica">Estética & Spa</option>
+                            <option value="dental">Cuidado Dental</option>
+                            <option value="diagnostico">Diagnóstico</option>
+                            <option value="cirugia">Cirugía</option>
+                            <option value="hospitalizacion">Hospitalización</option>
+                        </select>
                     </div>
-
-                     <div class="campo-formulario">
-                    <label for="fecha">Fecha (opcional)</label>
-                    <input type="date" id="fecha" name="fecha">
+                    <div class="campo-formulario">
+                        <label for="fecha">Fecha (opcional)</label>
+                        <input type="date" id="fecha" name="fecha">
                     </div>
-
                     <div class="campo-formulario">
                         <label for="hora">Hora (opcional)</label>
                         <input type="time" id="hora" name="hora">
                     </div>
-
                     <div class="grupo-botones">
-                        <label for="switch-paso2" class="btn-anterior">Anterior</label>
+                        <label for="switch-paso3" class="btn-anterior">Anterior</label>
                         <button type="button" class="btn-continuar" id="btn-enviar-registro">Continuar</button>
                     </div>
-
-
                 </div>
-
             </div>
 
-            <div class="contenedor-formulario-registro" id="paso4">
+            <div class="contenedor-formulario-registro" id="paso5">
                 <div>
                     <div class="finalizar-registro">
                         <img src="/imgs/iconos/icono-checkmark.png" alt="icono de éxito.">
                         <h2>¡Registro exitoso!</h2>
                         <p>Tu cuenta ha sido registrada correctamente</p>
                     </div>
-
                     <div class="grupo-botones">
-                        <label for="switch-paso3" class="btn-anterior">Anterior</label>
                         <a th:href="@{/login}" class="btn-finalizar">Finalizar</a>
                     </div>
                 </div>
             </div>
+
         </section>
         </form>
-        <script  src="/js/pages/registro.js"></script>
-
+        <script src="/js/pages/registro.js"></script>
     </main>
 
     <footer>
