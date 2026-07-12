@@ -6,20 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="f886b2e4-37ce-4367-9158-a23ac65a3544" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/Mapper/Mappers.java" beforeDir="false" afterPath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/Mapper/Mappers.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/controller/DuenoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/controller/DuenoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/controller/ReservaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/controller/ReservaController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/security/JwtFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/security/JwtFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/java/com/example/ctrolpet/controller/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/java/com/example/ctrolpet/controller/HomeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/java/com/example/ctrolpet/model/Mascota.java" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/java/com/example/ctrolpet/model/Mascota.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/java/com/example/ctrolpet/service/DuenoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/java/com/example/ctrolpet/service/DuenoService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/js/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/js/api.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/js/pages/inicio.js" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/js/pages/inicio.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/js/pages/perfil.js" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/js/pages/perfil.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/js/pages/reserva.js" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/js/pages/reserva.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/js/services/auth.service.js" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/js/services/auth.service.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/styles/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/styles/styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/resources/templates/perfil.html" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/resources/templates/perfil.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -138,16 +129,5 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/CtrolPET/src/main/java/com/example/ctrolpet/service/DuenoService.java</url>
-          <line>53</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

@@ -177,12 +177,14 @@ public class DuenoService {
         List<Mascota> mascotas = dueno.getMascotas();
 
         String nombreArchivo = "default";
-        if (!file.isEmpty()) {
+        if (file != null && !file.isEmpty()) {
             nombreArchivo = guardarImagenCloudinary(file);
         }
         mascota.setFotoUrl(nombreArchivo);
+        mascota.setIdMascota(new ObjectId());
         mascotas.add(mascota);
         dueno.setMascotas(mascotas);
+
         duenoRepository.save(dueno);
     }
 

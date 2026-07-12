@@ -86,10 +86,10 @@ public class DuenoController {
     }
 
     @PostMapping("/{id}/mascotas/agregar")
-    public ResponseEntity<MascotaDTO> crearMacotasDueno(@PathVariable("id") ObjectId idDueno, @Valid @RequestPart("mascota") MascotaDTO mascotaDTO, @RequestPart("file") MultipartFile file, HttpServletRequest request) {
+    public ResponseEntity<MascotaDTO> crearMacotasDueno(@PathVariable("id") ObjectId idDueno, @Valid @RequestBody MascotaDTO mascotaDTO,  HttpServletRequest request) {
         validarAccesoDueno(idDueno, request);
 
-        duenoService.guardarMascota(idDueno, Mappers.toEntity(mascotaDTO), file);
+        duenoService.guardarMascota(idDueno, Mappers.toEntity(mascotaDTO), null);
         Mascota mascotaRegistrada = duenoService.obtenerPorId(idDueno).getMascotas().getLast();
         return ResponseEntity.status(HttpStatus.OK).body(Mappers.toDTO(mascotaRegistrada));
     }

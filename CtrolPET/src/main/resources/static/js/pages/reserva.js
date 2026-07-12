@@ -1,5 +1,5 @@
 
-function reservaConLogin() {
+export function reservaConLogin() {
 
     const token = localStorage.getItem('token');
     const idDueno = localStorage.getItem('idDueno');

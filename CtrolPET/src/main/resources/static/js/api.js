@@ -32,13 +32,27 @@ export function calcularEdad(fechaNacimiento) {
     const hoy = new Date();
     const nacimiento = new Date(fechaNacimiento);
 
-    let edad = hoy.getFullYear() - nacimiento.getFullYear();
-    const mes = hoy.getMonth() - nacimiento.getMonth();
+    let anios = hoy.getFullYear() - nacimiento.getFullYear();
+    let meses = hoy.getMonth() - nacimiento.getMonth();
 
-    if (mes < 0 || (mes === 0 && hoy.getDate() < nacimiento.getDate())) {
-        edad--;
+    if (hoy.getDate() < nacimiento.getDate()) {
+        meses--;
     }
-    return edad;
+
+    if (meses < 0) {
+        anios--;
+        meses += 12;
+    }
+
+    if (anios === 0) {
+        return `${meses} ${meses === 1 ? "mes" : "meses"}`;
+    }
+
+    if (meses === 0) {
+        return `${anios} ${anios === 1 ? "año" : "años"}`;
+    }
+
+    return `${anios} ${anios === 1 ? "año" : "años"} y ${meses} ${meses === 1 ? "mes" : "meses"}`;
 }
 
 export async function obtenerPerfil(idDueno, token) {
@@ -132,4 +146,21 @@ export async function editarDueno(idDueno,duenoActualizado) {
     const data = await response.json();
     alert("Perfil actualizado correctamente");
     return data;
+}
+
+export async function agregarMascota(idDueno, nuevaMascota){
+    const response = await fetch(`${BASE_URL}/dueno/${idDueno}/mascotas/agregar`, {
+        method: "POST",
+        headers: {
+            "Authorization": `Bearer ${AuthService.getToken()}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(nuevaMascota)
+    });
+    if (!response.ok) throw new Error("Error al agregar la mascota");
+
+    const data = await response.json();
+    alert("Mascota agregada correctamente");
+    return data;
+
 }

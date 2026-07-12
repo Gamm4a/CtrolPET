@@ -98,7 +98,53 @@
           </div>
 
           <div class="botones-mascotas">
-            <a class="btn-agregar-mascota" id="btn-agregar-mascota">Agregar Mascota</a>
+            <label for="control-modal-mascota" class="btn-continuar" id="btn-abrir-modal-mascota">Agregar Mascota</label>
+            <input type="checkbox" id="control-modal-mascota" class="modal-switch" hidden>
+
+            <div class="modal-overlay">
+              <div class="modal-caja-ancha">
+
+                <h3>Nueva Mascota</h3>
+
+                <form class="form-modal-ancho" id="form-agregar-mascota">
+                  <div class="form-grupo">
+                    <label>Nombre:</label>
+                    <input type="text" id="modal-nombre" required placeholder="Ej. Pelusa">
+                  </div>
+
+                  <div class="form-grupo">
+                    <label for="modal-especie">Especie: </label>
+                    <select id="modal-especie" name="modal-especie" required>
+                      <option value="">Selecciona una especie...</option>
+                      <option value="perro">Perro</option>
+                      <option value="gato">Gato</option>
+                      <option value="roedor">Roedor</option>
+                      <option value="ave">Ave</option>
+                    </select>
+                  </div>
+
+                  <div class="form-grupo">
+                    <label for="modal-raza">Raza:</label>
+                    <select id="modal-raza" name="modal-raza" required>
+                      <option value="">Selecciona una raza...</option>
+                      <option value="Pequeña">Pequeña</option>
+                      <option value="Mediana">Mediana</option>
+                      <option value="Grande">Grande</option>
+                    </select>
+                  </div>
+
+                  <div class="form-grupo">
+                    <label>Fecha de Nacimiento:</label>
+                    <input type="date" id="modal-fecha-nacimiento" required>
+                  </div>
+
+                  <div class="form-botones">
+                    <button type="submit" class="btn-continuar">Guardar Mascota</button>
+                    <label for="control-modal-mascota" class="btn-anterior">Cancelar</label>
+                  </div>
+                </form>
+              </div>
+            </div>
             <a class="btn-Agendar-cita" id="btn-agendar-cita-mascota">Agendar Cita</a>
           </div>
 

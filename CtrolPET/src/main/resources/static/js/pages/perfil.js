@@ -1,4 +1,4 @@
-import {obtenerPerfil, obtenerMascotas, obtenerCitas, cancelarCita, calcularEdad, editarDueno} from "../api.js";
+import {obtenerPerfil, obtenerMascotas, obtenerCitas, cancelarCita, calcularEdad, editarDueno, agregarMascota} from "../api.js";
 import AuthService from "../services/auth.service.js";
 let mascotasDelUsuario = [];
 
@@ -106,6 +106,48 @@ export async function initPerfil(){
         });
 
     }
+
+    const formMascota = document.getElementById("form-agregar-mascota");
+    const switchModal = document.getElementById("control-modal-mascota");
+    if (formMascota) {
+        formMascota.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const fechaInput = document.getElementById("modal-fecha-nacimiento").value;
+            const fechaInstant = `${fechaInput}T00:00:00Z`;
+
+
+            const nuevaMascota = {
+                nombre: document.getElementById("modal-nombre").value,
+                especie: document.getElementById("modal-especie").value,
+                raza: document.getElementById("modal-raza").value,
+                fechaNacimiento: fechaInstant
+                //quiero agregar un switch aqui para asignarle la foto predeterminada segun
+                //la especie de la mascota. Lo hago mañana
+            };
+
+            try {
+                await agregarMascota(idDueno, nuevaMascota);
+
+                formMascota.reset();
+                if (switchModal) switchModal.checked = false;
+
+                await cargarMascotasUsuario(idDueno);
+
+            } catch (error) {
+                console.error(error);
+                alert("No se pudo registrar la mascota.");
+            }
+        });
+    }
+
+    const btnAgregarCita = document.getElementById("btn-agendar-cita-mascota");
+    if (btnAgregarCita) {
+        btnAgregarCita.addEventListener("click", async (e) => {
+            e.preventDefault();
+            window.location.href = "reserva.html";
+        })
+    }
 }
 
 async function cargarDatosUsuario(idDueno) {
@@ -131,6 +173,7 @@ async function cargarMascotasUsuario(idDueno) {
     const mascotas = await obtenerMascotas(idDueno);
     const contenedor = document.getElementById("contenedor-mascota");
     const selectMascotas = document.getElementById("mascota-select");
+    mascotasDelUsuario = [];
 
     if (mascotas) {
         mascotasDelUsuario = mascotas;
@@ -167,7 +210,7 @@ function mostrarDetalleMascota(mascota) {
     </div>
     <div class="nombre-raza">
         <h3 id="nombre-mascota-dashboard"> ${mascota.nombre}</h3>
-        <p><span id="raza-mascota-dashboard">${mascota.raza} </span>  &bull; <span id="edad-mascota-dashboard">${calcularEdad(mascota.fechaNacimiento)} años</span></p>
+        <p><span id="raza-mascota-dashboard">${mascota.raza} </span>  &bull; <span id="edad-mascota-dashboard"> ${calcularEdad(mascota.fechaNacimiento)}</span></p>
     </div>
     `
 
