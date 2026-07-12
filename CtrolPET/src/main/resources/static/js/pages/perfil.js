@@ -4,7 +4,10 @@ let mascotasDelUsuario = [];
 
 export async function initPerfil(){
     const idDueno = localStorage.getItem("idDueno");
-
+    if (AuthService.getToken() && !idDueno) {
+        window.location.href = "/admin/dashboard";
+        return;
+    }
     await cargarDatosUsuario(idDueno);
     await cargarMascotasUsuario(idDueno);
     await cargarCitasUsuario(idDueno);

@@ -105,6 +105,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
         // hacer una reserva sin login es publico
        if (path.equals("/api/reservas") && method.equals("POST")) return true;
+       if (path.startsWith("/admin") && method.equals("POST")) return true;
 
         // Todo lo demás requiere autenticación
         return false;

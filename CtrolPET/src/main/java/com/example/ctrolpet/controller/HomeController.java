@@ -248,7 +248,7 @@ public class HomeController {
         return "redirect:/admin";
     }
 
-    @PatchMapping("/admin/sucursales/editar/{id}")
+    @PostMapping("/admin/sucursales/editar/{id}")
     public String editarSucursal(@PathVariable("id") ObjectId id, @RequestParam("nombre") String nombre,
             @RequestParam("telefono") String telefono,
             @RequestParam("calle") String calle,
@@ -276,7 +276,7 @@ public class HomeController {
         return "redirect:/admin";
     }
 
-    @DeleteMapping("/admin/sucursales/eliminar/{id}")
+    @PostMapping("/admin/sucursales/eliminar/{id}")
     public String eliminarSucursal(@PathVariable("id") ObjectId id) {
         sucursalService.eliminar(id);
 
@@ -651,7 +651,7 @@ public class HomeController {
         return "redirect:/admin/mascotas/editar/" + idMascota.toHexString() + "?idDueno=" + idDueno.toHexString();
     }
 
-    @DeleteMapping("/admin/mascotas/eliminar/{id}")
+    @PostMapping("/admin/mascotas/eliminar/{id}")
     public String eliminarMascotaDueno(@PathVariable("id") ObjectId idMascota,
             @RequestParam("idDueno") ObjectId idDueno,
             HttpSession session, Model model) {
@@ -666,7 +666,7 @@ public class HomeController {
         return "redirect:/admin";
     }
 
-    @DeleteMapping("/admin/duenos/eliminar/{id}")
+    @PostMapping("/admin/duenos/eliminar/{id}")
     public String eliminarDueno(@PathVariable("id") ObjectId idDueno,
             HttpSession session, Model model) {
         ObjectId idEmpleado = (ObjectId) session.getAttribute("idEmpleado");
@@ -709,7 +709,7 @@ public class HomeController {
         return "admin-citas";
     }
 
-    @DeleteMapping("/admin/citas/eliminar/{id}")
+    @PostMapping("/admin/citas/eliminar/{id}")
     public String eliminarCita(@PathVariable String id, HttpSession session) {
         ObjectId idEmpleado = (ObjectId) session.getAttribute("idEmpleado");
         if (idEmpleado == null) {
@@ -737,7 +737,7 @@ public class HomeController {
         return "admin-editar-cita";
     }
 
-    @PatchMapping("/admin/citas/editar/{id}")
+    @PostMapping("/admin/citas/editar/{id}")
     public String actualizarCita(@PathVariable String id,
             @RequestParam ObjectId idServicio,
             @RequestParam ObjectId idEmpleado,
