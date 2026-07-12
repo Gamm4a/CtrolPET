@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="/styles/styles.css">
 
 </head>
-<body>
+<body id="perfil-html">
 
   <header>
     <div class="logo">
@@ -71,9 +71,12 @@
         <h2>MI PERFIL</h2>
         <div id="contenido-perfil">
           <div class="datos-usuario">
-            <div><label>Nombre completo:</label><input type="text" id="nombre-perfil" placeholder="nombre ejemplo"  disabled></div>
+            <div><label>Nombre:</label><input type="text" id="nombre-perfil" placeholder="nombre ejemplo"  disabled></div>
+            <div><label>Apellido Paterno:</label><input type="text" id="apellido-paterno-perfil" placeholder="apellido ejemplo"  disabled></div>
+            <div><label>Apellido Materno:</label><input type="text" id="apellido-materno-perfil" placeholder="apellido ejemplo"  disabled></div>
             <div><label>Correo electrónico:</label><input type="email" id="correo-perfil" placeholder="correo ejemplo" disabled></div>
             <div><label>Teléfono:</label><input type="text" id="telefono-perfil" placeholder="numero ejemplo" disabled></div>
+
           </div>
           <div class="der-main-panel">
             <img id="imagen-usuario" src="imgs/iconos/icono-perfil-usuario.png" alt="imagen del usuario">
@@ -104,41 +107,17 @@
         <div class="dashboard-mascota">
 
           <div class="info-izquierda">
-            <div class="header-mascota">
-              <div class="foto" id="foto-mascota"></div>
+            <div id="contenedor-mascota">
+              <div class="foto" id="foto-mascota">
+                <img src="" alt="foto de mascota">
+              </div>
               <div class="nombre-raza">
                 <h3 id="nombre-mascota-dashboard">nombre mascota ejemplo</h3>
                 <p><span id="raza-mascota-dashboard">raza ejemplo</span>&bull; <span id="edad-mascota-dashboard">n años</span></p>
               </div>
             </div>
 
-            <div class="apariencia">
-              <h4>Apariencia:</h4>
-              <p><strong>Género:</strong> <span id="genero-mascota">...</span></p>
-              <p><strong>Color:</strong> <span id="color-mascota">...</span></p>
-              <p><strong>Peso:</strong> <span id="peso-mascota">...</span></p>
-              <p><strong>Distintivos:</strong> <span id="distintivos-mascota">...</span></p>
-              <p><strong>Esterilización:</strong> <span id="esterilizacion-mascota">...</span></p>
-            </div>
-          </div>
-
           <div class="tarjetas">
-
-            <div class="tarjeta-info">
-              <div class="tarjeta-header">
-                <h4>Resumen</h4>
-              </div>
-              <div class="tarjeta-body" id="resumen-mascota-body">
-                <div class="barra-estado vacuna">
-                  <span>Vacunas ejemplo</span>
-                  <span class="estado azul">Al corriente</span>
-                </div>
-                <div class="barra-estado desparasitacion">
-                  <span>Desparasitación ejemplo</span>
-                  <span class="estado naranja">Próxima</span>
-                </div>
-              </div>
-            </div>
 
             <div class="tarjeta-info">
               <div class="tarjeta-header">
@@ -169,22 +148,7 @@
               </div>
             </div>
 
-            <div class="tarjeta-info">
-              <div class="tarjeta-header">
-                <h4>Documentos</h4>
-                <a href="#" class="ver-todo" id="ver-todo-documentos">Ver todo</a>
-              </div>
-              <div class="tarjeta-body" id="documentos-mascota-body">
-                  <div class="doc-info">
-                    <span class="icono-pdf">📄</span>
-                    <div class="doc-texto">
-                      <strong>nombre documento ejemplo</strong>
-                      <span class="item-fecha">Jue, 12 de febrero, 2026 11:30 AM(fecha ejemplo)</span>
-                    </div>
-                  </div>
-                  <span class="icono-descarga">⬇️</span>
-                </div>
-              </div>
+
             </div>
 
           </div>
@@ -222,8 +186,7 @@
               <thead>
               <tr>
                 <th>Mascota</th>
-                <th>Fecha</th>
-                <th>Hora</th>
+                <th>Fecha y Hora</th>
                 <th>Servicio</th>
                 <th>Veterinario</th>
                 <th>Costo</th>
@@ -258,7 +221,7 @@
       </div>
 
     </div>
-    <script src="/js/pages/perfil.js"></script>
+    <script src="/js/app.js" type="module"></script>
   </main>
   <footer>
     <p>&copy; Copyright Ctrl+PET 2026</p>

@@ -76,6 +76,7 @@ public class JwtFilter extends OncePerRequestFilter {
             if (path.equals("/") ||
                     path.startsWith("/index") ||
                     path.startsWith("/login") ||
+                    path.startsWith("/perfil") ||
                     path.startsWith("/registro") ||
                     path.startsWith("/reserva") ||
                     path.startsWith("/servicios") ||
@@ -93,8 +94,6 @@ public class JwtFilter extends OncePerRequestFilter {
         if (path.startsWith("/api/servicios") && method.equals("GET")) return true;
         if (path.startsWith("/api/sucursales") && method.equals("GET")) return true;
 
-        if (path.equals("/api/login") && method.equals("POST")) return true;
-        if (path.equals("/api/registro") && method.equals("POST")) return true;
         // Las solicitudes preflight de CORS usan el método OPTIONS y no deben requerir token
         if (method.equalsIgnoreCase("OPTIONS")) return true;
 

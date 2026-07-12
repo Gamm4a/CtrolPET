@@ -758,4 +758,9 @@ public class HomeController {
         reservaService.guardar(reserva);
         return "redirect:/admin/citas";
     }
+
+    @GetMapping("/perfil")
+    public String perfilDueno() {
+        return "perfil";
+    }
 }

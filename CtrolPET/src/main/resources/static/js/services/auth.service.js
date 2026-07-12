@@ -17,6 +17,9 @@ class AuthService {
 
         if (data.token) {
             localStorage.setItem(`token`, data.token);
+            if (data.idDueno) {
+                localStorage.setItem(`idDueno`, data.idDueno);
+            }
         }
 
         return data;
@@ -29,7 +32,7 @@ class AuthService {
             body: JSON.stringify({ username, email, password })
         });
 
-        const data = response.json();
+        const data = await response.json();
 
         if (!response.ok) {
             const error = data.error || "Error al registrar el usuario";
@@ -41,7 +44,7 @@ class AuthService {
 
     static logout() {
         localStorage.removeItem(`token`);
-        localStorage.removeItem(`user`);
+        localStorage.removeItem(`idDueno`);
     }
 
     static isAutenticate() {
@@ -52,10 +55,10 @@ class AuthService {
         return localStorage.getItem(`token`);
     }
 
-    static getUser() {
-        const user = localStorage.getItem(`user`);
-        return JSON.parse(user);
+    static getDueno(){
+        return localStorage.getItem('idDueno');
     }
+
 }
 
 export default AuthService;

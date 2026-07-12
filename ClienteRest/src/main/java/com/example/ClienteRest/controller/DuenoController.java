@@ -63,11 +63,11 @@ public class DuenoController {
         return ResponseEntity.status(HttpStatus.OK).body(Mappers.toDTO(dueno));
     }
 
-    @PutMapping("/{id}/editar")
-    public ResponseEntity<DuenoDTO> editarDueno(@PathVariable("id") ObjectId idDueno, @Valid @RequestBody DuenoDTO duenoActualizado, HttpServletRequest request) {
+    @PatchMapping("/{id}/editar")
+    public ResponseEntity<DuenoDTO> editarDueno(@PathVariable("id") ObjectId idDueno, @RequestBody DuenoDTO duenoActualizado, HttpServletRequest request) {
         validarAccesoDueno(idDueno, request);
 
-        Dueno dueno = duenoService.actualizarDueno(idDueno, Mappers.toEntity(duenoActualizado));
+        Dueno dueno = duenoService.actualizarDueno(idDueno, Mappers.toEntityUpdate(duenoActualizado));
         return ResponseEntity.status(HttpStatus.OK).body(Mappers.toDTO(dueno));
     }
 

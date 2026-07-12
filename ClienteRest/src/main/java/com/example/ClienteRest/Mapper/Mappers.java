@@ -51,9 +51,7 @@ public class Mappers {
         DuenoDTO duenoDTO = new DuenoDTO();
 
         if (entity.getIdDueno() != null) {
-
             duenoDTO.setIdDueno(entity.getIdDueno().toString());
-
         }
 
         duenoDTO.setNombre(entity.getNombre());
@@ -74,6 +72,8 @@ public class Mappers {
 
         return duenoDTO;
     }
+
+
 
     public static HorarioDTO toDTO(Horario entity) {
         HorarioDTO horarioDTO = new HorarioDTO();
@@ -220,9 +220,7 @@ public class Mappers {
         Dueno dueno = new Dueno();
 
         if (dto.getIdDueno() != null) {
-
             dueno.setIdDueno(new ObjectId(dto.getIdDueno()));
-
         }
         dueno.setNombre(dto.getNombre());
         dueno.setApellidoPaterno(dto.getApellidoPaterno());
@@ -239,6 +237,18 @@ public class Mappers {
             }
             dueno.setMascotas(mascotas);
         }
+        return dueno;
+    }
+
+    public static Dueno toEntityUpdate(DuenoDTO dto) {
+        Dueno dueno = new Dueno();
+
+        if (dto.getNombre() != null) dueno.setNombre(dto.getNombre());
+        if (dto.getApellidoPaterno() != null) dueno.setApellidoPaterno(dto.getApellidoPaterno());
+        if (dto.getApellidoMaterno() != null) dueno.setApellidoMaterno(dto.getApellidoMaterno());
+        if (dto.getCorreo() != null) dueno.setCorreo(dto.getCorreo());
+        if (dto.getTelefono() != null) dueno.setTelefono(dto.getTelefono());
+
         return dueno;
     }
 

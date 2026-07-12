@@ -277,12 +277,29 @@ public class DuenoService {
             Dueno duenoExistente = duenoOpcional.get();
 
             // 2. Actualizamos campo por campo los datos modificables
-            duenoExistente.setNombre(duenoActualizado.getNombre());
-            duenoExistente.setApellidoPaterno(duenoActualizado.getApellidoPaterno());
-            duenoExistente.setApellidoMaterno(duenoActualizado.getApellidoMaterno());
-            duenoExistente.setCorreo(duenoActualizado.getCorreo());
-            duenoExistente.setTelefono(duenoActualizado.getTelefono());
-            duenoExistente.setDireccion(duenoActualizado.getDireccion());
+            if (duenoExistente.getNombre() != null){
+                duenoExistente.setNombre(duenoActualizado.getNombre());
+            }
+
+            if (duenoExistente.getApellidoPaterno() != null){
+                duenoExistente.setApellidoPaterno(duenoActualizado.getApellidoPaterno());
+            }
+
+            if (duenoExistente.getApellidoMaterno() != null){
+                duenoExistente.setApellidoMaterno(duenoActualizado.getApellidoMaterno());
+            }
+
+            if (duenoExistente.getCorreo() != null){
+                duenoExistente.setCorreo(duenoActualizado.getCorreo());
+            }
+
+            if (duenoExistente.getTelefono() != null){
+                duenoExistente.setTelefono(duenoActualizado.getTelefono());
+            }
+
+            if (duenoActualizado.getDireccion() != null) {
+                duenoExistente.setDireccion(duenoActualizado.getDireccion());
+            }
 
 
             return duenoRepository.save(duenoExistente);
@@ -291,5 +308,8 @@ public class DuenoService {
 
         return null;
     }
+
+
+
 
 }

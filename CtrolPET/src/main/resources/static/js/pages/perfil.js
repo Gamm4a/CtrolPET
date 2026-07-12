@@ -1,174 +1,208 @@
-import { obtenerPerfil } from "../api.js";
+import {obtenerPerfil, obtenerMascotas, obtenerCitas, cancelarCita, calcularEdad, editarDueno} from "../api.js";
+import AuthService from "../services/auth.service.js";
+let mascotasDelUsuario = [];
 
-const API_URL = "http://localhost:8080/api/dueno";
-const token = localStorage.getItem("token");
-const idDueno = localStorage.getItem("idDueno");
+export async function initPerfil(){
+    const idDueno = localStorage.getItem("idDueno");
 
-if (!token || !idDueno) {
-    window.location.href = "/login.html";
-}
+    await cargarDatosUsuario(idDueno);
+    await cargarMascotasUsuario(idDueno);
+    await cargarCitasUsuario(idDueno);
 
-// ------------------ PERFIL ------------------
-async function cargarPerfil() {
-    try {
-        const dueno = await obtenerPerfil(idDueno, token);
+    const btnLogout = document.getElementById("btn-cerrar-sesion");
+    if (btnLogout) {
+        btnLogout.addEventListener("click", async (e) => {
+            e.preventDefault();
+            AuthService.logout();
+            window.location.href = "login.html";
+        });
+    }
 
-        document.getElementById("nombre-perfil").value = dueno.nombre;
-        document.getElementById("correo-perfil").value = dueno.correo;
-        document.getElementById("telefono-perfil").value = dueno.telefono || "";
-    } catch (error) {
-        console.error(error);
-        alert("No se pudo cargar el perfil");
+    const tablaCitas = document.getElementById("tabla-citas-body");
+    tablaCitas.addEventListener("click", async (e) => {
+        if (e.target.classList.contains("btn-cancelar")) {
+            const idReserva = e.target.getAttribute("data-id");
+
+            if (confirm("¿Estás seguro de que deseas cancelar esta cita?")) {
+                const resultado = await cancelarCita(idDueno, idReserva);
+                if (!resultado.error) {
+                    alert("Cita cancelada con éxito");
+                    await cargarCitasUsuario(idDueno);
+                } else {
+                    alert("No se pudo cancelar la cita.");
+                }
+            }
+        }
+    });
+
+    const selectMascotas = document.getElementById("mascota-select");
+    if (selectMascotas) {
+        selectMascotas.addEventListener("change", (e) => {
+            const idSeleccionado = e.target.value;
+            const mascotaSeleccionada = mascotasDelUsuario.find(m => m.idMascota === idSeleccionado);
+            mostrarDetalleMascota(mascotaSeleccionada);
+        });
+    }
+
+    const btnEditar = document.getElementById("btn-editar-perfil");
+
+    if (btnEditar) {
+        btnEditar.addEventListener("click", async (e) => {
+            e.preventDefault();
+
+            const inputs = [
+                document.getElementById("nombre-perfil"),
+                document.getElementById("apellido-paterno-perfil"),
+                document.getElementById("apellido-materno-perfil"),
+                document.getElementById("correo-perfil"),
+                document.getElementById("telefono-perfil")
+            ];
+
+            const estaEditando = btnEditar.getAttribute("data-editando") === "true";
+
+            if (!estaEditando) {
+                inputs.forEach(input => {
+                    if (input) input.disabled = false;
+                });
+
+                btnEditar.innerText = "Guardar Cambios";
+                btnEditar.setAttribute("data-editando", "true");
+                btnEditar.classList.add("btn-guardar");
+
+            } else {
+                const correoInput = document.getElementById("correo-perfil").value;
+                const correoOriginal = localStorage.getItem("correoOriginal");
+
+                const duenoActualizado = {
+                    nombre: document.getElementById("nombre-perfil").value,
+                    apellidoPaterno: document.getElementById("apellido-paterno-perfil").value,
+                    apellidoMaterno: document.getElementById("apellido-materno-perfil").value,
+                    correo: document.getElementById("correo-perfil").value,
+                    telefono: document.getElementById("telefono-perfil").value
+                };
+
+                try {
+                    const data = await editarDueno(idDueno, duenoActualizado);
+                    if (correoOriginal && correoOriginal !== correoInput) {
+                        alert("Tu correo ha cambiado. Por seguridad, por favor inicia sesión nuevamente con tu nuevo correo.");
+                        AuthService.logout();
+                        window.location.href = "login.html";
+                        return;
+                    }
+
+                    inputs.forEach(input => {
+                        if (input) input.disabled = true;
+                    });
+
+                    btnEditar.innerText = "Editar Perfil";
+                    btnEditar.setAttribute("data-editando", "false");
+                    btnEditar.classList.remove("btn-guardar");
+
+                } catch (error) {
+                    console.error(error);
+                    alert("No se pudo actualizar el perfil");
+                }
+            }
+        });
+
     }
 }
 
-document.getElementById("btn-editar-perfil").addEventListener("click", async () => {
-    const duenoActualizado = {
-        nombre: document.getElementById("nombre-perfil").value,
-        correo: document.getElementById("correo-perfil").value,
-        telefono: document.getElementById("telefono-perfil").value
-    };
+async function cargarDatosUsuario(idDueno) {
+    const datos = await obtenerPerfil(idDueno);
+    if (!datos.error) {
+        const inputNombre = document.getElementById("nombre-perfil");
+        const inputApellidoPaterno = document.getElementById("apellido-paterno-perfil");
+        const inputApellidoMaterno = document.getElementById("apellido-materno-perfil");
+        const inputCorreo = document.getElementById("correo-perfil");
+        const inputTelefono = document.getElementById("telefono-perfil");
 
-    try {
-        const response = await fetch(`${API_URL}/${idDueno}/editar`, {
-            method: "PUT",
-            headers: {
-                "Authorization": `Bearer ${token}`,
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(duenoActualizado)
-        });
-        if (!response.ok) throw new Error("Error al editar perfil");
-        await response.json();
-        alert("Perfil actualizado correctamente");
-        cargarPerfil();
-    } catch (error) {
-        console.error(error);
-        alert("No se pudo actualizar el perfil");
-    }
-});
+        if (inputNombre) inputNombre.value = datos.nombre;
+        if (inputCorreo) inputCorreo.value = datos.correo;
+        if (inputTelefono) inputTelefono.value = datos.telefono;
+        if (inputApellidoPaterno) inputApellidoPaterno.value = datos.apellidoPaterno;
+        if (inputApellidoMaterno) inputApellidoMaterno.value = datos.apellidoMaterno;
 
-// ------------------ MASCOTAS ------------------
-let listaMascotas = [];
-
-async function cargarMascotas() {
-    try {
-        const response = await fetch(`${API_URL}/${idDueno}/mascotas`, {
-            headers: { "Authorization": `Bearer ${token}` }
-        });
-        if (!response.ok) throw new Error("Error al cargar mascotas");
-        const mascotas = await response.json();
-        listaMascotas = mascotas;
-
-        const select = document.getElementById("mascota-select");
-        select.innerHTML = "";
-        mascotas.forEach(m => {
-            const option = document.createElement("option");
-            option.value = m.id;
-            option.textContent = m.nombre;
-            select.appendChild(option);
-        });
-
-        if (mascotas.length > 0) mostrarMascota(mascotas[0]);
-    } catch (error) {
-        console.error(error);
-        alert("No se pudieron cargar las mascotas");
+        localStorage.setItem("correoOriginal", datos.correo);
     }
 }
 
-function mostrarMascota(mascota) {
-    document.getElementById("nombre-mascota-dashboard").textContent = mascota.nombre;
-    document.getElementById("raza-mascota-dashboard").textContent = mascota.raza;
-    document.getElementById("edad-mascota-dashboard").textContent = mascota.edad;
-    document.getElementById("genero-mascota").textContent = mascota.genero;
-    document.getElementById("color-mascota").textContent = mascota.color;
-    document.getElementById("peso-mascota").textContent = mascota.peso;
-    document.getElementById("distintivos-mascota").textContent = mascota.distintivos;
-    document.getElementById("esterilizacion-mascota").textContent = mascota.esterilizado ? "Sí" : "No";
-}
+async function cargarMascotasUsuario(idDueno) {
+    const mascotas = await obtenerMascotas(idDueno);
+    const contenedor = document.getElementById("contenedor-mascota");
+    const selectMascotas = document.getElementById("mascota-select");
 
-document.getElementById("mascota-select").addEventListener("change", (e) => {
-    const idMascota = e.target.value;
-    const mascota = listaMascotas.find(m => m.id === idMascota);
-    if (mascota) mostrarMascota(mascota);
-});
-
-// ------------------ CITAS ------------------
-async function cargarCitas() {
-    try {
-        const response = await fetch(`${API_URL}/${idDueno}/citas`, {
-            headers: { "Authorization": `Bearer ${token}` }
-        });
-        if (!response.ok) throw new Error("Error al cargar citas");
-        const citas = await response.json();
-
-        const tbody = document.getElementById("tabla-citas-body");
-        tbody.innerHTML = "";
-        citas.forEach(c => {
-            const tr = document.createElement("tr");
-            tr.innerHTML = `
-        <td>${c.mascotaNombre}</td>
-        <td>${c.fecha}</td>
-        <td>${c.hora}</td>
-        <td>${c.servicio}</td>
-        <td>${c.veterinario}</td>
-        <td>${c.costo}</td>
-        <td>${c.estado}</td>
-        <td>${c.estado === "ACTIVA" ? `<button class="btn-cancelar" data-id="${c.id}">Cancelar</button>` : ""}</td>
-      `;
-            tbody.appendChild(tr);
-        });
-
-        document.querySelectorAll(".btn-cancelar").forEach(btn => {
-            btn.addEventListener("click", () => cancelarCita(btn.dataset.id));
-        });
-    } catch (error) {
-        console.error(error);
-        alert("No se pudieron cargar las citas");
+    if (mascotas) {
+        mascotasDelUsuario = mascotas;
+    } else {
+        contenedor.innerHTML = "<p>No tienes mascotas registradas aún.</p>";
+        return;
     }
-}
 
-async function cancelarCita(idReserva) {
-    try {
-        const response = await fetch(`${API_URL}/${idDueno}/citas/cancelar`, {
-            method: "PUT",
-            headers: {
-                "Authorization": `Bearer ${token}`,
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ idReserva })
+    if (selectMascotas) {
+        mascotasDelUsuario.forEach(mascota => {
+            selectMascotas.innerHTML += `<option value="${mascota.idMascota}">${mascota.nombre}</option>`;
         });
-        if (!response.ok) throw new Error("Error al cancelar cita");
-        await response.json();
-        alert("Cita cancelada correctamente");
-        cargarCitas();
-    } catch (error) {
-        console.error(error);
-        alert("No se pudo cancelar la cita");
+
+        if (mascotasDelUsuario.length > 0) {
+            selectMascotas.value = mascotasDelUsuario[0].idMascota;
+            mostrarDetalleMascota(mascotasDelUsuario[0]);
+        }
     }
+
 }
 
-// ------------------ LOGOUT ------------------
-async function cerrarSesion() {
-    try {
-        const response = await fetch(`${API_URL}/logout`, {
-            headers: { "Authorization": `Bearer ${token}` }
-        });
-        if (!response.ok) throw new Error("Error al cerrar sesión");
-        localStorage.removeItem("token");
-        localStorage.removeItem("idDueno");
-        alert("Sesión cerrada correctamente");
-        window.location.href = "/login.html";
-    } catch (error) {
-        console.error(error);
-        alert("No se pudo cerrar sesión");
+function mostrarDetalleMascota(mascota) {
+    const contenedor = document.getElementById("contenedor-mascota");
+    if (!contenedor) return;
+
+    if (!mascota) {
+        contenedor.innerHTML = "<p>Selecciona una mascota para ver su detalle.</p>";
+        return;
     }
+
+    contenedor.innerHTML = `
+    <div class="foto" id="foto-mascota">
+        <img src="${mascota.fotoUrl}" alt="foto de ${mascota.nombre}">
+    </div>
+    <div class="nombre-raza">
+        <h3 id="nombre-mascota-dashboard"> ${mascota.nombre}</h3>
+        <p><span id="raza-mascota-dashboard">${mascota.raza} </span>  &bull; <span id="edad-mascota-dashboard">${calcularEdad(mascota.fechaNacimiento)} años</span></p>
+    </div>
+    `
+
 }
 
-document.getElementById("btn-cerrar-sesion").addEventListener("click", cerrarSesion);
-document.getElementById("btn-cerrar-sesion-2").addEventListener("click", cerrarSesion);
+async function cargarCitasUsuario(idDueno) {
+    const citas = await obtenerCitas(idDueno);
+    const tablaCitas = document.getElementById("tabla-citas-body");
+    if (!tablaCitas) return;
 
-// ------------------ INICIALIZACIÓN ------------------
-cargarPerfil();
-cargarMascotas();
-cargarCitas();
+    tablaCitas.innerHTML = "";
+
+    if (citas.error || citas.length === 0) {
+        tablaCitas.innerHTML = "<tr><td colspan='7'>No tienes citas agendadas.</td></tr>";
+        return;
+    }
+
+    citas.forEach(cita => {
+        const mascotaEncontrada = mascotasDelUsuario.find(m => m.idMascota === cita.mascota);
+        const nombreMascota = mascotaEncontrada ? mascotaEncontrada.nombre : "Mascota";
+        const botonCancelar = cita.estado === "PENDIENTE" || cita.estado === "CONFIRMADO"
+            ? `<button class="btn-cancelar" data-id="${cita.id}">Cancelar</button>`
+            : `<span class="badge-${cita.estado.toLowerCase()}">${cita.estado}</span>`;
+
+        tablaCitas.innerHTML += `
+            <tr>
+                <td><strong>${nombreMascota || "Mascota"}</strong></td>
+                <td>${cita.fecha}</td>
+                <td>${cita.servicios.tipo || "Consulta"}</td>
+                <td>${cita.veterinarioNombre || "Asignado"}</td>
+                <td>$${cita.servicios.precio || "0"}</td>
+                <td>${botonCancelar}</td>
+            </tr>
+        `;
+    });
+
+
+}

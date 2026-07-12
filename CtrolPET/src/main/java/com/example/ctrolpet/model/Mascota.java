@@ -19,7 +19,6 @@ import java.time.Instant;
 @NoArgsConstructor
 public class Mascota {
 
-    @MongoId
     @Field(name = "id_mascota")
     private ObjectId idMascota;
 

@@ -1,7 +1,8 @@
 import * as loader from "../loaders.js"
-import { obtenerPerfil } from "../api.js"
+import { obtenerPerfil, calcularEdad } from "../api.js"
 import { obtenerServicios } from "./servicios.js";
 import { reservaSinLogin } from "./reserva.js";
+import AuthService from "../services/auth.service.js";
 
 //ocupo traer la autenticacion? creo y tengo que traer la funcionalidad de reserva sin login
 
@@ -11,7 +12,7 @@ const contenedorMascotas = document.getElementById("contenedor-mascotas");
 const gridServiciosIndex = document.getElementById("contenedor-servicios");
 
 export async function initIndexLogin() {
-
+    if (!AuthService.isAutenticate()) return;
     const botonesAuth = document.getElementById("contenedor-botones-auth");
 
     publico.style.display = "none";
@@ -25,6 +26,7 @@ export async function initIndexLogin() {
         document.getElementById("btn-logout").addEventListener("click", () => {
             localStorage.removeItem("token");
             localStorage.removeItem("idDueno");
+            AuthService.logout();
             window.location.reload();
         });
     }
@@ -54,6 +56,7 @@ export async function initIndexLogin() {
 
 
 export function initIndexSinLogin() {
+    if(AuthService.isAutenticate()) return;
     const formulario = document.querySelector(".formulario-reserva");
     const selectServicio = document.getElementById("servicioSinLogin");
     const selectSucursal = document.getElementById("sucursalSinLogin");
@@ -74,19 +77,7 @@ export function initIndexSinLogin() {
 
 
 
-//creo que hay que mover esta funcion, se puede usar como utils
-function calcularEdad(fechaNacimiento) {
-    const hoy = new Date();
-    const nacimiento = new Date(fechaNacimiento);
 
-    let edad = hoy.getFullYear() - nacimiento.getFullYear();
-    const mes = hoy.getMonth() - nacimiento.getMonth();
-
-    if (mes < 0 || (mes === 0 && hoy.getDate() < nacimiento.getDate())) {
-        edad--;
-    }
-    return edad;
-}
 
 function renderTarjetasMascotas(mascotas){
     mascotas.forEach(mascota => {
