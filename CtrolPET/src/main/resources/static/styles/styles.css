@@ -1043,6 +1043,16 @@ input[name="pasos"] {
     color: #333;
 }
 
+#buscadorPorFecha {
+    display: flex;
+    padding: var(--espacio-cercano);
+    gap: var(--espacio);
+}
+
+#botones-busqueda {
+    display: flex;
+    gap: var(--espacio);
+}
 .tarjetas {
     display: grid;
     grid-template-columns: 1fr 0.5fr;
@@ -1244,11 +1254,11 @@ input[name="pasos"] {
 
 .area-tabla{
     margin-left: 1vw;
+    overflow-y: auto;
 }
 
 .tabla-citas {
     width: 100%;
-    font-family: var(--font-estilo);
     font-size: 1rem;
     color: black;
     margin-top: 15px;

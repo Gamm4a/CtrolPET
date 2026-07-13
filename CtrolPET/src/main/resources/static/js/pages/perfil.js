@@ -20,7 +20,6 @@ export async function initPerfil(){
         btnLogout.addEventListener("click", async (e) => {
             e.preventDefault();
             AuthService.logout();
-            localStorage.clear();
             window.location.href = "login.html";
         });
     }
@@ -239,31 +238,8 @@ async function cargarCitasUsuario(idDueno) {
 
     citasDelUsuario = citas;
 
-    tablaCitas.innerHTML = "";
-
-    if (citas.error || citas.length === 0) {
-        tablaCitas.innerHTML = "<tr><td colspan='7'>No tienes citas agendadas.</td></tr>";
-        return;
-    }
-
-    citas.forEach(cita => {
-        const mascotaEncontrada = mascotasDelUsuario.find(m => m.idMascota === cita.mascota);
-        const nombreMascota = mascotaEncontrada ? mascotaEncontrada.nombre : "Mascota";
-        const botonCancelar = cita.estado === "PENDIENTE" || cita.estado === "CONFIRMADO"
-            ? `<button class="btn-cancelar" data-id="${cita.id}">Cancelar</button>`
-            : `<span class="badge-${cita.estado.toLowerCase()}">${cita.estado}</span>`;
-
-        tablaCitas.innerHTML += `
-            <tr>
-                <td><strong>${nombreMascota || "Mascota"}</strong></td>
-                <td>${cita.fecha}</td>
-                <td>${cita.servicios.tipo || "Consulta"}</td>
-                <td>${cita.veterinarioNombre || "Asignado"}</td>
-                <td>$${cita.servicios.precio || "0"}</td>
-                <td>${botonCancelar}</td>
-            </tr>
-        `;
-    });
+    renderCitas(citasDelUsuario);
+    initBuscadorCitas();
 }
 
 function citasMascotaDashboard(idMascota) {
@@ -300,6 +276,83 @@ function citasMascotaDashboard(idMascota) {
                 </div>
                 <span class="item-fecha">${fechaCita} hs</span>
             </div>
+        `;
+    });
+}
+
+export function initBuscadorCitas() {
+    const formBuscador = document.getElementById("buscadorPorFecha");
+    const btnLimpiar = document.getElementById("limpiarFiltros");
+
+    if (formBuscador) {
+        formBuscador.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            const fechaDesde = document.getElementById("buscar-desde").value;
+            const fechaHasta = document.getElementById("buscar-hasta").value;
+
+            const citasFiltradas = citasDelUsuario.filter(cita => {
+                const fechaCita = cita.fecha ? cita.fecha.substring(0, 10) : "";
+
+                let coincideDesde = true;
+                if (fechaDesde) {
+                    coincideDesde = (fechaCita >= fechaDesde);
+                }
+
+                let coincideHasta = true;
+                if (fechaHasta) {
+                    coincideHasta = (fechaCita <= fechaHasta);
+                }
+
+                return coincideDesde && coincideHasta;
+            });
+
+            renderCitas(citasFiltradas);
+        });
+    }
+
+    if (btnLimpiar) {
+        btnLimpiar.addEventListener("click", (e) => {
+            e.preventDefault();
+
+            const inputDesde = document.getElementById("buscar-desde");
+            const inputHasta = document.getElementById("buscar-hasta");
+
+            if (inputDesde) inputDesde.value = "";
+            if (inputHasta) inputHasta.value = "";
+
+            renderCitas(citasDelUsuario);
+        });
+    }
+}
+
+function renderCitas(citas) {
+    const tablaCitas = document.getElementById("tabla-citas-body");
+    if (!tablaCitas) return;
+
+    tablaCitas.innerHTML = "";
+
+    if (citas.error || citas.length === 0) {
+        tablaCitas.innerHTML = "<tr><td colspan='7'>No tienes citas agendadas.</td></tr>";
+        return;
+    }
+
+    citas.forEach(cita => {
+        const mascotaEncontrada = mascotasDelUsuario.find(m => m.idMascota === cita.mascota);
+        const nombreMascota = mascotaEncontrada ? mascotaEncontrada.nombre : "Mascota";
+        const botonCancelar = cita.estado === "PENDIENTE" || cita.estado === "CONFIRMADO"
+            ? `<button class="btn-cancelar" data-id="${cita.id}">Cancelar</button>`
+            : `<span class="badge-${cita.estado.toLowerCase()}">${cita.estado}</span>`;
+
+        tablaCitas.innerHTML += `
+            <tr>
+                <td><strong>${nombreMascota || "Mascota"}</strong></td>
+                <td>${cita.fecha}</td>
+                <td>${cita.servicios.tipo || "Consulta"}</td>
+                <td>${cita.veterinarioNombre || "Asignado"}</td>
+                <td>$${cita.servicios.precio || "0"}</td>
+                <td>${botonCancelar}</td>
+            </tr>
         `;
     });
 }

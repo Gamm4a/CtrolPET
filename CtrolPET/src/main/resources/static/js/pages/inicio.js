@@ -18,14 +18,12 @@ export async function initIndexLogin() {
     publico.style.display = "none";
     dashboard.style.display = "block";
 
-    if (botonesAuth) {
+    if (botonesAuth && AuthService.isAutenticate()) {
         botonesAuth.innerHTML = `
             <a href="/perfil" class="btn-login">Mi Perfil</a>
             <button id="btn-logout" class="btn-register">Cerrar Sesión</button>
         `;
         document.getElementById("btn-logout").addEventListener("click", () => {
-            localStorage.removeItem("token");
-            localStorage.removeItem("idDueno");
             AuthService.logout();
             window.location.reload();
         });
@@ -93,7 +91,6 @@ function renderTarjetasMascotas(mascotas){
             <h3>${mascota.nombre}</h3>
             <p><strong>Raza:</strong> ${mascota.raza}</p>
             <p><strong>Edad:</strong> ${edadMascota}</p>
-            <button class="btn-reserva agendar-cita" data-id="${mascota.id}">Agendar nueva cita</button>
         `;
 
         const buttons = document.querySelectorAll('.agendar-cita')

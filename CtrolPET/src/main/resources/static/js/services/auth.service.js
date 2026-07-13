@@ -61,8 +61,7 @@ class AuthService {
     }
 
     static logout() {
-        localStorage.removeItem(`token`);
-        localStorage.removeItem(`idDueno`);
+        localStorage.clear()
     }
 
     static isAutenticate() {

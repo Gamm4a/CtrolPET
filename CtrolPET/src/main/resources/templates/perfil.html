@@ -26,10 +26,10 @@
         </label>
 
     <nav class="header-nav">
-      <a href="index.html">Inicio</a>
-      <a href="servicios.html">Servicios</a>
-      <a href="contacto.html">Contacto</a>
-      <a href="../templates/perfil.html">Perfil</a>
+      <a href="/">Inicio</a>
+      <a href="/servicios">Servicios</a>
+      <a href="/contacto">Contacto</a>
+      <a href="/perfil">Perfil</a>
     </nav>
     <div class="botones-header">
       <a class="btn-cerrar-sesion" id="btn-cerrar-sesion">Cerrar Sesión</a>
@@ -175,20 +175,25 @@
             <h3>Todas las citas</h3>
           </div>
 
+        <div class="buscador-citas">
+          <form id="buscadorPorFecha">
+            <div>
+              <label for="buscar-desde">Buscar desde: </label>
+              <input type="date" id="buscar-desde">
+            </div>
+            <div>
+              <label for="buscar-hasta">Buscar hasta: </label>
+              <input type="date" id="buscar-hasta">
+            </div>
+            <div id="botones-busqueda">
+              <button type="submit" class="btn-registrarme">Aplicar Filtros</button>
+              <a id="limpiarFiltros" class="btn-cerrar-sesion">Limpiar Filtros</a>
+            </div>
+          </form>
+        </div>
         <div class="citas-body">
           <div class="info-izquierda-mascotas">
-            <div class="filtro">
-              <h4>Selecciona un rango de fechas</h4>
-              <h3>Buscar por fecha 🗓️</h3>
-              <div class="selectores-fecha">
-                <input type="date" class="selector-fecha" id="filtro-fecha-desde">
-                <input type="date" class="selector-fecha" id="filtro-fecha-hasta">
-              </div>
-              <div class="botones-filtro">
-                <input type="button" value="Cancelar" id="btn-cancelar-filtro-citas">
-                <input type="button" value="Aceptar" id="btn-aceptar-filtro-citas">
-              </div>
-            </div>
+
           </div>
           <div class="area-tabla">
 

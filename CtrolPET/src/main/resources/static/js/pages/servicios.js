@@ -3,14 +3,13 @@ import AuthService from "../services/auth.service.js";
 export function initServicios() {
     obtenerServicios();
     const botonesAuth = document.getElementById("contenedor-botones-auth");
-    if (botonesAuth) {
+
+    if (botonesAuth && AuthService.isAutenticate()) {
         botonesAuth.innerHTML = `
             <a href="/perfil" class="btn-login">Mi Perfil</a>
             <button id="btn-logout" class="btn-register">Cerrar Sesión</button>
         `;
         document.getElementById("btn-logout").addEventListener("click", () => {
-            localStorage.removeItem("token");
-            localStorage.removeItem("idDueno");
             AuthService.logout();
             window.location.reload();
         });
