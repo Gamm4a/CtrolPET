@@ -6,7 +6,7 @@ export async function cargarServicios(idSelect) {
     try {
         const response = await fetch("/api/servicios");
         const servicios = await response.json();
-
+        
         selectElement.innerHTML = '<option value="">Selecciona un servicio...</option>';
         servicios.forEach(s => {
             selectElement.innerHTML += `<option value="${s.idServicio}">${s.tipo}</option>`;
@@ -32,7 +32,6 @@ export async function cargarSucursales(idSelect) {
         console.error("Error al cargar sucursales:", error);
     }
 }
-
 
 export async function cargarMascotas(idSelect) {
     const selectElement = document.getElementById(idSelect);

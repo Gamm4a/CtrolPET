@@ -49,11 +49,16 @@ export async function initIndexLogin() {
     }
 
     contenedorMascotas.innerHTML = "";
-
     renderTarjetasMascotas(perfil.mascotas)
 
-    }
+     const btnAgendar = document.querySelector("#contenido-dashboard .btn-reserva");
+    if (btnAgendar) {
+        btnAgendar.addEventListener("click", () => {
+            window.location.href = "/reserva";
+        });
 
+    }
+}
 
 export function initIndexSinLogin() {
     if(AuthService.isAutenticate()) return;
