@@ -101,7 +101,7 @@ public class JwtFilter extends OncePerRequestFilter {
         if (path.equals("/api/login") && method.equals("POST")) return true;
 
         // El registro de usuarios es público (no necesitas estar logueado para registrarte)
-        if (path.equals("/api/registro") && method.equals("POST")) return true;
+        if (path.startsWith("/api/registro") && method.equals("POST")) return true;
 
         // hacer una reserva sin login es publico
        if (path.equals("/api/reservas") && method.equals("POST")) return true;

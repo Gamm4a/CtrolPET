@@ -349,6 +349,8 @@ public class Mappers {
         Mascota mascota = new Mascota();
         if (dto.getIdMascota() != null && !dto.getIdMascota().isBlank()) {
             mascota.setIdMascota(new ObjectId(dto.getIdMascota()));
+        } else {
+            mascota.setIdMascota(new ObjectId());
         }
         mascota.setNombre(dto.getNombre());
         mascota.setEspecie(dto.getEspecie());

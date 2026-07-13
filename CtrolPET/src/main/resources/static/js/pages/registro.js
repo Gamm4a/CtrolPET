@@ -14,7 +14,7 @@ document.getElementById('btn-enviar-registro').addEventListener('click', async f
     const calle = document.getElementById('calle').value;
     const colonia = document.getElementById('colonia').value;
     const ciudad = document.getElementById('ciudad').value;
-    const estado = document.getElementById('estadoDireccion').value;
+    const estado = document.getElementById('estado').value;
     const codigoPostal = document.getElementById('codigoPostal').value;
     const numeroCasa = document.getElementById('numeroCasa').value;
 
@@ -23,10 +23,7 @@ document.getElementById('btn-enviar-registro').addEventListener('click', async f
     const tipoMascota = document.getElementById('tipo-mascota').value;
     const razaMascota = document.getElementById('raza-mascota').value;
     const edadMascota = document.getElementById('fechaNacimientoMascota').value;
-    const sexoMascota = document.querySelector('input[name="sexoMascota"]:checked');
-    const servicio = document.getElementById('servicio').value;
-    const fecha = document.getElementById('fecha').value;
-    const hora = document.getElementById('hora').value;
+
 
     if (!nombre || !apellidoPaterno || !apellidoMaterno || !telefono || !correo || !contrasenia || !fechaNacimiento) {
         alert('Por favor completa todos los campos del Paso 1');
@@ -40,19 +37,11 @@ document.getElementById('btn-enviar-registro').addEventListener('click', async f
         return;
     }
 
-    if (!nombreMascota || !tipoMascota || !razaMascota || !sexoMascota || edadMascota) {
+    if (!nombreMascota || !tipoMascota || !razaMascota || !edadMascota) {
         alert('Por favor completa todos los campos del Paso 3 (Mascota)');
         document.getElementById('switch-paso3').checked = true;
         return;
     }
-
-    const reservaDTO = servicio ? {
-        idSucursal: "",
-        idServicio: servicio,
-        fecha: fecha,
-        hora: hora,
-        estado: "PENDIENTE"
-    } : null;
 
     const response = await fetch('/api/registro', {
         method: "POST",
@@ -70,7 +59,8 @@ document.getElementById('btn-enviar-registro').addEventListener('click', async f
                     nombre: nombreMascota,
                     especie: tipoMascota,
                     raza: razaMascota,
-                    fechaNacimiento: fechaNacimientoMascota ? fechaNacimientoMascota + "T00:00:00Z" : null
+                    fechaNacimiento: edadMascota ? edadMascota + "T00:00:00Z" : null,
+                    fotoUrl: ponerFoto(tipoMascota)
                 }],
                 direccion: {
                     calle,
@@ -80,8 +70,7 @@ document.getElementById('btn-enviar-registro').addEventListener('click', async f
                     codigoPostal,
                     numeroCasa: numeroCasa
                 }
-            },
-            reservaDTO
+            }
         })
     });
 
@@ -92,3 +81,27 @@ document.getElementById('btn-enviar-registro').addEventListener('click', async f
         mensaje.innerHTML = "Ocurrió un error, verifica tus datos";
     }
 });
+
+
+
+function ponerFoto(especie){
+    let fotoUrl;
+    switch (especie) {
+        case 'Perro':
+            fotoUrl = "https://res.cloudinary.com/drsldzlnp/image/upload/v1783920205/ymz5xw3drltbkbm2fko4.png"
+            break;
+        case 'Gato':
+            fotoUrl = "https://res.cloudinary.com/drsldzlnp/image/upload/v1783920192/hkulag3kx6vslcd1ci7n.png"
+            break;
+        case 'Roedor':
+            fotoUrl = "https://res.cloudinary.com/drsldzlnp/image/upload/v1783920217/g7m5miju67c5fojzyxyx.png"
+            break;
+        case 'Ave':
+            fotoUrl = "https://res.cloudinary.com/drsldzlnp/image/upload/v1783920237/xknjatwvsfijkqqfb026.png"
+            break;
+
+    }
+
+    return fotoUrl;
+
+}
