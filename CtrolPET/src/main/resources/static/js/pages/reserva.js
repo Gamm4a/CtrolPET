@@ -3,6 +3,8 @@ import * as loader from "../loaders.js"
 import {obtenerServicios, crearReservaConLogin, crearReservaSinLogin} from "../api.js";
 
 export async function initReserva(){
+    initModales();
+
     if (AuthService.isAutenticate()){
         await reservaConLogin();
     } else {
@@ -89,6 +91,8 @@ export async function reservaConLogin() {
             }
         });
     }
+
+
 }
 
 //  Reserva sin login
@@ -147,7 +151,8 @@ export function reservaSinLogin(){
         const idEmpleado = horariosSinLogin[horaSinLogin].split("|")[0];
 
         let datosReserva = {
-            nombre, telefono, nombreMascota,
+            nombre, apellidoPaterno, apellidoMaterno , nombreMascota,
+            telefono,
             especieMascota: tipoMascota,
             razaMascota,
             idSucursal: sucursalSinLogin,
@@ -170,15 +175,26 @@ export function reservaSinLogin(){
             }
         });
 
-        document.getElementById('btn-cerrar-modal-exito').addEventListener('click', function () {
-            window.location.href = "/";
-        });
-
-        document.getElementById('btn-cerrar-modal').addEventListener('click', function () {
-            document.getElementById('modal-reserva-error').style.display = "none";
-        });
 
 
+}
+
+
+function initModales(){
+
+    const modalExito = document.getElementById('btn-cerrar-modal-exito')
+    const modalError = document.getElementById('btn-cerrar-modal')
+        if (modalExito) {
+            modalExito.addEventListener('click', (e) =>{
+                window.location.href = "/";
+            })
+        }
+
+        if (modalError) {
+            modalError.addEventListener('click', (e) =>{
+                document.getElementById('modal-reserva-error').style.display = "none";
+            })
+        }
 
 }
 

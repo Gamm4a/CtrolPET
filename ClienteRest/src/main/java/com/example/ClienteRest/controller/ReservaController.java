@@ -104,6 +104,8 @@ public class ReservaController {
         // solo nombre y teléfono, sin correo/contraseña
         Dueno dueno = new Dueno();
         dueno.setNombre(datos.getNombre());
+        dueno.setApellidoPaterno(datos.getApellidoPaterno());
+        dueno.setApellidoMaterno(datos.getApellidoMaterno());
         dueno.setTelefono(datos.getTelefono());
         dueno.setMascotas(new ArrayList<>(List.of(mascota)));
         Dueno duenoGuardado = duenoService.guardar(dueno);

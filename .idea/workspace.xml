@@ -6,13 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="f886b2e4-37ce-4367-9158-a23ac65a3544" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/js/pages/inicio.js" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/js/pages/inicio.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/controller/ReservaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/controller/ReservaController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/dtos/ReservaSinLoginDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/ClienteRest/src/main/java/com/example/ClienteRest/dtos/ReservaSinLoginDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/js/pages/perfil.js" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/js/pages/perfil.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/js/pages/reserva.js" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/js/pages/reserva.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/js/pages/servicios.js" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/js/pages/servicios.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/js/services/auth.service.js" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/js/services/auth.service.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/styles/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/resources/static/styles/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CtrolPET/src/main/resources/templates/perfil.html" beforeDir="false" afterPath="$PROJECT_DIR$/CtrolPET/src/main/resources/templates/perfil.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +61,7 @@
     &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;Zaira&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Ixchel/Documents/ctrl+pet/CtrolPET&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Zaira/Documents/GitHub/CtrolPET&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,

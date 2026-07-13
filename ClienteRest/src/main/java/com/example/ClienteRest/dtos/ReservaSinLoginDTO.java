@@ -18,6 +18,12 @@ public class ReservaSinLoginDTO {
     @NotBlank(message = "El nombre es obligatorio")
     private String nombre;
 
+    @NotBlank(message = "El apellido paterno es obligatorio")
+    private String apellidoPaterno;
+
+    @NotBlank(message = "El apellido materno es obligatorio")
+    private String apellidoMaterno;
+
     @NotBlank(message = "El teléfono es obligatorio")
     private String telefono;
 

@@ -341,8 +341,9 @@ function renderCitas(citas) {
         const mascotaEncontrada = mascotasDelUsuario.find(m => m.idMascota === cita.mascota);
         const nombreMascota = mascotaEncontrada ? mascotaEncontrada.nombre : "Mascota";
         const botonCancelar = cita.estado === "PENDIENTE" || cita.estado === "CONFIRMADO"
-            ? `<button class="btn-cancelar" data-id="${cita.id}">Cancelar</button>`
+            ? `<button class="btn-cancelar" data-id="${cita.idReserva}">Cancelar</button>`
             : `<span class="badge-${cita.estado.toLowerCase()}">${cita.estado}</span>`;
+
 
         tablaCitas.innerHTML += `
             <tr>
