@@ -1,7 +1,8 @@
 import {obtenerPerfil, obtenerMascotas, obtenerCitas, cancelarCita, calcularEdad, editarDueno, agregarMascota} from "../api.js";
 import AuthService from "../services/auth.service.js";
-import {initReserva} from "./reserva.js";
+
 let mascotasDelUsuario = [];
+let citasDelUsuario = [];
 
 export async function initPerfil(){
     const idDueno = localStorage.getItem("idDueno");
@@ -9,6 +10,7 @@ export async function initPerfil(){
         window.location.href = "/admin/dashboard";
         return;
     }
+
     await cargarDatosUsuario(idDueno);
     await cargarMascotasUsuario(idDueno);
     await cargarCitasUsuario(idDueno);
@@ -18,6 +20,7 @@ export async function initPerfil(){
         btnLogout.addEventListener("click", async (e) => {
             e.preventDefault();
             AuthService.logout();
+            localStorage.clear();
             window.location.href = "login.html";
         });
     }
@@ -45,6 +48,7 @@ export async function initPerfil(){
             const idSeleccionado = e.target.value;
             const mascotaSeleccionada = mascotasDelUsuario.find(m => m.idMascota === idSeleccionado);
             mostrarDetalleMascota(mascotaSeleccionada);
+            citasMascotaDashboard(idSeleccionado);
         });
     }
 
@@ -129,6 +133,8 @@ export async function initPerfil(){
                 fechaNacimiento: fechaInstant
                 //quiero agregar un switch aqui para asignarle la foto predeterminada segun
                 //la especie de la mascota. Lo hago mañana
+
+
             };
 
             try {
@@ -231,6 +237,8 @@ async function cargarCitasUsuario(idDueno) {
     const tablaCitas = document.getElementById("tabla-citas-body");
     if (!tablaCitas) return;
 
+    citasDelUsuario = citas;
+
     tablaCitas.innerHTML = "";
 
     if (citas.error || citas.length === 0) {
@@ -256,6 +264,42 @@ async function cargarCitasUsuario(idDueno) {
             </tr>
         `;
     });
+}
 
+function citasMascotaDashboard(idMascota) {
+    const contenedorTarjeta = document.getElementById("citas-mascota-body");
+    if (!contenedorTarjeta) return;
 
+    contenedorTarjeta.innerHTML = "";
+
+    if (!idMascota) {
+        contenedorTarjeta.innerHTML = '<p class="gris">No hay una mascota seleccionada.</p>';
+        return;
+    }
+
+    const citasFiltradas = citasDelUsuario.filter(cita => cita.mascota === idMascota);
+
+    if (citasFiltradas.length === 0) {
+        contenedorTarjeta.innerHTML = `
+            <div class="item-lista">
+                <p class="gris">No hay citas agendadas para esta mascota.</p>
+            </div>`;
+        return;
+    }
+
+    citasFiltradas.forEach(cita => {
+        const fechaCita = new Date(cita.fecha).toLocaleDateString('es-MX', {
+            day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit'
+        });
+
+        contenedorTarjeta.innerHTML += `
+            <div class="item-lista">
+                <div class="item-row">
+                    <strong>${cita.servicios.tipo || "Consulta"}</strong>
+                    <span class="gris">${cita.estado}</span>
+                </div>
+                <span class="item-fecha">${fechaCita} hs</span>
+            </div>
+        `;
+    });
 }
