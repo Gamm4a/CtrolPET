@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     switch (paginaActual) {
         case 'index-html':
-            if (AuthService.isAutenticate()){
+            if (AuthService.isAutenticate() && AuthService) {
                 await index.initIndexLogin();
             } else {
                 index.initIndexSinLogin();

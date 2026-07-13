@@ -83,6 +83,19 @@ header {
     border-radius: 5px;
 }
 
+.input-error {
+    border: 1px solid var(--error);
+}
+
+.leyenda-error {
+    color: var(--error);
+    font-size: 0.85rem;
+    margin-top: 4px;
+    display: block;
+    text-align: left;
+    font-weight: 500;
+}
+
 .botones-header .btn-login,
 .botones-header .btn-register{
     display: inline-flex;
@@ -1030,9 +1043,19 @@ input[name="pasos"] {
     color: #333;
 }
 
+#buscadorPorFecha {
+    display: flex;
+    padding: var(--espacio-cercano);
+    gap: var(--espacio);
+}
+
+#botones-busqueda {
+    display: flex;
+    gap: var(--espacio);
+}
 .tarjetas {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 0.5fr;
     gap: 20px;
 }
 
@@ -1048,20 +1071,6 @@ input[name="pasos"] {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 15px;
-}
-
-.tarjeta-header h4 {
-    margin: 0;
-    color: #7b7c93;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.ver-todo {
-    color: #403e6b;
-    font-size: 13px;
-    font-weight: bold;
-    text-decoration: none;
 }
 
 .tarjeta-body{
@@ -1245,11 +1254,11 @@ input[name="pasos"] {
 
 .area-tabla{
     margin-left: 1vw;
+    overflow-y: auto;
 }
 
 .tabla-citas {
     width: 100%;
-    font-family: var(--font-estilo);
     font-size: 1rem;
     color: black;
     margin-top: 15px;
@@ -1389,7 +1398,17 @@ input[name="pasos"] {
 }
 
 /* AQUI TERMINA LA RESERVA SIN LOGIN */
+.contenedor-editar-cita {
+    display: flex;
+    flex-direction: column;
+    padding: var(--espacio);
+    align-items: center;
+    justify-content: center;
+}
 
+.contenedor-editar-cita .campo-formulario {
+    width: 80vh;
+}
 
 /* Botones y elementos compartidos entre ambos formularios de reserva */
 

@@ -42,13 +42,31 @@ class AuthService {
         return data;
     }
 
+
+    static isTokenExpired() {
+        const token = this.getToken();
+        if (!token) return true;
+
+        try {
+            const payloadBase64 = token.split('.')[1];
+            const payload = JSON.parse(atob(payloadBase64));
+
+            const fechaExpiracion = payload.exp * 1000;
+            const ahora = Date.now();
+
+            return ahora > fechaExpiracion;
+        } catch (error) {
+            return true;
+        }
+    }
+
     static logout() {
-        localStorage.removeItem(`token`);
-        localStorage.removeItem(`idDueno`);
+        localStorage.clear()
     }
 
     static isAutenticate() {
-        return !!localStorage.getItem(`token`);
+        const token = this.getToken();
+        return !!token && !this.isTokenExpired();
     }
 
     static getToken() {

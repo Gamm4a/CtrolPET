@@ -1,5 +1,19 @@
+import AuthService from "../services/auth.service.js";
+
 export function initServicios() {
     obtenerServicios();
+    const botonesAuth = document.getElementById("contenedor-botones-auth");
+
+    if (botonesAuth && AuthService.isAutenticate()) {
+        botonesAuth.innerHTML = `
+            <a href="/perfil" class="btn-login">Mi Perfil</a>
+            <button id="btn-logout" class="btn-register">Cerrar Sesión</button>
+        `;
+        document.getElementById("btn-logout").addEventListener("click", () => {
+            AuthService.logout();
+            window.location.reload();
+        });
+    }
 }
 
 export async function obtenerServicios(limite = null) {

@@ -63,15 +63,9 @@
                         <span>Cuéntanos de tu mejor amigo</span>
                     </div>
                 </div>
+
                 <div class="step">
-                    <div class="numero-step" id="step-4">4</div>
-                    <div class="texto-step">
-                        <strong>Agendar cita</strong>
-                        <span>Visítanos cuando quieras</span>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="numero-step" id="step-5">5</div>
+                    <div class="numero-step" id="step-5">4</div>
                     <div class="texto-step">
                         <strong>Finalizar</strong>
                         <span>Bienvenido a la familia</span>
@@ -140,7 +134,7 @@
                     </div>
                     <div class="campo-formulario">
                         <label for="estado">Estado</label>
-                        <input type="text" id="estadoDireccion" name="estado" placeholder="Ej. Sonora" required>
+                        <input type="text" id="estado" name="estado" placeholder="Ej. Sonora" required>
                     </div>
                     <div class="campo-formulario">
                         <label for="codigoPostal">Código Postal</label>
@@ -186,50 +180,12 @@
                         <label for="fechaNacimientoMascota">Fecha de nacimiento de tu mascota</label>
                         <input type="date" id="fechaNacimientoMascota" name="fechaNacimientoMascota">
                     </div>
-                    <div class="campo-formulario">
-                        <div class="radio-mascota">
-                            <label>Sexo de tu mascota:</label>
-                            <div>
-                                <input type="radio" id="rad_femenino" name="sexoMascota" value="femenino" required>
-                                <label for="rad_femenino">Femenino</label>
-                                <input type="radio" id="rad_masculino" name="sexoMascota" value="masculino">
-                                <label for="rad_masculino">Masculino</label>
-                            </div>
-                        </div>
-                    </div>
+
                 <div class="grupo-botones">
                     <label for="switch-paso2" class="btn-anterior">Anterior</label>
-                    <label for="switch-paso4" class="btn-continuar">Continuar</label>
+                    <button type="button"  for="switch-paso5" class="btn-continuar" id="btn-enviar-registro">Continuar</button>
                 </div>
             </div>
-            </div>
-            <div class="contenedor-formulario-registro"  id="paso4">
-                <div class="formulario-reserva">
-                    <div class="campo-formulario">
-                        <label for="servicio">Servicio (opcional)</label>
-                        <select id="servicio" name="idServicio">
-                            <option value="">Selecciona un servicio...</option>
-                            <option value="consulta">Consulta</option>
-                            <option value="estetica">Estética & Spa</option>
-                            <option value="dental">Cuidado Dental</option>
-                            <option value="diagnostico">Diagnóstico</option>
-                            <option value="cirugia">Cirugía</option>
-                            <option value="hospitalizacion">Hospitalización</option>
-                        </select>
-                    </div>
-                    <div class="campo-formulario">
-                        <label for="fecha">Fecha (opcional)</label>
-                        <input type="date" id="fecha" name="fecha">
-                    </div>
-                    <div class="campo-formulario">
-                        <label for="hora">Hora (opcional)</label>
-                        <input type="time" id="hora" name="hora">
-                    </div>
-                    <div class="grupo-botones">
-                        <label for="switch-paso3" class="btn-anterior">Anterior</label>
-                        <button type="button" class="btn-continuar" id="btn-enviar-registro">Continuar</button>
-                    </div>
-                </div>
             </div>
 
             <div class="contenedor-formulario-registro" id="paso5">
