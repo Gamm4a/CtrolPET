@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="/styles/styles.css">
 
 </head>
-<body class="pagina-citas">
+<body id="reserva-html" class="pagina-citas">
     <input type="checkbox" id="menu-toggle" hidden>
     <header>
         <div class="logo">
@@ -39,13 +39,13 @@
         </div>
     </header>
     <main>
-      <section class="contenedor-reserva-logueado" style="display:none;">
+      <section class="contenedor-reserva-logueado" th:if="${dueno != null}" >
             <div class="imagen-reserva-logueado">
                 <p>¡Estamos ansiosos por verte!</p>
                 <img th:src="@{/imgs/otras/imagen-agendarConLogin.png}" alt="Veterinaria con un gatito">
             </div>
 
-            <form class="formulario-reserva-logueado">
+          <form class="formulario-reserva-logueado">
 
                 <h2>Agendar Cita</h2>
 
@@ -72,7 +72,7 @@
 
                 <div class="campo-formulario">
                     <label for="servicio">Servicio:</label>
-                    <select id="servicio" name="idServicio" required>
+                    <select id="servicio" name="servicio" required>
                         <option value="" disabled selected>Selecciona un servicio...</option>
                         <option th:each="servicio : ${listaServicios}"
                                 th:value="${servicio.idServicio}"
@@ -86,21 +86,21 @@
                     <input type="date" id="fecha" name="fecha" required>
                 </div>
 
-                <div class="campo-formulario" id="campo-hora-logueado" style="display:none;">
+                <div class="campo-formulario" id="campo-hora-logueado">
                     <label for="hora">Hora disponible:</label>
                     <select id="hora" name="hora" >
                         <option value="" disabled selected>Selecciona una hora</option>
                     </select>
                 </div>
 
-                <button type="submit" class="btn-agendar" id="btn-agendar-logueado">
-                    Ver horas disponibles
-                </button>
+                  <button type="submit" class="btn-agendar" id="btn-agendar-logueado">
+                      Agendar mi Cita
+                  </button>
                 <p id="mensaje-reserva-logueado"></p>
             </form>
         </section>
 
-       <section class="contenedor-reserva-sin-login">
+       <section class="contenedor-reserva-sin-login" th:unless="${dueno != null}">
 
             <div class="imagen-reserva-sin-login">
                 <p>¿Cambiaste de opinión y sí deseas un expediente digital para tu mascota?  <a th:href="@{/registro}">¡Regístrate!</a></p>
@@ -125,7 +125,7 @@
                 </div>
 
             
-            <form class="formulario-reserva-sin-login" th:action="@{/reserva/sin-login}" method="POST">
+            <form class="formulario-reserva-sin-login" >
                     <div class="campo-formulario">
                         <label for="nombre">Nombre:</label>
                         <input type="text" id="nombre" name="nombre" placeholder="Ej. Luis" required>
@@ -193,16 +193,19 @@
                     <input type="date" id="fechaSinLogin" name="fecha" required>
                     </div>
 
-                    <div class="campo-formulario" id="campo-hora-sin-login" style="display:none;">
-                        <label for="horaSinLogin">Hora disponible</label>
-                        <select id="horaSinLogin" name="hora">
-                            <option value="" disabled selected>Selecciona una hora</option>
-                        </select>
-                    </div>
+                <div class="campo-formulario" id="campo-hora-sin-login">
+                    <label for="horaSinLogin">Hora disponible</label>
+                    <select id="horaSinLogin" name="hora">
+                        <option value="" disabled selected>Selecciona una hora</option>
+                    </select>
+                </div>
 
-                    <button type="submit" id="btn-agendar-sin-login" class="btn-agendar">Ver horas disponibles</button>
-                    <p id="mensaje-reserva" ></p>
-                   
+                <p id="mensaje-reserva" ></p>
+
+                <button type="submit" id="btn-agendar-sin-login" class="btn-agendar">
+                    Agendar mi Cita
+                </button>
+
             </form>
 
         </section>
@@ -229,6 +232,6 @@
     <footer>
         <p>&copy; Copyright Ctrl+PET 2026</p>
     </footer>
-    <script src="/js/pages/reserva.js"></script>
+    <script src="/js/app.js" type="module"></script>
 </body>
 </html>

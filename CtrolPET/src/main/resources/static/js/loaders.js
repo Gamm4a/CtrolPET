@@ -32,3 +32,22 @@ export async function cargarSucursales(idSelect) {
         console.error("Error al cargar sucursales:", error);
     }
 }
+
+
+export async function cargarMascotas(idSelect) {
+    const selectElement = document.getElementById(idSelect);
+    if (!selectElement) return;
+
+    try {
+        const response = await fetch("/api/dueno/${idDueno}/mascotas");
+        const mascotas = await response.json();
+
+        selectElement.innerHTML = '<option value="">Selecciona una mascota...</option>';
+        mascotas.forEach(m => {
+            selectElement.innerHTML += `<option value="${m.idMascota}">${m.nombre}</option>`;
+        });
+    } catch (error) {
+        console.error("Error al cargar las mascotas:", error);
+    }
+
+}

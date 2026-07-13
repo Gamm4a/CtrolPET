@@ -71,9 +71,9 @@ export async function obtenerPerfil(idDueno, token) {
     }
 }
 
-export async function crearReservaConLogin(idDueno, datosReserva, token) {
+export async function crearReservaConLogin(idDueno, datosReserva) {
     try {
-        const response = await fetch(`${BASE_URL}/reservas/dueno/{id}`, {
+        const response = await fetch(`${BASE_URL}/reservas/dueno/${idDueno}`, {
             method: "POST",
             headers: {
                 "Authorization": `Bearer ${AuthService.getToken()}`,
@@ -161,6 +161,20 @@ export async function agregarMascota(idDueno, nuevaMascota){
 
     const data = await response.json();
     alert("Mascota agregada correctamente");
+    return data;
+
+}
+
+export async function obtenerServicios(){
+    const response = await fetch(`${BASE_URL}/servicios`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        },
+    });
+    if (!response.ok) throw new Error("Error al recuperar los servicios");
+
+    const data = await response.json();
     return data;
 
 }

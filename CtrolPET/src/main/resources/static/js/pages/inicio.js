@@ -103,6 +103,7 @@ function renderTarjetasMascotas(mascotas){
                 const id = parseInt(btn.getAttribute('data-id'))
                 const mascota = mascotas.find(m => m.id === id)
                 //aqui falta agregar algo para que el boton lleve a la reserva ya con esta mascota seleccionada
+                window.location.href = `/reserva?mascotaId=${mascota.id}`;
             })
         })
         contenedorMascotas.appendChild(tarjeta);

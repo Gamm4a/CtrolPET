@@ -1,5 +1,6 @@
 import {obtenerPerfil, obtenerMascotas, obtenerCitas, cancelarCita, calcularEdad, editarDueno, agregarMascota} from "../api.js";
 import AuthService from "../services/auth.service.js";
+import {initReserva} from "./reserva.js";
 let mascotasDelUsuario = [];
 
 export async function initPerfil(){
@@ -112,6 +113,7 @@ export async function initPerfil(){
 
     const formMascota = document.getElementById("form-agregar-mascota");
     const switchModal = document.getElementById("control-modal-mascota");
+
     if (formMascota) {
         formMascota.addEventListener("submit", async (e) => {
             e.preventDefault();
@@ -144,13 +146,14 @@ export async function initPerfil(){
         });
     }
 
-    const btnAgregarCita = document.getElementById("btn-agendar-cita-mascota");
-    if (btnAgregarCita) {
-        btnAgregarCita.addEventListener("click", async (e) => {
+    const btnAgendar = document.getElementById("btn-agendar-cita-mascota");
+    if (btnAgendar) {
+        btnAgendar.addEventListener("click", (e) => {
             e.preventDefault();
-            window.location.href = "reserva.html";
+            window.location.href = "/reserva";
         })
     }
+
 }
 
 async function cargarDatosUsuario(idDueno) {
@@ -169,6 +172,10 @@ async function cargarDatosUsuario(idDueno) {
         if (inputApellidoMaterno) inputApellidoMaterno.value = datos.apellidoMaterno;
 
         localStorage.setItem("correoOriginal", datos.correo);
+        const paginaActual = document.body.id;
+        if (paginaActual !== "perfil-html") {
+            localStorage.removeItem("correoOriginal");
+        }
     }
 }
 

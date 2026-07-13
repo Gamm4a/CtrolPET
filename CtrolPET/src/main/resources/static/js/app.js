@@ -2,6 +2,7 @@ import * as index from "./pages/inicio.js";
 import AuthService from "./services/auth.service.js";
 import * as servicios from "./pages/servicios.js";
 import * as login from "./pages/login.js";
+import * as reserva from "./pages/reserva.js";
 import * as perfil from "./pages/perfil.js";
 import authService from "./services/auth.service.js";
 
@@ -26,6 +27,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (authService.isAutenticate()){
                 await perfil.initPerfil();
             }
+            break;
+        case 'reserva-html':
+            await reserva.initReserva();
             break;
     }
 });
